@@ -198,7 +198,7 @@
                 Beranda
             </a>
             <a href="{{ url('/list-bts') }}"
-                class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-broadcast-tower text-blue-500 mr-3 w-5 text-center"></i>
                 BTS
             </a>
