@@ -30,6 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Add click event to toggle button
         themeToggleBtn.addEventListener('click', function() {
+            // Mencegah header bergerak ke bawah dengan memastikan posisi tetap sebelum toggle
+            const header = document.querySelector('nav');
+            if (header) {
+                header.style.position = 'sticky';
+                header.style.top = '0';
+                header.style.zIndex = '1000';
+            }
+            
             // Toggle dark class on html element
             document.documentElement.classList.toggle('dark');
             
@@ -45,6 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 localStorage.setItem('color-theme', 'light');
             }
+            
+            // Mencegah header bergerak ke bawah dengan memastikan posisi tetap setelah toggle
+            setTimeout(() => {
+                if (header) {
+                    header.style.position = 'sticky';
+                    header.style.top = '0';
+                    header.style.zIndex = '1000';
+                }
+            }, 50);
         });
     }
     

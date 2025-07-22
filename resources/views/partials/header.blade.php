@@ -1,8 +1,8 @@
 <!-- Header Section -->
 <!-- Premium Professional Navigation Bar -->
-<nav class="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+<nav class="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
+        <div class="flex justify-between h-16 transition-all duration-300">
             <!-- Left Section - Logo/Brand -->
             <div class="flex items-center">
                 <a href="{{ url('/') }}" class="flex items-center group">
@@ -46,12 +46,12 @@
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Wilayah</div>
                         <a href="{{ url('/list-nagari') }}"
-                            class="block px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 flex items-center transition-colors duration-200">
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
                             <i class="fas fa-city text-blue-500 mr-3 w-5 text-center"></i>
                             Nagari
                         </a>
                         <a href="{{ url('/list-jorong') }}"
-                            class="block px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 flex items-center transition-colors duration-200">
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
                             <i class="fas fa-map-pin text-blue-500 mr-3 w-5 text-center"></i>
                             Jorong
                         </a>
@@ -77,15 +77,15 @@
             </div>
 
             <!-- Right Section - Actions -->
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 h-16">
                 <button id="theme-toggle" type="button"
-                    class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative"
-                    aria-label="Toggle dark mode">
-                    <svg class="fill-violet-700 block dark:hidden" id="dark-icon" fill="currentColor"
+                    class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative flex items-center justify-center overflow-hidden"
+                    aria-label="Toggle dark mode" style="transform: translateZ(0);">
+                    <svg class="fill-violet-700 block dark:hidden w-6 h-6 absolute" id="dark-icon" fill="currentColor"
                         viewBox="0 0 20 20">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
-                    <svg class="fill-yellow-500 hidden dark:block" id="light-icon" fill="currentColor"
+                    <svg class="fill-yellow-500 hidden dark:block w-6 h-6 absolute" id="light-icon" fill="currentColor"
                         viewBox="0 0 20 20">
                         <path
                             d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
@@ -151,12 +151,12 @@
                                 </div>
                             </div>
                             <a href="{{ route('filament.admin.pages.dashboard') }}"
-                                class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
+                                class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
                                 <i class="fas fa-tachometer-alt text-gray-400 mr-3 w-5 text-center"></i>
                                 Dashboard
                             </a>
                             <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
-                                class="block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
+                                class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
                                 <i class="fas fa-user-circle text-gray-400 mr-3 w-5 text-center"></i>
                                 Profil Saya
                             </a>
@@ -164,7 +164,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="w-full text-left block px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
+                                    class="w-full text-left px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
                                     <i class="fas fa-sign-out-alt text-gray-400 mr-3 w-5 text-center"></i>
                                     Keluar
                                 </button>
@@ -193,7 +193,7 @@
         class="mobile-menu md:hidden bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div class="px-2 pt-2 pb-4 space-y-1">
             <a href="{{ url('/') }}"
-                class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-home text-blue-500 mr-3 w-5 text-center"></i>
                 Beranda
             </a>
@@ -210,28 +210,28 @@
                         Wilayah
                     </div>
                     <i class="fas fa-chevron-down text-xs transition-transform duration-200"
-                       :class="{'rotate-180': open}"></i>
+                        :class="{ 'rotate-180': open }"></i>
                 </button>
                 <div class="pl-4 mt-1 space-y-1" x-show="open" x-collapse>
                     <a href="{{ url('/list-nagari') }}"
-                        class="block px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-city text-blue-400 mr-3 w-5 text-center"></i>
                         Nagari
                     </a>
                     <a href="{{ url('/list-jorong') }}"
-                        class="block px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-map-pin text-blue-400 mr-3 w-5 text-center"></i>
                         Jorong
                     </a>
                 </div>
             </div>
             <a href="{{ url('/list-laporan') }}"
-                class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                 Laporan
             </a>
             <a href="{{ url('/lapor') }}"
-                class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
                 Lapor
                 <span class="ml-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Baru</span>
@@ -239,26 +239,26 @@
             <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                 @if (Auth::check())
                     <a href="{{ route('filament.admin.pages.dashboard') }}"
-                        class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-tachometer-alt text-blue-500 mr-3 w-5 text-center"></i>
                         Dashboard
                     </a>
                     <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
-                        class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-user-circle text-blue-500 mr-3 w-5 text-center"></i>
                         Profil Saya
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"
-                            class="w-full text-left block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                            class="w-full text-left px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                             <i class="fas fa-sign-out-alt text-blue-500 mr-3 w-5 text-center"></i>
                             Keluar
                         </button>
                     </form>
                 @else
                     <a href="{{ route('login') }}"
-                        class="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-sign-in-alt text-blue-500 mr-3 w-5 text-center"></i>
                         Masuk
                     </a>

@@ -38,7 +38,7 @@
     </section>
 
     <!-- Features Section -->
-    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
+    <section id="features-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10">
 
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
@@ -241,19 +241,19 @@
                     const targets = [{
                             element: document.getElementById('btsCount'),
                             count: data.bts_count,
-                            // suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         },
                         {
                             element: document.getElementById('nagariCount'),
                             count: data.nagari_count,
-                            // suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         },
                         {
                             element: document.getElementById('jorongCount'),
                             count: data.jorong_count,
-                            // suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         }
                     ];
@@ -267,19 +267,19 @@
                     const fallbackTargets = [{
                             element: document.getElementById('btsCount'),
                             count: 0,
-                            suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         },
                         {
                             element: document.getElementById('nagariCount'),
                             count: 0,
-                            suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         },
                         {
                             element: document.getElementById('jorongCount'),
                             count: 0,
-                            suffix: '+',
+                            suffix: '',
                             color: '#4F46E5'
                         }
                     ];
@@ -304,12 +304,13 @@
                         const easedProgress = easeOutQuad(progress);
                         const currentCount = Math.floor(easedProgress * finalCount);
 
-                        // Add the suffix only when animation completes
+                        // Update counter value during animation
                         if (progress < 1) {
                             target.element.textContent = currentCount;
                             window.requestAnimationFrame(step);
                         } else {
-                            target.element.textContent = finalCount + target.suffix;
+                            // Display final count without suffix
+                            target.element.textContent = finalCount;
 
                             // Add a subtle highlight effect when counter finishes
                             target.element.style.textShadow = '0 0 10px ' + target.color + '80';

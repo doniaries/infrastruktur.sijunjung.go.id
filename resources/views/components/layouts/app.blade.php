@@ -334,39 +334,10 @@
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/css/filament.css', 'resources/js/app.js'])
     
-    <!-- CSS untuk efek bintang berkelip pada mode dark -->
-    <style>
-        /* Efek bintang berkelip untuk dark mode */
-        .dark .stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-            pointer-events: none;
-        }
 
-        .dark .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle var(--duration) infinite ease-in-out;
-            opacity: 0;
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0; }
-            50% { opacity: var(--opacity); }
-            100% { opacity: 0; }
-        }
-    </style>
 </head>
 
 <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen" id="body-element">
-    <!-- Container untuk bintang-bintang (hanya muncul di dark mode) -->
-    <div class="stars-container"></div>
     
     @include('partials.header')
 
@@ -385,64 +356,20 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {{-- Tidak perlu mengimpor app.js lagi karena sudah diimpor di bagian head --}}
     
-    <!-- Script untuk efek bintang berkelip -->
+    <!-- Script untuk memastikan header tetap pada posisinya saat mode gelap/terang berubah -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fungsi untuk membuat bintang-bintang
-            function createStars() {
-                const starsContainer = document.querySelector('.stars-container');
-                const isDarkMode = document.documentElement.classList.contains('dark');
-                
-                // Hanya buat bintang jika dalam mode gelap
-                if (!isDarkMode) return;
-                
-                // Bersihkan container sebelum menambahkan bintang baru
-                starsContainer.innerHTML = '';
-                
-                // Jumlah bintang yang akan dibuat
-                const starCount = 150;
-                
-                for (let i = 0; i < starCount; i++) {
-                    const star = document.createElement('div');
-                    star.classList.add('star');
-                    
-                    // Posisi acak
-                    const x = Math.random() * 100;
-                    const y = Math.random() * 100;
-                    
-                    // Ukuran acak (1-3px)
-                    const size = Math.random() * 2 + 1;
-                    
-                    // Durasi kedipan acak (3-8 detik)
-                    const duration = Math.random() * 5 + 3;
-                    
-                    // Kecerahan acak
-                    const opacity = Math.random() * 0.7 + 0.3;
-                    
-                    // Terapkan properti ke bintang
-                    star.style.left = `${x}%`;
-                    star.style.top = `${y}%`;
-                    star.style.width = `${size}px`;
-                    star.style.height = `${size}px`;
-                    star.style.setProperty('--duration', `${duration}s`);
-                    star.style.setProperty('--opacity', opacity);
-                    
-                    // Delay acak untuk animasi
-                    star.style.animationDelay = `${Math.random() * 5}s`;
-                    
-                    // Tambahkan bintang ke container
-                    starsContainer.appendChild(star);
-                }
-            }
-            
-            // Buat bintang saat halaman dimuat
-            createStars();
-            
-            // Buat ulang bintang saat mode gelap/terang berubah
+            // Pastikan header tetap pada posisinya saat mode gelap/terang berubah
             const darkModeObserver = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     if (mutation.attributeName === 'class') {
-                        createStars();
+                        // Pastikan header tetap pada posisinya
+                        const header = document.querySelector('nav');
+                        if (header) {
+                            header.style.position = 'sticky';
+                            header.style.top = '0';
+                            header.style.zIndex = '1000';
+                        }
                     }
                 });
             });
