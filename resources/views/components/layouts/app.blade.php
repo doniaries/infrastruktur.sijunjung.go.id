@@ -308,7 +308,9 @@
     </style>
     {{-- Scripts --}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    {{-- Alpine.js sudah disertakan oleh Filament --}}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    {{-- Alpine.js dan plugin collapse untuk dropdown mobile --}}
 
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
