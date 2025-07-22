@@ -38,8 +38,21 @@
     </section>
 
     <!-- Features Section -->
-    <section class="bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-white py-16 relative overflow-hidden">
+        <!-- Background pattern decoration -->
+        <div class="absolute inset-0 opacity-10 dark:opacity-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                    <pattern id="pattern" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                        <rect width="100%" height="100%" fill="none"/>
+                        <circle cx="20" cy="20" r="2" fill="currentColor" class="text-primary-600 dark:text-primary-300" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#pattern)" />
+            </svg>
+        </div>
+        
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10">
             {{-- <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Fitur Utama</h2>
                 <p class="text-gray-500 sm:text-xl dark:text-gray-300">Sistem Informasi Infrastruktur Sijunjung
@@ -48,7 +61,7 @@
             </div> --}}
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 dark:border dark:border-gray-600">
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
                         class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
                         <i class="fas fa-file-alt text-primary-600 lg:text-xl dark:text-primary-300"></i>
@@ -62,7 +75,7 @@
                     </a>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
                         class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
                         <i class="fas fa-broadcast-tower text-primary-600 lg:text-xl dark:text-primary-300"></i>
@@ -77,7 +90,7 @@
                     </a>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
                         class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
                         <i class="fas fa-map text-primary-600 lg:text-xl dark:text-primary-300"></i>
@@ -91,7 +104,7 @@
                     </a>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
                         class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
                         <i class="fas fa-home text-primary-600 lg:text-xl dark:text-primary-300"></i>
