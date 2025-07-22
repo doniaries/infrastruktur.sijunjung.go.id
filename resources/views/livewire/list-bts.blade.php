@@ -15,6 +15,24 @@
             </div>
             <div
                 class="overflow-x-auto rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700 mb-6">
+                <style>
+                    /* Memastikan teks header tabel terlihat di mode light dan dark */
+                    .filament-tables-header-cell { 
+                        color: white !important; 
+                        background-color: #1e40af !important; 
+                        font-weight: bold !important;
+                    } 
+                    .dark .filament-tables-header-cell { 
+                        color: white !important; 
+                        background-color: #1e3a8a !important; 
+                        font-weight: bold !important;
+                    }
+                    /* Memastikan teks dalam header tabel terlihat jelas */
+                    th {
+                        color: white !important;
+                        font-weight: bold !important;
+                    }
+                </style>
                 {{ $this->table }}
             </div>
         </div>

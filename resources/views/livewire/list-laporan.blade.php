@@ -36,6 +36,13 @@
             </div>
             <div
                 class="overflow-x-auto rounded-lg shadow-lg bg-white dark:bg-gray-800 p-6 border border-gray-400 dark:border-gray-700 mb-6">
+                <style>
+                    /* Memastikan teks header tabel terlihat di mode light dan dark */
+                    th { 
+                        color: white !important; 
+                        font-weight: bold !important;
+                    }
+                </style>
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead
                         class="bg-gradient-to-r from-blue-700 to-blue-600 dark:from-blue-800 dark:to-blue-700 shadow-md">

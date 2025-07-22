@@ -47,6 +47,34 @@
     <!-- Font Awesome 6.4.0 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Leaflet Map Z-index Fix */
+        .leaflet-map-pane,
+        .leaflet-tile,
+        .leaflet-marker-icon,
+        .leaflet-marker-shadow,
+        .leaflet-tile-pane,
+        .leaflet-overlay-pane,
+        .leaflet-shadow-pane,
+        .leaflet-marker-pane,
+        .leaflet-popup-pane {
+            z-index: 1 !important;
+        }
+
+        .leaflet-control {
+            z-index: 10 !important;
+        }
+
+        /* Ensure map container has lower z-index than header */
+        #btsMap {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Ensure header has higher z-index */
+        .sticky.top-0 {
+            z-index: 1000 !important;
+        }
+
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
@@ -89,7 +117,7 @@
             transition: max-height 0.5s ease-in;
             display: block;
         }
-        
+
         /* Memastikan menu desktop selalu tampil pada layar medium dan lebih besar */
         @media (min-width: 768px) {
             .md\:flex {
@@ -228,7 +256,7 @@
 
         /* Perbaikan untuk tabel yang menggunakan Livewire Tables */
         .filament-tables-header-cell {
-            color: white !important;
+            color: rgb(255, 253, 253) !important;
             background-color: #1e40af !important;
         }
 
@@ -250,7 +278,7 @@
 
         /* Perbaikan untuk h1 di dark mode */
         h1 {
-            color: #1a202c !important;
+            color: #e0e1e4 !important;
         }
 
         /* Memastikan h1 terlihat jelas di dark mode */

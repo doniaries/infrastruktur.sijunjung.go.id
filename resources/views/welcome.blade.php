@@ -38,27 +38,9 @@
     </section>
 
     <!-- Features Section -->
-    <section class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-white py-16 relative overflow-hidden">
-        <!-- Background pattern decoration -->
-        <div class="absolute inset-0 opacity-10 dark:opacity-5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-                <defs>
-                    <pattern id="pattern" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                        <rect width="100%" height="100%" fill="none"/>
-                        <circle cx="20" cy="20" r="2" fill="currentColor" class="text-primary-600 dark:text-primary-300" />
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#pattern)" />
-            </svg>
-        </div>
-        
+    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10">
-            {{-- <div class="max-w-screen-md mb-8 lg:mb-16">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Fitur Utama</h2>
-                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Sistem Informasi Infrastruktur Sijunjung
-                    menyediakan berbagai fitur untuk memudahkan pengelolaan infrastruktur teknologi informasi di
-                    Kabupaten Sijunjung.</p>
-            </div> --}}
+
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
@@ -130,7 +112,7 @@
                 <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang
                     tersebar di seluruh Kabupaten Sijunjung.</p>
             </div>
-            <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg">
+            <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg relative" style="z-index: 1;">
                 <div id="btsMap" class="w-full h-full"></div>
             </div>
         </div>
@@ -153,7 +135,7 @@
     </section> --}}
 
     <!-- Stats Section -->
-    <section id="stats-section" class="bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
+    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
         <div class="py-12 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Statistik
@@ -251,98 +233,133 @@
     <!-- Stats Counter Animation Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Define targets with their elements, final counts, and suffixes
-            const targets = [{
-                    element: document.getElementById('btsCount'),
-                    count: 73,
-                    suffix: '+',
-                    color: '#4F46E5'
-                },
-                {
-                    element: document.getElementById('nagariCount'),
-                    count: 60,
-                    suffix: '+',
-                    color: '#4F46E5'
-                },
-                {
-                    element: document.getElementById('jorongCount'),
-                    count: 284,
-                    suffix: '+',
-                    color: '#4F46E5'
+            // Ambil data statistik dari API
+            fetch('/stats-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Define targets with their elements, final counts, and suffixes
+                    const targets = [{
+                            element: document.getElementById('btsCount'),
+                            count: data.bts_count,
+                            // suffix: '+',
+                            color: '#4F46E5'
+                        },
+                        {
+                            element: document.getElementById('nagariCount'),
+                            count: data.nagari_count,
+                            // suffix: '+',
+                            color: '#4F46E5'
+                        },
+                        {
+                            element: document.getElementById('jorongCount'),
+                            count: data.jorong_count,
+                            // suffix: '+',
+                            color: '#4F46E5'
+                        }
+                    ];
+
+                    // Mulai animasi setelah data diambil
+                    initializeCounterAnimation(targets);
+                })
+                .catch(error => {
+                    console.error('Error fetching stats data:', error);
+                    // Fallback ke nilai default jika terjadi error
+                    const fallbackTargets = [{
+                            element: document.getElementById('btsCount'),
+                            count: 0,
+                            suffix: '+',
+                            color: '#4F46E5'
+                        },
+                        {
+                            element: document.getElementById('nagariCount'),
+                            count: 0,
+                            suffix: '+',
+                            color: '#4F46E5'
+                        },
+                        {
+                            element: document.getElementById('jorongCount'),
+                            count: 0,
+                            suffix: '+',
+                            color: '#4F46E5'
+                        }
+                    ];
+                    initializeCounterAnimation(fallbackTargets);
+                });
+
+            // Function to initialize counter animation
+            function initializeCounterAnimation(targets) {
+                // Function to animate count-up effect with easing
+                function animateCountUp(target, duration) {
+                    let startTime = null;
+                    const finalCount = target.count;
+
+                    // Easing function for smoother animation
+                    function easeOutQuad(t) {
+                        return t * (2 - t);
+                    }
+
+                    function step(timestamp) {
+                        if (!startTime) startTime = timestamp;
+                        const progress = Math.min((timestamp - startTime) / duration, 1);
+                        const easedProgress = easeOutQuad(progress);
+                        const currentCount = Math.floor(easedProgress * finalCount);
+
+                        // Add the suffix only when animation completes
+                        if (progress < 1) {
+                            target.element.textContent = currentCount;
+                            window.requestAnimationFrame(step);
+                        } else {
+                            target.element.textContent = finalCount + target.suffix;
+
+                            // Add a subtle highlight effect when counter finishes
+                            target.element.style.textShadow = '0 0 10px ' + target.color + '80';
+                            setTimeout(() => {
+                                target.element.style.textShadow = 'none';
+                            }, 500);
+                        }
+                    }
+
+                    window.requestAnimationFrame(step);
                 }
-            ];
 
-            // Function to animate count-up effect with easing
-            function animateCountUp(target, duration) {
-                let startTime = null;
-                const finalCount = target.count;
-
-                // Easing function for smoother animation
-                function easeOutQuad(t) {
-                    return t * (2 - t);
+                // Function to check if element is in viewport with offset
+                function isInViewport(element, offset = 100) {
+                    const rect = element.getBoundingClientRect();
+                    return (
+                        rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+                        rect.bottom >= offset &&
+                        rect.left <= (window.innerWidth || document.documentElement.clientWidth) - offset &&
+                        rect.right >= offset
+                    );
                 }
 
-                function step(timestamp) {
-                    if (!startTime) startTime = timestamp;
-                    const progress = Math.min((timestamp - startTime) / duration, 1);
-                    const easedProgress = easeOutQuad(progress);
-                    const currentCount = Math.floor(easedProgress * finalCount);
+                // Start animation when stats section comes into view
+                let animated = false;
 
-                    // Add the suffix only when animation completes
-                    if (progress < 1) {
-                        target.element.textContent = currentCount;
-                        window.requestAnimationFrame(step);
-                    } else {
-                        target.element.textContent = finalCount + target.suffix;
-
-                        // Add a subtle highlight effect when counter finishes
-                        target.element.style.textShadow = '0 0 10px ' + target.color + '80';
-                        setTimeout(() => {
-                            target.element.style.textShadow = 'none';
-                        }, 500);
+                function checkAndAnimate() {
+                    const statsSection = document.getElementById('stats-section');
+                    if (!animated && isInViewport(statsSection)) {
+                        // Stagger the animations slightly for visual interest
+                        targets.forEach((target, index) => {
+                            setTimeout(() => {
+                                animateCountUp(target, 2000 + (index *
+                                    200)); // Slightly longer duration for larger numbers
+                            }, index * 150);
+                        });
+                        animated = true;
+                        // Remove scroll listener once animation has started
+                        window.removeEventListener('scroll', checkAndAnimate);
                     }
                 }
 
-                window.requestAnimationFrame(step);
-            }
+                // Check on initial load and on scroll
+                checkAndAnimate();
+                window.addEventListener('scroll', checkAndAnimate);
 
-            // Function to check if element is in viewport with offset
-            function isInViewport(element, offset = 100) {
-                const rect = element.getBoundingClientRect();
-                return (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
-                    rect.bottom >= offset &&
-                    rect.left <= (window.innerWidth || document.documentElement.clientWidth) - offset &&
-                    rect.right >= offset
-                );
-            }
-
-            // Start animation when stats section comes into view
-            let animated = false;
-
-            function checkAndAnimate() {
-                const statsSection = document.getElementById('stats-section');
-                if (!animated && isInViewport(statsSection)) {
-                    // Stagger the animations slightly for visual interest
-                    targets.forEach((target, index) => {
-                        setTimeout(() => {
-                            animateCountUp(target, 2000 + (index *
-                                200)); // Slightly longer duration for larger numbers
-                        }, index * 150);
-                    });
-                    animated = true;
-                    // Remove scroll listener once animation has started
-                    window.removeEventListener('scroll', checkAndAnimate);
+                // Reset animation if user refreshes while already scrolled to stats section
+                if (isInViewport(document.getElementById('stats-section'))) {
+                    setTimeout(checkAndAnimate, 500); // Small delay to ensure DOM is ready
                 }
-            }
-
-            // Check on initial load and on scroll
-            checkAndAnimate();
-            window.addEventListener('scroll', checkAndAnimate);
-
-            // Reset animation if user refreshes while already scrolled to stats section
-            if (isInViewport(document.getElementById('stats-section'))) {
-                setTimeout(checkAndAnimate, 500); // Small delay to ensure DOM is ready
             }
         });
     </script>
