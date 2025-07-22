@@ -1,0 +1,336 @@
+<x-layouts.app>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Hero Section -->
+    <section class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12">
+        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+            <div class="mr-auto place-self-center lg:col-span-7">
+                <h1
+                    class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+                    Sistem Informasi Infrastruktur Sijunjung</h1>
+                <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-300">
+                    Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini
+                    membantu Anda melacak laporan secara real-time.</p>
+                <div class="type-hero mb-6 text-2xl font-bold text-primary-700 dark:text-blue-300">
+                    <span class="tw-typewriter-hero"></span>
+                </div>
+                <a href="#lapor"
+                    class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-dark rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                    Lapor Sekarang
+                    <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="{{ url('/list-laporan') }}"
+                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                    Lihat Laporan
+                </a>
+            </div>
+            {{-- <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+                <img src="{{ asset('images/rumahgadang.png') }}" alt="Rumah Gadang">
+            </div> --}}
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="max-w-screen-md mb-8 lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Fitur Utama</h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Sistem Informasi Infrastruktur Sijunjung
+                    menyediakan berbagai fitur untuk memudahkan pengelolaan infrastruktur teknologi informasi di
+                    Kabupaten Sijunjung.</p>
+            </div>
+            <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
+                <div
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 dark:border dark:border-gray-600">
+                    <div
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        <i class="fas fa-file-alt text-primary-600 lg:text-xl dark:text-primary-300"></i>
+                    </div>
+                    <h3 class="mb-2 text-xl font-bold dark:text-white">Laporan Gangguan</h3>
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">Laporkan gangguan jaringan dengan mudah dan cepat.
+                        Sistem akan mengirimkan notifikasi kepada petugas terkait.</p>
+                    <a href="{{ url('/list-laporan') }}"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300">
+                        <i class="fas fa-arrow-right mr-2"></i> Lihat Laporan
+                    </a>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        <i class="fas fa-broadcast-tower text-primary-600 lg:text-xl dark:text-primary-300"></i>
+                    </div>
+                    <h3 class="mb-2 text-xl font-bold dark:text-white">Pemetaan BTS</h3>
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">Lihat lokasi dan informasi mengenai Base
+                        Transceiver
+                        Station (BTS) yang tersebar di Kabupaten Sijunjung.</p>
+                    <a href="{{ url('/list-bts') }}"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Lihat BTS
+                    </a>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        <i class="fas fa-map text-primary-600 lg:text-xl dark:text-primary-300"></i>
+                    </div>
+                    <h3 class="mb-2 text-xl font-bold dark:text-white">Data Nagari</h3>
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">Akses informasi tentang Nagari di Kabupaten
+                        Sijunjung beserta infrastruktur yang tersedia di wilayah tersebut.</p>
+                    <a href="{{ url('/list-nagari') }}"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300">
+                        <i class="fas fa-list mr-2"></i> Lihat Nagari
+                    </a>
+                </div>
+                <div
+                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                    <div
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        <i class="fas fa-home text-primary-600 lg:text-xl dark:text-primary-300"></i>
+                    </div>
+                    <h3 class="mb-2 text-xl font-bold dark:text-white">Data Jorong</h3>
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">Akses informasi tentang Jorong di Kabupaten
+                        Sijunjung beserta infrastruktur yang tersedia di wilayah tersebut.</p>
+                    <a href="{{ url('/list-jorong') }}"
+                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300">
+                        <i class="fas fa-list-alt mr-2"></i> Lihat Jorong
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BTS Map Section -->
+    <section class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="max-w-screen-md mb-8 lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten
+                    Sijunjung</h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang
+                    tersebar di seluruh Kabupaten Sijunjung.</p>
+            </div>
+            <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg">
+                <div id="btsMap" class="w-full h-full"></div>
+            </div>
+        </div>
+    </section>
+
+    {{-- <!-- Lapor Section -->
+    <section id="lapor" class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="max-w-screen-md mb-8 lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Laporkan Gangguan
+                </h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-400">Silakan isi formulir di bawah ini untuk
+                    melaporkan gangguan jaringan atau infrastruktur TI di wilayah Anda.</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                <!-- Form akan ditambahkan di sini -->
+                <p class="text-center text-gray-500 dark:text-gray-400">Form laporan akan segera tersedia.</p>
+            </div>
+        </div>
+    </section> --}}
+
+    <!-- Stats Section -->
+    <section id="stats-section" class="bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
+        <div class="py-12 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+            <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Statistik
+                    Infrastruktur</h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Data statistik infrastruktur di Kabupaten
+                    Sijunjung</p>
+            </div>
+            <div class="relative">
+                <div class="relative max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto">
+                        <dl
+                            class="bg-white dark:bg-gray-700 rounded-lg shadow-lg sm:grid sm:grid-cols-3 overflow-hidden dark:border dark:border-gray-600">
+                            <div
+                                class="flex flex-col p-8 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                    BTS
+                                </dt>
+                                <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
+                                    id="btsCount">
+                                    0
+                                </dd>
+                            </div>
+                            <div
+                                class="flex flex-col p-8 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                    Nagari
+                                </dt>
+                                <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
+                                    id="nagariCount">
+                                    0
+                                </dd>
+                            </div>
+                            <div
+                                class="flex flex-col p-8 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                    Jorong
+                                </dt>
+                                <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
+                                    id="jorongCount">
+                                    0
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- BTS Map Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi peta di elemen dengan id 'btsMap'
+            const map = L.map('btsMap').setView([-0.6477, 101.3184], 9); // Koordinat Sijunjung dan zoom level
+
+            // Tambahkan layer peta dasar dari OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19
+            }).addTo(map);
+
+            // Ambil data BTS dari API
+            fetch('/bts-map-data')
+                .then(response => response.json())
+                .then(data => {
+                    // Tambahkan marker untuk setiap BTS
+                    data.forEach(bts => {
+                        if (bts.lat && bts.lng) {
+                            const marker = L.marker([parseFloat(bts.lat), parseFloat(bts.lng)]).addTo(
+                                map);
+
+                            // Tambahkan popup dengan informasi BTS
+                            marker.bindPopup(`
+                                <div class="p-2">
+                                    <h3 class="font-bold">${bts.pemilik || 'Tidak diketahui'}</h3>
+                                    <p><strong>Alamat:</strong> ${bts.alamat || 'Tidak diketahui'}</p>
+                                    <p><strong>Teknologi:</strong> ${bts.teknologi || 'Tidak diketahui'}</p>
+                                    <p><strong>Status:</strong> ${bts.status || 'Tidak diketahui'}</p>
+                                    <p><strong>Tahun Bangun:</strong> ${bts.tahun_bangun || 'Tidak diketahui'}</p>
+                                </div>
+                            `);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching BTS data:', error);
+                });
+        });
+    </script>
+
+    <!-- Stats Counter Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define targets with their elements, final counts, and suffixes
+            const targets = [{
+                    element: document.getElementById('btsCount'),
+                    count: 73,
+                    suffix: '+',
+                    color: '#4F46E5'
+                },
+                {
+                    element: document.getElementById('nagariCount'),
+                    count: 60,
+                    suffix: '+',
+                    color: '#4F46E5'
+                },
+                {
+                    element: document.getElementById('jorongCount'),
+                    count: 284,
+                    suffix: '+',
+                    color: '#4F46E5'
+                }
+            ];
+
+            // Function to animate count-up effect with easing
+            function animateCountUp(target, duration) {
+                let startTime = null;
+                const finalCount = target.count;
+
+                // Easing function for smoother animation
+                function easeOutQuad(t) {
+                    return t * (2 - t);
+                }
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const easedProgress = easeOutQuad(progress);
+                    const currentCount = Math.floor(easedProgress * finalCount);
+
+                    // Add the suffix only when animation completes
+                    if (progress < 1) {
+                        target.element.textContent = currentCount;
+                        window.requestAnimationFrame(step);
+                    } else {
+                        target.element.textContent = finalCount + target.suffix;
+
+                        // Add a subtle highlight effect when counter finishes
+                        target.element.style.textShadow = '0 0 10px ' + target.color + '80';
+                        setTimeout(() => {
+                            target.element.style.textShadow = 'none';
+                        }, 500);
+                    }
+                }
+
+                window.requestAnimationFrame(step);
+            }
+
+            // Function to check if element is in viewport with offset
+            function isInViewport(element, offset = 100) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+                    rect.bottom >= offset &&
+                    rect.left <= (window.innerWidth || document.documentElement.clientWidth) - offset &&
+                    rect.right >= offset
+                );
+            }
+
+            // Start animation when stats section comes into view
+            let animated = false;
+
+            function checkAndAnimate() {
+                const statsSection = document.getElementById('stats-section');
+                if (!animated && isInViewport(statsSection)) {
+                    // Stagger the animations slightly for visual interest
+                    targets.forEach((target, index) => {
+                        setTimeout(() => {
+                            animateCountUp(target, 2000 + (index *
+                                200)); // Slightly longer duration for larger numbers
+                        }, index * 150);
+                    });
+                    animated = true;
+                    // Remove scroll listener once animation has started
+                    window.removeEventListener('scroll', checkAndAnimate);
+                }
+            }
+
+            // Check on initial load and on scroll
+            checkAndAnimate();
+            window.addEventListener('scroll', checkAndAnimate);
+
+            // Reset animation if user refreshes while already scrolled to stats section
+            if (isInViewport(document.getElementById('stats-section'))) {
+                setTimeout(checkAndAnimate, 500); // Small delay to ensure DOM is ready
+            }
+        });
+    </script>
+</x-layouts.app>
