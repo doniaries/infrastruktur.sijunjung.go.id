@@ -202,7 +202,7 @@
             /* bg-slate-800 */
         }
     </style>
-    <style>
+    {{-- <style>
         [x-cloak] {
             display: none !important;
         }
@@ -276,16 +276,7 @@
             color: white !important;
         }
 
-        /* Perbaikan untuk h1 di dark mode */
-        h1 {
-            color: #e0e1e4 !important;
-        }
-
-        /* Memastikan h1 terlihat jelas di dark mode */
-        .dark h1 {
-            color: #f8fafc !important;
-            /* text-slate-50 - brightest white for maximum contrast */
-        }
+        /* Gaya untuk h1 dipindahkan ke filament.css */
 
         /* Perbaikan untuk semua heading di dark mode */
         .dark .text-gray-800 {
@@ -333,7 +324,7 @@
             background-color: #1e40af !important;
             /* bg-blue-800 - slightly darker on hover */
         }
-    </style>
+    </style> --}}
     {{-- Scripts --}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -341,7 +332,7 @@
     {{-- Alpine.js dan plugin collapse untuk dropdown mobile --}}
 
     @filamentStyles
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/filament.css', 'resources/js/app.js'])
 </head>
 
 <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen" id="body-element">

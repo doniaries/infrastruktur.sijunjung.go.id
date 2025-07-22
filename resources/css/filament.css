@@ -1,0 +1,58 @@
+/* Gaya untuk tabel di seluruh aplikasi */
+
+/* Gaya untuk header tabel Filament */
+.filament-tables-header-cell {
+    color: white !important;
+    background-color: #1e40af !important;
+    /* font-weight: bold !important; */
+}
+
+/* Gaya untuk header tabel Filament di mode gelap */
+.dark .filament-tables-header-cell {
+    color: white !important;
+    background-color: #1e3a8a !important;
+    /* font-weight: bold !important; */
+}
+
+/* Gaya untuk semua header tabel */
+th {
+    color: black !important;
+    /* font-weight: bold !important; */
+}
+
+/* Gaya untuk baris tabel */
+tbody td {
+    color: #1a202c !important;
+}
+
+/* Gaya untuk baris tabel di mode gelap */
+.dark tbody td {
+    color: #f1f5f9 !important;
+}
+
+/* Gaya untuk batas tabel di mode gelap */
+.dark table,
+.dark th,
+.dark td {
+    border-color: #475569 !important;
+}
+
+/* Gaya untuk header tabel dengan gradient */
+thead.bg-gradient-to-r th {
+    color: white !important;
+}
+
+/* Gaya untuk header tabel dengan gradient di mode gelap */
+.dark thead.bg-gradient-to-r th {
+    color: white !important;
+}
+
+/* Gaya untuk h1 */
+h1 {
+    color: #252525 !important;
+}
+
+/* Gaya untuk h1 di mode gelap */
+.dark h1 {
+    color: #f8fafc !important;
+}
