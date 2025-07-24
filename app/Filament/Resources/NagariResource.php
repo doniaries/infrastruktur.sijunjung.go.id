@@ -57,10 +57,14 @@ class NagariResource extends Resource
                     ->label('Jumlah Penduduk')
                     ->numeric()
                     ->minValue(0),
-                Forms\Components\TextInput::make('jumlah_jorong')
+                Forms\Components\Placeholder::make('jumlah_jorong')
                     ->label('Jumlah Jorong')
-                    ->numeric()
-                    ->minValue(0),
+                    ->content(function ($record) {
+                        if ($record) {
+                            return $record->jorongs()->count() . ' Jorong';
+                        }
+                        return 'Belum ada data jorong';
+                    }),
                 Forms\Components\TextInput::make('luas_nagari')
                     ->label('Luas Nagari (Ha)')
                     ->numeric()
@@ -97,9 +101,12 @@ class NagariResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('jumlah_jorong')
+                Tables\Columns\TextColumn::make('jorongs_count')
                     ->label('Jumlah Jorong')
-                    ->numeric()
+                    ->getStateUsing(function ($record) {
+                        return $record->jorongs()->count();
+                    })
+                    ->suffix(' Jorong')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('luas_nagari')
