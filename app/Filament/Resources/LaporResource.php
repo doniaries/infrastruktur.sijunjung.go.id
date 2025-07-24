@@ -271,42 +271,48 @@ class LaporResource extends Resource
                     ->color('primary')
                     // ->iconButton()
                     ->infolist([
-                        TextEntry::make('no_tiket')
-                            ->label('Nomor Tiket')
-                            ->color('primary')
-                            ->weight('bold')
-                            ->copyable(),
-                        TextEntry::make('nama_pelapor')
-                            ->label('Nama Pelapor')
-                            ->color('success')
-                            ->weight('semibold'),
-                        TextEntry::make('opd.nama')
-                            ->label('OPD')
-                            ->color('info')
-                            ->badge(),
-                        TextEntry::make('jenis_laporan')
-                            ->label('Jenis Laporan')
-                            ->color(fn($record) => $record->jenis_laporan->getColor())
-                            ->badge()
-                            ->formatStateUsing(fn($record) => $record->jenis_laporan->getLabel()),
-                        TextEntry::make('tgl_laporan')
-                            ->label('Tanggal Laporan')
-                            ->dateTime('d M Y H:i')
-                            ->color('warning')
-                            ->icon('heroicon-o-calendar'),
-                        TextEntry::make('uraian_laporan')
-                            ->label('Uraian Laporan')
-                            ->color('gray')
-                            ->prose()
-                            ->columnSpanFull(),
-                        TextEntry::make('status_laporan')
-                            ->label('Status')
-                            ->color(fn($record) => $record->status_laporan->getColor())
-                            ->badge()
-                            ->formatStateUsing(fn($record) => $record->status_laporan->getLabel())
-                            ->icon(fn($record) => $record->status_laporan->getIcon()),
+                        \Filament\Infolists\Components\Section::make('Detail Laporan')
+                            ->schema([
+                                \Filament\Infolists\Components\Grid::make(2)
+                                    ->schema([
+                                        TextEntry::make('no_tiket')
+                                            ->label('Nomor Tiket')
+                                            ->color('primary')
+                                            ->weight('bold')
+                                            ->copyable(),
+                                        TextEntry::make('nama_pelapor')
+                                            ->label('Nama Pelapor')
+                                            ->color('success')
+                                            ->weight('semibold'),
+                                        TextEntry::make('opd.nama')
+                                            ->label('OPD')
+                                            ->color('info')
+                                            ->badge(),
+                                        TextEntry::make('jenis_laporan')
+                                            ->label('Jenis Laporan')
+                                            ->color(fn($record) => $record->jenis_laporan->getColor())
+                                            ->badge()
+                                            ->formatStateUsing(fn($record) => $record->jenis_laporan->getLabel()),
+                                        TextEntry::make('tgl_laporan')
+                                            ->label('Tanggal Laporan')
+                                            ->dateTime('d M Y H:i')
+                                            ->color('warning')
+                                            ->icon('heroicon-o-calendar'),
+                                        TextEntry::make('status_laporan')
+                                            ->label('Status')
+                                            ->color(fn($record) => $record->status_laporan->getColor())
+                                            ->badge()
+                                            ->formatStateUsing(fn($record) => $record->status_laporan->getLabel())
+                                            ->icon(fn($record) => $record->status_laporan->getIcon()),
+                                    ]),
+                                TextEntry::make('uraian_laporan')
+                                    ->label('Uraian Laporan')
+                                    ->color('gray')
+                                    ->prose()
+                                    ->columnSpanFull(),
+                            ])
                     ])
-                    ->action(function ($record) {
+                    ->mountUsing(function ($record) {
                         if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
                             $record->update([
                                 'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
@@ -318,11 +324,17 @@ class LaporResource extends Resource
                                 ->send();
                         }
                     })
+                    ->action(function () {
+                        // Modal akan tertutup otomatis setelah action selesai
+                        return true;
+                    })
+                    ->modalSubmitActionLabel('Tutup')
+                    ->modalCancelAction(false)
                     ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
                     ->closeModalByClickingAway(false)
                     ->closeModalByEscaping()
                     ->modalHeading('Detail Laporan')
-                    ->modalWidth('2xl')
+                    ->modalWidth('4xl')
                     ->stickyModalHeader()
                     ->stickyModalFooter(),
 
