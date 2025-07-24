@@ -191,6 +191,7 @@ class LaporResource extends Resource
                     ->badge()
                     ->color(fn(StatusLaporan $state): string => $state->getColor())
                     ->icon(fn(StatusLaporan $state): string => $state->getIcon())
+                    ->formatStateUsing(fn(StatusLaporan $state): string => $state->getLabel())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_laporan')
                     ->badge()
@@ -222,6 +223,7 @@ class LaporResource extends Resource
                     ->sortable()
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('nama_pelapor')
+                    ->badge()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nomor_kontak')
@@ -266,28 +268,61 @@ class LaporResource extends Resource
                 Tables\Actions\Action::make('lihatLaporan')
                     ->label('Lihat Laporan')
                     ->icon('heroicon-o-eye')
-                    ->color('danger')
+                    ->color('primary')
                     // ->iconButton()
                     ->infolist([
-                        TextEntry::make('no_tiket')->label('Nomor Tiket'),
-                        TextEntry::make('nama_pelapor')->label('Nama Pelapor'),
-                        TextEntry::make('opd.nama')->label('OPD'),
-                        TextEntry::make('jenis_laporan')->label('Jenis Laporan'),
-                        TextEntry::make('tgl_laporan')->label('Tanggal Laporan')->dateTime('d M Y H:i'),
-                        TextEntry::make('uraian_laporan')->label('Uraian Laporan'),
+                        TextEntry::make('no_tiket')
+                            ->label('Nomor Tiket')
+                            ->color('primary')
+                            ->weight('bold')
+                            ->copyable(),
+                        TextEntry::make('nama_pelapor')
+                            ->label('Nama Pelapor')
+                            ->color('success')
+                            ->weight('semibold'),
+                        TextEntry::make('opd.nama')
+                            ->label('OPD')
+                            ->color('info')
+                            ->badge(),
+                        TextEntry::make('jenis_laporan')
+                            ->label('Jenis Laporan')
+                            ->color(fn($record) => $record->jenis_laporan->getColor())
+                            ->badge()
+                            ->formatStateUsing(fn($record) => $record->jenis_laporan->getLabel()),
+                        TextEntry::make('tgl_laporan')
+                            ->label('Tanggal Laporan')
+                            ->dateTime('d M Y H:i')
+                            ->color('warning')
+                            ->icon('heroicon-o-calendar'),
+                        TextEntry::make('uraian_laporan')
+                            ->label('Uraian Laporan')
+                            ->color('gray')
+                            ->prose()
+                            ->columnSpanFull(),
+                        TextEntry::make('status_laporan')
+                            ->label('Status')
+                            ->color(fn($record) => $record->status_laporan->getColor())
+                            ->badge()
+                            ->formatStateUsing(fn($record) => $record->status_laporan->getLabel())
+                            ->icon(fn($record) => $record->status_laporan->getIcon()),
                     ])
                     ->action(function ($record) {
                         if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
                             $record->update([
                                 'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
                             ]);
+
+                            Notification::make()
+                                ->title('Status laporan diubah menjadi Sedang Diproses')
+                                ->success()
+                                ->send();
                         }
                     })
                     ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
                     ->closeModalByClickingAway(false)
                     ->closeModalByEscaping()
                     ->modalHeading('Detail Laporan')
-                    ->modalWidth('lg')
+                    ->modalWidth('2xl')
                     ->stickyModalHeader()
                     ->stickyModalFooter(),
 

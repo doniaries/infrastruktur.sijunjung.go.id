@@ -101,19 +101,10 @@
                                 <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
                                     {{ $lapor->uraian_laporan }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
-                                    @if($lapor->status_laporan == 'Belum Diproses')
-                                        <span class="status-badge status-belum inline-block px-3 py-1 rounded-full text-xs font-semibold">
-                                            {{ $lapor->status_laporan }}
-                                        </span>
-                                    @elseif($lapor->status_laporan == 'Sedang Diproses')
-                                        <span class="status-badge status-sedang inline-block px-3 py-1 rounded-full text-xs font-semibold">
-                                            {{ $lapor->status_laporan }}
-                                        </span>
-                                    @else
-                                        <span class="status-badge status-selesai inline-block px-3 py-1 rounded-full text-xs font-semibold">
-                                            {{ $lapor->status_laporan }}
-                                        </span>
-                                    @endif
+                                    <span class="status-badge {{ $lapor->status_laporan->getCssClass() }} inline-block px-3 py-1 rounded-full text-xs font-semibold"
+                                          style="background-color: {{ $lapor->status_laporan->getBackgroundColor() }}; color: {{ $lapor->status_laporan->getTextColor() }}; border: 1px solid {{ $lapor->status_laporan->getBorderColor() }};">
+                                        {{ $lapor->status_laporan->getLabel() }}
+                                    </span>
                                 </td>
                             </tr>
                         @empty
