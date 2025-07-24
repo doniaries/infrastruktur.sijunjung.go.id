@@ -60,7 +60,7 @@ class JorongResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('nagari.nama', 'asc')
+            ->defaultSort('nagari.nama_nagari', 'asc')
             ->striped()
             ->filters([
                 //
