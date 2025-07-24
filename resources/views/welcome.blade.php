@@ -4,8 +4,11 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Hero Section -->
-    <section class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12">
-        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+    <section class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden">
+        <!-- Background Effects -->
+        <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
+        
+        <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 relative z-10">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1
                     class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
@@ -362,6 +365,222 @@
                     setTimeout(checkAndAnimate, 500); // Small delay to ensure DOM is ready
                 }
             }
+        });
+    </script>
+
+    <!-- Background Effects Styles and Script -->
+    <style>
+        /* Stars for dark mode */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Moon for dark mode */
+        .moon {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            border-radius: 50%;
+            animation: moonGlow 4s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            width: 8px;
+            height: 8px;
+            background: rgba(180, 180, 180, 0.8);
+            border-radius: 50%;
+            z-index: 11;
+            box-shadow: 
+                15px 5px 0 -2px rgba(180, 180, 180, 0.6),
+                8px 18px 0 -3px rgba(180, 180, 180, 0.5),
+                20px 20px 0 -4px rgba(180, 180, 180, 0.4);
+        }
+
+        @keyframes moonGlow {
+            0% { 
+                transform: scale(1); 
+                box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+            }
+            100% { 
+                transform: scale(1.05); 
+                box-shadow: 0 0 30px rgba(248, 249, 250, 0.8), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        /* Sun for light mode */
+        .sun {
+            position: absolute;
+            top: 20px;
+            right: 50px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffd700 30%, #ffed4e  70%);
+            border-radius: 50%;
+            animation: sunGlow 3s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .sun::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: radial-gradient(circle, transparent 60%, rgba(255, 215, 0, 0.2) 70%);
+            border-radius: 50%;
+            animation: sunRays 4s linear infinite;
+        }
+
+        @keyframes sunGlow {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+            100% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+
+        @keyframes sunRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Clouds for light mode */
+        .cloud {
+            position: absolute;
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+            border-radius: 50px;
+            opacity: 0.8;
+            animation: cloudFloat 20s linear infinite;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            border-radius: 50px;
+        }
+
+        .cloud::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud::after {
+            width: 60px;
+            height: 60px;
+            top: -35px;
+            right: 10px;
+        }
+
+        @keyframes cloudFloat {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(calc(100vw + 100px)); }
+        }
+
+        /* Hide effects based on theme */
+        .dark .sun,
+        .dark .cloud {
+            display: none;
+        }
+
+        html:not(.dark) .star,
+        html:not(.dark) .moon {
+            display: none;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgroundEffects = document.getElementById('background-effects');
+            
+            function createStarsAndMoon() {
+                // Clear existing effects
+                backgroundEffects.innerHTML = '';
+                
+                // Create moon for dark mode
+                const moon = document.createElement('div');
+                moon.className = 'moon';
+                backgroundEffects.appendChild(moon);
+                
+                // Create stars for dark mode
+                for (let i = 0; i < 50; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.width = Math.random() * 3 + 1 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    backgroundEffects.appendChild(star);
+                }
+            }
+            
+            function createSunAndClouds() {
+                // Clear existing effects
+                backgroundEffects.innerHTML = '';
+                
+                // Create sun
+                const sun = document.createElement('div');
+                sun.className = 'sun';
+                backgroundEffects.appendChild(sun);
+                
+                // Create clouds
+                for (let i = 0; i < 3; i++) {
+                    const cloud = document.createElement('div');
+                    cloud.className = 'cloud';
+                    cloud.style.width = (Math.random() * 80 + 60) + 'px';
+                    cloud.style.height = (Math.random() * 40 + 30) + 'px';
+                    cloud.style.top = (Math.random() * 30 + 10) + '%';
+                    cloud.style.animationDelay = Math.random() * 10 + 's';
+                    cloud.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    backgroundEffects.appendChild(cloud);
+                }
+            }
+            
+            function updateBackgroundEffects() {
+                const isDark = document.documentElement.classList.contains('dark');
+                if (isDark) {
+                    createStarsAndMoon();
+                } else {
+                    createSunAndClouds();
+                }
+            }
+            
+            // Initial setup
+            updateBackgroundEffects();
+            
+            // Watch for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updateBackgroundEffects();
+                    }
+                });
+            });
+            
+            observer.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
         });
     </script>
 </x-layouts.app>
