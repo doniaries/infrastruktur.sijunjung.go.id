@@ -54,10 +54,10 @@ class ListNagari extends Component
 
     public function render()
     {
-        $totalNagari = Nagari::count();
+        $nagaris = $this->getNagaris();
         return view('livewire.list-nagari', [
-            'totalData' => $totalNagari,
-            'nagaris' => $this->getNagaris(),
+            'totalData' => $nagaris->total(),
+            'nagaris' => $nagaris,
             'kecamatans' => $this->getKecamatans()
         ]);
     }

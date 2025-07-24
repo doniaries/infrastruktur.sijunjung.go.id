@@ -92,10 +92,10 @@ class ListBts extends Component
 
     public function render()
     {
-        $totalBts = Bts::count();
+        $bts = $this->getBts();
         return view('livewire.list-bts', [
-            'totalData' => $totalBts,
-            'bts' => $this->getBts(),
+            'totalData' => $bts->total(),
+            'bts' => $bts,
             'operators' => $this->getOperators(),
             'kecamatans' => $this->getKecamatans()
         ]);

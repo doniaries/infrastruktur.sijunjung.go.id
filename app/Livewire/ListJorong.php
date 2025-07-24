@@ -74,10 +74,10 @@ class ListJorong extends Component
 
     public function render()
     {
-        $totalJorong = Jorong::count();
+        $jorongs = $this->getJorongs();
         return view('livewire.list-jorong', [
-            'totalData' => $totalJorong,
-            'jorongs' => $this->getJorongs(),
+            'totalData' => $jorongs->total(),
+            'jorongs' => $jorongs,
             'nagaris' => $this->getNagaris(),
             'kecamatans' => $this->getKecamatans()
         ]);

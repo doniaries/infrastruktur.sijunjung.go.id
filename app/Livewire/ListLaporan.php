@@ -128,11 +128,11 @@ class ListLaporan extends Component
     
     public function render()
     {
-        $totalLaporan = Lapor::count();
+        $laporans = $this->getLaporans();
 
         return view('livewire.list-laporan', [
-            'totalLaporan' => $totalLaporan,
-            'laporans' => $this->getLaporans(),
+            'totalLaporan' => $laporans->total(),
+            'laporans' => $laporans,
             'opds' => $this->getOpds()
         ]);
     }
