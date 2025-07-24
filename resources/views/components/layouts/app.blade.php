@@ -94,6 +94,22 @@
             display: inline-block !important;
         }
         
+        /* Header scroll effect styles */
+        nav {
+            transition: all 0.3s ease;
+        }
+        
+        nav.header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+            backdrop-filter: blur(10px);
+        }
+        
+        .dark nav.header-scrolled {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+        }
+        
         /* Leaflet Map Z-index Fix */
         .leaflet-map-pane,
         .leaflet-tile,
@@ -421,6 +437,18 @@
             
             // Amati perubahan pada class di html element (untuk deteksi perubahan mode gelap/terang)
             darkModeObserver.observe(document.documentElement, { attributes: true });
+            
+            // Header scroll effect - menambahkan bayangan saat scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('nav');
+                if (header) {
+                    if (window.scrollY > 50) {
+                        header.classList.add('header-scrolled');
+                    } else {
+                        header.classList.remove('header-scrolled');
+                    }
+                }
+            });
         });
     </script>
 </body>
