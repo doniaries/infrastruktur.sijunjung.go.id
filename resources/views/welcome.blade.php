@@ -479,50 +479,152 @@
             }
         }
 
-        /* Clouds for light mode */
+        /* Realistic clouds for light mode */
+        .cloud-formation {
+            position: absolute;
+            top: 15%;
+            left: -200px;
+            width: 100vw;
+            height: 200px;
+            animation: cloudDrift 60s linear infinite;
+            opacity: 0.7;
+        }
+
         .cloud {
             position: absolute;
-            background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
-            border-radius: 50px;
-            opacity: 0.8;
-            animation: cloudFloat 20s linear infinite;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 30%, #e9ecef 70%, #dee2e6 100%);
+            border-radius: 100px;
+            filter: blur(1px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .cloud::before,
         .cloud::after {
             content: '';
             position: absolute;
-            background: inherit;
-            border-radius: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            border-radius: 100px;
+            filter: blur(0.5px);
         }
 
-        .cloud::before {
-            width: 50px;
-            height: 50px;
-            top: -25px;
-            left: 10px;
-        }
-
-        .cloud::after {
-            width: 60px;
+        .cloud-1 {
+            width: 120px;
             height: 60px;
+            top: 20px;
+            left: 50px;
+        }
+
+        .cloud-1::before {
+            width: 80px;
+            height: 80px;
+            top: -30px;
+            left: 20px;
+        }
+
+        .cloud-1::after {
+            width: 100px;
+            height: 70px;
+            top: -25px;
+            right: 15px;
+        }
+
+        .cloud-2 {
+            width: 150px;
+            height: 70px;
+            top: 40px;
+            left: 200px;
+        }
+
+        .cloud-2::before {
+            width: 90px;
+            height: 90px;
             top: -35px;
+            left: 30px;
+        }
+
+        .cloud-2::after {
+            width: 110px;
+            height: 80px;
+            top: -30px;
+            right: 20px;
+        }
+
+        .cloud-3 {
+            width: 100px;
+            height: 50px;
+            top: 80px;
+            left: 400px;
+        }
+
+        .cloud-3::before {
+            width: 70px;
+            height: 70px;
+            top: -25px;
+            left: 15px;
+        }
+
+        .cloud-3::after {
+            width: 85px;
+            height: 60px;
+            top: -20px;
             right: 10px;
         }
 
-        @keyframes cloudFloat {
+        .cloud-4 {
+            width: 130px;
+            height: 65px;
+            top: 10px;
+            left: 550px;
+        }
+
+        .cloud-4::before {
+            width: 85px;
+            height: 85px;
+            top: -32px;
+            left: 25px;
+        }
+
+        .cloud-4::after {
+            width: 95px;
+            height: 75px;
+            top: -28px;
+            right: 18px;
+        }
+
+        .cloud-5 {
+            width: 110px;
+            height: 55px;
+            top: 60px;
+            left: 720px;
+        }
+
+        .cloud-5::before {
+            width: 75px;
+            height: 75px;
+            top: -28px;
+            left: 18px;
+        }
+
+        .cloud-5::after {
+            width: 90px;
+            height: 65px;
+            top: -23px;
+            right: 12px;
+        }
+
+        @keyframes cloudDrift {
             0% {
-                transform: translateX(-100px);
+                transform: translateX(-200px);
             }
 
             100% {
-                transform: translateX(calc(100vw + 100px));
+                transform: translateX(calc(100vw + 200px));
             }
         }
 
         /* Hide effects based on theme */
         .dark .sun,
-        .dark .cloud {
+        .dark .cloud-formation {
             display: none;
         }
 
@@ -568,17 +670,18 @@
                 sun.className = 'sun';
                 backgroundEffects.appendChild(sun);
 
-                // Create clouds
-                for (let i = 0; i < 3; i++) {
+                // Create cloud formation
+                const cloudFormation = document.createElement('div');
+                cloudFormation.className = 'cloud-formation';
+                
+                // Create individual clouds within the formation
+                for (let i = 1; i <= 5; i++) {
                     const cloud = document.createElement('div');
-                    cloud.className = 'cloud';
-                    cloud.style.width = (Math.random() * 80 + 60) + 'px';
-                    cloud.style.height = (Math.random() * 40 + 30) + 'px';
-                    cloud.style.top = (Math.random() * 30 + 10) + '%';
-                    cloud.style.animationDelay = Math.random() * 10 + 's';
-                    cloud.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                    backgroundEffects.appendChild(cloud);
+                    cloud.className = `cloud cloud-${i}`;
+                    cloudFormation.appendChild(cloud);
                 }
+                
+                backgroundEffects.appendChild(cloudFormation);
             }
 
             function updateBackgroundEffects() {
