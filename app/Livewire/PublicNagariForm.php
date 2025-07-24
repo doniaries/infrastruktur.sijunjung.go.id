@@ -68,9 +68,15 @@ class PublicNagariForm extends Component implements HasForms
                         TextInput::make('luas_nagari')
                             ->label('Luas Nagari (ha)')
                             ->numeric(),
-                        TextInput::make('jumlah_penduduk')
+                        \Filament\Forms\Components\Placeholder::make('total_penduduk_display')
                             ->label('Jumlah Penduduk')
-                            ->numeric(),
+                            ->content(function ($record) {
+                                if ($record) {
+                                    $total = $record->jorongs()->sum('jumlah_penduduk_jorong');
+                                    return number_format($total, 0, ',', '.') . ' Jiwa';
+                                }
+                                return 'Belum ada data penduduk';
+                            }),
                         \Filament\Forms\Components\Placeholder::make('jumlah_jorong_display')
                             ->label('Jumlah Jorong')
                             ->content(function ($record) {

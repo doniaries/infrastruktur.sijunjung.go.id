@@ -53,10 +53,15 @@ class NagariResource extends Resource
                     ->label('Alamat Kantor Nagari')
                     ->rows(3)
                     ->maxLength(500),
-                Forms\Components\TextInput::make('jumlah_penduduk_nagari')
+                Forms\Components\Placeholder::make('total_penduduk_display')
                     ->label('Jumlah Penduduk')
-                    ->numeric()
-                    ->minValue(0),
+                    ->content(function ($record) {
+                        if ($record) {
+                            $total = $record->jorongs()->sum('jumlah_penduduk_jorong');
+                            return number_format($total, 0, ',', '.') . ' Jiwa';
+                        }
+                        return 'Belum ada data penduduk';
+                    }),
                 Forms\Components\Placeholder::make('jumlah_jorong')
                     ->label('Jumlah Jorong')
                     ->content(function ($record) {
@@ -96,9 +101,14 @@ class NagariResource extends Resource
                     ->label('Alamat Kantor')
                     ->limit(50)
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('jumlah_penduduk_nagari')
+                Tables\Columns\TextColumn::make('total_penduduk')
                     ->label('Jumlah Penduduk')
-                    ->numeric()
+                    ->getStateUsing(function ($record) {
+                        return $record->jorongs()->sum('jumlah_penduduk_jorong');
+                    })
+                    ->formatStateUsing(function ($state) {
+                        return number_format($state, 0, ',', '.') . ' Jiwa';
+                    })
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('jorongs_count')
