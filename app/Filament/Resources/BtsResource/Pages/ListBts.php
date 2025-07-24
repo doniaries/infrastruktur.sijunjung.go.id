@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\BtsResource\Pages;
 
 use App\Filament\Resources\BtsResource;
+use App\Models\Operator;
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListBts extends ListRecords
 {
@@ -18,6 +21,28 @@ class ListBts extends ListRecords
                 ->color("success"),
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function getTabs(): array
+    {
+        $tabs = [
+            'all' => Tab::make('Semua')
+                ->badge(\App\Models\Bts::count()),
+        ];
+
+        $operators = Operator::orderBy('nama_operator')->get();
+
+        foreach ($operators as $operator) {
+            $count = \App\Models\Bts::where('operator_id', $operator->id)->count();
+            
+            $tabs[$operator->nama_operator] = Tab::make($operator->nama_operator)
+                ->badge($count)
+                ->modifyQueryUsing(function (Builder $query) use ($operator) {
+                    return $query->where('operator_id', $operator->id);
+                });
+        }
+
+        return $tabs;
     }
 
     // public function getTableBulkActions()
