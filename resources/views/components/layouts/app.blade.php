@@ -451,6 +451,9 @@
             });
         });
     </script>
+    
+    <!-- Impersonate Banner -->
+    <x-impersonate::banner/>
 </body>
 
 </html>

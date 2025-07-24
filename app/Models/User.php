@@ -52,6 +52,19 @@ class User extends Authenticatable implements FilamentUser
         return true;
     }
 
+    // Method untuk authorization impersonate
+    public function canImpersonate(): bool
+    {
+        // Hanya super_admin yang bisa melakukan impersonate
+        return $this->hasRole('super_admin');
+    }
+
+    public function canBeImpersonated(): bool
+    {
+        // User bisa di-impersonate jika aktif dan bukan super_admin
+        return $this->is_active && !$this->hasRole('super_admin');
+    }
+
     // Tambahkan method untuk cek status
     public function isActive(): bool
     {
