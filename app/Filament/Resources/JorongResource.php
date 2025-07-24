@@ -32,11 +32,32 @@ class JorongResource extends Resource
             ->schema([
                 Forms\Components\Select::make('nagari_id')
                     ->required()
-                    ->relationship('nagari', 'nama_nagari'),
+                    ->preload()
+                    ->relationship('nagari', 'nama_nagari')
+                    ->searchable(),
                 Forms\Components\TextInput::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->required()
+                    ->unique(ignoreRecord: true)
+                    ->live()
+                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
                     ->maxLength(255),
+                Forms\Components\TextInput::make('nama_kepala_jorong')
+                    ->label('Nama Kepala Jorong')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('kontak_kepala_jorong')
+                    ->label('Kontak Kepala Jorong')
+                    ->tel()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('jumlah_penduduk_jorong')
+                    ->label('Jumlah Penduduk')
+                    ->numeric()
+                    ->minValue(0),
+                Forms\Components\TextInput::make('luas_jorong')
+                    ->label('Luas Jorong (Ha)')
+                    ->numeric()
+                    ->minValue(0)
+                    ->suffix('Ha'),
             ]);
     }
 
@@ -44,13 +65,32 @@ class JorongResource extends Resource
     {
         return $table
             ->columns([
-
                 Tables\Columns\TextColumn::make('nama_jorong')
                     ->label('Nama Jorong')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
+                    ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nama_kepala_jorong')
+                    ->label('Kepala Jorong')
+                    ->searchable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('kontak_kepala_jorong')
+                    ->label('Kontak')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('jumlah_penduduk_jorong')
+                    ->label('Jumlah Penduduk')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('luas_jorong')
+                    ->label('Luas (Ha)')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable()
+                    ->suffix(' Ha'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

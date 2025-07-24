@@ -226,20 +226,13 @@ class BtsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('operator.nama_operator')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'TELKOMSEL' => 'danger',
+                Tables\Columns\TextColumn::make('tahun_bangun')
+                    ->sortable(),
 
-                        'INDOSAT' => 'warning',
-                        'XL AXIATA' => 'primary',
-                    })
-                    ->sortable()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('kecamatan.nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nagari.nama')
+                Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->sortable()
                     ->wrap()
                     ->searchable(),
@@ -258,7 +251,16 @@ class BtsResource extends Resource
                 //     ->searchable(),
                 // Tables\Columns\TextColumn::make('location.lng')
                 //     ->searchable(),
+                Tables\Columns\TextColumn::make('operator.nama_operator')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'TELKOMSEL' => 'danger',
 
+                        'INDOSAT' => 'warning',
+                        'XL AXIATA' => 'primary',
+                    })
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('teknologi')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
@@ -274,9 +276,9 @@ class BtsResource extends Resource
                         'aktif' => 'success',
                         'non-aktif' => 'danger',
                     }),
-                Tables\Columns\TextColumn::make('tahun_bangun')
-                    ->sortable(),
+
             ])
+            ->defaultSort('tahun_bangun', 'desc')
             ->filters([
                 //
             ])

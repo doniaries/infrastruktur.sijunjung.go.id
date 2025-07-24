@@ -36,12 +36,36 @@ class NagariResource extends Resource
                     ->relationship('kecamatan', 'nama')
                     ->searchable(),
                 Forms\Components\TextInput::make('nama_nagari')
+                    ->label('Nama Nagari')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase']) // uppercase
-                    ->maxLength(50),
-
+                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('nama_wali_nagari')
+                    ->label('Nama Wali Nagari')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('kontak_wali_nagari')
+                    ->label('Kontak Wali Nagari')
+                    ->tel()
+                    ->maxLength(255),
+                Forms\Components\Textarea::make('alamat_kantor_nagari')
+                    ->label('Alamat Kantor Nagari')
+                    ->rows(3)
+                    ->maxLength(500),
+                Forms\Components\TextInput::make('jumlah_penduduk_nagari')
+                    ->label('Jumlah Penduduk')
+                    ->numeric()
+                    ->minValue(0),
+                Forms\Components\TextInput::make('jumlah_jorong')
+                    ->label('Jumlah Jorong')
+                    ->numeric()
+                    ->minValue(0),
+                Forms\Components\TextInput::make('luas_nagari')
+                    ->label('Luas Nagari (Ha)')
+                    ->numeric()
+                    ->minValue(0)
+                    ->suffix('Ha'),
             ]);
     }
 
@@ -49,15 +73,41 @@ class NagariResource extends Resource
     {
         return $table
             ->columns([
-
                 Tables\Columns\TextColumn::make('nama_nagari')
                     ->label('Nama Nagari')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('kecamatan.nama')
-                    ->label('Nama Kecamatan')
+                    ->label('Kecamatan')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('nama_wali_nagari')
+                    ->label('Wali Nagari')
+                    ->searchable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('kontak_wali_nagari')
+                    ->label('Kontak')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('alamat_kantor_nagari')
+                    ->label('Alamat Kantor')
+                    ->limit(50)
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('jumlah_penduduk_nagari')
+                    ->label('Jumlah Penduduk')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('jumlah_jorong')
+                    ->label('Jumlah Jorong')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('luas_nagari')
+                    ->label('Luas (Ha)')
+                    ->numeric()
+                    ->sortable()
+                    ->toggleable()
+                    ->suffix(' Ha'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

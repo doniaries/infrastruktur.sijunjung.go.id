@@ -19,6 +19,22 @@
                 <div class="type-hero mb-6 text-2xl font-bold text-primary-700 dark:text-blue-300">
                     <span class="tw-typewriter-hero"></span>
                 </div>
+                
+                <!-- Kolom Pencarian -->
+                <div class="max-w-2xl mb-8">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" id="heroSearch" 
+                            placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD..."
+                            class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <button type="button" onclick="searchLaporan()" 
+                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
                 <a href="#lapor"
                     class="inline-flex items-center justify-center px-6 py-3 mr-3 text-base font-medium text-center text-white rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:backdrop-blur-lg hover:border-white/30 transition-all duration-300 ease-in-out transform dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700">
                     Lapor Sekarang
@@ -706,81 +722,32 @@
             });
         });
 
-        // Navigation Buttons Functionality
+
+        
+        // Search Function
+        function searchLaporan() {
+            const searchTerm = document.getElementById('heroSearch').value.trim();
+            if (searchTerm) {
+                // Redirect to list-laporan page with search parameter
+                window.location.href = '/list-laporan?search=' + encodeURIComponent(searchTerm);
+            } else {
+                // If no search term, just go to list-laporan page
+                window.location.href = '/list-laporan';
+            }
+        }
+        
+        // Add Enter key support for search
         document.addEventListener('DOMContentLoaded', function() {
-            const backToTopButton = document.getElementById('back-to-top');
-            const scrollDownButton = document.getElementById('scroll-down');
-            
-            function updateButtonsVisibility() {
-                const scrollPosition = window.pageYOffset;
-                const documentHeight = document.documentElement.scrollHeight;
-                const windowHeight = window.innerHeight;
-                const isAtTop = scrollPosition < 100;
-                const isAtBottom = scrollPosition + windowHeight >= documentHeight - 100;
-                
-                // Back to Top Button
-                if (backToTopButton) {
-                    if (scrollPosition > 300) {
-                        backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.add('opacity-100');
-                    } else {
-                        backToTopButton.classList.add('opacity-0', 'pointer-events-none');
-                        backToTopButton.classList.remove('opacity-100');
+            const searchInput = document.getElementById('heroSearch');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchLaporan();
                     }
-                }
-                
-                // Scroll Down Button
-                if (scrollDownButton) {
-                    if (isAtTop && !isAtBottom) {
-                        scrollDownButton.classList.remove('opacity-0', 'pointer-events-none');
-                        scrollDownButton.classList.add('opacity-100');
-                    } else {
-                        scrollDownButton.classList.add('opacity-0', 'pointer-events-none');
-                        scrollDownButton.classList.remove('opacity-100');
-                    }
-                }
-            }
-            
-            // Show/hide buttons based on scroll position
-            window.addEventListener('scroll', updateButtonsVisibility);
-            
-            // Initial check
-            updateButtonsVisibility();
-            
-            // Back to Top Button Click
-            if (backToTopButton) {
-                backToTopButton.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-            
-            // Scroll Down Button Click
-            if (scrollDownButton) {
-                scrollDownButton.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: document.documentElement.scrollHeight,
-                        behavior: 'smooth'
-                    });
                 });
             }
         });
     </script>
 
-    <!-- Navigation Buttons -->
-    <!-- Back to Top Button -->
-    <button id="back-to-top" 
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
-        aria-label="Back to top">
-        <i class="fas fa-chevron-up text-lg"></i>
-    </button>
-    
-    <!-- Scroll Down Button -->
-    <button id="scroll-down" 
-        class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800"
-        aria-label="Scroll to bottom">
-        <i class="fas fa-chevron-down text-lg"></i>
-    </button>
+
 </x-layouts.app>

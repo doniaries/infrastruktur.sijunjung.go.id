@@ -36,6 +36,9 @@ class ListLaporan extends Component implements HasTable, HasForms
     {
         // Mengambil parameter ticket dari URL jika ada
         $this->ticket = request()->get('ticket');
+        
+        // Mengambil parameter search dari URL jika ada
+        $this->search = request()->get('search', '');
     }
 
     public function updatedSearch()
