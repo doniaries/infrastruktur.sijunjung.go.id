@@ -7,7 +7,7 @@
     <section class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
-        
+
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 relative z-10">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1
@@ -20,7 +20,7 @@
                     <span class="tw-typewriter-hero"></span>
                 </div>
                 <a href="#lapor"
-                    class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-dark rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                    class="inline-flex items-center justify-center px-6 py-3 mr-3 text-base font-medium text-center text-white rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:backdrop-blur-lg hover:border-white/30 transition-all duration-300 ease-in-out transform dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700">
                     Lapor Sekarang
                     <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -379,8 +379,15 @@
         }
 
         @keyframes twinkle {
-            0% { opacity: 0.3; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.2); }
+            0% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
 
         /* Moon for dark mode */
@@ -407,19 +414,20 @@
             background: rgba(180, 180, 180, 0.8);
             border-radius: 50%;
             z-index: 11;
-            box-shadow: 
+            box-shadow:
                 15px 5px 0 -2px rgba(180, 180, 180, 0.6),
                 8px 18px 0 -3px rgba(180, 180, 180, 0.5),
                 20px 20px 0 -4px rgba(180, 180, 180, 0.4);
         }
 
         @keyframes moonGlow {
-            0% { 
-                transform: scale(1); 
+            0% {
+                transform: scale(1);
                 box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
             }
-            100% { 
-                transform: scale(1.05); 
+
+            100% {
+                transform: scale(1.05);
                 box-shadow: 0 0 30px rgba(248, 249, 250, 0.8), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
             }
         }
@@ -431,7 +439,7 @@
             right: 50px;
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle, #ffd700 30%, #ffed4e  70%);
+            background: radial-gradient(circle, #ffd700 30%, #ffed4e 70%);
             border-radius: 50%;
             animation: sunGlow 3s ease-in-out infinite alternate;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
@@ -450,13 +458,25 @@
         }
 
         @keyframes sunGlow {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
-            100% { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            }
+
+            100% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            }
         }
 
         @keyframes sunRays {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Clouds for light mode */
@@ -491,8 +511,13 @@
         }
 
         @keyframes cloudFloat {
-            0% { transform: translateX(-100px); }
-            100% { transform: translateX(calc(100vw + 100px)); }
+            0% {
+                transform: translateX(-100px);
+            }
+
+            100% {
+                transform: translateX(calc(100vw + 100px));
+            }
         }
 
         /* Hide effects based on theme */
@@ -510,16 +535,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const backgroundEffects = document.getElementById('background-effects');
-            
+
             function createStarsAndMoon() {
                 // Clear existing effects
                 backgroundEffects.innerHTML = '';
-                
+
                 // Create moon for dark mode
                 const moon = document.createElement('div');
                 moon.className = 'moon';
                 backgroundEffects.appendChild(moon);
-                
+
                 // Create stars for dark mode
                 for (let i = 0; i < 50; i++) {
                     const star = document.createElement('div');
@@ -533,16 +558,16 @@
                     backgroundEffects.appendChild(star);
                 }
             }
-            
+
             function createSunAndClouds() {
                 // Clear existing effects
                 backgroundEffects.innerHTML = '';
-                
+
                 // Create sun
                 const sun = document.createElement('div');
                 sun.className = 'sun';
                 backgroundEffects.appendChild(sun);
-                
+
                 // Create clouds
                 for (let i = 0; i < 3; i++) {
                     const cloud = document.createElement('div');
@@ -555,7 +580,7 @@
                     backgroundEffects.appendChild(cloud);
                 }
             }
-            
+
             function updateBackgroundEffects() {
                 const isDark = document.documentElement.classList.contains('dark');
                 if (isDark) {
@@ -564,10 +589,10 @@
                     createSunAndClouds();
                 }
             }
-            
+
             // Initial setup
             updateBackgroundEffects();
-            
+
             // Watch for theme changes
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
@@ -576,7 +601,7 @@
                     }
                 });
             });
-            
+
             observer.observe(document.documentElement, {
                 attributes: true,
                 attributeFilter: ['class']
