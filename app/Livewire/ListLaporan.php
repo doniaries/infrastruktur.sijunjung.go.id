@@ -6,31 +6,20 @@ use App\Enums\StatusLaporan;
 use App\Models\Lapor;
 use App\Models\Opd;
 use Carbon\Carbon;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Support\Enums\FontFamily;
-use Filament\Support\Enums\FontWeight;
-use Filament\Tables;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-class ListLaporan extends Component implements HasTable, HasForms
+class ListLaporan extends Component
 {
-    use InteractsWithTable, InteractsWithForms;
+    use WithPagination;
 
     public $ticket;
     public $search = '';
     public $statusFilter = '';
+    public $opdFilter = '';
+    public $perPage = 10;
+    
+    protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket'];
 
     public function mount()
     {
@@ -41,113 +30,52 @@ class ListLaporan extends Component implements HasTable, HasForms
         $this->search = request()->get('search', '');
     }
 
-    public function updatedSearch()
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatedStatusFilter()
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
+    
+    public function updatingOpdFilter()
     {
         $this->resetPage();
     }
 
-    public function table(Table $table): Table
+    public function getLaporans()
     {
-        $query = Lapor::query();
-
-        // Filter berdasarkan nomor tiket jika ada
-        if ($this->ticket) {
-            $query->where('no_tiket', $this->ticket);
-        }
-
-        return $table
-            ->query($query)
-            ->contentGrid([
-                'md' => 1,
-                'xl' => 1,
-            ])
-            ->columns([
-                Tables\Columns\TextColumn::make('no_tiket')
-                    ->badge()
-                    ->label('No Tiket')
-                    ->color('success')
-                    ->copyable()
-                    ->copyMessage('kode tiket disalin')
-                    ->copyMessageDuration(2000)
-                    ->searchable()
-                    ->weight(FontWeight::Bold)
-                    ->fontFamily(FontFamily::Sans)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('tgl_laporan')
-                    ->badge()
-                    ->dateTime('d-m-Y H:i:s')
-                    ->default(Carbon::now())
-                    ->timezone('Asia/Jakarta')
-                    ->color('info'),
-                Tables\Columns\TextColumn::make('opd.nama')
-                    ->label('Nama OPD')
-                    ->wrap()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('nama_pelapor')
-                    ->wrap()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('uraian_laporan')
-                    ->searchable()
-                    ->wrap(),
-                Tables\Columns\TextColumn::make('status_laporan')
-                    ->badge()
-                    ->color(fn(StatusLaporan $state): string => $state->getColor())
-                    ->icon(fn(StatusLaporan $state): string => $state->getIcon()),
-                Tables\Columns\TextColumn::make('keterangan_petugas'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->defaultSort('created_at', 'desc')
-            // ->headerActions([
-            // Tables\Actions\CreateAction::make()
-            // ->label('Buat Laporan Baru')
-            // ->model(Lapor::class)
-            // ->form([
-            //     DateTimePicker::make('tgl_laporan')
-            //         ->default(Carbon::now())
-            //         ->timezone('Asia/Jakarta')
-            //         ->readOnly()
-            //         ->required(),
-
-            //     TextInput::make('no_tiket')
-            //         ->prefixIcon('heroicon-o-ticket')
-            //         ->label('No Tiket')
-            //         ->hint('Harap Dicatat Untuk Cek Status Laporan!')
-            //         ->hintColor('danger')
-            //         ->default(function () {
-            //             do {
-            //                 $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
-            //             } while (Lapor::where('no_tiket', $noTiket)->exists());
-            //             return $noTiket;
-            //         })
-            //         ->readOnly(),
-
-            //     TextInput::make('nama_pelapor')
-            //         ->label('Nama Lengkap')
-            //         ->required()
-            //         ->maxLength(255),
-
-            //     Select::make('opd_id')
-            //         ->label('OPD')
-            //         ->options(Opd::pluck('nama', 'id'))
-            //         ->searchable()
-            //         ->preload()
-            //         ->required()
-            //         ->live(),
-
-            //     Select::make('jenis_laporan')
-            //         ->options([
+        return Lapor::query()
+            ->with(['opd'])
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('no_tiket', 'like', '%' . $this->search . '%')
+                      ->orWhere('nama_pelapor', 'like', '%' . $this->search . '%')
+                      ->orWhere('uraian_laporan', 'like', '%' . $this->search . '%')
+                      ->orWhereHas('opd', function ($opd) {
+                          $opd->where('nama', 'like', '%' . $this->search . '%');
+                      });
+                });
+            })
+            ->when($this->statusFilter, function ($query) {
+                $query->where('status_laporan', $this->statusFilter);
+            })
+            ->when($this->opdFilter, function ($query) {
+                $query->where('opd_id', $this->opdFilter);
+            })
+            ->when($this->ticket, function ($query) {
+                $query->where('no_tiket', $this->ticket);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+    }
+    
+    public function getOpds()
+    {
+        return Opd::orderBy('nama')->get();
+    }
             //             'Laporan Gangguan' => 'Laporan Gangguan',
             //             'Koordinasi Teknis' => 'Koordinasi Teknis',
             //         ])
@@ -196,43 +124,16 @@ class ListLaporan extends Component implements HasTable, HasForms
             //         ->body('Terjadi kesalahan saat membuat laporan. Nomor tiket mungkin sudah ada atau ada kesalahan lain.')
             // )
             // ])
-            ->emptyStateHeading('Belum Ada Laporan')
-            ->emptyStateIcon('heroicon-m-chat-bubble-left-right');
-    }
-
+            // ->emptyStateHeading('Belum Ada Laporan')
+    
     public function render()
     {
         $totalLaporan = Lapor::count();
-        
-        $query = \App\Models\Lapor::with('opd');
-        
-        // Filter berdasarkan pencarian
-        if ($this->search) {
-            $query->where(function($q) {
-                $q->where('no_tiket', 'like', '%' . $this->search . '%')
-                  ->orWhere('nama_pelapor', 'like', '%' . $this->search . '%')
-                  ->orWhere('uraian_laporan', 'like', '%' . $this->search . '%')
-                  ->orWhereHas('opd', function($q) {
-                      $q->where('nama', 'like', '%' . $this->search . '%');
-                  });
-            });
-        }
-        
-        // Filter berdasarkan status
-        if ($this->statusFilter) {
-            $query->where('status_laporan', $this->statusFilter);
-        }
-        
-        // Filter berdasarkan ticket jika ada
-        if ($this->ticket) {
-            $query->where('no_tiket', $this->ticket);
-        }
-        
-        $laporans = $query->latest()->paginate(10);
 
         return view('livewire.list-laporan', [
             'totalLaporan' => $totalLaporan,
-            'laporans' => $laporans
+            'laporans' => $this->getLaporans(),
+            'opds' => $this->getOpds()
         ]);
     }
 }

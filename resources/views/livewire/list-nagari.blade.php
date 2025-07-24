@@ -1,56 +1,82 @@
 <div>
-    {{-- <x-shared-header activeMenu="nagari" /> --}}
-    <section class="page-section">
-        <div class="container px-4 mx-auto">
-    <!-- Header Section -->
-    <div class="page-header">
-        <div class="container mx-auto px-4">
-            <div class="page-header-content">
-                <div class="flex items-center space-x-4">
-                    <div class="page-header-icon">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="page-header-title">Data Nagari</h1>
-                        <p class="page-header-subtitle">Informasi lengkap nagari di Kabupaten Sijunjung</p>
-                    </div>
+    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 text-gray-900 dark:text-gray-100">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Data Nagari</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">Total: {{ $totalData }} Nagari</p>
                 </div>
-                <div class="page-header-stats">
-                    <div class="page-header-stat-card">
-                        <div class="page-header-stat-number">{{ $totalData }}</div>
-                        <div class="page-header-stat-label">Total Data</div>
-                    </div>
+            </div>
+
+            <!-- Search and Filter Form -->
+            <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <input type="text" wire:model.live="search" placeholder="Cari nagari..." 
+                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
+                <div>
+                    <select wire:model.live="kecamatanFilter" 
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                        <option value="">Semua Kecamatan</option>
+                        @foreach($kecamatans as $kecamatan)
+                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                         <tr>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nama Nagari</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kecamatan</th>
+                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Wali Nagari</th>
+                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Penduduk</th>
+                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Luas (Ha)</th>
+                             <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Jorong</th>
+                         </tr>
+                     </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @forelse($nagaris as $nagari)
+                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ $nagari->nama_nagari }}</td>
+                                 <td class="px-6 py-4 whitespace-nowrap">
+                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                         {{ $nagari->kecamatan ? $nagari->kecamatan->nama : '-' }}
+                                     </span>
+                                 </td>
+                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $nagari->nama_wali_nagari }}</td>
+                                 <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->jumlah_penduduk_nagari, 0, ',', '.') }} Jiwa</td>
+                                 <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->luas_nagari, 0, ',', '.') }} Ha</td>
+                                 <td class="px-6 py-4 text-center">
+                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                         {{ $nagari->jorongs_count }} Jorong
+                                     </span>
+                                 </td>
+                             </tr>
+                         @empty
+                             <tr>
+                                 <td colspan="6" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                    <div class="flex flex-col items-center">
+                                        <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                        </svg>
+                                        <p class="text-lg font-medium">Belum Ada Data</p>
+                                        <p class="text-sm">Data nagari belum tersedia atau tidak ditemukan</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="mt-6">
+                {{ $nagaris->links() }}
             </div>
         </div>
     </div>
-
-            <script>
-                document.addEventListener('livewire:initialized', () => {
-                    @this.on('notify', ({
-                        type,
-                        message
-                    }) => {
-                        window.$notify({
-                            title: type === 'success' ? 'Berhasil!' : 'Perhatian!',
-                            description: message,
-                            icon: type === 'success' ? 'check-circle' : 'exclamation-circle',
-                            iconColor: type === 'success' ? 'text-green-500' : 'text-red-500',
-                            timeout: 3000,
-                        });
-                    });
-                });
-            </script>
-
-            <div class="table-container">
-                 <div class="table-content">
-                     <div class="table-wrapper">
-                         {{ $this->table }}
-                     </div>
-                 </div>
-             </div>
-        </div>
-    </section>
 </div>

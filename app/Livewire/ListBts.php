@@ -3,84 +3,90 @@
 namespace App\Livewire;
 
 use App\Models\Bts;
-use Filament\Tables;
 use Livewire\Component;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Contracts\HasForms;
-use Filament\Support\Enums\FontFamily;
-use Filament\Support\Enums\FontWeight;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Forms\Components\TextInput;
-use Filament\Notifications\Notification;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Tables\Concerns\InteractsWithTable;
+use Livewire\WithPagination;
 
-class ListBts extends Component implements HasTable, HasForms
+class ListBts extends Component
 {
-    use InteractsWithTable, InteractsWithForms;
-
-    public function table(Table $table): Table
+    use WithPagination;
+    
+    public $search = '';
+    public $operatorFilter = '';
+    public $kecamatanFilter = '';
+    public $teknologiFilter = '';
+    public $statusFilter = '';
+    public $perPage = 10;
+    
+    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter'];
+    
+    public function updatingSearch()
     {
-        return $table
+        $this->resetPage();
+    }
+    
+    public function updatingOperatorFilter()
+    {
+        $this->resetPage();
+    }
+    
+    public function updatingKecamatanFilter()
+    {
+        $this->resetPage();
+    }
+    
+    public function updatingTeknologiFilter()
+    {
+        $this->resetPage();
+    }
+    
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
 
-            ->query(Bts::query())
-            ->contentGrid([
-                'md' => 1,
-                'xl' => 1,
-            ])
-            ->columns([
-                Tables\Columns\TextColumn::make('operator.nama_operator')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'TELKOMSEL' => 'danger',
-
-                        'INDOSAT' => 'warning',
-                        'XL AXIATA' => 'primary',
-                    })
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('kecamatan.nama')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('nagari.nama_nagari')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('titik_koordinat')
-                    ->copyable()
-                    ->label('Titik Koordinat')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('alamat')
-                    ->label('Alamat')
-                    ->wrap()
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('teknologi')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        '2G' => 'danger',
-                        '3G' => 'primary',
-                        '4G' => 'secondary',
-                        '4G+5G' => 'info',
-                        '5G' => 'success',
-                    }),
-                Tables\Columns\TextColumn::make('status')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'aktif' => 'success',
-                        'non-aktif' => 'danger',
-                    }),
-                Tables\Columns\TextColumn::make('tahun_bangun')
-                    ->sortable(),
-            ])
-            ->emptyStateHeading('Belum Ada data')
-            ->emptyStateIcon('heroicon-m-chat-bubble-left-right');
+    public function getBts()
+    {
+        return Bts::query()
+            ->with(['operator', 'kecamatan', 'nagari'])
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('titik_koordinat', 'like', '%' . $this->search . '%')
+                      ->orWhere('alamat', 'like', '%' . $this->search . '%')
+                      ->orWhereHas('operator', function ($op) {
+                          $op->where('nama_operator', 'like', '%' . $this->search . '%');
+                      })
+                      ->orWhereHas('kecamatan', function ($kec) {
+                          $kec->where('nama', 'like', '%' . $this->search . '%');
+                      })
+                      ->orWhereHas('nagari', function ($nag) {
+                          $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
+                      });
+                });
+            })
+            ->when($this->operatorFilter, function ($query) {
+                $query->where('operator_id', $this->operatorFilter);
+            })
+            ->when($this->kecamatanFilter, function ($query) {
+                $query->where('kecamatan_id', $this->kecamatanFilter);
+            })
+            ->when($this->teknologiFilter, function ($query) {
+                $query->where('teknologi', $this->teknologiFilter);
+            })
+            ->when($this->statusFilter, function ($query) {
+                $query->where('status', $this->statusFilter);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+    }
+    
+    public function getOperators()
+    {
+        return \App\Models\Operator::orderBy('nama_operator')->get();
+    }
+    
+    public function getKecamatans()
+    {
+        return \App\Models\Kecamatan::orderBy('nama')->get();
     }
 
 
@@ -88,7 +94,10 @@ class ListBts extends Component implements HasTable, HasForms
     {
         $totalBts = Bts::count();
         return view('livewire.list-bts', [
-            'totalData' => $totalBts
+            'totalData' => $totalBts,
+            'bts' => $this->getBts(),
+            'operators' => $this->getOperators(),
+            'kecamatans' => $this->getKecamatans()
         ]);
     }
 }
