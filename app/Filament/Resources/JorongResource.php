@@ -48,7 +48,7 @@ class JorongResource extends Resource
                 Tables\Columns\TextColumn::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nagari.nama')
+                Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -60,7 +60,7 @@ class JorongResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('nagari.nama_nagari', 'asc')
+            ->defaultSort('nagari.nama_nagari', 'asc')sdfsd
             ->striped()
             ->filters([
                 //
