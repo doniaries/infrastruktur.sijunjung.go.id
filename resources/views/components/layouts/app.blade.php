@@ -44,8 +44,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Font Awesome 6.4.0 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Font Family */
         * {
@@ -54,6 +52,46 @@
         
         body {
             font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+        }
+        
+        /* Font Awesome Icons Fix */
+        .fas, .fab, .far, .fal, .fad {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+            font-weight: 900 !important;
+            display: inline-block !important;
+        }
+        
+        .fab {
+            font-family: "Font Awesome 6 Brands" !important;
+            font-weight: 400 !important;
+        }
+        
+        /* Theme Toggle Icon Fix */
+        #theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #theme-toggle i {
+            transition: all 0.3s ease;
+        }
+        
+        /* Ensure only one icon shows at a time */
+        #theme-toggle .hidden {
+            display: none !important;
+        }
+        
+        #theme-toggle .block {
+            display: inline-block !important;
+        }
+        
+        .dark #theme-toggle .dark\:hidden {
+            display: none !important;
+        }
+        
+        .dark #theme-toggle .dark\:block {
+            display: inline-block !important;
         }
         
         /* Leaflet Map Z-index Fix */
@@ -336,9 +374,7 @@
     </style> --}}
     {{-- Scripts --}}
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-    {{-- Alpine.js dan plugin collapse untuk dropdown mobile --}}
+    {{-- Alpine.js sudah dimuat di app.blade.php utama --}}
 
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/css/filament.css', 'resources/js/app.js'])

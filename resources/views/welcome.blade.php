@@ -22,12 +22,7 @@
                 <a href="#lapor"
                     class="inline-flex items-center justify-center px-6 py-3 mr-3 text-base font-medium text-center text-white rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:backdrop-blur-lg hover:border-white/30 transition-all duration-300 ease-in-out transform dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700">
                     Lapor Sekarang
-                    <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                    <i class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1"></i>
                 </a>
                 <a href="{{ url('/list-laporan') }}"
                     class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
@@ -710,5 +705,38 @@
                 attributeFilter: ['class']
             });
         });
+
+        // Back to Top Button Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            if (backToTopButton) {
+                // Show/hide button based on scroll position
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
+                        backToTopButton.classList.add('opacity-100');
+                    } else {
+                        backToTopButton.classList.add('opacity-0', 'pointer-events-none');
+                        backToTopButton.classList.remove('opacity-100');
+                    }
+                });
+                
+                // Smooth scroll to top
+                backToTopButton.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        });
     </script>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" 
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
+        aria-label="Back to top">
+        <i class="fas fa-chevron-up text-lg"></i>
+    </button>
 </x-layouts.app>
