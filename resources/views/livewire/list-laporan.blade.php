@@ -64,7 +64,14 @@
                                     {{ $lapor->uraian_laporan }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
                                     <span
-                                        class="inline-block px-2 py-1 rounded {{ $lapor->status_laporan == 'Belum Diproses' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800' }}">
+                                        class="inline-block px-2 py-1 rounded 
+                                        @if($lapor->status_laporan == 'Belum Diproses') 
+                                            bg-red-100 text-red-800
+                                        @elseif($lapor->status_laporan == 'Sedang Diproses') 
+                                            bg-orange-100 text-orange-800
+                                        @else 
+                                            bg-green-100 text-green-800
+                                        @endif">
                                         {{ $lapor->status_laporan }}
                                     </span>
                                 </td>
