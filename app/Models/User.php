@@ -42,10 +42,7 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function canAccessTenant(Model $tenant): bool
-    {
-        return $this->teams->contains($tenant);
-    }
+
 
     public function canAccessPanel(Panel $panel): bool
     {

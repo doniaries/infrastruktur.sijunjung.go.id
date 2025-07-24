@@ -128,7 +128,7 @@ class UserResource extends Resource
                     ->visible(
                         fn($record) =>
                         auth()->user()->hasRole('super_admin') ||
-                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                            auth()->user()->id === $record->id
                     )
                     ->form([
                         Forms\Components\TextInput::make('password')
@@ -153,8 +153,7 @@ class UserResource extends Resource
                 Impersonate::make() //untuk peniruan user
                     ->visible(
                         fn($record) =>
-                        auth()->user()->hasRole('super_admin') ||
-                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                        auth()->user()->hasRole('super_admin')
                     ),
                 Tables\Actions\EditAction::make()
                     ->closeModalByClickingAway(false)
@@ -163,14 +162,13 @@ class UserResource extends Resource
                     ->visible(
                         fn($record) =>
                         auth()->user()->hasRole('super_admin') ||
-                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                            auth()->user()->id === $record->id
                     ),
                 // ->slideOver(),
                 Tables\Actions\DeleteAction::make()
                     ->visible(
                         fn($record) =>
-                        auth()->user()->hasRole('super_admin') ||
-                            $record->teams()->whereIn('id', auth()->user()->teams->pluck('id'))->exists()
+                        auth()->user()->hasRole('super_admin')
                     ),
             ])
             ->bulkActions([
