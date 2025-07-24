@@ -3,67 +3,87 @@ import 'flowbite';
 
 // Initialize Flowbite and handle all UI interactions
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded'); // Debug log
+    
     // Flowbite initialization code if needed
     
     // Dark mode toggle functionality
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    
-    if (themeToggleBtn) {
-        const darkIcon = document.getElementById('dark-icon');
-        const lightIcon = document.getElementById('light-icon');
+    function initThemeToggle() {
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        console.log('Theme toggle button found:', themeToggleBtn); // Debug log
         
-        // Check for saved theme preference or use system preference
-        if (localStorage.getItem('color-theme') === 'dark' || 
-            (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            if (lightIcon && darkIcon) {
-                lightIcon.classList.remove('hidden');
-                darkIcon.classList.add('hidden');
-            }
-        } else {
-            document.documentElement.classList.remove('dark');
-            if (lightIcon && darkIcon) {
-                lightIcon.classList.add('hidden');
-                darkIcon.classList.remove('hidden');
-            }
-        }
-        
-        // Add click event to toggle button
-        themeToggleBtn.addEventListener('click', function() {
-            // Mencegah header bergerak ke bawah dengan memastikan posisi tetap sebelum toggle
-            const header = document.querySelector('nav');
-            if (header) {
-                header.style.position = 'sticky';
-                header.style.top = '0';
-                header.style.zIndex = '1000';
-            }
+        if (themeToggleBtn) {
+            const darkIcon = document.getElementById('dark-icon');
+            const lightIcon = document.getElementById('light-icon');
             
-            // Toggle dark class on html element
-            document.documentElement.classList.toggle('dark');
-            
-            // Toggle icons if they exist
-            if (darkIcon && lightIcon) {
-                darkIcon.classList.toggle('hidden');
-                lightIcon.classList.toggle('hidden');
-            }
-            
-            // Update localStorage
-            if (document.documentElement.classList.contains('dark')) {
-                localStorage.setItem('color-theme', 'dark');
-            } else {
-                localStorage.setItem('color-theme', 'light');
-            }
-            
-            // Mencegah header bergerak ke bawah dengan memastikan posisi tetap setelah toggle
-            setTimeout(() => {
-                if (header) {
-                    header.style.position = 'sticky';
-                    header.style.top = '0';
-                    header.style.zIndex = '1000';
+            // Function to update icons based on current theme
+            function updateIcons() {
+                const isDark = document.documentElement.classList.contains('dark');
+                console.log('Current theme is dark:', isDark); // Debug log
+                if (darkIcon && lightIcon) {
+                    if (isDark) {
+                        darkIcon.classList.add('hidden');
+                        lightIcon.classList.remove('hidden');
+                    } else {
+                        darkIcon.classList.remove('hidden');
+                        lightIcon.classList.add('hidden');
+                    }
                 }
-            }, 50);
-        });
+            }
+            
+            // Function to toggle theme
+            function toggleTheme() {
+                console.log('Theme toggle clicked'); // Debug log
+                document.documentElement.classList.toggle('dark');
+                updateIcons();
+                
+                // Update localStorage
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    localStorage.setItem('color-theme', 'light');
+                }
+            }
+            
+            // Check for saved theme preference or use system preference
+            if (localStorage.getItem('color-theme') === 'dark' || 
+                (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Update icons on page load
+            updateIcons();
+            
+            // Remove any existing event listeners
+            themeToggleBtn.onclick = null;
+            
+            // Add click event to toggle button
+            themeToggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleTheme();
+            });
+            
+            // Fallback: Add onclick attribute directly to button
+            themeToggleBtn.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleTheme();
+            };
+        } else {
+            console.log('Theme toggle button not found!');
+        }
     }
+    
+    // Initialize theme toggle
+    initThemeToggle();
+    
+    // Re-initialize after a delay to handle dynamic content
+    setTimeout(() => {
+        initThemeToggle();
+    }, 1000);
     
     // Enhanced mobile menu toggle with animation
     const mobileMenuButton = document.getElementById('mobile-menu-button');
