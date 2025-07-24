@@ -706,23 +706,49 @@
             });
         });
 
-        // Back to Top Button Functionality
+        // Navigation Buttons Functionality
         document.addEventListener('DOMContentLoaded', function() {
             const backToTopButton = document.getElementById('back-to-top');
+            const scrollDownButton = document.getElementById('scroll-down');
             
-            if (backToTopButton) {
-                // Show/hide button based on scroll position
-                window.addEventListener('scroll', function() {
-                    if (window.pageYOffset > 300) {
+            function updateButtonsVisibility() {
+                const scrollPosition = window.pageYOffset;
+                const documentHeight = document.documentElement.scrollHeight;
+                const windowHeight = window.innerHeight;
+                const isAtTop = scrollPosition < 100;
+                const isAtBottom = scrollPosition + windowHeight >= documentHeight - 100;
+                
+                // Back to Top Button
+                if (backToTopButton) {
+                    if (scrollPosition > 300) {
                         backToTopButton.classList.remove('opacity-0', 'pointer-events-none');
                         backToTopButton.classList.add('opacity-100');
                     } else {
                         backToTopButton.classList.add('opacity-0', 'pointer-events-none');
                         backToTopButton.classList.remove('opacity-100');
                     }
-                });
+                }
                 
-                // Smooth scroll to top
+                // Scroll Down Button
+                if (scrollDownButton) {
+                    if (isAtTop && !isAtBottom) {
+                        scrollDownButton.classList.remove('opacity-0', 'pointer-events-none');
+                        scrollDownButton.classList.add('opacity-100');
+                    } else {
+                        scrollDownButton.classList.add('opacity-0', 'pointer-events-none');
+                        scrollDownButton.classList.remove('opacity-100');
+                    }
+                }
+            }
+            
+            // Show/hide buttons based on scroll position
+            window.addEventListener('scroll', updateButtonsVisibility);
+            
+            // Initial check
+            updateButtonsVisibility();
+            
+            // Back to Top Button Click
+            if (backToTopButton) {
                 backToTopButton.addEventListener('click', function() {
                     window.scrollTo({
                         top: 0,
@@ -730,13 +756,31 @@
                     });
                 });
             }
+            
+            // Scroll Down Button Click
+            if (scrollDownButton) {
+                scrollDownButton.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: document.documentElement.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }
         });
     </script>
 
+    <!-- Navigation Buttons -->
     <!-- Back to Top Button -->
     <button id="back-to-top" 
         class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800"
         aria-label="Back to top">
         <i class="fas fa-chevron-up text-lg"></i>
+    </button>
+    
+    <!-- Scroll Down Button -->
+    <button id="scroll-down" 
+        class="fixed bottom-6 left-6 z-50 w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800"
+        aria-label="Scroll to bottom">
+        <i class="fas fa-chevron-down text-lg"></i>
     </button>
 </x-layouts.app>
