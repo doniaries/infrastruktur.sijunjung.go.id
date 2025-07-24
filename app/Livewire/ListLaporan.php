@@ -29,11 +29,23 @@ class ListLaporan extends Component implements HasTable, HasForms
     use InteractsWithTable, InteractsWithForms;
 
     public $ticket;
+    public $search = '';
+    public $statusFilter = '';
 
     public function mount()
     {
         // Mengambil parameter ticket dari URL jika ada
         $this->ticket = request()->get('ticket');
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedStatusFilter()
+    {
+        $this->resetPage();
     }
 
     public function table(Table $table): Table
@@ -188,7 +200,32 @@ class ListLaporan extends Component implements HasTable, HasForms
     public function render()
     {
         $totalLaporan = Lapor::count();
-        $laporans = \App\Models\Lapor::with('opd')->latest()->paginate(10);
+        
+        $query = \App\Models\Lapor::with('opd');
+        
+        // Filter berdasarkan pencarian
+        if ($this->search) {
+            $query->where(function($q) {
+                $q->where('no_tiket', 'like', '%' . $this->search . '%')
+                  ->orWhere('nama_pelapor', 'like', '%' . $this->search . '%')
+                  ->orWhere('uraian_laporan', 'like', '%' . $this->search . '%')
+                  ->orWhereHas('opd', function($q) {
+                      $q->where('nama', 'like', '%' . $this->search . '%');
+                  });
+            });
+        }
+        
+        // Filter berdasarkan status
+        if ($this->statusFilter) {
+            $query->where('status_laporan', $this->statusFilter);
+        }
+        
+        // Filter berdasarkan ticket jika ada
+        if ($this->ticket) {
+            $query->where('no_tiket', $this->ticket);
+        }
+        
+        $laporans = $query->latest()->paginate(10);
 
         return view('livewire.list-laporan', [
             'totalLaporan' => $totalLaporan,

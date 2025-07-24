@@ -17,6 +17,44 @@
                     style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
                     <i class="fas fa-plus-circle mr-2"></i> Tambah Laporan
                 </a>
+            </div>
+            
+            <!-- Form Pencarian dan Filter -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 mb-6 border border-gray-400 dark:border-gray-700">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-search mr-1"></i> Pencarian
+                        </label>
+                        <input type="text" 
+                               wire:model.live="search" 
+                               id="search"
+                               placeholder="Cari berdasarkan No Tiket, Nama Pelapor, OPD, atau Uraian..."
+                               class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <div class="md:w-64">
+                        <label for="statusFilter" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            <i class="fas fa-filter mr-1"></i> Filter Status
+                        </label>
+                        <select wire:model.live="statusFilter" 
+                                id="statusFilter"
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Semua Status</option>
+                            <option value="Belum Diproses">Belum Diproses</option>
+                            <option value="Sedang Diproses">Sedang Diproses</option>
+                            <option value="Selesai Diproses">Selesai Diproses</option>
+                        </select>
+                    </div>
+                    @if($search || $statusFilter)
+                        <div class="flex items-end">
+                            <button wire:click="$set('search', ''); $set('statusFilter', '')" 
+                                    class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md transition-colors duration-200">
+                                <i class="fas fa-times mr-1"></i> Reset
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
                 <style>
                     .btn-tambah-laporan {
                         background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
@@ -63,17 +101,19 @@
                                 <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
                                     {{ $lapor->uraian_laporan }}</td>
                                 <td class="px-4 py-2 text-sm text-gray-900 dark:text-gray-100">
-                                    <span
-                                        class="inline-block px-2 py-1 rounded 
-                                        @if($lapor->status_laporan == 'Belum Diproses') 
-                                            bg-red-100 text-red-800
-                                        @elseif($lapor->status_laporan == 'Sedang Diproses') 
-                                            bg-orange-100 text-orange-800
-                                        @else 
-                                            bg-green-100 text-green-800
-                                        @endif">
-                                        {{ $lapor->status_laporan }}
-                                    </span>
+                                    @if($lapor->status_laporan == 'Belum Diproses')
+                                        <span class="status-badge status-belum inline-block px-3 py-1 rounded-full text-xs font-semibold">
+                                            {{ $lapor->status_laporan }}
+                                        </span>
+                                    @elseif($lapor->status_laporan == 'Sedang Diproses')
+                                        <span class="status-badge status-sedang inline-block px-3 py-1 rounded-full text-xs font-semibold">
+                                            {{ $lapor->status_laporan }}
+                                        </span>
+                                    @else
+                                        <span class="status-badge status-selesai inline-block px-3 py-1 rounded-full text-xs font-semibold">
+                                            {{ $lapor->status_laporan }}
+                                        </span>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

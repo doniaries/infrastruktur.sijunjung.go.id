@@ -35,7 +35,7 @@ class NagariResource extends Resource
                     ->preload()
                     ->relationship('kecamatan', 'nama')
                     ->searchable(),
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\TextInput::make('nama_nagari')
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->live()
@@ -50,7 +50,7 @@ class NagariResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('nama_nagari')
                     ->label('Nama Nagari')
                     ->searchable()
                     ->sortable(),

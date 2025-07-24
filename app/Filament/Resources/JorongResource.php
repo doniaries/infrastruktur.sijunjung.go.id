@@ -32,8 +32,8 @@ class JorongResource extends Resource
             ->schema([
                 Forms\Components\Select::make('nagari_id')
                     ->required()
-                    ->relationship('nagari', 'nama'),
-                Forms\Components\TextInput::make('nama')
+                    ->relationship('nagari', 'nama_nagari'),
+                Forms\Components\TextInput::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->required()
                     ->maxLength(255),
@@ -45,7 +45,7 @@ class JorongResource extends Resource
         return $table
             ->columns([
 
-                Tables\Columns\TextColumn::make('nama')
+                Tables\Columns\TextColumn::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nagari.nama')
