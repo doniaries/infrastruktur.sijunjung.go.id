@@ -48,7 +48,7 @@ class ListBts extends Component implements HasTable, HasForms
                 Tables\Columns\TextColumn::make('kecamatan.nama')
                     ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nagari.nama')
+                Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('titik_koordinat')

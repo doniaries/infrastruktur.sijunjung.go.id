@@ -21,33 +21,112 @@ class ListNagari extends Component implements HasTable, HasForms
     public function table(Table $table): Table
     {
         return $table
-            ->query(Nagari::query())
+            ->query(Nagari::query()->with('kecamatan'))
             ->contentGrid([
                 'md' => 1,
                 'xl' => 1,
             ])
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([5, 10, 25, 50, 100])
+            ->striped()
+            ->deferLoading()
             ->columns([
                 Tables\Columns\TextColumn::make('nama_nagari')
                     ->label('Nama Nagari')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight(FontWeight::SemiBold)
+                    ->color('primary')
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('kecamatan.nama')
                     ->label('Nama Kecamatan')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\TextColumn::make('nama_wali_nagari')
-                    ->label('Nama Wali Nagari'),
+                    ->label('Nama Wali Nagari')
+                    ->searchable()
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('alamat_kantor')
-                    ->label('Alamat Kantor'),
+                    ->label('Alamat Kantor')
+                    ->searchable()
+                    ->wrap()
+                    ->limit(50)
+                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
+                        $state = $column->getState();
+                        if (strlen($state) <= 50) {
+                            return null;
+                        }
+                        return $state;
+                    })
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('luas_nagari')
                     ->sortable()
-                    ->label('Luas Nagari'),
+                    ->label('Luas Nagari')
+                    ->numeric()
+                    ->suffix(' Ha')
+                    ->alignEnd(),
                 Tables\Columns\TextColumn::make('jumlah_penduduk')
                     ->sortable()
-                    ->label('Jumlah Penduduk'),
+                    ->label('Jumlah Penduduk')
+                    ->numeric()
+                    ->suffix(' Jiwa')
+                    ->alignEnd(),
                 Tables\Columns\TextColumn::make('jumlah_jorong')
                     ->sortable()
-                    ->label('Jumlah Jorong'),
+                    ->label('Jumlah Jorong')
+                    ->numeric()
+                    ->alignCenter()
+                    ->badge()
+                    ->color('info'),
+            ])
+            ->filters([
+                Tables\Filters\SelectFilter::make('kecamatan_id')
+                    ->label('Filter Kecamatan')
+                    ->relationship('kecamatan', 'nama')
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\Filter::make('jumlah_penduduk_range')
+                    ->form([
+                        \Filament\Forms\Components\Grid::make(2)
+                            ->schema([
+                                \Filament\Forms\Components\TextInput::make('min_penduduk')
+                                    ->label('Min Penduduk')
+                                    ->numeric(),
+                                \Filament\Forms\Components\TextInput::make('max_penduduk')
+                                    ->label('Max Penduduk')
+                                    ->numeric(),
+                            ])
+                    ])
+                    ->query(function (\Illuminate\Database\Eloquent\Builder $query, array $data): \Illuminate\Database\Eloquent\Builder {
+                        return $query
+                            ->when(
+                                $data['min_penduduk'],
+                                fn (\Illuminate\Database\Eloquent\Builder $query, $min): \Illuminate\Database\Eloquent\Builder => $query->where('jumlah_penduduk', '>=', $min),
+                            )
+                            ->when(
+                                $data['max_penduduk'],
+                                fn (\Illuminate\Database\Eloquent\Builder $query, $max): \Illuminate\Database\Eloquent\Builder => $query->where('jumlah_penduduk', '<=', $max),
+                            );
+                    })
+            ])
+             ->filtersFormColumns(2)
+
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('export')
+                        ->label('Export Data')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->action(function (\Illuminate\Database\Eloquent\Collection $records) {
+                            // Export functionality can be implemented here
+                            $this->dispatch('notify', [
+                                'type' => 'success',
+                                'message' => 'Export berhasil untuk ' . $records->count() . ' data!',
+                            ]);
+                        }),
+                ]),
             ])
             // ->actions([
             //     Tables\Actions\EditAction::make()
@@ -93,7 +172,10 @@ class ListNagari extends Component implements HasTable, HasForms
             // ])
             ->defaultSort('kecamatan.nama', 'asc')
             ->emptyStateHeading('Belum Ada Data Nagari')
-            ->emptyStateIcon('heroicon-m-map');
+            ->emptyStateIcon('heroicon-m-map')
+            ->persistFiltersInSession()
+            ->persistSortInSession()
+            ->persistSearchInSession();
     }
 
     public function render()

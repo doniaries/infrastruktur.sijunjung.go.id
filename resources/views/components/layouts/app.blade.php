@@ -338,28 +338,17 @@
         <i class="fas fa-chevron-up text-lg"></i>
     </button>
     
-    <!-- Scroll Down Button -->
-    <button id="scroll-down" 
-        class="fixed top-6 right-20 z-50 w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 opacity-0 pointer-events-none transform hover:scale-110 focus:outline-none focus:ring-4 focus:ring-green-300 dark:focus:ring-green-800"
-        aria-label="Scroll to bottom">
-        <i class="fas fa-chevron-down text-lg"></i>
-    </button>
+
 
     <!-- Navigation Buttons Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get button elements
             const backToTopButton = document.getElementById('back-to-top');
-            const scrollDownButton = document.getElementById('scroll-down');
             
             // Function to update button visibility based on scroll position
             function updateButtonsVisibility() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const scrollHeight = document.documentElement.scrollHeight;
-                const clientHeight = document.documentElement.clientHeight;
-                
-                const isAtTop = scrollTop <= 100;
-                const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100;
                 
                 // Back to Top Button
                 if (backToTopButton) {
@@ -369,17 +358,6 @@
                     } else {
                         backToTopButton.classList.add('opacity-0', 'pointer-events-none');
                         backToTopButton.classList.remove('opacity-100');
-                    }
-                }
-                
-                // Scroll Down Button (positioned at top, always visible when not at bottom)
-                if (scrollDownButton) {
-                    if (!isAtBottom) {
-                        scrollDownButton.classList.remove('opacity-0', 'pointer-events-none');
-                        scrollDownButton.classList.add('opacity-100');
-                    } else {
-                        scrollDownButton.classList.add('opacity-0', 'pointer-events-none');
-                        scrollDownButton.classList.remove('opacity-100');
                     }
                 }
             }
@@ -395,16 +373,6 @@
                 backToTopButton.addEventListener('click', function() {
                     window.scrollTo({
                         top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }
-            
-            // Scroll Down Button Click (scrolls to bottom)
-            if (scrollDownButton) {
-                scrollDownButton.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: document.documentElement.scrollHeight,
                         behavior: 'smooth'
                     });
                 });
