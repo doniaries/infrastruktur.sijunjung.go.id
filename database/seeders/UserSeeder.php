@@ -14,6 +14,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
+            // Hapus semua data user yang sudah ada
+            User::query()->delete();
+            
             // Super Admin
             $superAdmin = User::create([
                 'name' => 'DON BORLAND',
