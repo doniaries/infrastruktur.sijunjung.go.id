@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
             PeralatanSeeder::class,
             OperatorSeeder::class,
             KecamatanSeeder::class,
-            NagariSeeder::class,
-            JorongSeeder::class,
-            OpdSeeder::class,
+            // NagariSeeder::class,
+            // JorongSeeder::class,
+            // OpdSeeder::class,
             ShieldSeeder::class, // Harus dijalankan sebelum RoleSeeder untuk membuat permission
             RoleSeeder::class,   // Menggunakan permission yang dibuat oleh ShieldSeeder
             UserSeeder::class,   // Membuat user dengan role yang telah dibuat

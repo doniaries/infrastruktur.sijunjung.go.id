@@ -41,11 +41,29 @@ class UserSeeder extends Seeder
             ]);
             $petugas2->assignRole('petugas');
 
+            //kepalabidang
+            $petugas3 = User::create([
+                'name' => 'Kepala Bidang',
+                'email' => 'kabidti@gmail.com',
+                'password' => bcrypt('kabidti'),
+                'is_active' => true,
+            ]);
+            $petugas3->assignRole('petugas');
+
+            //kadis
+            $petugas4 = User::create([
+                'name' => 'Kepala Disposisi',
+                'email' => 'kadiskominfo@gmail.com',
+                'password' => bcrypt('kadiskominfo'),
+                'is_active' => true,
+            ]);
+            $petugas4->assignRole('petugas');
+
             // Pengguna1
             $pengguna1 = User::create([
                 'name' => 'Pengguna',
                 'email' => 'pengguna1@gmail.com',
-                'password' => bcrypt('pengguna1'),
+                'password' => bcrypt('pengguna),
                 'is_active' => true,
             ]);
             $pengguna1->assignRole('pengguna');
