@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
 
             //kepalabidang
             $petugas3 = User::create([
-                'name' => 'Kepala Bidang',
+                'name' => 'DINI RAHMAWATI, ST, MM',
                 'email' => 'kabidti@gmail.com',
                 'password' => bcrypt('kabidti'),
                 'is_active' => true,
@@ -52,7 +52,7 @@ class UserSeeder extends Seeder
 
             //kadis
             $petugas4 = User::create([
-                'name' => 'Kepala Disposisi',
+                'name' => 'drg. EZWANDRA, M.Sc',
                 'email' => 'kadiskominfo@gmail.com',
                 'password' => bcrypt('kadiskominfo'),
                 'is_active' => true,
