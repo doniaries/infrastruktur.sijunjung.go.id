@@ -18,23 +18,23 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <input type="text" wire:model.live="search" placeholder="Cari laporan..." 
-                           class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+            <div class="mb-6 flex flex-wrap gap-3 items-center">
+                <div class="flex-1 min-w-64">
+                    <input type="text" wire:model.live="search" placeholder="Cari laporan..."
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
-                <div>
-                    <select wire:model.live="statusFilter" 
-                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                <div class="min-w-48">
+                    <select wire:model.live="statusFilter"
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Status</option>
                         <option value="Belum Diproses">Belum Diproses</option>
                         <option value="Sedang Diproses">Sedang Diproses</option>
                         <option value="Selesai Diproses">Selesai Diproses</option>
                     </select>
                 </div>
-                <div>
-                    <select wire:model.live="opdFilter" 
-                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                <div class="min-w-48">
+                    <select wire:model.live="opdFilter"
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua OPD</option>
                         @foreach($opds as $opd)
                             <option value="{{ $opd->id }}">{{ $opd->nama }}</option>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <!-- Table Section -->
-            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto">
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -113,8 +113,8 @@
         </section>
 
             <!-- Pagination -->
-            <div class="mt-6">
-                {{ $laporans->links() }}
+            <div class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                {{ $laporans->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>
     </div>

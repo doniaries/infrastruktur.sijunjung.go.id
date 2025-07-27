@@ -10,36 +10,36 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class ListBts extends Component
 {
     use WithPagination;
-    
+
     public $search = '';
     public $operatorFilter = '';
     public $kecamatanFilter = '';
     public $teknologiFilter = '';
     public $statusFilter = '';
-    public $perPage = 10;
-    
+    public $perPage = 5;
+
     protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter'];
-    
+
     public function updatingSearch()
     {
         $this->resetPage();
     }
-    
+
     public function updatingOperatorFilter()
     {
         $this->resetPage();
     }
-    
+
     public function updatingKecamatanFilter()
     {
         $this->resetPage();
     }
-    
+
     public function updatingTeknologiFilter()
     {
         $this->resetPage();
     }
-    
+
     public function updatingStatusFilter()
     {
         $this->resetPage();
@@ -52,16 +52,16 @@ class ListBts extends Component
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('titik_koordinat', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('operator', function ($op) {
-                          $op->where('nama_operator', 'like', '%' . $this->search . '%');
-                      })
-                      ->orWhereHas('kecamatan', function ($kec) {
-                          $kec->where('nama', 'like', '%' . $this->search . '%');
-                      })
-                      ->orWhereHas('nagari', function ($nag) {
-                          $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
-                      });
+                        ->orWhere('alamat', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('operator', function ($op) {
+                            $op->where('nama_operator', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('kecamatan', function ($kec) {
+                            $kec->where('nama', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('nagari', function ($nag) {
+                            $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
+                        });
                 });
             })
             ->when($this->operatorFilter, function ($query) {
@@ -79,12 +79,12 @@ class ListBts extends Component
             ->orderBy('tahun_bangun', 'desc')
             ->paginate($this->perPage);
     }
-    
+
     public function getOperators()
     {
         return \App\Models\Operator::orderBy('nama_operator')->get();
     }
-    
+
     public function getKecamatans()
     {
         return \App\Models\Kecamatan::orderBy('nama')->get();
@@ -98,16 +98,16 @@ class ListBts extends Component
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('titik_koordinat', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('operator', function ($op) {
-                          $op->where('nama_operator', 'like', '%' . $this->search . '%');
-                      })
-                      ->orWhereHas('kecamatan', function ($kec) {
-                          $kec->where('nama', 'like', '%' . $this->search . '%');
-                      })
-                      ->orWhereHas('nagari', function ($nag) {
-                          $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
-                      });
+                        ->orWhere('alamat', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('operator', function ($op) {
+                            $op->where('nama_operator', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('kecamatan', function ($kec) {
+                            $kec->where('nama', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhereHas('nagari', function ($nag) {
+                            $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
+                        });
                 });
             })
             ->when($this->operatorFilter, function ($query) {

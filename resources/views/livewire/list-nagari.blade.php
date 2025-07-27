@@ -77,7 +77,7 @@
          </section>
 
             <!-- Table Section -->
-            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto" wire:loading.remove>
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto" wire:loading.remove>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -126,8 +126,8 @@
             </div>
             
             <!-- Pagination -->
-            <div class="mt-6">
-                {{ $nagaris->links() }}
+            <div class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                {{ $nagaris->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>
     </div>
