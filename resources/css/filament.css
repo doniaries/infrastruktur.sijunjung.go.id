@@ -188,19 +188,19 @@ button[onclick*="scroll"],
     margin-bottom: 2rem !important;
 }
 
-/* Gaya untuk header tabel Filament */
-.filament-tables-header-cell {
+/* Gaya untuk header tabel Filament - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* .filament-tables-header-cell {
     color: white !important;
     background-color: #1e40af !important;
-    /* font-weight: bold !important; */
-}
+    font-weight: bold !important;
+} */
 
-/* Gaya untuk header tabel Filament di mode gelap */
-.dark .filament-tables-header-cell {
+/* Gaya untuk header tabel Filament di mode gelap - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* .dark .filament-tables-header-cell {
     color: white !important;
     background-color: #1e3a8a !important;
-    /* font-weight: bold !important; */
-}
+    font-weight: bold !important;
+} */
 
 /* Gaya untuk semua header tabel - DINONAKTIFKAN UNTUK KONSISTENSI */
 /* th {
