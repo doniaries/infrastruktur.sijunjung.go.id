@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <a href="{{ route('public.laporform') }}"
-                    class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200 min-w-fit">
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200 min-w-fit btn-primary-enhanced ripple glow-on-hover">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
@@ -133,4 +133,6 @@
             </div>
         </div>
     </div>
+    
+
 </div>
