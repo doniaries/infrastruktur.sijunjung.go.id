@@ -13,6 +13,8 @@ class KecamatanSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Kecamatan::query()->delete();
         $kecamatan = [
             [
                 'id' => 1,

@@ -13,6 +13,8 @@ class LaporSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Lapor::query()->delete();
         // Laporan 1: Laporan Gangguan - Belum Diproses
         Lapor::create([
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
