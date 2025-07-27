@@ -233,7 +233,9 @@ th.text-gray-500 {
     color: white !important;
 }
 
-.dark th.text-gray-500,
+.dark th.text-white {
+    color: white !important;
+},
 .dark th.dark\:text-gray-300 {
     color: white !important;
 }
