@@ -322,6 +322,15 @@ tbody td {
     color: white !important;
 } */
 
+/* Perbaikan untuk visibilitas teks header tabel di mode gelap */
+.dark th {
+    color: #f9fafb !important;
+}
+
+.dark thead th {
+    color: #f9fafb !important;
+}
+
 /* Gaya untuk h1 */
 h1 {
     color: #252525 !important;
