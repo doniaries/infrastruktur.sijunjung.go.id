@@ -12,6 +12,8 @@ class JorongSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Jorong::query()->delete();
         $jorongs = [
             ['id' => 1, 'nagari_id' => 1, 'nama_jorong' => 'Pantai Cermin'],
             ['id' => 2, 'nagari_id' => 1, 'nama_jorong' => 'Tambang Ameh'],
