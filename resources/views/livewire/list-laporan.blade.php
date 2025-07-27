@@ -88,7 +88,7 @@
                                             </span>
                                         @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Sedang Diproses')
                                             <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
                                                 {{ $lapor->status_laporan->getLabel() }}
                                             </span>
                                         @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Selesai Diproses')
