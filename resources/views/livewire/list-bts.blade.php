@@ -9,12 +9,12 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-                <div>
+            <div class="mb-6 flex flex-wrap gap-3 items-center">
+                <div class="flex-1 min-w-[200px]">
                     <input type="text" wire:model.live="search" placeholder="Cari BTS..." 
                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
-                <div>
+                <div class="min-w-[140px]">
                     <select wire:model.live="operatorFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Operator</option>
@@ -23,7 +23,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="min-w-[140px]">
                     <select wire:model.live="kecamatanFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Kecamatan</option>
@@ -32,7 +32,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="min-w-[120px]">
                     <select wire:model.live="teknologiFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Teknologi</option>
@@ -43,7 +43,7 @@
                         <option value="5G">5G</option>
                     </select>
                 </div>
-                <div>
+                <div class="min-w-[120px]">
                     <select wire:model.live="statusFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Status</option>
