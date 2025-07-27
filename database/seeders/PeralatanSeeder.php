@@ -13,6 +13,8 @@ class PeralatanSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Peralatan::query()->delete();
         $peralatan = [
             [
                 'id' => 1,
