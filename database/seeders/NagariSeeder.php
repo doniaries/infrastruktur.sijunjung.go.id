@@ -12,6 +12,8 @@ class NagariSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Nagari::query()->delete();
         $nagaris = [
             ['id' => 1, 'kecamatan_id' => 3, 'nama_nagari' => 'Palangki'],
             ['id' => 2, 'kecamatan_id' => 3, 'nama_nagari' => 'Koto Baru'],

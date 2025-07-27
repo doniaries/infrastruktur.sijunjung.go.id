@@ -12,6 +12,8 @@ class OperatorSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        \App\Models\Operator::query()->delete();
         $operators = [
 
             [
