@@ -548,3 +548,125 @@ td span[class*="bg-green-100"][class*="text-green-800"] {
     color: #86efac !important;
     border: 1px solid #166534 !important;
 }
+
+/* Styling untuk form button pada halaman publik */
+.form-button {
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    transition: all 0.2s ease-in-out !important;
+    border: 1px solid transparent !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+}
+
+/* Tombol Kembali */
+.form-button-back {
+    background-color: #6b7280 !important;
+    color: white !important;
+    border-color: #6b7280 !important;
+}
+
+.form-button-back:hover {
+    background-color: #4b5563 !important;
+    border-color: #4b5563 !important;
+    color: white !important;
+}
+
+/* Tombol Submit */
+.form-button-submit {
+    background-color: #1e40af !important;
+    color: white !important;
+    border-color: #1e40af !important;
+}
+
+.form-button-submit:hover {
+    background-color: #1e3a8a !important;
+    border-color: #1e3a8a !important;
+    color: white !important;
+}
+
+/* Mode gelap untuk form button */
+.dark .form-button-back {
+    background-color: #4b5563 !important;
+    color: #f9fafb !important;
+    border-color: #4b5563 !important;
+}
+
+.dark .form-button-back:hover {
+    background-color: #374151 !important;
+    border-color: #374151 !important;
+    color: #f9fafb !important;
+}
+
+.dark .form-button-submit {
+    background-color: #1e40af !important;
+    color: #f9fafb !important;
+    border-color: #1e40af !important;
+}
+
+.dark .form-button-submit:hover {
+    background-color: #1e3a8a !important;
+    border-color: #1e3a8a !important;
+    color: #f9fafb !important;
+}
+
+/* Styling untuk form container */
+.form-container {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.dark .form-container {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Perbaikan kontras teks untuk form labels dan input */
+.form-container label {
+    color: #374151 !important;
+    font-weight: 500 !important;
+}
+
+.dark .form-container label {
+    color: #f3f4f6 !important;
+}
+
+/* Styling untuk input fields */
+.form-container input,
+.form-container textarea,
+.form-container select {
+    background-color: #ffffff !important;
+    border: 1px solid #d1d5db !important;
+    color: #111827 !important;
+}
+
+.dark .form-container input,
+.dark .form-container textarea,
+.dark .form-container select {
+    background-color: #374151 !important;
+    border: 1px solid #4b5563 !important;
+    color: #f9fafb !important;
+}
+
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    border-color: #1e40af !important;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1) !important;
+}
+
+.dark .form-container input:focus,
+.dark .form-container textarea:focus,
+.dark .form-container select:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Placeholder text styling */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+.dark .form-container input::placeholder,
+.dark .form-container textarea::placeholder {
+    color: #6b7280 !important;
+}
