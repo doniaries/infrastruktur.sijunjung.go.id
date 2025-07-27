@@ -215,6 +215,46 @@ th {
     background-color: #1e3a8a !important;
 }
 
+/* Gaya spesifik untuk header tabel dengan class bg-gray-50 dan dark:bg-gray-700 */
+thead.bg-gray-50 th,
+.bg-gray-50 th {
+    color: white !important;
+    background-color: #1e40af !important;
+}
+
+.dark thead.bg-gray-700 th,
+.dark .bg-gray-700 th {
+    color: white !important;
+    background-color: #1e3a8a !important;
+}
+
+/* Gaya untuk header tabel dengan class text-gray-500 */
+th.text-gray-500 {
+    color: white !important;
+}
+
+.dark th.text-gray-500,
+.dark th.dark\:text-gray-300 {
+    color: white !important;
+}
+
+/* Override untuk semua kemungkinan class header tabel */
+thead th,
+table thead th,
+.table thead th,
+thead.bg-gray-50.dark\:bg-gray-700 th {
+    color: white !important;
+    background-color: #1e40af !important;
+}
+
+.dark thead th,
+.dark table thead th,
+.dark .table thead th,
+.dark thead.bg-gray-50.dark\:bg-gray-700 th {
+    color: white !important;
+    background-color: #1e3a8a !important;
+}
+
 /* Gaya untuk baris tabel */
 tbody td {
     color: #1a202c !important;
