@@ -2,19 +2,30 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Data BTS</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">Total: {{ $totalData }} BTS</p>
+                <div class="flex justify-center flex-1">
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold">Data BTS</h2>
+                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
+                    </div>
                 </div>
+                <button wire:click="exportPdf"
+                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Export PDF
+                </button>
             </div>
 
             <!-- Search and Filter Form -->
             <div class="mb-6 flex flex-wrap gap-3 items-center">
-                <div class="flex-1 min-w-[200px]">
+                <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari BTS..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
-                <div class="min-w-[140px]">
+                <div class="min-w-48">
                     <select wire:model.live="operatorFilter"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Operator</option>
@@ -23,7 +34,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="min-w-[140px]">
+                <div class="min-w-48">
                     <select wire:model.live="kecamatanFilter"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Kecamatan</option>
@@ -32,7 +43,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="min-w-[120px]">
+                <div class="min-w-48">
                     <select wire:model.live="teknologiFilter"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Teknologi</option>
@@ -43,7 +54,7 @@
                         <option value="5G">5G</option>
                     </select>
                 </div>
-                <div class="min-w-[120px]">
+                <div class="min-w-48">
                     <select wire:model.live="statusFilter"
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Status</option>
@@ -51,98 +62,74 @@
                         <option value="non-aktif">Non-Aktif</option>
                     </select>
                 </div>
-                <div class="min-w-[120px]">
-                    <button wire:click="exportPdf"
-                        class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
-                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                            </path>
-                        </svg>
-                        Export PDF
-                    </button>
-                </div>
             </div>
 
-            <!-- Skeleton Loading -->
-            <div wire:loading class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Operator</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Koordinat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Alamat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Teknologi</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Tahun Bangun</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        @for ($i = 0; $i < 10; $i++)
-                            <tr class="animate-pulse">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-20"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-40"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-16"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-16"></div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                                </td>
+            <!-- Skeleton Loading Section -->
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto" wire:loading>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Operator</th>
+                                <th scope="col" class="px-6 py-3">Kecamatan</th>
+                                <th scope="col" class="px-6 py-3">Nagari</th>
+                                <th scope="col" class="px-6 py-3">Koordinat</th>
+                                <th scope="col" class="px-6 py-3">Alamat</th>
+                                <th scope="col" class="px-6 py-3">Teknologi</th>
+                                <th scope="col" class="px-6 py-3">Status</th>
+                                <th scope="col" class="px-6 py-3">Tahun Bangun</th>
                             </tr>
-                        @endfor
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            @for ($i = 0; $i < 10; $i++)
+                                <tr class="animate-pulse">
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-20"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-24"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-32"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-40"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-48"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
+                                    </td>
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-            <!-- Table -->
-            <div class="overflow-x-auto" wire:loading.remove>
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Operator</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Koordinat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Alamat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Teknologi</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                                Tahun Bangun</th>
-                        </tr>
-                    </thead>
+            <!-- Table Section -->
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto" wire:loading.remove>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Operator</th>
+                                <th scope="col" class="px-6 py-3">Kecamatan</th>
+                                <th scope="col" class="px-6 py-3">Nagari</th>
+                                <th scope="col" class="px-6 py-3">Koordinat</th>
+                                <th scope="col" class="px-6 py-3">Alamat</th>
+                                <th scope="col" class="px-6 py-3">Teknologi</th>
+                                <th scope="col" class="px-6 py-3">Status</th>
+                                <th scope="col" class="px-6 py-3">Tahun Bangun</th>
+                            </tr>
+                        </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         @forelse($bts as $item)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
@@ -165,18 +152,23 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $item->nagari ? $item->nagari->nama_nagari : '-' }}</td>
-                                <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 font-mono">
-                                    {{ $item->titik_koordinat }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $item->nagari ? $item->nagari->nama_nagari : '-' }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $item->titik_koordinat }}
+                                </td>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
-                                    {{ $item->alamat }}</td>
+                                    {{ $item->alamat }}
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($item->teknologi == '2G')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
                                             {{ $item->teknologi }}
                                         </span>
                                     @elseif($item->teknologi == '3G')
@@ -184,7 +176,7 @@
                                             {{ $item->teknologi }}
                                         </span>
                                     @elseif($item->teknologi == '4G')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                             {{ $item->teknologi }}
                                         </span>
                                     @elseif($item->teknologi == '4G+5G')
@@ -192,7 +184,7 @@
                                             {{ $item->teknologi }}
                                         </span>
                                     @elseif($item->teknologi == '5G')
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
                                             {{ $item->teknologi }}
                                         </span>
                                     @else
@@ -212,18 +204,16 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $item->tahun_bangun }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $item->tahun_bangun }}
+                                </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="8" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                                     <div class="flex flex-col items-center">
-                                        <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                                            </path>
+                                        <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
                                         </svg>
                                         <p class="text-lg font-medium">Belum Ada Data</p>
                                         <p class="text-sm">Data BTS belum tersedia atau tidak ditemukan</p>
@@ -234,6 +224,7 @@
                     </tbody>
                 </table>
             </div>
+        </section>
 
             <!-- Pagination -->
             <div class="mt-6">

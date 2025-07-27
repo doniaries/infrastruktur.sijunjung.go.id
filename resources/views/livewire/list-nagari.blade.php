@@ -2,9 +2,11 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Data Nagari</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">Total: {{ $totalData }} Nagari</p>
+                <div class="flex justify-center flex-1">
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold">Data Nagari</h2>
+                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
+                    </div>
                 </div>
                 <button wire:click="exportPdf" 
                         class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
@@ -32,19 +34,20 @@
                 </div>
             </div>
 
-            <!-- Skeleton Loading -->
-            <div wire:loading class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Nama Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Koordinat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Luas Wilayah</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Jumlah Penduduk</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Jumlah Jorong</th>
-                        </tr>
-                    </thead>
+            <!-- Skeleton Loading Section -->
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" wire:loading>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Nama Nagari</th>
+                                <th scope="col" class="px-6 py-3">Kecamatan</th>
+                                <th scope="col" class="px-6 py-3">Wali Nagari</th>
+                                <th scope="col" class="px-6 py-3 text-right">Penduduk</th>
+                                <th scope="col" class="px-6 py-3 text-right">Luas (Ha)</th>
+                                <th scope="col" class="px-6 py-3 text-center">Jorong</th>
+                            </tr>
+                        </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         @for($i = 0; $i < 10; $i++)
                             <tr class="animate-pulse">
@@ -70,21 +73,23 @@
                         @endfor
                     </tbody>
                 </table>
-            </div>
+             </div>
+         </section>
 
-            <!-- Table -->
-            <div class="overflow-x-auto" wire:loading.remove>
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                         <tr>
-                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Nama Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Wali Nagari</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Penduduk</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Luas (Ha)</th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-white uppercase tracking-wider">Jorong</th>
-                         </tr>
-                     </thead>
+            <!-- Table Section -->
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto" wire:loading.remove>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Nama Nagari</th>
+                                <th scope="col" class="px-6 py-3">Kecamatan</th>
+                                <th scope="col" class="px-6 py-3">Wali Nagari</th>
+                                <th scope="col" class="px-6 py-3 text-right">Penduduk</th>
+                                <th scope="col" class="px-6 py-3 text-right">Luas (Ha)</th>
+                                <th scope="col" class="px-6 py-3 text-center">Jorong</th>
+                            </tr>
+                        </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         @forelse($nagaris as $nagari)
                              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">

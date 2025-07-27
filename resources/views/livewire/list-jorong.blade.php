@@ -2,9 +2,11 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             <div class="flex justify-between items-center mb-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Data Jorong</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">Total: {{ $totalData }} Jorong</p>
+                <div class="flex justify-center flex-1">
+                    <div class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                        <h2 class="text-xl font-bold">Data Jorong</h2>
+                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
+                    </div>
                 </div>
                 <button wire:click="exportPdf" 
                         class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
@@ -42,79 +44,82 @@
             </div>
 
             <!-- Skeleton Loading -->
-            <div wire:loading class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Jorong</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Koordinat</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Luas Wilayah</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Jumlah Penduduk</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <section wire:loading class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Nama Jorong</th>
+                                <th scope="col" class="px-4 py-3">Nagari</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Koordinat</th>
+                                <th scope="col" class="px-4 py-3">Luas Wilayah</th>
+                                <th scope="col" class="px-4 py-3">Jumlah Penduduk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @for($i = 0; $i < 10; $i++)
-                            <tr class="animate-pulse">
-                                <td class="px-6 py-4 whitespace-nowrap">
+                            <tr class="border-b dark:border-gray-700 animate-pulse">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-28"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-36"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
                                 </td>
                             </tr>
                         @endfor
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
             <!-- Table -->
-            <div class="overflow-x-auto" wire:loading.remove>
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nama Jorong</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Nagari</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Kecamatan</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Kepala Jorong</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">Penduduk</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">Luas (Ha)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <section wire:loading.remove class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-7xl mx-auto">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Nama Jorong</th>
+                                <th scope="col" class="px-4 py-3">Nagari</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Kepala Jorong</th>
+                                <th scope="col" class="px-4 py-3 text-right">Penduduk</th>
+                                <th scope="col" class="px-4 py-3 text-right">Luas (Ha)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @forelse($jorongs as $jorong)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ $jorong->nama_jorong }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                            <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $jorong->nama_jorong }}</th>
+                                <td class="px-4 py-3">
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
                                         {{ $jorong->nagari ? $jorong->nagari->nama_nagari : '-' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                <td class="px-4 py-3">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
                                         {{ $jorong->nagari && $jorong->nagari->kecamatan ? $jorong->nagari->kecamatan->nama : '-' }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $jorong->nama_kepala_jorong }}</td>
-                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($jorong->jumlah_penduduk_jorong, 0, ',', '.') }} Jiwa</td>
-                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($jorong->luas_jorong, 0, ',', '.') }} Ha</td>
+                                <td class="px-4 py-3 text-gray-900 dark:text-white">{{ $jorong->nama_kepala_jorong }}</td>
+                                <td class="px-4 py-3 text-right text-gray-900 dark:text-white">{{ number_format($jorong->jumlah_penduduk_jorong, 0, ',', '.') }} Jiwa</td>
+                                <td class="px-4 py-3 text-right text-gray-900 dark:text-white">{{ number_format($jorong->luas_jorong, 0, ',', '.') }} Ha</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                <td colspan="6" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                     <div class="flex flex-col items-center">
                                         <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -126,9 +131,10 @@
                                 </td>
                             </tr>
                         @endforelse
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
             
             <!-- Pagination -->
             <div class="mt-6">
