@@ -235,9 +235,48 @@ th.text-gray-500 {
 
 .dark th.text-white {
     color: white !important;
-},
+}
+
 .dark th.dark\:text-gray-300 {
     color: white !important;
+}
+
+/* Override untuk semua kemungkinan class text pada header tabel */
+th.text-gray-500,
+th.text-gray-400,
+th.text-gray-600,
+th.text-gray-700,
+th.text-gray-800,
+th.text-gray-900 {
+    color: white !important;
+    background-color: #1e40af !important;
+}
+
+.dark th.text-gray-100,
+.dark th.text-gray-200,
+.dark th.text-gray-300,
+.dark th.text-gray-400,
+.dark th.text-white {
+    color: white !important;
+    background-color: #1e3a8a !important;
+}
+
+/* Override untuk class kombinasi dark mode */
+th.dark\:text-gray-100,
+th.dark\:text-gray-200,
+th.dark\:text-gray-300,
+th.dark\:text-gray-400,
+th.dark\:text-white {
+    color: white !important;
+}
+
+.dark th.dark\:text-gray-100,
+.dark th.dark\:text-gray-200,
+.dark th.dark\:text-gray-300,
+.dark th.dark\:text-gray-400,
+.dark th.dark\:text-white {
+    color: white !important;
+    background-color: #1e3a8a !important;
 }
 
 /* Override untuk semua kemungkinan class header tabel */
