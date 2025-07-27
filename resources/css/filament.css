@@ -202,21 +202,20 @@ button[onclick*="scroll"],
     /* font-weight: bold !important; */
 }
 
-/* Gaya untuk semua header tabel */
-th {
+/* Gaya untuk semua header tabel - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* th {
     color: white !important;
     background-color: #1e40af !important;
-    /* font-weight: bold !important; */
-}
+} */
 
-/* Gaya untuk header tabel di mode gelap */
-.dark th {
+/* Gaya untuk header tabel di mode gelap - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* .dark th {
     color: white !important;
     background-color: #1e3a8a !important;
-}
+} */
 
-/* Gaya spesifik untuk header tabel dengan class bg-gray-50 dan dark:bg-gray-700 */
-thead.bg-gray-50 th,
+/* Gaya spesifik untuk header tabel dengan class bg-gray-50 dan dark:bg-gray-700 - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* thead.bg-gray-50 th,
 .bg-gray-50 th {
     color: white !important;
     background-color: #1e40af !important;
@@ -226,10 +225,10 @@ thead.bg-gray-50 th,
 .dark .bg-gray-700 th {
     color: white !important;
     background-color: #1e3a8a !important;
-}
+} */
 
-/* Gaya untuk header tabel dengan class text-gray-500 */
-th.text-gray-500 {
+/* Gaya untuk header tabel dengan class text-gray-500 - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* th.text-gray-500 {
     color: white !important;
 }
 
@@ -239,10 +238,10 @@ th.text-gray-500 {
 
 .dark th.dark\:text-gray-300 {
     color: white !important;
-}
+} */
 
-/* Override untuk semua kemungkinan class text pada header tabel */
-th.text-gray-500,
+/* Override untuk semua kemungkinan class text pada header tabel - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* th.text-gray-500,
 th.text-gray-400,
 th.text-gray-600,
 th.text-gray-700,
@@ -259,10 +258,10 @@ th.text-gray-900 {
 .dark th.text-white {
     color: white !important;
     background-color: #1e3a8a !important;
-}
+} */
 
-/* Override untuk class kombinasi dark mode */
-th.dark\:text-gray-100,
+/* Override untuk class kombinasi dark mode - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* th.dark\:text-gray-100,
 th.dark\:text-gray-200,
 th.dark\:text-gray-300,
 th.dark\:text-gray-400,
@@ -277,10 +276,10 @@ th.dark\:text-white {
 .dark th.dark\:text-white {
     color: white !important;
     background-color: #1e3a8a !important;
-}
+} */
 
-/* Override untuk semua kemungkinan class header tabel */
-thead th,
+/* Override untuk semua kemungkinan class header tabel - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* thead th,
 table thead th,
 .table thead th,
 thead.bg-gray-50.dark\:bg-gray-700 th {
@@ -294,7 +293,7 @@ thead.bg-gray-50.dark\:bg-gray-700 th {
 .dark thead.bg-gray-50.dark\:bg-gray-700 th {
     color: white !important;
     background-color: #1e3a8a !important;
-}
+} */
 
 /* Gaya untuk baris tabel */
 tbody td {
@@ -313,15 +312,15 @@ tbody td {
     border-color: #475569 !important;
 }
 
-/* Gaya untuk header tabel dengan gradient */
-thead.bg-gradient-to-r th {
+/* Gaya untuk header tabel dengan gradient - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* thead.bg-gradient-to-r th {
     color: white !important;
-}
+} */
 
-/* Gaya untuk header tabel dengan gradient di mode gelap */
-.dark thead.bg-gradient-to-r th {
+/* Gaya untuk header tabel dengan gradient di mode gelap - DINONAKTIFKAN UNTUK KONSISTENSI */
+/* .dark thead.bg-gradient-to-r th {
     color: white !important;
-}
+} */
 
 /* Gaya untuk h1 */
 h1 {

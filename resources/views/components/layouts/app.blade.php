@@ -11,21 +11,6 @@
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
 
-    {{-- <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
-    <meta property="og:description"
-        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
-    <meta property="og:image" content="{{ asset('front/images/logo.png') }}">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="Lapor Infrastruktur | Aplikasi Manajemen Infrastruktur">
-    <meta property="twitter:description"
-        content="Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini membantu Anda melacak laporan secara real-time.">
-    <meta property="twitter:image" content="{{ asset('front/images/logo.png') }}"> --}}
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
 
@@ -34,8 +19,7 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700"
-        rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
 
     <!-- Flowbite CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
@@ -49,67 +33,71 @@
         * {
             font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
         }
-        
+
         body {
             font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
         }
-        
+
         /* Font Awesome Icons Fix */
-        .fas, .fab, .far, .fal, .fad {
+        .fas,
+        .fab,
+        .far,
+        .fal,
+        .fad {
             font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
             font-weight: 900 !important;
             display: inline-block !important;
         }
-        
+
         .fab {
             font-family: "Font Awesome 6 Brands" !important;
             font-weight: 400 !important;
         }
-        
+
         /* Theme Toggle Icon Fix */
         #theme-toggle {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
+
         #theme-toggle i {
             transition: all 0.3s ease;
         }
-        
+
         /* Ensure only one icon shows at a time */
         #theme-toggle .hidden {
             display: none !important;
         }
-        
+
         #theme-toggle .block {
             display: inline-block !important;
         }
-        
+
         .dark #theme-toggle .dark\:hidden {
             display: none !important;
         }
-        
+
         .dark #theme-toggle .dark\:block {
             display: inline-block !important;
         }
-        
+
         /* Header scroll effect styles */
         nav {
             transition: all 0.3s ease;
         }
-        
+
         nav.header-scrolled {
             background-color: rgba(255, 255, 255, 0.95) !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
             backdrop-filter: blur(10px);
         }
-        
+
         .dark nav.header-scrolled {
             background-color: rgba(15, 23, 42, 0.95) !important;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
         }
-        
+
         /* Leaflet Map Z-index Fix */
         .leaflet-map-pane,
         .leaflet-tile,
@@ -272,12 +260,12 @@
 
     @filamentStyles
     @vite(['resources/css/app.css', 'resources/css/filament.css', 'resources/js/app.js'])
-    
+
 
 </head>
 
 <body class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen" id="body-element">
-    
+
     @include('partials.header')
 
     <main>
@@ -294,7 +282,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {{-- Tidak perlu mengimpor app.js lagi karena sudah diimpor di bagian head --}}
-    
+
     <!-- Script untuk memastikan header tetap pada posisinya saat mode gelap/terang berubah -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -312,10 +300,12 @@
                     }
                 });
             });
-            
+
             // Amati perubahan pada class di html element (untuk deteksi perubahan mode gelap/terang)
-            darkModeObserver.observe(document.documentElement, { attributes: true });
-            
+            darkModeObserver.observe(document.documentElement, {
+                attributes: true
+            });
+
             // Header scroll effect - menambahkan bayangan saat scroll
             window.addEventListener('scroll', function() {
                 const header = document.querySelector('nav');
@@ -329,7 +319,7 @@
             });
         });
     </script>
-    
+
     <!-- Navigation Buttons -->
     <!-- Back to Top Button -->
     <button id="back-to-top"
@@ -337,7 +327,7 @@
         aria-label="Back to top">
         <i class="fas fa-chevron-up text-lg"></i>
     </button>
-    
+
 
 
     <!-- Navigation Buttons Script -->
@@ -345,11 +335,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Get button elements
             const backToTopButton = document.getElementById('back-to-top');
-            
+
             // Function to update button visibility based on scroll position
             function updateButtonsVisibility() {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
+
                 // Back to Top Button
                 if (backToTopButton) {
                     if (scrollTop > 300) {
@@ -361,13 +351,13 @@
                     }
                 }
             }
-            
+
             // Show/hide buttons based on scroll position
             window.addEventListener('scroll', updateButtonsVisibility);
-            
+
             // Initial check
             updateButtonsVisibility();
-            
+
             // Back to Top Button Click
             if (backToTopButton) {
                 backToTopButton.addEventListener('click', function() {
@@ -381,7 +371,7 @@
     </script>
 
     <!-- Impersonate Banner -->
-    <x-impersonate::banner/>
+    <x-impersonate::banner />
 </body>
 
 </html>
