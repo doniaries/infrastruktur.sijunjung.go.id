@@ -35,7 +35,7 @@ class ListNagari extends Component
                 $query->where(function ($q) {
                     $q->where('nama_nagari', 'like', '%' . $this->search . '%')
                       ->orWhere('nama_wali_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat_kantor', 'like', '%' . $this->search . '%')
+                      ->orWhere('alamat_kantor_nagari', 'like', '%' . $this->search . '%')
                       ->orWhereHas('kecamatan', function ($kec) {
                           $kec->where('nama', 'like', '%' . $this->search . '%');
                       });
@@ -64,7 +64,7 @@ class ListNagari extends Component
                 $query->where(function ($q) {
                     $q->where('nama_nagari', 'like', '%' . $this->search . '%')
                       ->orWhere('nama_wali_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat_kantor', 'like', '%' . $this->search . '%')
+                      ->orWhere('alamat_kantor_nagari', 'like', '%' . $this->search . '%')
                       ->orWhereHas('kecamatan', function ($kec) {
                           $kec->where('nama', 'like', '%' . $this->search . '%');
                       });
