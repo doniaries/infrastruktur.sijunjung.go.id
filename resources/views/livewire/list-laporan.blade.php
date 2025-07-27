@@ -19,7 +19,7 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-5xl mx-auto">
+            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-6xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari laporan..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -45,7 +45,7 @@
             </div>
             <!-- Table Section -->
             <section
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
+                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -74,11 +74,11 @@
                                             {{ \Carbon\Carbon::parse($lapor->tgl_laporan)->format('d/m/Y H:i') }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->opd->nama ?? '-' }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->nama_pelapor }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->uraian_laporan }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if ($lapor->status_laporan && $lapor->status_laporan->value == 'Belum Diproses')
@@ -103,7 +103,7 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->keterangan_petugas ?? '-' }}</td>
                                 </tr>
                             @empty
@@ -129,7 +129,7 @@
 
             <!-- Pagination -->
             <div
-                class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
+                class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 {{ $laporans->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>

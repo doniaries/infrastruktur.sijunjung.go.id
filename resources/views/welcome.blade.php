@@ -19,17 +19,17 @@
                 <div class="type-hero mb-6 text-2xl font-bold text-primary-700 dark:text-blue-300">
                     <span class="tw-typewriter-hero"></span>
                 </div>
-                
+
                 <!-- Kolom Pencarian -->
                 <div class="max-w-2xl mb-8">
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-400"></i>
                         </div>
-                        <input type="text" id="heroSearch" 
+                        <input type="text" id="heroSearch"
                             placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD..."
                             class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <button type="button" onclick="searchLaporan()" 
+                        <button type="button" onclick="searchLaporan()"
                             class="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">
                             <i class="fas fa-paper-plane"></i>
                         </button>
@@ -40,10 +40,7 @@
                     Lapor Sekarang
                     <i class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1"></i>
                 </a>
-                <a href="{{ url('/list-laporan') }}"
-                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                    Lihat Laporan
-                </a>
+
             </div>
             {{-- <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
                 <img src="{{ asset('images/rumahgadang.png') }}" alt="Rumah Gadang">
@@ -684,14 +681,14 @@
                 // Create cloud formation
                 const cloudFormation = document.createElement('div');
                 cloudFormation.className = 'cloud-formation';
-                
+
                 // Create individual clouds within the formation
                 for (let i = 1; i <= 5; i++) {
                     const cloud = document.createElement('div');
                     cloud.className = `cloud cloud-${i}`;
                     cloudFormation.appendChild(cloud);
                 }
-                
+
                 backgroundEffects.appendChild(cloudFormation);
             }
 
@@ -723,7 +720,7 @@
         });
 
 
-        
+
         // Search Function
         function searchLaporan() {
             const searchTerm = document.getElementById('heroSearch').value.trim();
@@ -735,7 +732,7 @@
                 window.location.href = '/list-laporan';
             }
         }
-        
+
         // Add Enter key support for search
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('heroSearch');
