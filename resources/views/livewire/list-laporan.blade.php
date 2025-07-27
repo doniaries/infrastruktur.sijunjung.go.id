@@ -48,39 +48,39 @@
                 class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
                             <tr>
-                                <th scope="col" class="px-6 py-3">No Tiket</th>
-                                <th scope="col" class="px-6 py-3">Tanggal</th>
-                                <th scope="col" class="px-6 py-3">OPD</th>
-                                <th scope="col" class="px-6 py-3">Pelapor</th>
-                                <th scope="col" class="px-6 py-3">Uraian</th>
-                                <th scope="col" class="px-6 py-3">Status</th>
-                                <th scope="col" class="px-6 py-3">Keterangan</th>
+                                <th scope="col" class="px-4 py-3">No Tiket</th>
+                                <th scope="col" class="px-4 py-3">Tanggal</th>
+                                <th scope="col" class="px-4 py-3">OPD</th>
+                                <th scope="col" class="px-4 py-3">Pelapor</th>
+                                <th scope="col" class="px-4 py-3">Uraian</th>
+                                <th scope="col" class="px-4 py-3">Status</th>
+                                <th scope="col" class="px-4 py-3">Keterangan</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody>
                             @forelse($laporans as $lapor)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <tr class="border-b dark:border-gray-700">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 font-mono">
                                             {{ $lapor->no_tiket }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                                             {{ \Carbon\Carbon::parse($lapor->tgl_laporan)->format('d/m/Y H:i') }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->opd->nama ?? '-' }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->nama_pelapor }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->uraian_laporan }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if ($lapor->status_laporan && $lapor->status_laporan->value == 'Belum Diproses')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
@@ -103,12 +103,12 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $lapor->keterangan_petugas ?? '-' }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                    <td colspan="7" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">

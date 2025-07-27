@@ -38,35 +38,35 @@
             <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto" wire:loading>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Nama Nagari</th>
-                                <th scope="col" class="px-6 py-3">Kecamatan</th>
-                                <th scope="col" class="px-6 py-3">Wali Nagari</th>
-                                <th scope="col" class="px-6 py-3 text-right">Penduduk</th>
-                                <th scope="col" class="px-6 py-3 text-right">Luas (Ha)</th>
-                                <th scope="col" class="px-6 py-3 text-center">Jorong</th>
+                                <th scope="col" class="px-4 py-3">Nama Nagari</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Wali Nagari</th>
+                                <th scope="col" class="px-4 py-3 text-right">Penduduk</th>
+                                <th scope="col" class="px-4 py-3 text-right">Luas (Ha)</th>
+                                <th scope="col" class="px-4 py-3 text-center">Jorong</th>
                             </tr>
                         </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody>
                         @for($i = 0; $i < 10; $i++)
                             <tr class="animate-pulse">
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-36"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-4 py-3 whitespace-nowrap">
                                     <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
                                 </td>
                             </tr>
@@ -80,29 +80,29 @@
             <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto" wire:loading.remove>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Nama Nagari</th>
-                                <th scope="col" class="px-6 py-3">Kecamatan</th>
-                                <th scope="col" class="px-6 py-3">Wali Nagari</th>
-                                <th scope="col" class="px-6 py-3 text-right">Penduduk</th>
-                                <th scope="col" class="px-6 py-3 text-right">Luas (Ha)</th>
-                                <th scope="col" class="px-6 py-3 text-center">Jorong</th>
+                                <th scope="col" class="px-4 py-3">Nama Nagari</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Wali Nagari</th>
+                                <th scope="col" class="px-4 py-3 text-right">Penduduk</th>
+                                <th scope="col" class="px-4 py-3 text-right">Luas (Ha)</th>
+                                <th scope="col" class="px-4 py-3 text-center">Jorong</th>
                             </tr>
                         </thead>
-                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody>
                         @forelse($nagaris as $nagari)
-                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ $nagari->nama_nagari }}</td>
-                                 <td class="px-6 py-4 whitespace-nowrap">
+                             <tr class="border-b dark:border-gray-700">
+                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ $nagari->nama_nagari }}</td>
+                                 <td class="px-4 py-3 whitespace-nowrap">
                                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                          {{ $nagari->kecamatan ? $nagari->kecamatan->nama : '-' }}
                                      </span>
                                  </td>
-                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $nagari->nama_wali_nagari }}</td>
-                                 <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->jumlah_penduduk_nagari, 0, ',', '.') }} Jiwa</td>
-                                 <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->luas_nagari, 0, ',', '.') }} Ha</td>
-                                 <td class="px-6 py-4 text-center">
+                                 <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">{{ $nagari->nama_wali_nagari }}</td>
+                                 <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->jumlah_penduduk_nagari, 0, ',', '.') }} Jiwa</td>
+                                 <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">{{ number_format($nagari->luas_nagari, 0, ',', '.') }} Ha</td>
+                                 <td class="px-4 py-3 text-center">
                                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                                          {{ $nagari->jorongs_count }} Jorong
                                      </span>
@@ -110,7 +110,7 @@
                              </tr>
                          @empty
                              <tr>
-                                 <td colspan="6" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                 <td colspan="6" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                     <div class="flex flex-col items-center">
                                         <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>

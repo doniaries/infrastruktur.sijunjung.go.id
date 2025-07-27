@@ -51,7 +51,7 @@
                 class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Nama Jorong</th>
                                 <th scope="col" class="px-4 py-3">Nagari</th>
@@ -94,7 +94,7 @@
                 class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Nama Jorong</th>
                                 <th scope="col" class="px-4 py-3">Nagari</th>
@@ -106,7 +106,7 @@
                         </thead>
                         <tbody>
                             @forelse($jorongs as $jorong)
-                                <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $jorong->nama_jorong }}</td>
                                     <td class="px-4 py-3">

@@ -67,47 +67,47 @@
 
             <!-- Skeleton Loading Section -->
             <section
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto"
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto"
                 wire:loading>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Operator</th>
-                                <th scope="col" class="px-6 py-3">Kecamatan</th>
-                                <th scope="col" class="px-6 py-3">Nagari</th>
-                                <th scope="col" class="px-6 py-3">Koordinat</th>
-                                <th scope="col" class="px-6 py-3">Alamat</th>
-                                <th scope="col" class="px-6 py-3">Teknologi</th>
-                                <th scope="col" class="px-6 py-3">Status</th>
-                                <th scope="col" class="px-6 py-3">Tahun Bangun</th>
+                                <th scope="col" class="px-4 py-3">Operator</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Nagari</th>
+                                <th scope="col" class="px-4 py-3">Koordinat</th>
+                                <th scope="col" class="px-4 py-3">Alamat</th>
+                                <th scope="col" class="px-4 py-3">Teknologi</th>
+                                <th scope="col" class="px-4 py-3">Status</th>
+                                <th scope="col" class="px-4 py-3">Tahun Bangun</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody>
                             @for ($i = 0; $i < 10; $i++)
-                                <tr class="animate-pulse">
-                                    <td class="px-6 py-4">
+                                <tr class="animate-pulse border-b dark:border-gray-700">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-20"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-24"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-32"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-40"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-48"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-4 py-3">
                                         <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-16"></div>
                                     </td>
                                 </tr>
@@ -119,26 +119,26 @@
 
             <!-- Table Section -->
             <section
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto"
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto"
                 wire:loading.remove>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
-                                <th scope="col" class="px-6 py-3">Operator</th>
-                                <th scope="col" class="px-6 py-3">Kecamatan</th>
-                                <th scope="col" class="px-6 py-3">Nagari</th>
-                                <th scope="col" class="px-6 py-3">Koordinat</th>
-                                <th scope="col" class="px-6 py-3">Alamat</th>
-                                <th scope="col" class="px-6 py-3">Teknologi</th>
-                                <th scope="col" class="px-6 py-3">Status</th>
-                                <th scope="col" class="px-6 py-3">Tahun Bangun</th>
+                                <th scope="col" class="px-4 py-3">Operator</th>
+                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                <th scope="col" class="px-4 py-3">Nagari</th>
+                                <th scope="col" class="px-4 py-3">Koordinat</th>
+                                <th scope="col" class="px-4 py-3">Alamat</th>
+                                <th scope="col" class="px-4 py-3">Teknologi</th>
+                                <th scope="col" class="px-4 py-3">Status</th>
+                                <th scope="col" class="px-4 py-3">Tahun Bangun</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody>
                             @forelse($bts as $item)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <tr class="border-b dark:border-gray-700">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if ($item->operator && $item->operator->nama_operator == 'TELKOMSEL')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
@@ -161,22 +161,22 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                             {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
                                         {{ $item->nagari ? $item->nagari->nama_nagari : '-' }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $item->titik_koordinat }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
                                         {{ $item->alamat }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if ($item->teknologi == '2G')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
@@ -209,7 +209,7 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-3 whitespace-nowrap">
                                         @if ($item->status == 'aktif')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
@@ -222,14 +222,14 @@
                                             </span>
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $item->tahun_bangun }}
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="8"
-                                        class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                                        class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -250,7 +250,7 @@
 
             <!-- Pagination -->
             <div
-                class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
+                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
                 {{ $bts->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>
