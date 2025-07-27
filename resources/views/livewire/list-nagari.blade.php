@@ -18,7 +18,7 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center">
+            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari nagari..." 
                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Skeleton Loading Section -->
-            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden" wire:loading>
+            <section class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto" wire:loading>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

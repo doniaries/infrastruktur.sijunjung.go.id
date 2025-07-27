@@ -21,7 +21,7 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center">
+            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari jorong..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -107,9 +107,8 @@
                         <tbody>
                             @forelse($jorongs as $jorong)
                                 <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $jorong->nama_jorong }}</th>
+                                    <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $jorong->nama_jorong }}</td>
                                     <td class="px-4 py-3">
                                         <span
                                             class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">

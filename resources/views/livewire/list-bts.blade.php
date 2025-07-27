@@ -21,7 +21,7 @@
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center">
+            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari BTS..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
