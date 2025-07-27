@@ -75,7 +75,7 @@ class ListBts extends Component
             ->when($this->statusFilter, function ($query) {
                 $query->where('status', $this->statusFilter);
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('tahun_bangun', 'desc')
             ->paginate($this->perPage);
     }
     

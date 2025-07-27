@@ -6,15 +6,22 @@
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Data Jorong</h2>
                     <p class="text-gray-600 dark:text-gray-400 mt-1">Total: {{ $totalData }} Jorong</p>
                 </div>
+                <button wire:click="exportPdf" 
+                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors duration-200">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Export PDF
+                </button>
             </div>
 
             <!-- Search and Filter Form -->
-            <div class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
+            <div class="mb-6 flex flex-wrap gap-3 items-center">
+                <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari jorong..." 
                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
-                <div>
+                <div class="min-w-48">
                     <select wire:model.live="nagariFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Nagari</option>
@@ -23,7 +30,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="min-w-48">
                     <select wire:model.live="kecamatanFilter" 
                             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                         <option value="">Semua Kecamatan</option>

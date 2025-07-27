@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^3.1",
         "bezhansalleh/filament-shield": "^3.3",
         "dotswan/filament-map-picker": "^1.7",
         "eightynine/filament-excel-import": "^3.1",
