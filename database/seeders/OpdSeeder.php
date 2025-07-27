@@ -12,6 +12,8 @@ class OpdSeeder extends Seeder
      */
     public function run(): void
     {
+        // Hapus data lama
+        Opd::query()->delete();
         $opds = [
             ['id' => 1, 'nama' => 'BAPPPEDA'],
             ['id' => 2, 'nama' => 'BKAD'],
