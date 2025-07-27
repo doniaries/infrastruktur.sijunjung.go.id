@@ -71,14 +71,23 @@
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $lapor->nama_pelapor }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">{{ $lapor->uraian_laporan }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                        @if($lapor->status_laporan && $lapor->status_laporan->value == 'Belum Diproses') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                        @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Sedang Diproses') bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
-                                        @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Selesai Diproses') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                        @else bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200
-                                        @endif">
-                                        {{ $lapor->status_laporan ? $lapor->status_laporan->getLabel() : 'Tidak Diketahui' }}
-                                    </span>
+                                    @if($lapor->status_laporan && $lapor->status_laporan->value == 'Belum Diproses')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            {{ $lapor->status_laporan->getLabel() }}
+                                        </span>
+                                    @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Sedang Diproses')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                            {{ $lapor->status_laporan->getLabel() }}
+                                        </span>
+                                    @elseif($lapor->status_laporan && $lapor->status_laporan->value == 'Selesai Diproses')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            {{ $lapor->status_laporan->getLabel() }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                            {{ $lapor->status_laporan ? $lapor->status_laporan->getLabel() : 'Tidak Diketahui' }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">{{ $lapor->keterangan_petugas ?? '-' }}</td>
                             </tr>

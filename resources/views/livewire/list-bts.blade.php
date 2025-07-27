@@ -147,14 +147,23 @@
                         @forelse($bts as $item)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                        @if ($item->operator && $item->operator->nama_operator == 'TELKOMSEL') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                        @elseif($item->operator && $item->operator->nama_operator == 'INDOSAT') bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
-                                        @elseif($item->operator && $item->operator->nama_operator == 'XL AXIATA') bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200
-                                        @else bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 @endif">
-                                        {{ $item->operator ? $item->operator->nama_operator : 'Tidak Diketahui' }}
-                                    </span>
+                                    @if ($item->operator && $item->operator->nama_operator == 'TELKOMSEL')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            {{ $item->operator->nama_operator }}
+                                        </span>
+                                    @elseif($item->operator && $item->operator->nama_operator == 'INDOSAT')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                            {{ $item->operator->nama_operator }}
+                                        </span>
+                                    @elseif($item->operator && $item->operator->nama_operator == 'XL AXIATA')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                            {{ $item->operator->nama_operator }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                            {{ $item->operator ? $item->operator->nama_operator : 'Tidak Diketahui' }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                     {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}</td>
@@ -166,24 +175,42 @@
                                 <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
                                     {{ $item->alamat }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                        @if ($item->teknologi == '2G') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                        @elseif($item->teknologi == '3G') bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200
-                                        @elseif($item->teknologi == '4G') bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200
-                                        @elseif($item->teknologi == '4G+5G') bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200
-                                        @elseif($item->teknologi == '5G') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                        @else bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 @endif">
-                                        {{ $item->teknologi }}
-                                    </span>
+                                    @if ($item->teknologi == '2G')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @elseif($item->teknologi == '3G')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @elseif($item->teknologi == '4G')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @elseif($item->teknologi == '4G+5G')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @elseif($item->teknologi == '5G')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                            {{ $item->teknologi }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                        @if ($item->status == 'aktif') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                        @else bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 @endif">
-                                        {{ ucfirst($item->status) }}
-                                    </span>
+                                    @if ($item->status == 'aktif')
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            {{ ucfirst($item->status) }}
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                            {{ ucfirst($item->status) }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                     {{ $item->tahun_bangun }}</td>
