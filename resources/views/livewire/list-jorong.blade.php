@@ -1,28 +1,18 @@
 <div>
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex justify-center flex-1">
-                    <div
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
-                        <h2 class="text-xl font-bold">Data Jorong</h2>
-                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
-                    </div>
+            <!-- Title Section -->
+            <div class="flex justify-center mb-6">
+                <div
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold">Data Jorong</h2>
+                    <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
                 </div>
-                <button wire:click="exportPdf"
-                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
-                    </svg>
-                    Export PDF
-                </button>
             </div>
 
-            <!-- Search and Filter Form -->
+            <!-- Search, Filter and Export Section -->
             <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
-                <div class="flex-1 min-w-64">
+                <div class="min-w-64 max-w-80">
                     <input type="text" wire:model.live="search" placeholder="Cari jorong..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                 </div>
@@ -44,14 +34,23 @@
                         @endforeach
                     </select>
                 </div>
+                <button wire:click="exportPdf"
+                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform min-w-fit">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Export PDF
+                </button>
             </div>
 
             <!-- Skeleton Loading -->
             <section wire:loading
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Nama Jorong</th>
                                 <th scope="col" class="px-4 py-3">Nagari</th>
@@ -91,10 +90,10 @@
 
             <!-- Table -->
             <section wire:loading.remove
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Nama Jorong</th>
                                 <th scope="col" class="px-4 py-3">Nagari</th>
@@ -153,7 +152,7 @@
 
             <!-- Pagination -->
             <div
-                class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
                 {{ $jorongs->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>

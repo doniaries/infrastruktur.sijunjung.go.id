@@ -1,24 +1,16 @@
 <div>
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex justify-center flex-1">
-                    <div
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
-                        <h2 class="text-xl font-bold">Daftar Laporan</h2>
-                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalLaporan }}</span>
-                    </div>
+            <!-- Title Section -->
+            <div class="flex justify-center mb-6">
+                <div
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold">Daftar Laporan</h2>
+                    <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalLaporan }}</span>
                 </div>
-                <a href="{{ route('public.laporform') }}"
-                    class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    Tambah Laporan
-                </a>
             </div>
 
-            <!-- Search and Filter Form -->
+            <!-- Search, Filter and Action Section -->
             <div class="mb-6 flex flex-wrap gap-3 items-center max-w-6xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari laporan..."
@@ -42,13 +34,20 @@
                         @endforeach
                     </select>
                 </div>
+                <a href="{{ route('public.laporform') }}"
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-200 min-w-fit">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Tambah Laporan
+                </a>
             </div>
             <!-- Table Section -->
             <section
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-white uppercase bg-gray-600 dark:bg-gray-800">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
                                 <th scope="col" class="px-4 py-3">No Tiket</th>
                                 <th scope="col" class="px-4 py-3">Tanggal</th>
@@ -129,7 +128,7 @@
 
             <!-- Pagination -->
             <div
-                class="mt-6 bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
+                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 {{ $laporans->links('vendor.livewire.custom-pagination') }}
             </div>
         </div>

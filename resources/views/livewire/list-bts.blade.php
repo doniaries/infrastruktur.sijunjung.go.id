@@ -1,27 +1,17 @@
 <div>
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
-            <div class="flex justify-between items-center mb-6">
-                <div class="flex justify-center flex-1">
-                    <div
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
-                        <h2 class="text-xl font-bold">Data BTS</h2>
-                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
-                    </div>
+            <!-- Title Section -->
+            <div class="flex justify-center mb-6">
+                <div
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
+                    <h2 class="text-xl font-bold">Data BTS</h2>
+                    <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
                 </div>
-                <button wire:click="exportPdf"
-                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
-                    </svg>
-                    Export PDF
-                </button>
             </div>
 
-            <!-- Search and Filter Form -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
+            <!-- Search, Filter and Export Section -->
+            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-5xl mx-auto">
                 <div class="flex-1 min-w-64">
                     <input type="text" wire:model.live="search" placeholder="Cari BTS..."
                         class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -63,6 +53,15 @@
                         <option value="non-aktif">Non-Aktif</option>
                     </select>
                 </div>
+                <button wire:click="exportPdf"
+                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform min-w-fit">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg>
+                    Export PDF
+                </button>
             </div>
 
             <!-- Skeleton Loading Section -->
