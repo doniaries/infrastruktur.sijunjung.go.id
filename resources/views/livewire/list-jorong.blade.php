@@ -123,9 +123,9 @@
                                     <td class="px-4 py-3 text-gray-900 dark:text-white">
                                         {{ $jorong->nama_kepala_jorong }}</td>
                                     <td class="px-4 py-3 text-right text-gray-900 dark:text-white">
-                                        {{ number_format($jorong->jumlah_penduduk_jorong, 0, ',', '.') }} Jiwa</td>
+                                        {{ number_format($jorong->jumlah_penduduk_jorong ?? 0, 0, ',', '.') }} Jiwa</td>
                                     <td class="px-4 py-3 text-right text-gray-900 dark:text-white">
-                                        {{ number_format($jorong->luas_jorong, 0, ',', '.') }} Ha</td>
+                                        {{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }} Ha</td>
                                 </tr>
                             @empty
                                 <tr>

@@ -111,9 +111,9 @@
                                     <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $nagari->nama_wali_nagari }}</td>
                                     <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                        {{ number_format($nagari->jumlah_penduduk_nagari, 0, ',', '.') }} Jiwa</td>
+                                        {{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }} Jiwa</td>
                                     <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                        {{ number_format($nagari->luas_nagari, 0, ',', '.') }} Ha</td>
+                                        {{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }} Ha</td>
                                     <td class="px-4 py-3 text-center">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">

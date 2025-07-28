@@ -102,8 +102,8 @@
                         <td>{{ $nagari->nama_nagari }}</td>
                         <td>{{ $nagari->kecamatan?->nama ?? '-' }}</td>
                         <td>{{ $nagari->nama_wali_nagari ?? '-' }}</td>
-                        <td class="text-right">{{ number_format($nagari->jumlah_penduduk_nagari, 0, ',', '.') }}</td>
-                        <td class="text-right">{{ number_format($nagari->luas_nagari, 0, ',', '.') }}</td>
+                        <td class="text-right">{{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }}</td>
+                <td class="text-right">{{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>

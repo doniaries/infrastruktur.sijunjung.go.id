@@ -107,8 +107,8 @@
                         <td>{{ $jorong->nagari?->nama_nagari ?? '-' }}</td>
                         <td>{{ $jorong->nagari?->kecamatan?->nama ?? '-' }}</td>
                         <td>{{ $jorong->nama_kepala_jorong ?? '-' }}</td>
-                        <td class="text-right">{{ number_format($jorong->jumlah_penduduk_jorong, 0, ',', '.') }}</td>
-                        <td class="text-right">{{ number_format($jorong->luas_jorong, 0, ',', '.') }}</td>
+                        <td class="text-right">{{ number_format($jorong->jumlah_penduduk_jorong ?? 0, 0, ',', '.') }}</td>
+                <td class="text-right">{{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
