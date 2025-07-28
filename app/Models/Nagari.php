@@ -56,6 +56,18 @@ class Nagari extends Model
         return strtoupper($value);
     }
 
+    // Accessor untuk menghitung total penduduk dari semua jorong
+    public function getJumlahPendudukNagariAttribute()
+    {
+        return $this->jorongs()->sum('jumlah_penduduk_jorong');
+    }
+
+    // Accessor untuk menghitung jumlah jorong
+    public function getJumlahJorongAttribute()
+    {
+        return $this->jorongs()->count();
+    }
+
     // Static cache for frequently accessed Nagari by ID
     public static function getCachedById($id)
     {
@@ -67,7 +79,7 @@ class Nagari extends Model
     // Query Scopes untuk optimasi
     public function scopeWithRelations($query)
     {
-        return $query->with('kecamatan');
+        return $query->with(['kecamatan', 'jorongs']);
     }
 
     public function scopeFilterBySearch($query, $search)

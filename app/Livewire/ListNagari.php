@@ -32,6 +32,10 @@ class ListNagari extends Component
     private function buildQuery()
     {
         $query = Nagari::withRelations()
+            ->withCount('jorongs')
+            ->with(['jorongs' => function($query) {
+                $query->select('nagari_id', 'jumlah_penduduk_jorong');
+            }])
             ->filterBySearch($this->search)
             ->filterByKecamatan($this->kecamatanFilter);
 

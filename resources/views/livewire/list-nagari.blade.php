@@ -117,7 +117,7 @@
                                     <td class="px-4 py-3 text-center">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                            {{ $nagari->jorongs_count }} Jorong
+                                            {{ $nagari->jumlah_jorong }} Jorong
                                         </span>
                                     </td>
                                 </tr>

@@ -57,8 +57,7 @@ class NagariResource extends Resource
                     ->label('Jumlah Penduduk')
                     ->content(function ($record) {
                         if ($record) {
-                            $total = $record->jorongs()->sum('jumlah_penduduk_jorong');
-                            return number_format($total, 0, ',', '.') . ' Jiwa';
+                            return number_format($record->jumlah_penduduk_nagari, 0, ',', '.') . ' Jiwa';
                         }
                         return 'Belum ada data penduduk';
                     }),
@@ -66,7 +65,7 @@ class NagariResource extends Resource
                     ->label('Jumlah Jorong')
                     ->content(function ($record) {
                         if ($record) {
-                            return $record->jorongs()->count() . ' Jorong';
+                            return $record->jumlah_jorong . ' Jorong';
                         }
                         return 'Belum ada data jorong';
                     }),
@@ -101,21 +100,15 @@ class NagariResource extends Resource
                     ->label('Alamat Kantor')
                     ->limit(50)
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('total_penduduk')
+                Tables\Columns\TextColumn::make('jumlah_penduduk_nagari')
                     ->label('Jumlah Penduduk')
-                    ->getStateUsing(function ($record) {
-                        return $record->jorongs()->sum('jumlah_penduduk_jorong');
-                    })
                     ->formatStateUsing(function ($state) {
                         return number_format($state, 0, ',', '.') . ' Jiwa';
                     })
                     ->sortable()
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('jorongs_count')
+                Tables\Columns\TextColumn::make('jumlah_jorong')
                     ->label('Jumlah Jorong')
-                    ->getStateUsing(function ($record) {
-                        return $record->jorongs()->count();
-                    })
                     ->suffix(' Jorong')
                     ->sortable()
                     ->toggleable(),
