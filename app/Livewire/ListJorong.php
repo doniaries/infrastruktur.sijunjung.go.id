@@ -8,6 +8,8 @@ use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Cache;
+use App\Helpers\CacheHelper;
 
 class ListJorong extends Component
 {
@@ -35,78 +37,36 @@ class ListJorong extends Component
         $this->resetPage();
     }
 
+    private function buildQuery()
+    {
+        $query = Jorong::withRelations()
+            ->filterBySearch($this->search)
+            ->filterByNagari($this->nagariFilter)
+            ->filterByKecamatan($this->kecamatanFilter);
+
+        $query->orderByKecamatanAndJorong();
+
+        return $query;
+    }
+
     public function getJorongs()
     {
-        return Jorong::query()
-            ->with(['nagari.kecamatan'])
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('nama_jorong', 'like', '%' . $this->search . '%')
-                      ->orWhere('nama_kepala_jorong', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('nagari', function ($nagari) {
-                          $nagari->where('nama_nagari', 'like', '%' . $this->search . '%')
-                                 ->orWhereHas('kecamatan', function ($kec) {
-                                     $kec->where('nama', 'like', '%' . $this->search . '%');
-                                 });
-                      });
-                });
-            })
-            ->when($this->nagariFilter, function ($query) {
-                $query->where('nagari_id', $this->nagariFilter);
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->whereHas('nagari.kecamatan', function ($q) {
-                    $q->where('id', $this->kecamatanFilter);
-                });
-            })
-            ->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
-            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-            ->orderBy('kecamatans.nama')
-            ->orderBy('jorongs.nama_jorong')
-            ->select('jorongs.*')
-            ->paginate($this->perPage);
+        return $this->buildQuery()->paginate($this->perPage);
     }
     
     public function getNagaris()
     {
-        return \App\Models\Nagari::orderBy('nama_nagari')->get();
+        return CacheHelper::getNagaris();
     }
-    
+
     public function getKecamatans()
     {
-        return \App\Models\Kecamatan::orderBy('nama')->get();
+        return CacheHelper::getKecamatans();
     }
 
     public function exportPdf()
     {
-        $jorongs = Jorong::query()
-            ->with(['nagari.kecamatan'])
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('nama_jorong', 'like', '%' . $this->search . '%')
-                      ->orWhere('nama_kepala_jorong', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('nagari', function ($nagari) {
-                          $nagari->where('nama_nagari', 'like', '%' . $this->search . '%')
-                                 ->orWhereHas('kecamatan', function ($kec) {
-                                     $kec->where('nama', 'like', '%' . $this->search . '%');
-                                 });
-                      });
-                });
-            })
-            ->when($this->nagariFilter, function ($query) {
-                $query->where('nagari_id', $this->nagariFilter);
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->whereHas('nagari.kecamatan', function ($q) {
-                    $q->where('id', $this->kecamatanFilter);
-                });
-            })
-            ->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
-            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-            ->orderBy('kecamatans.nama')
-            ->orderBy('jorongs.nama_jorong')
-            ->select('jorongs.*')
-            ->get();
+        $jorongs = $this->buildQuery()->get();
 
         $pdf = Pdf::loadView('exports.jorong-pdf', [
             'jorongs' => $jorongs,

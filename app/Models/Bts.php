@@ -46,6 +46,59 @@ class Bts extends Model
         return $this->belongsTo(Jorong::class, 'jorong_id');
     }
 
+    // Query Scopes untuk optimasi
+    public function scopeWithRelations($query)
+    {
+        return $query->with(['operator', 'kecamatan', 'nagari']);
+    }
+
+    public function scopeFilterBySearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($subQuery) use ($search) {
+                $subQuery->where('titik_koordinat', 'like', '%' . $search . '%')
+                    ->orWhere('alamat', 'like', '%' . $search . '%')
+                    ->orWhereHas('operator', function ($op) use ($search) {
+                        $op->where('nama_operator', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('kecamatan', function ($kec) use ($search) {
+                        $kec->where('nama', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('nagari', function ($nag) use ($search) {
+                        $nag->where('nama_nagari', 'like', '%' . $search . '%');
+                    });
+            });
+        });
+    }
+
+    public function scopeFilterByOperator($query, $operatorFilter)
+    {
+        return $query->when($operatorFilter, function ($q) use ($operatorFilter) {
+            $q->where('operator_id', $operatorFilter);
+        });
+    }
+
+    public function scopeFilterByKecamatan($query, $kecamatanFilter)
+    {
+        return $query->when($kecamatanFilter, function ($q) use ($kecamatanFilter) {
+            $q->where('kecamatan_id', $kecamatanFilter);
+        });
+    }
+
+    public function scopeFilterByTeknologi($query, $teknologiFilter)
+    {
+        return $query->when($teknologiFilter, function ($q) use ($teknologiFilter) {
+            $q->where('teknologi', $teknologiFilter);
+        });
+    }
+
+    public function scopeFilterByStatus($query, $statusFilter)
+    {
+        return $query->when($statusFilter, function ($q) use ($statusFilter) {
+            $q->where('status', $statusFilter);
+        });
+    }
+
     // Accessor untuk location
     public function getLocationAttribute(): ?array
     {

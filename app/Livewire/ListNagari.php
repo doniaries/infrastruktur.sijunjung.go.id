@@ -6,6 +6,8 @@ use App\Models\Nagari;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Cache;
+use App\Helpers\CacheHelper;
 
 class ListNagari extends Component
 {
@@ -27,57 +29,30 @@ class ListNagari extends Component
         $this->resetPage();
     }
 
+    private function buildQuery()
+    {
+        $query = Nagari::withRelations()
+            ->filterBySearch($this->search)
+            ->filterByKecamatan($this->kecamatanFilter);
+
+        $query->orderByKecamatanAndNagari();
+
+        return $query;
+    }
+
     public function getNagaris()
     {
-        return Nagari::query()
-            ->with('kecamatan')
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('nama_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('nama_wali_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat_kantor_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('kecamatan', function ($kec) {
-                          $kec->where('nama', 'like', '%' . $this->search . '%');
-                      });
-                });
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->where('kecamatan_id', $this->kecamatanFilter);
-            })
-            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-            ->orderBy('kecamatans.nama')
-            ->orderBy('nagaris.nama_nagari')
-            ->select('nagaris.*')
-            ->paginate($this->perPage);
+        return $this->buildQuery()->paginate($this->perPage);
     }
     
     public function getKecamatans()
     {
-        return \App\Models\Kecamatan::orderBy('nama')->get();
+        return CacheHelper::getKecamatans();
     }
 
     public function exportPdf()
     {
-        $nagaris = Nagari::query()
-            ->with('kecamatan')
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('nama_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('nama_wali_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhere('alamat_kantor_nagari', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('kecamatan', function ($kec) {
-                          $kec->where('nama', 'like', '%' . $this->search . '%');
-                      });
-                });
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->where('kecamatan_id', $this->kecamatanFilter);
-            })
-            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-            ->orderBy('kecamatans.nama')
-            ->orderBy('nagaris.nama_nagari')
-            ->select('nagaris.*')
-            ->get();
+        $nagaris = $this->buildQuery()->get();
 
         $pdf = Pdf::loadView('exports.nagari-pdf', [
             'nagaris' => $nagaris,

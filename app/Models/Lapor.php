@@ -75,4 +75,38 @@ class Lapor extends Model
             }
         });
     }
+
+    // Query Scopes untuk optimasi
+    public function scopeWithRelations($query)
+    {
+        return $query->with(['opd']);
+    }
+
+    public function scopeFilterBySearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($subQuery) use ($search) {
+                $subQuery->where('nomor_tiket', 'like', '%' . $search . '%')
+                    ->orWhere('nama_pelapor', 'like', '%' . $search . '%')
+                    ->orWhere('uraian_laporan', 'like', '%' . $search . '%')
+                    ->orWhereHas('opd', function ($opd) use ($search) {
+                        $opd->where('nama', 'like', '%' . $search . '%');
+                    });
+            });
+        });
+    }
+
+    public function scopeFilterByStatus($query, $statusFilter)
+    {
+        return $query->when($statusFilter, function ($q) use ($statusFilter) {
+            $q->where('status_laporan', $statusFilter);
+        });
+    }
+
+    public function scopeFilterByOpd($query, $opdFilter)
+    {
+        return $query->when($opdFilter, function ($q) use ($opdFilter) {
+            $q->where('opd_id', $opdFilter);
+        });
+    }
 }

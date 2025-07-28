@@ -8,6 +8,8 @@ use App\Models\Opd;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Cache;
+use App\Helpers\CacheHelper;
 
 class ListLaporan extends Component
 {
@@ -45,36 +47,26 @@ class ListLaporan extends Component
         $this->resetPage();
     }
 
-    public function getLaporans()
+    private function buildQuery()
     {
-        return Lapor::query()
-            ->with(['opd'])
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('no_tiket', 'like', '%' . $this->search . '%')
-                        ->orWhere('nama_pelapor', 'like', '%' . $this->search . '%')
-                        ->orWhere('uraian_laporan', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('opd', function ($opd) {
-                            $opd->where('nama', 'like', '%' . $this->search . '%');
-                        });
-                });
-            })
-            ->when($this->statusFilter, function ($query) {
-                $query->where('status_laporan', $this->statusFilter);
-            })
-            ->when($this->opdFilter, function ($query) {
-                $query->where('opd_id', $this->opdFilter);
-            })
+        return Lapor::withRelations()
+            ->filterBySearch($this->search)
+            ->filterByStatus($this->statusFilter)
+            ->filterByOpd($this->opdFilter)
             ->when($this->ticket, function ($query) {
                 $query->where('no_tiket', $this->ticket);
             })
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->perPage);
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function getLaporans()
+    {
+        return $this->buildQuery()->paginate($this->perPage);
     }
 
     public function getOpds()
     {
-        return Opd::orderBy('nama')->get();
+        return CacheHelper::getOpds();
     }
     //             'Laporan Gangguan' => 'Laporan Gangguan',
     //             'Koordinasi Teknis' => 'Koordinasi Teknis',

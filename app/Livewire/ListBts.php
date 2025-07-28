@@ -6,6 +6,8 @@ use App\Models\Bts;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Cache;
+use App\Helpers\CacheHelper;
 
 class ListBts extends Component
 {
@@ -45,86 +47,37 @@ class ListBts extends Component
         $this->resetPage();
     }
 
-    public function getBts()
+    private function buildQuery()
     {
         return Bts::query()
-            ->with(['operator', 'kecamatan', 'nagari'])
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('titik_koordinat', 'like', '%' . $this->search . '%')
-                        ->orWhere('alamat', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('operator', function ($op) {
-                            $op->where('nama_operator', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhereHas('kecamatan', function ($kec) {
-                            $kec->where('nama', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhereHas('nagari', function ($nag) {
-                            $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
-                        });
-                });
-            })
-            ->when($this->operatorFilter, function ($query) {
-                $query->where('operator_id', $this->operatorFilter);
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->where('kecamatan_id', $this->kecamatanFilter);
-            })
-            ->when($this->teknologiFilter, function ($query) {
-                $query->where('teknologi', $this->teknologiFilter);
-            })
-            ->when($this->statusFilter, function ($query) {
-                $query->where('status', $this->statusFilter);
-            })
-            ->orderBy('tahun_bangun', 'desc')
-            ->paginate($this->perPage);
+            ->withRelations()
+            ->filterBySearch($this->search)
+            ->filterByOperator($this->operatorFilter)
+            ->filterByKecamatan($this->kecamatanFilter)
+            ->filterByTeknologi($this->teknologiFilter)
+            ->filterByStatus($this->statusFilter)
+            ->orderBy('tahun_bangun', 'desc');
+    }
+
+    public function getBts()
+    {
+        return $this->buildQuery()->paginate($this->perPage);
     }
 
     public function getOperators()
     {
-        return \App\Models\Operator::orderBy('nama_operator')->get();
+        return CacheHelper::getOperators();
     }
 
     public function getKecamatans()
     {
-        return \App\Models\Kecamatan::orderBy('nama')->get();
+        return CacheHelper::getKecamatans();
     }
 
 
     public function exportPdf()
     {
-        $query = Bts::query()
-            ->with(['operator', 'kecamatan', 'nagari'])
-            ->when($this->search, function ($query) {
-                $query->where(function ($q) {
-                    $q->where('titik_koordinat', 'like', '%' . $this->search . '%')
-                        ->orWhere('alamat', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('operator', function ($op) {
-                            $op->where('nama_operator', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhereHas('kecamatan', function ($kec) {
-                            $kec->where('nama', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhereHas('nagari', function ($nag) {
-                            $nag->where('nama_nagari', 'like', '%' . $this->search . '%');
-                        });
-                });
-            })
-            ->when($this->operatorFilter, function ($query) {
-                $query->where('operator_id', $this->operatorFilter);
-            })
-            ->when($this->kecamatanFilter, function ($query) {
-                $query->where('kecamatan_id', $this->kecamatanFilter);
-            })
-            ->when($this->teknologiFilter, function ($query) {
-                $query->where('teknologi', $this->teknologiFilter);
-            })
-            ->when($this->statusFilter, function ($query) {
-                $query->where('status', $this->statusFilter);
-            })
-            ->orderBy('tahun_bangun', 'desc');
-
-        $bts = $query->get();
+        $bts = $this->buildQuery()->get();
         $totalData = $bts->count();
 
         $pdf = Pdf::loadView('exports.bts-pdf', [

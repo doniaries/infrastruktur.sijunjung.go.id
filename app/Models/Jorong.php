@@ -54,4 +54,51 @@ class Jorong extends Model
             return self::find($id);
         });
     }
+
+    // Query Scopes untuk optimasi
+    public function scopeWithRelations($query)
+    {
+        return $query->with(['nagari.kecamatan']);
+    }
+
+    public function scopeFilterBySearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($subQuery) use ($search) {
+                $subQuery->where('nama_jorong', 'like', '%' . $search . '%')
+                    ->orWhere('nama_kepala_jorong', 'like', '%' . $search . '%')
+                    ->orWhereHas('nagari', function ($nagari) use ($search) {
+                        $nagari->where('nama_nagari', 'like', '%' . $search . '%')
+                            ->orWhereHas('kecamatan', function ($kec) use ($search) {
+                                $kec->where('nama', 'like', '%' . $search . '%');
+                            });
+                    });
+            });
+        });
+    }
+
+    public function scopeFilterByNagari($query, $nagariFilter)
+    {
+        return $query->when($nagariFilter, function ($q) use ($nagariFilter) {
+            $q->where('nagari_id', $nagariFilter);
+        });
+    }
+
+    public function scopeFilterByKecamatan($query, $kecamatanFilter)
+    {
+        return $query->when($kecamatanFilter, function ($q) use ($kecamatanFilter) {
+            $q->whereHas('nagari.kecamatan', function ($subQuery) use ($kecamatanFilter) {
+                $subQuery->where('id', $kecamatanFilter);
+            });
+        });
+    }
+
+    public function scopeOrderByKecamatanAndJorong($query)
+    {
+        return $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
+            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+            ->orderBy('kecamatans.nama')
+            ->orderBy('jorongs.nama_jorong')
+            ->select('jorongs.*');
+    }
 }

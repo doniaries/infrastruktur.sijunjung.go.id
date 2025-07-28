@@ -63,4 +63,38 @@ class Nagari extends Model
             return self::find($id);
         });
     }
+
+    // Query Scopes untuk optimasi
+    public function scopeWithRelations($query)
+    {
+        return $query->with('kecamatan');
+    }
+
+    public function scopeFilterBySearch($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where(function ($subQuery) use ($search) {
+                $subQuery->where('nama_nagari', 'like', '%' . $search . '%')
+                    ->orWhere('nama_wali_nagari', 'like', '%' . $search . '%')
+                    ->orWhereHas('kecamatan', function ($kec) use ($search) {
+                        $kec->where('nama', 'like', '%' . $search . '%');
+                    });
+            });
+        });
+    }
+
+    public function scopeFilterByKecamatan($query, $kecamatanFilter)
+    {
+        return $query->when($kecamatanFilter, function ($q) use ($kecamatanFilter) {
+            $q->where('kecamatan_id', $kecamatanFilter);
+        });
+    }
+
+    public function scopeOrderByKecamatanAndNagari($query)
+    {
+        return $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+            ->orderBy('kecamatans.nama')
+            ->orderBy('nagaris.nama_nagari')
+            ->select('nagaris.*');
+    }
 }

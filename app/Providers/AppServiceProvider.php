@@ -10,6 +10,8 @@ use Filament\Notifications\Livewire\Notifications;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\VerticalAlignment;
 use Filament\Notifications\Notification;
+use App\Observers\CacheObserver;
+use App\Models\{Bts, Jorong, Nagari, Lapor, Operator, Kecamatan, Opd};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register cache observers
+        Bts::observe(CacheObserver::class);
+        Jorong::observe(CacheObserver::class);
+        Nagari::observe(CacheObserver::class);
+        Lapor::observe(CacheObserver::class);
+        Operator::observe(CacheObserver::class);
+        Kecamatan::observe(CacheObserver::class);
+        Opd::observe(CacheObserver::class);
+
         Filament::serving(function () {
             app()->setLocale('id');
         });

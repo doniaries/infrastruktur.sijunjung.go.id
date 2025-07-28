@@ -4,7 +4,8 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Hero Section -->
-    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden">
+    <section id="hero"
+        class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
 
@@ -26,13 +27,16 @@
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-400"></i>
                         </div>
-                        <input type="text" id="heroSearch"
-                            placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD..."
-                            class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <button type="button" onclick="searchLaporan()"
-                            class="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 btn-search-enhanced">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
+                        <div class="flex">
+                            <input type="text" id="heroSearch"
+                                placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD..."
+                                class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <button type="button"
+                                class="px-6 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
                     </div>
                 </div>
                 <a href="#lapor"
@@ -235,223 +239,257 @@
                         }
                     });
 
-        // Smooth Scrolling Navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth scrolling behavior to HTML
-            document.documentElement.style.scrollBehavior = 'smooth';
+                    // Smooth Scrolling Navigation
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Add smooth scrolling behavior to HTML
+                        document.documentElement.style.scrollBehavior = 'smooth';
 
-            // Create floating navigation
-            const floatingNav = document.createElement('div');
-            floatingNav.id = 'floating-nav';
-            floatingNav.className = 'fixed right-6 top-1/2 transform -translate-y-1/2 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 p-2 opacity-0 transition-all duration-300';
-            
-            const navItems = [
-                { id: 'hero', icon: 'fas fa-home', title: 'Beranda' },
-                { id: 'features-section', icon: 'fas fa-th-large', title: 'Fitur' },
-                { id: 'bts-map', icon: 'fas fa-map', title: 'Peta BTS' },
-                { id: 'stats-section', icon: 'fas fa-chart-bar', title: 'Statistik' }
-            ];
+                        // Create floating navigation
+                        const floatingNav = document.createElement('div');
+                        floatingNav.id = 'floating-nav';
+                        floatingNav.className =
+                            'fixed right-6 top-1/2 transform -translate-y-1/2 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 p-2 opacity-0 transition-all duration-300';
 
-            navItems.forEach((item, index) => {
-                const navButton = document.createElement('button');
-                navButton.className = 'block w-10 h-10 rounded-full mb-2 last:mb-0 bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-200 relative group btn-nav-enhanced glow-on-hover';
-                navButton.innerHTML = `<i class="${item.icon} text-sm"></i>`;
-                navButton.title = item.title;
-                
-                // Add tooltip
-                const tooltip = document.createElement('div');
-                tooltip.className = 'absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none';
-                tooltip.textContent = item.title;
-                navButton.appendChild(tooltip);
-                
-                navButton.addEventListener('click', () => {
-                    const targetSection = document.getElementById(item.id);
-                    if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-                
-                floatingNav.appendChild(navButton);
-            });
-            
-            document.body.appendChild(floatingNav);
+                        const navItems = [{
+                                id: 'hero',
+                                icon: 'fas fa-home',
+                                title: 'Beranda'
+                            },
+                            {
+                                id: 'features-section',
+                                icon: 'fas fa-th-large',
+                                title: 'Fitur'
+                            },
+                            {
+                                id: 'bts-map',
+                                icon: 'fas fa-map',
+                                title: 'Peta BTS'
+                            },
+                            {
+                                id: 'stats-section',
+                                icon: 'fas fa-chart-bar',
+                                title: 'Statistik'
+                            }
+                        ];
 
-            // Show/hide floating nav based on scroll position
-            let lastScrollY = window.scrollY;
-            let ticking = false;
+                        navItems.forEach((item, index) => {
+                            const navButton = document.createElement('button');
+                            navButton.className =
+                                'block w-10 h-10 rounded-full mb-2 last:mb-0 bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-200 relative group btn-nav-enhanced glow-on-hover';
+                            navButton.innerHTML = `<i class="${item.icon} text-sm"></i>`;
+                            navButton.title = item.title;
 
-            function updateFloatingNav() {
-                const scrollY = window.scrollY;
-                const windowHeight = window.innerHeight;
-                
-                // Show nav after scrolling past hero section
-                if (scrollY > windowHeight * 0.3) {
-                    floatingNav.style.opacity = '1';
-                    floatingNav.style.transform = 'translateY(-50%) translateX(0)';
-                } else {
-                    floatingNav.style.opacity = '0';
-                    floatingNav.style.transform = 'translateY(-50%) translateX(20px)';
-                }
-                
-                // Update active state based on current section
-                const sections = navItems.map(item => document.getElementById(item.id));
-                const navButtons = floatingNav.querySelectorAll('button');
-                
-                sections.forEach((section, index) => {
-                    if (section) {
-                        const rect = section.getBoundingClientRect();
-                        const isActive = rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3;
-                        
-                        if (isActive) {
-                            navButtons.forEach(btn => btn.classList.remove('bg-blue-500', 'dark:bg-blue-600', 'text-white'));
-                            navButtons[index].classList.add('bg-blue-500', 'dark:bg-blue-600', 'text-white');
+                            // Add tooltip
+                            const tooltip = document.createElement('div');
+                            tooltip.className =
+                                'absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 dark:bg-gray-700 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none';
+                            tooltip.textContent = item.title;
+                            navButton.appendChild(tooltip);
+
+                            navButton.addEventListener('click', () => {
+                                const targetSection = document.getElementById(item.id);
+                                if (targetSection) {
+                                    targetSection.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            });
+
+                            floatingNav.appendChild(navButton);
+                        });
+
+                        document.body.appendChild(floatingNav);
+
+                        // Show/hide floating nav based on scroll position
+                        let lastScrollY = window.scrollY;
+                        let ticking = false;
+
+                        function updateFloatingNav() {
+                            const scrollY = window.scrollY;
+                            const windowHeight = window.innerHeight;
+
+                            // Show nav after scrolling past hero section
+                            if (scrollY > windowHeight * 0.3) {
+                                floatingNav.style.opacity = '1';
+                                floatingNav.style.transform = 'translateY(-50%) translateX(0)';
+                            } else {
+                                floatingNav.style.opacity = '0';
+                                floatingNav.style.transform = 'translateY(-50%) translateX(20px)';
+                            }
+
+                            // Update active state based on current section
+                            const sections = navItems.map(item => document.getElementById(item.id));
+                            const navButtons = floatingNav.querySelectorAll('button');
+
+                            sections.forEach((section, index) => {
+                                if (section) {
+                                    const rect = section.getBoundingClientRect();
+                                    const isActive = rect.top <= windowHeight * 0.3 && rect
+                                        .bottom >= windowHeight * 0.3;
+
+                                    if (isActive) {
+                                        navButtons.forEach(btn => btn.classList.remove(
+                                            'bg-blue-500', 'dark:bg-blue-600',
+                                            'text-white'));
+                                        navButtons[index].classList.add('bg-blue-500',
+                                            'dark:bg-blue-600', 'text-white');
+                                    }
+                                }
+                            });
+
+                            lastScrollY = scrollY;
+                            ticking = false;
                         }
-                    }
-                });
-                
-                lastScrollY = scrollY;
-                ticking = false;
-            }
 
-            function requestTick() {
-                if (!ticking) {
-                    requestAnimationFrame(updateFloatingNav);
-                    ticking = true;
-                }
-            }
-
-            window.addEventListener('scroll', requestTick);
-            
-            // Initial check
-            updateFloatingNav();
-
-            // Create scroll to top button
-            const scrollTopBtn = document.createElement('button');
-            scrollTopBtn.id = 'scroll-top-btn';
-            scrollTopBtn.className = 'fixed bottom-6 right-6 w-12 h-12 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-full shadow-lg opacity-0 transition-all duration-300 z-40 flex items-center justify-center btn-scroll-enhanced glow-on-hover ripple';
-            scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up text-lg"></i>';
-            scrollTopBtn.title = 'Kembali ke atas';
-            
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // Enhanced Button Effects
-            function initButtonEffects() {
-                // Magnetic effect for large buttons
-                const magneticButtons = document.querySelectorAll('.btn-primary-enhanced');
-                magneticButtons.forEach(button => {
-                    button.addEventListener('mousemove', (e) => {
-                        const rect = button.getBoundingClientRect();
-                        const x = e.clientX - rect.left - rect.width / 2;
-                        const y = e.clientY - rect.top - rect.height / 2;
-                        
-                        const moveX = x * 0.1;
-                        const moveY = y * 0.1;
-                        
-                        button.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                    });
-                    
-                    button.addEventListener('mouseleave', () => {
-                        button.style.transform = 'translate(0px, 0px) scale(1)';
-                    });
-                });
-
-                // Add ripple effect to buttons
-                const rippleButtons = document.querySelectorAll('.ripple');
-                rippleButtons.forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        const ripple = document.createElement('span');
-                        const rect = this.getBoundingClientRect();
-                        const size = Math.max(rect.width, rect.height);
-                        const x = e.clientX - rect.left - size / 2;
-                        const y = e.clientY - rect.top - size / 2;
-                        
-                        ripple.style.width = ripple.style.height = size + 'px';
-                        ripple.style.left = x + 'px';
-                        ripple.style.top = y + 'px';
-                        ripple.classList.add('ripple-effect');
-                        
-                        this.appendChild(ripple);
-                        
-                        setTimeout(() => {
-                            ripple.remove();
-                        }, 600);
-                    });
-                });
-
-                // Button loading state simulation
-                const featureButtons = document.querySelectorAll('.btn-feature-enhanced');
-                featureButtons.forEach(button => {
-                    button.addEventListener('click', function(e) {
-                        if (!this.classList.contains('btn-loading')) {
-                            e.preventDefault();
-                            this.classList.add('btn-loading');
-                            const originalText = this.innerHTML;
-                            this.innerHTML = '<span style="opacity: 0;">Loading...</span>';
-                            
-                            setTimeout(() => {
-                                this.classList.remove('btn-loading');
-                                this.innerHTML = originalText;
-                                // Simulate navigation
-                                window.location.href = this.href;
-                            }, 1500);
+                        function requestTick() {
+                            if (!ticking) {
+                                requestAnimationFrame(updateFloatingNav);
+                                ticking = true;
+                            }
                         }
-                    });
-                });
 
-                // Enhanced hover effects for navigation buttons
-                const navButtons = document.querySelectorAll('.btn-nav-enhanced');
-                navButtons.forEach(button => {
-                    button.addEventListener('mouseenter', function() {
-                        this.style.transform = 'scale(1.15) rotate(5deg)';
-                    });
-                    
-                    button.addEventListener('mouseleave', function() {
-                        this.style.transform = 'scale(1) rotate(0deg)';
-                    });
-                });
-            }
+                        window.addEventListener('scroll', requestTick);
 
-            // Initialize button effects
-            initButtonEffects();
-            
-            document.body.appendChild(scrollTopBtn);
-
-            // Show/hide scroll to top button
-            function updateScrollTopBtn() {
-                const scrollY = window.scrollY;
-                const windowHeight = window.innerHeight;
-                
-                if (scrollY > windowHeight * 0.5) {
-                    scrollTopBtn.style.opacity = '1';
-                    scrollTopBtn.style.transform = 'translateY(0)';
-                } else {
-                    scrollTopBtn.style.opacity = '0';
-                    scrollTopBtn.style.transform = 'translateY(20px)';
-                }
-            }
-
-            // Add scroll to top button to scroll listener
-            const originalRequestTick = requestTick;
-            requestTick = function() {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
+                        // Initial check
                         updateFloatingNav();
-                        updateScrollTopBtn();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            };
 
-            // Update scroll listener
-            window.removeEventListener('scroll', originalRequestTick);
-            window.addEventListener('scroll', requestTick);
-            
-            // Initial check for scroll top button
-            updateScrollTopBtn();
-        });
+                        // Create scroll to top button
+                        const scrollTopBtn = document.createElement('button');
+                        scrollTopBtn.id = 'scroll-top-btn';
+                        scrollTopBtn.className =
+                            'fixed bottom-6 right-6 w-12 h-12 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-full shadow-lg opacity-0 transition-all duration-300 z-40 flex items-center justify-center btn-scroll-enhanced glow-on-hover ripple';
+                        scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up text-lg"></i>';
+                        scrollTopBtn.title = 'Kembali ke atas';
+
+                        scrollTopBtn.addEventListener('click', () => {
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        });
+
+                        // Enhanced Button Effects
+                        function initButtonEffects() {
+                            // Magnetic effect for large buttons
+                            const magneticButtons = document.querySelectorAll('.btn-primary-enhanced');
+                            magneticButtons.forEach(button => {
+                                button.addEventListener('mousemove', (e) => {
+                                    const rect = button.getBoundingClientRect();
+                                    const x = e.clientX - rect.left - rect.width / 2;
+                                    const y = e.clientY - rect.top - rect.height / 2;
+
+                                    const moveX = x * 0.1;
+                                    const moveY = y * 0.1;
+
+                                    button.style.transform =
+                                        `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+                                });
+
+                                button.addEventListener('mouseleave', () => {
+                                    button.style.transform =
+                                        'translate(0px, 0px) scale(1)';
+                                });
+                            });
+
+                            // Add ripple effect to buttons
+                            const rippleButtons = document.querySelectorAll('.ripple');
+                            rippleButtons.forEach(button => {
+                                button.addEventListener('click', function(e) {
+                                    const ripple = document.createElement('span');
+                                    const rect = this.getBoundingClientRect();
+                                    const size = Math.max(rect.width, rect.height);
+                                    const x = e.clientX - rect.left - size / 2;
+                                    const y = e.clientY - rect.top - size / 2;
+
+                                    ripple.style.width = ripple.style.height = size +
+                                        'px';
+                                    ripple.style.left = x + 'px';
+                                    ripple.style.top = y + 'px';
+                                    ripple.classList.add('ripple-effect');
+
+                                    this.appendChild(ripple);
+
+                                    setTimeout(() => {
+                                        ripple.remove();
+                                    }, 600);
+                                });
+                            });
+
+                            // Button loading state simulation
+                            const featureButtons = document.querySelectorAll('.btn-feature-enhanced');
+                            featureButtons.forEach(button => {
+                                button.addEventListener('click', function(e) {
+                                    if (!this.classList.contains('btn-loading')) {
+                                        e.preventDefault();
+                                        this.classList.add('btn-loading');
+                                        const originalText = this.innerHTML;
+                                        this.innerHTML =
+                                            '<span style="opacity: 0;">Loading...</span>';
+
+                                        setTimeout(() => {
+                                            this.classList.remove(
+                                                'btn-loading');
+                                            this.innerHTML = originalText;
+                                            // Simulate navigation
+                                            window.location.href = this.href;
+                                        }, 1500);
+                                    }
+                                });
+                            });
+
+                            // Enhanced hover effects for navigation buttons
+                            const navButtons = document.querySelectorAll('.btn-nav-enhanced');
+                            navButtons.forEach(button => {
+                                button.addEventListener('mouseenter', function() {
+                                    this.style.transform = 'scale(1.15) rotate(5deg)';
+                                });
+
+                                button.addEventListener('mouseleave', function() {
+                                    this.style.transform = 'scale(1) rotate(0deg)';
+                                });
+                            });
+                        }
+
+                        // Initialize button effects
+                        initButtonEffects();
+
+                        document.body.appendChild(scrollTopBtn);
+
+                        // Show/hide scroll to top button
+                        function updateScrollTopBtn() {
+                            const scrollY = window.scrollY;
+                            const windowHeight = window.innerHeight;
+
+                            if (scrollY > windowHeight * 0.5) {
+                                scrollTopBtn.style.opacity = '1';
+                                scrollTopBtn.style.transform = 'translateY(0)';
+                            } else {
+                                scrollTopBtn.style.opacity = '0';
+                                scrollTopBtn.style.transform = 'translateY(20px)';
+                            }
+                        }
+
+                        // Add scroll to top button to scroll listener
+                        const originalRequestTick = requestTick;
+                        requestTick = function() {
+                            if (!ticking) {
+                                requestAnimationFrame(() => {
+                                    updateFloatingNav();
+                                    updateScrollTopBtn();
+                                    ticking = false;
+                                });
+                                ticking = true;
+                            }
+                        };
+
+                        // Update scroll listener
+                        window.removeEventListener('scroll', originalRequestTick);
+                        window.addEventListener('scroll', requestTick);
+
+                        // Initial check for scroll top button
+                        updateScrollTopBtn();
+                    });
                 })
                 .catch(error => {
                     console.error('Error fetching BTS data:', error);
@@ -941,9 +979,12 @@
 
         /* Add pulse animation for scroll indicators */
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.5;
             }
@@ -959,19 +1000,19 @@
                 right: 1rem;
                 transform: translateY(-50%) scale(0.9);
             }
-            
+
             #scroll-top-btn {
                 bottom: 1rem;
                 right: 1rem;
                 width: 3rem;
                 height: 3rem;
             }
-            
+
             #floating-nav button {
                 width: 2.25rem;
                 height: 2.25rem;
             }
-            
+
             #floating-nav button i {
                 font-size: 0.75rem;
             }
@@ -983,6 +1024,7 @@
                 opacity: 0;
                 transform: translateX(100%);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -990,186 +1032,189 @@
         }
 
         @keyframes slideInUp {
-             from {
-                 opacity: 0;
-                 transform: translateY(100%);
-             }
-             to {
-                 opacity: 1;
-                 transform: translateY(0);
-             }
-         }
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
 
-         /* Enhanced Button Hover Effects */
-         
-         /* Primary Button (Lapor Sekarang) Enhanced Hover */
-         .btn-primary-enhanced {
-             position: relative;
-             overflow: hidden;
-             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-         }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-         .btn-primary-enhanced::before {
-             content: '';
-             position: absolute;
-             top: 0;
-             left: -100%;
-             width: 100%;
-             height: 100%;
-             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-             transition: left 0.6s ease;
-         }
+        /* Enhanced Button Hover Effects */
 
-         .btn-primary-enhanced:hover::before {
-             left: 100%;
-         }
+        /* Primary Button (Lapor Sekarang) Enhanced Hover */
+        .btn-primary-enhanced {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-         .btn-primary-enhanced:hover {
-             transform: translateY(-3px) scale(1.05);
-             box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
-             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
-         }
+        .btn-primary-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
 
-         .btn-primary-enhanced:active {
-             transform: translateY(-1px) scale(1.02);
-             transition: all 0.1s ease;
-         }
+        .btn-primary-enhanced:hover::before {
+            left: 100%;
+        }
 
-         /* Feature Card Button Enhanced Hover */
-         .btn-feature-enhanced {
-             position: relative;
-             overflow: hidden;
-             transition: all 0.3s ease;
-         }
+        .btn-primary-enhanced:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+        }
 
-         .btn-feature-enhanced::after {
-             content: '';
-             position: absolute;
-             top: 50%;
-             left: 50%;
-             width: 0;
-             height: 0;
-             background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-             transition: all 0.4s ease;
-             transform: translate(-50%, -50%);
-             border-radius: 50%;
-         }
+        .btn-primary-enhanced:active {
+            transform: translateY(-1px) scale(1.02);
+            transition: all 0.1s ease;
+        }
 
-         .btn-feature-enhanced:hover::after {
-             width: 300px;
-             height: 300px;
-         }
+        /* Feature Card Button Enhanced Hover */
+        .btn-feature-enhanced {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
 
-         .btn-feature-enhanced:hover {
-             transform: translateY(-2px);
-             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-             background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-         }
+        .btn-feature-enhanced::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
 
-         .btn-feature-enhanced:hover i {
-             transform: translateX(3px);
-             transition: transform 0.3s ease;
-         }
+        .btn-feature-enhanced:hover::after {
+            width: 300px;
+            height: 300px;
+        }
 
-         /* Floating Navigation Button Enhanced Hover */
-         .btn-nav-enhanced {
-             position: relative;
-             transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-         }
+        .btn-feature-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+        }
 
-         .btn-nav-enhanced::before {
-             content: '';
-             position: absolute;
-             top: 50%;
-             left: 50%;
-             width: 0;
-             height: 0;
-             background: rgba(59, 130, 246, 0.2);
-             border-radius: 50%;
-             transform: translate(-50%, -50%);
-             transition: all 0.4s ease;
-             z-index: -1;
-         }
+        .btn-feature-enhanced:hover i {
+            transform: translateX(3px);
+            transition: transform 0.3s ease;
+        }
 
-         .btn-nav-enhanced:hover::before {
-             width: 120%;
-             height: 120%;
-         }
+        /* Floating Navigation Button Enhanced Hover */
+        .btn-nav-enhanced {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
 
-         .btn-nav-enhanced:hover {
-             transform: scale(1.15) rotate(5deg);
-             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
-         }
+        .btn-nav-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
 
-         .btn-nav-enhanced:active {
-             transform: scale(1.05) rotate(2deg);
-         }
+        .btn-nav-enhanced:hover::before {
+            width: 120%;
+            height: 120%;
+        }
 
-         /* Scroll to Top Button Enhanced Hover */
-         .btn-scroll-enhanced {
-             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-             position: relative;
-         }
+        .btn-nav-enhanced:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
 
-         .btn-scroll-enhanced::before {
-             content: '';
-             position: absolute;
-             top: 0;
-             left: 0;
-             right: 0;
-             bottom: 0;
-             background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
-             transform: translateX(-100%) rotate(45deg);
-             transition: transform 0.6s ease;
-         }
+        .btn-nav-enhanced:active {
+            transform: scale(1.05) rotate(2deg);
+        }
 
-         .btn-scroll-enhanced:hover::before {
-             transform: translateX(100%) rotate(45deg);
-         }
+        /* Scroll to Top Button Enhanced Hover */
+        .btn-scroll-enhanced {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
 
-         .btn-scroll-enhanced:hover {
-             transform: translateY(-5px) scale(1.1);
-             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
-             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-         }
+        .btn-scroll-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+            transform: translateX(-100%) rotate(45deg);
+            transition: transform 0.6s ease;
+        }
 
-         .btn-scroll-enhanced:hover i {
-             animation: bounceUp 0.6s ease infinite alternate;
-         }
+        .btn-scroll-enhanced:hover::before {
+            transform: translateX(100%) rotate(45deg);
+        }
 
-         @keyframes bounceUp {
-             0% {
-                 transform: translateY(0);
-             }
-             100% {
-                 transform: translateY(-3px);
-             }
-         }
+        .btn-scroll-enhanced:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
 
-         /* Search Button Enhanced Hover */
-         .btn-search-enhanced {
-             transition: all 0.3s ease;
-         }
+        .btn-scroll-enhanced:hover i {
+            animation: bounceUp 0.6s ease infinite alternate;
+        }
 
-         .btn-search-enhanced:hover {
-             transform: scale(1.1);
-             color: #1d4ed8 !important;
-         }
+        @keyframes bounceUp {
+            0% {
+                transform: translateY(0);
+            }
 
-         .btn-search-enhanced:hover i {
-             animation: searchPulse 0.8s ease infinite;
-         }
+            100% {
+                transform: translateY(-3px);
+            }
+        }
 
-         @keyframes searchPulse {
-             0%, 100% {
-                 transform: scale(1);
-             }
-             50% {
-                 transform: scale(1.2);
-             }
-         }
+        /* Search Button Enhanced Hover */
+        .btn-search-enhanced {
+            transition: all 0.3s ease;
+        }
 
+        .btn-search-enhanced:hover {
+            transform: scale(1.1);
+            color: #1d4ed8 !important;
+        }
 
+        .btn-search-enhanced:hover i {
+            animation: searchPulse 0.8s ease infinite;
+        }
+
+        @keyframes searchPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
     </style>
 
     <script>
