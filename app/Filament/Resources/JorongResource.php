@@ -68,6 +68,7 @@ class JorongResource extends Resource
                 Tables\Columns\TextColumn::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->searchable()
+                    ->copyable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
@@ -83,6 +84,7 @@ class JorongResource extends Resource
                 Tables\Columns\TextColumn::make('jumlah_penduduk_jorong')
                     ->label('Jumlah Penduduk')
                     ->numeric()
+                    ->copyable()
                     ->sortable()
                     ->suffix(' Jiwa')
                     ->toggleable(),
