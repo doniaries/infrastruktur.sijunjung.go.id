@@ -65,14 +65,14 @@ class JorongResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('nagari.nama_nagari')
+                    ->label('Nama Nagari')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->searchable()
                     ->copyable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('nagari.nama_nagari')
-                    ->label('Nama Nagari')
-                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama_kepala_jorong')
                     ->label('Kepala Jorong')
