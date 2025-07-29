@@ -39,7 +39,7 @@
 
                     </div>
                 </div>
-                <a href="#lapor"
+                <a href="{{ route('public.laporform') }}"
                     class="inline-flex items-center justify-center px-6 py-3 mr-3 text-base font-medium text-center text-white rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:backdrop-blur-lg hover:border-white/30 transition-all duration-300 ease-in-out transform dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 btn-primary-enhanced ripple glow-on-hover">
                     Lapor Sekarang
                     <i class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1"></i>
