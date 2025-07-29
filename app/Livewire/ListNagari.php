@@ -16,8 +16,10 @@ class ListNagari extends Component
     public $search = '';
     public $kecamatanFilter = '';
     public $perPage = 10;
+    public $sortField = 'nama_nagari';
+    public $sortDirection = 'asc';
     
-    protected $queryString = ['search', 'kecamatanFilter'];
+    protected $queryString = ['search', 'kecamatanFilter', 'sortField', 'sortDirection'];
     
     public function updatingSearch()
     {
@@ -26,6 +28,18 @@ class ListNagari extends Component
     
     public function updatingKecamatanFilter()
     {
+        $this->resetPage();
+    }
+    
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        
         $this->resetPage();
     }
 
@@ -39,7 +53,35 @@ class ListNagari extends Component
             ->filterBySearch($this->search)
             ->filterByKecamatan($this->kecamatanFilter);
 
-        $query->orderByKecamatanAndNagari();
+        // Apply sorting
+        switch ($this->sortField) {
+            case 'kecamatan':
+                $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+                      ->orderBy('kecamatans.nama', $this->sortDirection)
+                      ->select('nagaris.*');
+                break;
+            case 'jumlah_penduduk':
+                $query->orderByRaw('(
+                    SELECT COALESCE(SUM(jorongs.jumlah_penduduk_jorong), 0) 
+                    FROM jorongs 
+                    WHERE jorongs.nagari_id = nagaris.id
+                ) ' . $this->sortDirection);
+                break;
+            case 'luas_nagari':
+                $query->orderBy('luas_nagari', $this->sortDirection);
+                break;
+            case 'nama_nagari':
+                $query->orderBy('nama_nagari', $this->sortDirection);
+                break;
+            case 'nama_wali_nagari':
+                $query->orderBy('nama_wali_nagari', $this->sortDirection);
+                break;
+            case 'jorongs_count':
+                $query->orderBy('jorongs_count', $this->sortDirection);
+                break;
+            default:
+                $query->orderByKecamatanAndNagari();
+        }
 
         return $query;
     }

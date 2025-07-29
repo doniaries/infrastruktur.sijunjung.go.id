@@ -84,6 +84,7 @@ class JorongResource extends Resource
                     ->label('Jumlah Penduduk')
                     ->numeric()
                     ->sortable()
+                    ->suffix(' Jiwa')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('luas_jorong')
                     ->label('Luas (Ha)')

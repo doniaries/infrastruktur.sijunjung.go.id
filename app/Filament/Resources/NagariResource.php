@@ -103,9 +103,10 @@ class NagariResource extends Resource
                 Tables\Columns\TextColumn::make('jumlah_penduduk_nagari')
                     ->label('Jumlah Penduduk')
                     ->formatStateUsing(function ($state) {
-                        return number_format($state, 0, ',', '.') . ' Jiwa';
+                        return number_format($state, 0, ',', '.');
                     })
                     ->sortable()
+                    ->suffix(' Jiwa')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('jumlah_jorong')
                     ->label('Jumlah Jorong')

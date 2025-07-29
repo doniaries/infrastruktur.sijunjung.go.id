@@ -44,12 +44,126 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Nama Nagari</th>
-                                <th scope="col" class="px-4 py-3">Kecamatan</th>
-                                <th scope="col" class="px-4 py-3">Wali Nagari</th>
-                                <th scope="col" class="px-4 py-3 text-right">Penduduk</th>
-                                <th scope="col" class="px-4 py-3 text-right">Luas (Ha)</th>
-                                <th scope="col" class="px-4 py-3 text-center">Jorong</th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('nama_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Nama Nagari</span>
+                                        @if($sortField === 'nama_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('kecamatan')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Kecamatan</span>
+                                        @if($sortField === 'kecamatan')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('nama_wali_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Wali Nagari</span>
+                                        @if($sortField === 'nama_wali_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-right">
+                                    <button wire:click="sortBy('jumlah_penduduk')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
+                                        <span>Penduduk</span>
+                                        @if($sortField === 'jumlah_penduduk')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-right">
+                                    <button wire:click="sortBy('luas_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
+                                        <span>Luas (Ha)</span>
+                                        @if($sortField === 'luas_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-center">
+                                    <button wire:click="sortBy('jorongs_count')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 mx-auto">
+                                        <span>Jorong</span>
+                                        @if($sortField === 'jorongs_count')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,12 +202,126 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Nama Nagari</th>
-                                <th scope="col" class="px-4 py-3">Kecamatan</th>
-                                <th scope="col" class="px-4 py-3">Wali Nagari</th>
-                                <th scope="col" class="px-4 py-3 text-right">Penduduk</th>
-                                <th scope="col" class="px-4 py-3 text-right">Luas (Ha)</th>
-                                <th scope="col" class="px-4 py-3 text-center">Jorong</th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('nama_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Nama Nagari</span>
+                                        @if($sortField === 'nama_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('kecamatan')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Kecamatan</span>
+                                        @if($sortField === 'kecamatan')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3">
+                                    <button wire:click="sortBy('nama_wali_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
+                                        <span>Wali Nagari</span>
+                                        @if($sortField === 'nama_wali_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-right">
+                                    <button wire:click="sortBy('jumlah_penduduk')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
+                                        <span>Penduduk</span>
+                                        @if($sortField === 'jumlah_penduduk')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-right">
+                                    <button wire:click="sortBy('luas_nagari')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
+                                        <span>Luas (Ha)</span>
+                                        @if($sortField === 'luas_nagari')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-4 py-3 text-center">
+                                    <button wire:click="sortBy('jorongs_count')" class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 mx-auto">
+                                        <span>Jorong</span>
+                                        @if($sortField === 'jorongs_count')
+                                            @if($sortDirection === 'asc')
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"/>
+                                                </svg>
+                                            @endif
+                                        @else
+                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
