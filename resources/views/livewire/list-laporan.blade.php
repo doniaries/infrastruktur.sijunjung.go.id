@@ -42,9 +42,11 @@
                     Tambah Laporan
                 </a>
             </div>
+
             <!-- Table Section -->
             <section
-                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
+                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto"
+                wire:loading.remove>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
@@ -133,6 +135,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </div>
