@@ -64,8 +64,7 @@
                 </button>
             </div>
 
-            <!-- Global Loading Component -->
-            <x-table-loading title="Memuat Data BTS" message="Sedang mengambil data BTS dari database..." />
+
 
             <!-- Table Section -->
             <section
@@ -178,8 +177,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8"
-                                        class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
+                                    <td colspan="8" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -205,6 +203,6 @@
             </div>
         </div>
     </div>
-    
+
 
 </div>
