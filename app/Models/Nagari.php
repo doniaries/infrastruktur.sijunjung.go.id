@@ -59,13 +59,15 @@ class Nagari extends Model
     // Accessor untuk menghitung total penduduk dari semua jorong
     public function getJumlahPendudukNagariAttribute()
     {
-        return $this->jorongs()->sum('jumlah_penduduk_jorong');
+        // Use the loaded aggregate if available, otherwise fallback to query
+        return $this->jorongs_sum_jumlah_penduduk_jorong ?? $this->jorongs()->sum('jumlah_penduduk_jorong');
     }
 
     // Accessor untuk menghitung jumlah jorong
     public function getJumlahJorongAttribute()
     {
-        return $this->jorongs()->count();
+        // Use the loaded count if available, otherwise fallback to query
+        return $this->jorongs_count ?? $this->jorongs()->count();
     }
 
     // Static cache for frequently accessed Nagari by ID

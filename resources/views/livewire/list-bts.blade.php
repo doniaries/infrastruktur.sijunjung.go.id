@@ -64,12 +64,12 @@
                 </button>
             </div>
 
-
+            <!-- Global Loading Component -->
+            <x-table-loading title="Memuat Data BTS" message="Sedang mengambil data BTS dari database..." />
 
             <!-- Table Section -->
             <section
-                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto"
-                wire:loading.remove>
+               <section class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
@@ -177,7 +177,8 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
+                                    <td colspan="8"
+                                        class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
@@ -203,6 +204,6 @@
             </div>
         </div>
     </div>
-
+    
 
 </div>

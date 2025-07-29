@@ -10,7 +10,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Cache;
 use App\Helpers\CacheHelper;
+use Livewire\Attributes\Lazy;
 
+#[Lazy]
 class ListLaporan extends Component
 {
     use WithPagination;
@@ -25,6 +27,14 @@ class ListLaporan extends Component
 
     protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket', 'sortField', 'sortDirection'];
 
+    // public function placeholder()
+    // {
+    //     return view('livewire.placeholders.table-placeholder', [
+    //         'title' => 'Memuat Data Laporan',
+    //         'message' => 'Sedang mengambil data laporan dari database...'
+    //     ]);
+    // }
+
     public function mount()
     {
         // Mengambil parameter ticket dari URL jika ada
@@ -38,6 +48,8 @@ class ListLaporan extends Component
     {
         $this->resetPage();
     }
+
+
 
     public function updatingStatusFilter()
     {
@@ -74,8 +86,8 @@ class ListLaporan extends Component
         switch ($this->sortField) {
             case 'opd':
                 $query->join('opds', 'lapors.opd_id', '=', 'opds.id')
-                      ->orderBy('opds.nama', $this->sortDirection)
-                      ->select('lapors.*');
+                    ->orderBy('opds.nama', $this->sortDirection)
+                    ->select('lapors.*');
                 break;
             case 'no_tiket':
                 $query->orderBy('lapors.no_tiket', $this->sortDirection);

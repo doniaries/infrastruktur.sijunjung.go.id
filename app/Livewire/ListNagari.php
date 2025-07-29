@@ -8,29 +8,39 @@ use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use App\Helpers\CacheHelper;
+use Livewire\Attributes\Lazy;
 
+#[Lazy]
 class ListNagari extends Component
 {
     use WithPagination;
-    
+
     public $search = '';
     public $kecamatanFilter = '';
     public $perPage = 10;
     public $sortField = 'nama_nagari';
     public $sortDirection = 'asc';
-    
+
     protected $queryString = ['search', 'kecamatanFilter', 'sortField', 'sortDirection'];
-    
+
+    // public function placeholder()
+    // {
+    //     return view('livewire.placeholders.table-placeholder', [
+    //         'title' => 'Memuat Data Nagari',
+    //         'message' => 'Sedang mengambil data nagari dari database...'
+    //     ]);
+    // }
+
     public function updatingSearch()
     {
         $this->resetPage();
     }
-    
+
     public function updatingKecamatanFilter()
     {
         $this->resetPage();
     }
-    
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -39,7 +49,7 @@ class ListNagari extends Component
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
-        
+
         $this->resetPage();
     }
 
@@ -47,9 +57,7 @@ class ListNagari extends Component
     {
         $query = Nagari::withRelations()
             ->withCount('jorongs')
-            ->with(['jorongs' => function($query) {
-                $query->select('nagari_id', 'jumlah_penduduk_jorong');
-            }])
+            ->withSum('jorongs', 'jumlah_penduduk_jorong')
             ->filterBySearch($this->search)
             ->filterByKecamatan($this->kecamatanFilter);
 
@@ -57,13 +65,13 @@ class ListNagari extends Component
         switch ($this->sortField) {
             case 'kecamatan':
                 $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-                      ->orderBy('kecamatans.nama', $this->sortDirection)
-                      ->select('nagaris.*');
+                    ->orderBy('kecamatans.nama', $this->sortDirection)
+                    ->select('nagaris.*');
                 break;
             case 'jumlah_penduduk':
                 $query->orderByRaw('(
-                    SELECT COALESCE(SUM(jorongs.jumlah_penduduk_jorong), 0) 
-                    FROM jorongs 
+                    SELECT COALESCE(SUM(jorongs.jumlah_penduduk_jorong), 0)
+                    FROM jorongs
                     WHERE jorongs.nagari_id = nagaris.id
                 ) ' . $this->sortDirection);
                 break;
@@ -90,7 +98,7 @@ class ListNagari extends Component
     {
         return $this->buildQuery()->paginate($this->perPage);
     }
-    
+
     public function getKecamatans()
     {
         return CacheHelper::getKecamatans();
