@@ -41,7 +41,7 @@ class NagariSeeder extends Seeder
             ['id' => 24, 'kecamatan_id' => 5, 'nama_nagari' => 'Batu Manjulur'],
             ['id' => 25, 'kecamatan_id' => 5, 'nama_nagari' => 'Pamuatan'],
             ['id' => 26, 'kecamatan_id' => 5, 'nama_nagari' => 'Padang Sibusuk'],
-            ['id' => 27, 'kecamatan_id' => 5, 'nama_nagari' => 'Desa Kampung Baru'],
+            ['id' => 27, 'kecamatan_id' => 5, 'nama_nagari' => 'Kampung Baru'],
             ['id' => 28, 'kecamatan_id' => 6, 'nama_nagari' => 'Lubuk Tarok'],
             ['id' => 29, 'kecamatan_id' => 6, 'nama_nagari' => 'Lalan'],
             ['id' => 30, 'kecamatan_id' => 6, 'nama_nagari' => 'Buluh Kasok'],

@@ -14,26 +14,26 @@ use App\Helpers\CacheHelper;
 class ListJorong extends Component
 {
     use WithPagination;
-    
+
     public $search = '';
     public $nagariFilter = '';
     public $kecamatanFilter = '';
     public $perPage = 10;
     public $sortField = 'nama_jorong';
     public $sortDirection = 'asc';
-    
+
     protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'sortField', 'sortDirection'];
-    
+
     public function updatingSearch()
     {
         $this->resetPage();
     }
-    
+
     public function updatingNagariFilter()
     {
         $this->resetPage();
     }
-    
+
     public function updatingKecamatanFilter()
     {
         $this->resetPage();
@@ -61,17 +61,26 @@ class ListJorong extends Component
         switch ($this->sortField) {
             case 'kecamatan':
                 $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
-                      ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
-                      ->orderBy('kecamatans.nama', $this->sortDirection)
-                      ->select('jorongs.*');
+                    ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+                    ->orderBy('kecamatans.nama', $this->sortDirection)
+                    ->select('jorongs.*');
                 break;
             case 'nagari':
                 $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
-                      ->orderBy('nagaris.nama_nagari', $this->sortDirection)
-                      ->select('jorongs.*');
+                    ->orderBy('nagaris.nama_nagari', $this->sortDirection)
+                    ->select('jorongs.*');
                 break;
             case 'nama_jorong':
                 $query->orderBy('jorongs.nama_jorong', $this->sortDirection);
+                break;
+            case 'nama_kepala_jorong':
+                $query->orderBy('jorongs.nama_kepala_jorong', $this->sortDirection);
+                break;
+            case 'jumlah_penduduk_jorong':
+                $query->orderBy('jorongs.jumlah_penduduk_jorong', $this->sortDirection);
+                break;
+            case 'luas_jorong':
+                $query->orderBy('jorongs.luas_jorong', $this->sortDirection);
                 break;
             default:
                 $query->orderByKecamatanAndJorong();
@@ -85,7 +94,7 @@ class ListJorong extends Component
     {
         return $this->buildQuery()->paginate($this->perPage);
     }
-    
+
     public function getNagaris()
     {
         return CacheHelper::getNagaris();
