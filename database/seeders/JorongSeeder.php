@@ -14,7 +14,7 @@ class JorongSeeder extends Seeder
     {
         // Hapus data lama
         Jorong::query()->delete();
-        
+
         $jorongs = [
             // Data lengkap dari SQL file success5_infrastruktur.sql (ID 609-914)
             ['id' => 609, 'nagari_id' => 1, 'nama_jorong' => 'Pantai Cermin', 'jumlah_penduduk_jorong' => 767],
@@ -61,8 +61,8 @@ class JorongSeeder extends Seeder
             ['id' => 650, 'nagari_id' => 8, 'nama_jorong' => 'Sungai Sariek', 'jumlah_penduduk_jorong' => null],
             ['id' => 651, 'nagari_id' => 9, 'nama_jorong' => 'Guguk Tinggi', 'jumlah_penduduk_jorong' => null],
             ['id' => 652, 'nagari_id' => 9, 'nama_jorong' => 'Koto Baru', 'jumlah_penduduk_jorong' => null],
-            ['id' => 653, 'nagari_id' => 9, 'nama_jorong' => 'Banjar Tengah', 'jumlah_penduduk_jorong' => null],
-            ['id' => 654, 'nagari_id' => 9, 'nama_jorong' => 'Lubuk Kapiek', 'jumlah_penduduk_jorong' => null],
+            ['id' => 653, 'nagari_id' => 9, 'nama_jorong' => 'Banjar Tengah', 'jumlah_penduduk_jorong' => 723],
+            ['id' => 654, 'nagari_id' => 9, 'nama_jorong' => 'Lubuk Kapiek', 'jumlah_penduduk_jorong' => 450],
             ['id' => 655, 'nagari_id' => 9, 'nama_jorong' => 'Koto Ronah', 'jumlah_penduduk_jorong' => null],
             ['id' => 656, 'nagari_id' => 9, 'nama_jorong' => 'Koto Tuo', 'jumlah_penduduk_jorong' => null],
             ['id' => 657, 'nagari_id' => 10, 'nama_jorong' => 'Koto', 'jumlah_penduduk_jorong' => 1108],
