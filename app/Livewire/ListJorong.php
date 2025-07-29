@@ -18,7 +18,7 @@ class ListJorong extends Component
     public $search = '';
     public $nagariFilter = '';
     public $kecamatanFilter = '';
-    public $perPage = 10;
+    public $perPage = 5;
     public $sortField = 'nama_jorong';
     public $sortDirection = 'asc';
 
@@ -110,7 +110,7 @@ class ListJorong extends Component
                 ->orderBy('nama_nagari')
                 ->get();
         }
-        
+
         // Otherwise show all nagaris
         return CacheHelper::getNagaris();
     }

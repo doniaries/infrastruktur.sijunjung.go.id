@@ -12,7 +12,7 @@
                 </div>
 
                 <!-- Search, Filter and Export Section -->
-                <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
+                <div class="mb-6 flex flex-wrap gap-3 items-center max-w-6xl mx-auto">
                     <div class="min-w-64 max-w-80 relative">
                         <input type="text" wire:model.live="search" placeholder="Cari jorong..."
                             class="w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -55,15 +55,17 @@
                             @endforeach
                         </select>
                     </div>
-                    <button wire:click="exportPdf"
-                        class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform min-w-fit btn-export-enhanced ripple glow-on-hover">
+                    <div class="min-w-fit">
+                        <button wire:click="exportPdf"
+                            class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform w-full h-[42px] btn-export-enhanced ripple glow-on-hover">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                             </path>
                         </svg>
                         Export PDF
-                    </button>
+                        </button>
+                    </div>
                 </div>
 
 
