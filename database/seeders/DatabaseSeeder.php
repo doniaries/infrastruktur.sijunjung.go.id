@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             KecamatanSeeder::class,
             NagariSeeder::class,
             JorongSeeder::class,
-            BtsSeeder::class,    // Membuat data BTS setelah operator, kecamatan, nagari, jorong
             OpdSeeder::class,    // Harus dijalankan sebelum LaporSeeder
             ShieldSeeder::class, // Harus dijalankan sebelum RoleSeeder untuk membuat permission
             RoleSeeder::class,   // Menggunakan permission yang dibuat oleh ShieldSeeder
