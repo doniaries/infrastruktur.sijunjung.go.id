@@ -4,9 +4,11 @@ namespace App\Filament\Resources\JorongResource\Pages;
 
 use App\Filament\Resources\JorongResource;
 use App\Models\Kecamatan;
+use App\Models\Nagari;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListJorongs extends ListRecords
@@ -46,5 +48,35 @@ class ListJorongs extends ListRecords
         }
 
         return $tabs;
+    }
+
+    public function getTableFilters(): array
+    {
+        $filters = [];
+        
+        // Get current active tab
+        $activeTab = $this->activeTab ?? 'all';
+        
+        if ($activeTab === 'all') {
+            // Show all nagari when 'all' tab is active
+            $filters['nagari_id'] = SelectFilter::make('nagari_id')
+                ->relationship('nagari', 'nama_nagari')
+                ->label('Filter by Nagari')
+                ->searchable()
+                ->preload();
+        } else {
+            // Filter nagari by kecamatan when specific kecamatan tab is active
+            $kecamatan = Kecamatan::where('nama', $activeTab)->first();
+            if ($kecamatan) {
+                $nagaris = Nagari::where('kecamatan_id', $kecamatan->id)->pluck('nama_nagari', 'id');
+                
+                $filters['nagari_id'] = SelectFilter::make('nagari_id')
+                    ->options($nagaris)
+                    ->label('Filter by Nagari')
+                    ->searchable();
+            }
+        }
+        
+        return $filters;
     }
 }

@@ -104,7 +104,11 @@ class JorongResource extends Resource
             ->defaultSort('nagari.nama_nagari', 'asc')
             ->striped()
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('nagari_id')
+                    ->relationship('nagari', 'nama_nagari')
+                    ->label('Filter by Nagari')
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -39,6 +39,13 @@ class ListJorong extends Component
         $this->resetPage();
     }
 
+    public function updatedKecamatanFilter()
+    {
+        // Reset nagari filter when kecamatan changes
+        $this->nagariFilter = '';
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -97,6 +104,14 @@ class ListJorong extends Component
 
     public function getNagaris()
     {
+        // If kecamatan filter is set, only show nagaris from that kecamatan
+        if ($this->kecamatanFilter) {
+            return \App\Models\Nagari::where('kecamatan_id', $this->kecamatanFilter)
+                ->orderBy('nama_nagari')
+                ->get();
+        }
+        
+        // Otherwise show all nagaris
         return CacheHelper::getNagaris();
     }
 
