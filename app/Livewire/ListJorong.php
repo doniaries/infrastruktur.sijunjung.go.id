@@ -19,8 +19,10 @@ class ListJorong extends Component
     public $nagariFilter = '';
     public $kecamatanFilter = '';
     public $perPage = 10;
+    public $sortField = 'nama_jorong';
+    public $sortDirection = 'asc';
     
-    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter'];
+    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'sortField', 'sortDirection'];
     
     public function updatingSearch()
     {
@@ -37,6 +39,17 @@ class ListJorong extends Component
         $this->resetPage();
     }
 
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        $this->resetPage();
+    }
+
     private function buildQuery()
     {
         $query = Jorong::withRelations()
@@ -44,7 +57,26 @@ class ListJorong extends Component
             ->filterByNagari($this->nagariFilter)
             ->filterByKecamatan($this->kecamatanFilter);
 
-        $query->orderByKecamatanAndJorong();
+        // Apply sorting
+        switch ($this->sortField) {
+            case 'kecamatan':
+                $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
+                      ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+                      ->orderBy('kecamatans.nama', $this->sortDirection)
+                      ->select('jorongs.*');
+                break;
+            case 'nagari':
+                $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
+                      ->orderBy('nagaris.nama_nagari', $this->sortDirection)
+                      ->select('jorongs.*');
+                break;
+            case 'nama_jorong':
+                $query->orderBy('jorongs.nama_jorong', $this->sortDirection);
+                break;
+            default:
+                $query->orderByKecamatanAndJorong();
+                break;
+        }
 
         return $query;
     }

@@ -20,8 +20,10 @@ class ListLaporan extends Component
     public $statusFilter = '';
     public $opdFilter = '';
     public $perPage = 5;
+    public $sortField = 'created_at';
+    public $sortDirection = 'desc';
 
-    protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket'];
+    protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket', 'sortField', 'sortDirection'];
 
     public function mount()
     {
@@ -47,16 +49,56 @@ class ListLaporan extends Component
         $this->resetPage();
     }
 
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        $this->resetPage();
+    }
+
     private function buildQuery()
     {
-        return Lapor::withRelations()
+        $query = Lapor::withRelations()
             ->filterBySearch($this->search)
             ->filterByStatus($this->statusFilter)
             ->filterByOpd($this->opdFilter)
             ->when($this->ticket, function ($query) {
                 $query->where('no_tiket', $this->ticket);
-            })
-            ->orderBy('created_at', 'desc');
+            });
+
+        // Apply sorting
+        switch ($this->sortField) {
+            case 'opd':
+                $query->join('opds', 'lapors.opd_id', '=', 'opds.id')
+                      ->orderBy('opds.nama', $this->sortDirection)
+                      ->select('lapors.*');
+                break;
+            case 'no_tiket':
+                $query->orderBy('lapors.no_tiket', $this->sortDirection);
+                break;
+            case 'nama_pelapor':
+                $query->orderBy('lapors.nama_pelapor', $this->sortDirection);
+                break;
+            case 'uraian_laporan':
+                $query->orderBy('lapors.uraian_laporan', $this->sortDirection);
+                break;
+            case 'status_laporan':
+                $query->orderBy('lapors.status_laporan', $this->sortDirection);
+                break;
+            case 'keterangan_petugas':
+                $query->orderBy('lapors.keterangan_petugas', $this->sortDirection);
+                break;
+            case 'created_at':
+            default:
+                $query->orderBy('lapors.created_at', $this->sortDirection);
+                break;
+        }
+
+        return $query;
     }
 
     public function getLaporans()

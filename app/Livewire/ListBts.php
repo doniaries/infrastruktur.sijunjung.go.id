@@ -19,8 +19,10 @@ class ListBts extends Component
     public $teknologiFilter = '';
     public $statusFilter = '';
     public $perPage = 5;
+    public $sortField = 'tahun_bangun';
+    public $sortDirection = 'desc';
 
-    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter'];
+    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter', 'sortField', 'sortDirection'];
 
     public function updatingSearch()
     {
@@ -46,17 +48,63 @@ class ListBts extends Component
     {
         $this->resetPage();
     }
+    
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        
+        $this->resetPage();
+    }
 
     private function buildQuery()
     {
-        return Bts::query()
+        $query = Bts::query()
             ->withRelations()
             ->filterBySearch($this->search)
             ->filterByOperator($this->operatorFilter)
             ->filterByKecamatan($this->kecamatanFilter)
             ->filterByTeknologi($this->teknologiFilter)
-            ->filterByStatus($this->statusFilter)
-            ->orderBy('tahun_bangun', 'desc');
+            ->filterByStatus($this->statusFilter);
+
+        // Apply sorting
+        switch ($this->sortField) {
+            case 'operator':
+                $query->join('operators', 'bts.operator_id', '=', 'operators.id')
+                      ->orderBy('operators.nama_operator', $this->sortDirection)
+                      ->select('bts.*');
+                break;
+            case 'kecamatan':
+                $query->join('kecamatans', 'bts.kecamatan_id', '=', 'kecamatans.id')
+                      ->orderBy('kecamatans.nama', $this->sortDirection)
+                      ->select('bts.*');
+                break;
+            case 'nagari':
+                $query->join('nagaris', 'bts.nagari_id', '=', 'nagaris.id')
+                      ->orderBy('nagaris.nama_nagari', $this->sortDirection)
+                      ->select('bts.*');
+                break;
+            case 'alamat':
+                $query->orderBy('alamat', $this->sortDirection);
+                break;
+            case 'teknologi':
+                $query->orderBy('teknologi', $this->sortDirection);
+                break;
+            case 'status':
+                $query->orderBy('status', $this->sortDirection);
+                break;
+            case 'tahun_bangun':
+                $query->orderBy('tahun_bangun', $this->sortDirection);
+                break;
+            default:
+                $query->orderBy('tahun_bangun', 'desc');
+        }
+
+        return $query;
     }
 
     public function getBts()
