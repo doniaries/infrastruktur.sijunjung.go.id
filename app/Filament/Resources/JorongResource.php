@@ -67,6 +67,17 @@ class JorongResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
+                    ->badge()
+                    ->color(fn(string $state): string => match (crc32($state) % 8) {
+                        0 => 'primary',
+                        1 => 'success',
+                        2 => 'warning',
+                        3 => 'danger',
+                        4 => 'info',
+                        5 => 'gray',
+                        6 => 'purple',
+                        7 => 'pink',
+                    })
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama_jorong')
@@ -84,6 +95,8 @@ class JorongResource extends Resource
                 Tables\Columns\TextColumn::make('jumlah_penduduk_jorong')
                     ->label('Jumlah Penduduk')
                     ->numeric()
+                    ->badge()
+                    ->color('success')
                     ->copyable()
                     ->sortable()
                     ->suffix(' Jiwa')
