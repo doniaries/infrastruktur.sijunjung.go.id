@@ -45,7 +45,7 @@ return [
 
     'messages' => [
 
-        'failed' => 'Email atau kata sandi tidak cocok.',
+        'failed' => 'Email atau kata sandi tidak ditemukan. Silakan coba lagi!',
 
     ],
 
