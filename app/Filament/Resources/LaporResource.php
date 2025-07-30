@@ -25,6 +25,7 @@ use Filament\Infolists\Components\Section;
 use Filament\Notifications\Notification;
 // use Filament\Notifications\Actions\Action;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LaporResource\Pages;
 use NunoMaduro\Collision\Adapters\Phpunit\State;
@@ -313,12 +314,14 @@ class LaporResource extends Resource
                     ])
                     ->action(function ($record) {
                         if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
+                            $user = Auth::user();
+
                             $record->update([
                                 'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
                             ]);
 
                             Notification::make()
-                                ->title('Status laporan diubah menjadi Sedang Diproses')
+                                ->title("Laporan #{$record->no_tiket} diubah menjadi Sedang Diproses oleh {$user->name}")
                                 ->success()
                                 ->send();
                         }
@@ -345,7 +348,7 @@ class LaporResource extends Resource
                             ->required(),
                     ])
                     ->action(function ($record, array $data) {
-                        $user = auth()->user();
+                        $user = Auth::user();
 
                         $record->update([
                             'keterangan_petugas' => $data['keterangan_petugas'],
@@ -357,7 +360,7 @@ class LaporResource extends Resource
                             ->title("Laporan #{$record->no_tiket} selesai diproses oleh {$user->name}")
                             ->success()
                             ->send();
-                        
+
                         // Modal akan tertutup otomatis setelah action selesai
                         return true;
                     })
