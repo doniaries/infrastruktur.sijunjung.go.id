@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Register custom login rate limiter middleware
+        $middleware->alias([
+            'login.throttle' => \App\Http\Middleware\LoginRateLimiter::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

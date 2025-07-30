@@ -18,6 +18,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Pages\Auth\Login;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -32,7 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->favicon(asset('images/kabupaten-sijunjung.png'))
             ->brandName('Infrastruktur TI')
-            ->login()
+            ->login(Login::class)
             ->registration()
             ->spa()
             // ->topNavigation()
@@ -99,6 +100,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                'throttle:login', // Add rate limiting for login attempts
             ])
             ->databaseNotifications()
             // ->databaseNotificationsPolling('30s')

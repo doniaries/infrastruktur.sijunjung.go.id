@@ -45,7 +45,7 @@ return [
 
     'messages' => [
 
-        'failed' => 'Kredensial yang diberikan tidak dapat ditemukan.',
+        'failed' => 'Email atau kata sandi tidak cocok.',
 
     ],
 
