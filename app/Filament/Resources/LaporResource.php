@@ -269,7 +269,6 @@ class LaporResource extends Resource
                     ->label('Lihat Laporan')
                     ->icon('heroicon-o-eye')
                     ->color('primary')
-                    // ->iconButton()
                     ->infolist([
                         \Filament\Infolists\Components\Section::make('Detail Laporan')
                             ->schema([
@@ -312,7 +311,7 @@ class LaporResource extends Resource
                                     ->columnSpanFull(),
                             ])
                     ])
-                    ->mountUsing(function ($record) {
+                    ->action(function ($record) {
                         if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
                             $record->update([
                                 'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
@@ -323,8 +322,6 @@ class LaporResource extends Resource
                                 ->success()
                                 ->send();
                         }
-                    })
-                    ->action(function () {
                         // Modal akan tertutup otomatis setelah action selesai
                         return true;
                     })
@@ -332,7 +329,7 @@ class LaporResource extends Resource
                     ->modalCancelAction(false)
                     ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
                     ->closeModalByClickingAway(false)
-                    ->closeModalByEscaping()
+                    ->closeModalByEscaping(false)
                     ->modalHeading('Detail Laporan')
                     ->modalWidth('4xl')
                     ->stickyModalHeader()
@@ -342,7 +339,6 @@ class LaporResource extends Resource
                     ->label('Proses Laporan')
                     ->icon('heroicon-o-check-circle')
                     ->color('info')
-                    // ->iconButton()
                     ->form([
                         Forms\Components\Textarea::make('keterangan_petugas')
                             ->label('Keterangan Tindakan')
@@ -361,12 +357,17 @@ class LaporResource extends Resource
                             ->title("Laporan #{$record->no_tiket} selesai diproses oleh {$user->name}")
                             ->success()
                             ->send();
+                        
+                        // Modal akan tertutup otomatis setelah action selesai
+                        return true;
                     })
                     ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
                     ->closeModalByClickingAway(false)
-                    ->closeModalByEscaping()
+                    ->closeModalByEscaping(false)
                     ->modalHeading('Proses Laporan')
-                    ->modalWidth('lg'),
+                    ->modalWidth('lg')
+                    ->modalSubmitActionLabel('Simpan')
+                    ->modalCancelAction(false),
 
                 // Tables\Actions\EditAction::make()
                 //     ->iconButton()
