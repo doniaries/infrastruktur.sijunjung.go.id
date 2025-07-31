@@ -237,6 +237,57 @@
                     {{ $nagaris->links('vendor.livewire.custom-pagination') }}
                 </div>
             </div>
+            <style>
+                /* Hover effects for table rows */
+                tr:hover {
+                    transform: translateX(4px);
+                }
+
+                tr {
+                    transition: transform 0.2s ease-in-out;
+                }
+
+                /* Animation for lazy loading */
+                .opacity-0 {
+                    opacity: 0;
+                }
+
+                .opacity-100 {
+                    opacity: 1;
+                }
+
+                .translate-y-4 {
+                    transform: translateY(1rem);
+                }
+
+                .translate-y-0 {
+                    transform: translateY(0);
+                }
+
+                .dark tr:hover {
+                    background-color: rgba(59, 130, 246, 0.1);
+                }
+
+                /* Smooth transitions for filter changes */
+                .transition-all {
+                    transition-property: all;
+                    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                    transition-duration: 300ms;
+                }
+            </style>
+
+            <script>
+                // Simple scroll to top when pagination changes
+                window.addEventListener('livewire:update', function() {
+                    const tableSection = document.querySelector('section[wire\\:loading\\.remove]');
+                    if (tableSection) {
+                        tableSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            </script>
         </div>
     </div>
 </div>
