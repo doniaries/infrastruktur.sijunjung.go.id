@@ -83,125 +83,178 @@
                                 <th scope="col" class="px-4 py-3">Tahun Bangun</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse($bts as $item)
-                                <tr class="border-b dark:border-gray-700">
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        @if ($item->operator && $item->operator->nama_operator == 'TELKOMSEL')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                                {{ $item->operator->nama_operator }}
-                                            </span>
-                                        @elseif($item->operator && $item->operator->nama_operator == 'INDOSAT')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
-                                                {{ $item->operator->nama_operator }}
-                                            </span>
-                                        @elseif($item->operator && $item->operator->nama_operator == 'XL AXIATA')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                                {{ $item->operator->nama_operator }}
-                                            </span>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                                                {{ $item->operator ? $item->operator->nama_operator : 'Tidak Diketahui' }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                        {{ $item->nagari ? $item->nagari->nama_nagari : '-' }}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                        {{ $item->titik_koordinat }}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
-                                        {{ $item->alamat }}
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        @if ($item->teknologi == '2G')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @elseif($item->teknologi == '3G')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @elseif($item->teknologi == '4G')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @elseif($item->teknologi == '4G+5G')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @elseif($item->teknologi == '5G')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
-                                                {{ $item->teknologi }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        @if ($item->status == 'aktif')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                                {{ ucfirst($item->status) }}
-                                            </span>
-                                        @else
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                                {{ ucfirst($item->status) }}
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                        {{ $item->tahun_bangun }}
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="8" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
-                                        <div class="flex flex-col items-center">
-                                            <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0">
-                                                </path>
-                                            </svg>
-                                            <p class="text-lg font-medium">Belum Ada Data</p>
-                                            <p class="text-sm">Data BTS belum tersedia atau tidak ditemukan</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
                         </tbody>
-                    </table>
+
+                        <!-- Skeleton Loading -->
+                        <div wire:loading.flex class="flex justify-center w-full">
+                            <section
+                                class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
+                                <!-- Skeleton Header -->
+                                <div class="p-6">
+                                    <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                    </div>
+                                </div>
+                                <!-- Skeleton Table -->
+                                <div class="overflow-x-auto">
+                                    <div class="h-12 bg-gray-200 dark:bg-gray-700"></div>
+                                    <div class="space-y-4 p-4">
+                                        @for ($i = 0; $i < 5; $i++)
+                                            <div class="h-16 bg-gray-100 dark:bg-gray-700 rounded"></div>
+                                        @endfor
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- Akhir Skeleton Loading -->
+
+                        <!-- Table -->
+                        <div class="flex justify-center w-full" wire:loading.remove>
+                            <section
+                                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead
+                                            class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
+                                            <tr>
+                                                <th scope="col" class="px-4 py-3">Operator</th>
+                                                <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                                <th scope="col" class="px-4 py-3">Nagari</th>
+                                                <th scope="col" class="px-4 py-3">Koordinat</th>
+                                                <th scope="col" class="px-4 py-3">Alamat</th>
+                                                <th scope="col" class="px-4 py-3">Teknologi</th>
+                                                <th scope="col" class="px-4 py-3">Status</th>
+                                                <th scope="col" class="px-4 py-3">Tahun Bangun</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse($bts as $item)
+                                                <tr class="border-b dark:border-gray-700">
+                                                    <td class="px-4 py-3 whitespace-nowrap">
+                                                        @if ($item->operator && $item->operator->nama_operator == 'TELKOMSEL')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                                                {{ $item->operator->nama_operator }}
+                                                            </span>
+                                                        @elseif($item->operator && $item->operator->nama_operator == 'INDOSAT')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                                                                {{ $item->operator->nama_operator }}
+                                                            </span>
+                                                        @elseif($item->operator && $item->operator->nama_operator == 'XL AXIATA')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                                                {{ $item->operator->nama_operator }}
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                                                {{ $item->operator ? $item->operator->nama_operator : 'Tidak Diketahui' }}
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-4 py-3 whitespace-nowrap">
+                                                        <span
+                                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                            {{ $item->kecamatan ? $item->kecamatan->nama : '-' }}
+                                                        </span>
+                                                    </td>
+                                                    <td
+                                                        class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                                        {{ $item->nagari ? $item->nagari->nama_nagari : '-' }}
+                                                    </td>
+                                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                                        {{ $item->titik_koordinat }}
+                                                    </td>
+                                                    <td
+                                                        class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100 max-w-xs truncate">
+                                                        {{ $item->alamat }}
+                                                    </td>
+                                                    <td class="px-4 py-3 whitespace-nowrap">
+                                                        @if ($item->teknologi == '2G')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @elseif($item->teknologi == '3G')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @elseif($item->teknologi == '4G')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @elseif($item->teknologi == '4G+5G')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @elseif($item->teknologi == '5G')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+                                                                {{ $item->teknologi }}
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-4 py-3 whitespace-nowrap">
+                                                        @if ($item->status == 'aktif')
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                                {{ ucfirst($item->status) }}
+                                                            </span>
+                                                        @else
+                                                            <span
+                                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                                                {{ ucfirst($item->status) }}
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                                        {{ $item->tahun_bangun }}
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="8"
+                                                        class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
+                                                        <div class="flex flex-col items-center">
+                                                            <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0">
+                                                                </path>
+                                                            </svg>
+                                                            <p class="text-lg font-medium">Belum Ada Data</p>
+                                                            <p class="text-sm">Data BTS belum tersedia atau tidak
+                                                                ditemukan</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                            <!-- Pagination -->
+                            <div
+                                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
+                                {{ $bts->links('vendor.livewire.custom-pagination') }}
+                            </div>
+                        </div>
                 </div>
-            </section>
 
-            <!-- Pagination -->
-            <div
-                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
-                {{ $bts->links('vendor.livewire.custom-pagination') }}
-            </div>
+
         </div>
-    </div>
-
-
-</div>

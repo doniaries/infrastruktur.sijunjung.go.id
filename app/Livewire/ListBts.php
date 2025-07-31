@@ -4,11 +4,13 @@ namespace App\Livewire;
 
 use App\Models\Bts;
 use Livewire\Component;
+use App\Helpers\CacheHelper;
 use Livewire\WithPagination;
+use Livewire\Attributes\Lazy;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
-use App\Helpers\CacheHelper;
 
+#[Lazy]
 class ListBts extends Component
 {
     use WithPagination;
@@ -48,7 +50,7 @@ class ListBts extends Component
     {
         $this->resetPage();
     }
-    
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -57,7 +59,7 @@ class ListBts extends Component
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
-        
+
         $this->resetPage();
     }
 
@@ -75,18 +77,18 @@ class ListBts extends Component
         switch ($this->sortField) {
             case 'operator':
                 $query->join('operators', 'bts.operator_id', '=', 'operators.id')
-                      ->orderBy('operators.nama_operator', $this->sortDirection)
-                      ->select('bts.*');
+                    ->orderBy('operators.nama_operator', $this->sortDirection)
+                    ->select('bts.*');
                 break;
             case 'kecamatan':
                 $query->join('kecamatans', 'bts.kecamatan_id', '=', 'kecamatans.id')
-                      ->orderBy('kecamatans.nama', $this->sortDirection)
-                      ->select('bts.*');
+                    ->orderBy('kecamatans.nama', $this->sortDirection)
+                    ->select('bts.*');
                 break;
             case 'nagari':
                 $query->join('nagaris', 'bts.nagari_id', '=', 'nagaris.id')
-                      ->orderBy('nagaris.nama_nagari', $this->sortDirection)
-                      ->select('bts.*');
+                    ->orderBy('nagaris.nama_nagari', $this->sortDirection)
+                    ->select('bts.*');
                 break;
             case 'alamat':
                 $query->orderBy('alamat', $this->sortDirection);
