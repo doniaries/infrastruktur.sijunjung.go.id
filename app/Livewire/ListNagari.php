@@ -57,7 +57,11 @@ class ListNagari extends Component
     {
         $query = Nagari::withRelations()
             ->withCount('jorongs')
-            ->withSum('jorongs', 'jumlah_penduduk_jorong')
+            ->selectSub(function($query) {
+                $query->from('jorongs')
+                    ->selectRaw('COALESCE(SUM(jumlah_penduduk_jorong), 0)')
+                    ->whereColumn('jorongs.nagari_id', 'nagaris.id');
+            }, 'jorongs_sum_jumlah_penduduk_jorong')
             ->filterBySearch($this->search)
             ->filterByKecamatan($this->kecamatanFilter);
 
@@ -66,7 +70,7 @@ class ListNagari extends Component
             case 'kecamatan':
                 $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
                     ->orderBy('kecamatans.nama', $this->sortDirection)
-                    ->select('nagaris.*');
+                    ;
                 break;
             case 'jumlah_penduduk':
                 $query->orderByRaw('(
