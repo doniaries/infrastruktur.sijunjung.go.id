@@ -88,7 +88,19 @@
                         <!-- Skeleton Loading -->
                         <div wire:loading.flex class="flex justify-center w-full">
                             <section
-                                class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
+                                class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse relative">
+                                <!-- Spinner Centered in Table -->
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
+                                    <svg class="animate-spin h-10 w-10 text-blue-600 dark:text-blue-400 mb-2"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                            stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                                    </svg>
+                                    <span class="text-sm text-blue-600 dark:text-blue-400">Memuat data...</span>
+                                </div>
                                 <!-- Skeleton Header -->
                                 <div class="p-6">
                                     <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
