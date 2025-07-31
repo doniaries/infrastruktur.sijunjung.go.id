@@ -37,303 +37,206 @@
             </div>
 
             <!-- Skeleton Loading Section -->
-            <section
-                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto"
-                wire:loading>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
-                            <tr>
-                                <th scope="col" class="px-4 py-3">
-                                    <button wire:click="sortBy('nama_nagari')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                        <span>Nama Nagari</span>
-                                        @if ($sortField === 'nama_nagari')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                                <th scope="col" class="px-4 py-3">
-                                    <button wire:click="sortBy('kecamatan')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                        <span>Kecamatan</span>
-                                        @if ($sortField === 'kecamatan')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                                <th scope="col" class="px-4 py-3">
-                                    <button wire:click="sortBy('nama_wali_nagari')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                        <span>Wali Nagari</span>
-                                        @if ($sortField === 'nama_wali_nagari')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-right">
-                                    <button wire:click="sortBy('jumlah_penduduk')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
-                                        <span>Penduduk</span>
-                                        @if ($sortField === 'jumlah_penduduk')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-right">
-                                    <button wire:click="sortBy('luas_nagari')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
-                                        <span>Luas (Ha)</span>
-                                        @if ($sortField === 'luas_nagari')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-center">
-                                    <button wire:click="sortBy('jorongs_count')"
-                                        class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 mx-auto">
-                                        <span>Jorong</span>
-                                        @if ($sortField === 'jorongs_count')
-                                            @if ($sortDirection === 'asc')
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                </svg>
-                                            @else
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                </svg>
-                                            @endif
-                                        @else
-                                            <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                                <path
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        @endif
-                                    </button>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for ($i = 0; $i < 10; $i++)
-                                <tr class="animate-pulse">
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-24"></div>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-36"></div>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-12"></div>
-                                    </td>
-                                </tr>
+            <section class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg max-w-4xl mx-auto"
+                wire:loading.flex>
+                <div class="w-full p-6">
+                    <!-- Skeleton Header -->
+                    <div class="flex justify-center mb-6">
+                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg w-48 animate-pulse"></div>
+                    </div>
+
+                    <!-- Skeleton Search and Filter -->
+                    <div class="mb-6 flex flex-wrap gap-3 items-center">
+                        <div class="flex-1 min-w-64">
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full animate-pulse"></div>
+                        </div>
+                        <div class="min-w-48">
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full animate-pulse"></div>
+                        </div>
+                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-32 animate-pulse"></div>
+                    </div>
+
+                    <!-- Skeleton Table -->
+                    <div class="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg">
+                        <!-- Table Header -->
+                        <div class="grid grid-cols-6 gap-4 bg-gray-100 dark:bg-gray-700 p-4">
+                            @foreach (['Nama Nagari', 'Kecamatan', 'Wali Nagari', 'Penduduk', 'Luas (Ha)', 'Jorong'] as $header)
+                                <div class="h-5 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+                            @endforeach
+                        </div>
+
+                        <!-- Table Rows -->
+                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @for ($i = 0; $i < 5; $i++)
+                                <div class="grid grid-cols-6 gap-4 p-4 items-center">
+                                    @foreach (range(1, 6) as $col)
+                                        <div>
+                                            <div class="h-4 bg-gray-100 dark:bg-gray-800 rounded animate-pulse"></div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             @endfor
-                        </tbody>
-                    </table>
+                        </div>
+
+                        <!-- Skeleton Pagination -->
+                        <div
+                            class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+                            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32 animate-pulse"></div>
+                            <div class="flex space-x-2">
+                                @foreach (range(1, 3) as $page)
+                                    <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse"></div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
+            {{-- <!-- Skeleton Loading -->
+            <div wire:loading.flex class="flex justify-center w-full">
+                <section
+                    class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
+                    <!-- Skeleton Header -->
+                    <div class="p-6">
+                        <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        </div>
+                    </div>
+
+                    <!-- Skeleton Table -->
+                    <div class="overflow-x-auto">
+                        <div class="h-12 bg-gray-200 dark:bg-gray-700"></div>
+                        <div class="space-y-4 p-4">
+                            @for ($i = 0; $i < 5; $i++)
+                                <div class="h-16 bg-gray-100 dark:bg-gray-700 rounded"></div>
+                            @endfor
+                        </div>
+                    </div>
+                </section>
+            </div> --}}
 
             <!-- Table Section -->
-            <section
-                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto"
-                wire:loading.remove>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
-                            <tr>
-                                <th scope="col" class="px-4 py-3">
-                                    <div class="flex items-center space-x-1">
-                                        <span>Nama Nagari</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3">
-                                    <div class="flex items-center space-x-1">
-                                        <span>Kecamatan</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3">
-                                    <div class="flex items-center space-x-1">
-                                        <span>Wali Nagari</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-right">
-                                    <div class="flex items-center space-x-1 ml-auto">
-                                        <span>Penduduk</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-right">
-                                    <div class="flex items-center space-x-1 ml-auto">
-                                        <span>Luas (Ha)</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3 text-center">
-                                    <div class="flex items-center space-x-1 mx-auto">
-                                        <span>Jorong</span>
-                                        <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                        </svg>
-                                    </div>
-                                </th>
+            <div class="overflow-x-auto max-w-4xl mx-auto" wire:loading.remove>
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 w-1/6">
+                                <div class="flex items-center space-x-1">
+                                    <span>Nama Nagari</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3 w-1/6">
+                                <div class="flex items-center space-x-1">
+                                    <span>Kecamatan</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3 w-1/6">
+                                <div class="flex items-center space-x-1">
+                                    <span>Wali Nagari</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3 text-right w-1/6">
+                                <div class="flex items-center space-x-1 ml-auto">
+                                    <span>Penduduk</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3 text-right w-1/6">
+                                <div class="flex items-center space-x-1 ml-auto">
+                                    <span>Luas (Ha)</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-4 py-3 text-center w-1/6">
+                                <div class="flex items-center space-x-1 mx-auto">
+                                    <span>Jorong</span>
+                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                                    </svg>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($nagaris as $nagari)
+                            <tr wire:key="nagari-{{ $nagari->id }}" x-data="{ inView: false }"
+                                x-intersect="inView = true"
+                                x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
+                                class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform"
+                                style="transition: opacity 0.3s ease, transform 0.3s ease;">
+                                <td
+                                    class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    {{ $nagari->nama_nagari }}
+                                </td>
+                                <td class="px-4 py-3 whitespace-nowrap">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        {{ $nagari->kecamatan ? $nagari->kecamatan->nama : '-' }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                    {{ $nagari->nama_wali_nagari }}
+                                </td>
+                                <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
+                                    {{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }} Jiwa
+                                </td>
+                                <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
+                                    {{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }} Ha
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        {{ $nagari->jumlah_jorong }} Jorong
+                                    </span>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($nagaris as $nagari)
-                                <tr class="border-b dark:border-gray-700">
-                                    <td
-                                        class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                        {{ $nagari->nama_nagari }}</td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                            {{ $nagari->kecamatan ? $nagari->kecamatan->nama : '-' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                        {{ $nagari->nama_wali_nagari }}</td>
-                                    <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                        {{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }} Jiwa</td>
-                                    <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                        {{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }} Ha</td>
-                                    <td class="px-4 py-3 text-center">
-                                        <span
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                            {{ $nagari->jumlah_jorong }} Jorong
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6"
-                                        class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
-                                        <div class="flex flex-col items-center">
-                                            <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
-                                                stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                                                </path>
-                                            </svg>
-                                            <p class="text-lg font-medium">Belum Ada Data</p>
-                                            <p class="text-sm">Data nagari belum tersedia atau tidak ditemukan</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
+                                    <div class="flex flex-col items-center">
+                                        <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                            </path>
+                                        </svg>
+                                        <p class="text-lg font-medium">Belum Ada Data</p>
+                                        <p class="text-sm">Data nagari belum tersedia atau tidak ditemukan</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
 
                 <!-- Pagination -->
-                <div
-                    class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-4xl mx-auto">
+                <div class="mt-6">
                     {{ $nagaris->links('vendor.livewire.custom-pagination') }}
                 </div>
+            </div>
         </div>
     </div>
 </div>

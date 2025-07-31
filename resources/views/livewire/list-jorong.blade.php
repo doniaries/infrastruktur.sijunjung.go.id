@@ -68,9 +68,35 @@
                         </div>
                     </div>
 
+                    <!-- Skeleton Loading -->
+                    <div wire:loading.flex class="flex justify-center w-full">
+                        <section class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
+                            <!-- Skeleton Header -->
+                            <div class="p-6">
+                                <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                    <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                    <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                    <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                    <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Skeleton Table -->
+                            <div class="overflow-x-auto">
+                                <div class="h-12 bg-gray-200 dark:bg-gray-700"></div>
+                                <div class="space-y-4 p-4">
+                                    @for ($i = 0; $i < 5; $i++)
+                                        <div class="h-16 bg-gray-100 dark:bg-gray-700 rounded"></div>
+                                    @endfor
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
                     <!-- Table -->
-                    <div class="flex justify-center w-full">
-                        <section class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl">
+                    <div class="flex justify-center w-full" wire:loading.remove>
+                        <section class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                     <thead
@@ -242,8 +268,14 @@
                                     </thead>
                                     <tbody>
                                         @forelse($jorongs as $index => $jorong)
-                                            <tr
-                                                class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-200">
+                                            <tr 
+                                                wire:key="jorong-{{ $jorong->id }}"
+                                                x-data="{ inView: false }"
+                                                x-intersect="inView = true"
+                                                x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
+                                                class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform"
+                                                style="transition: opacity 0.3s ease, transform 0.3s ease;"
+                                            >
                                                 <td
                                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     {{ $jorong->nama_jorong }}
@@ -315,14 +347,33 @@
                 <style>
                     /* Hover effects for table rows */
                     tr:hover {
-                        background-color: rgba(59, 130, 246, 0.05);
-                        transition: background-color 0.2s ease-in-out;
+                        transform: translateX(4px);
+                    }
+
+                    tr {
+                        transition: transform 0.2s ease-in-out;
+                    }
+                    
+                    /* Animation for lazy loading */
+                    .opacity-0 {
+                        opacity: 0;
+                    }
+                    
+                    .opacity-100 {
+                        opacity: 1;
+                    }
+                    
+                    .translate-y-4 {
+                        transform: translateY(1rem);
+                    }
+                    
+                    .translate-y-0 {
+                        transform: translateY(0);
                     }
 
                     .dark tr:hover {
                         background-color: rgba(59, 130, 246, 0.1);
                     }
-
                     /* Smooth transitions for filter changes */
                     .transition-all {
                         transition-property: all;

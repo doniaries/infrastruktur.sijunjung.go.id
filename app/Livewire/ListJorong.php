@@ -10,7 +10,9 @@ use Livewire\Attributes\Layout;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Cache;
 use App\Helpers\CacheHelper;
+use Livewire\Attributes\Lazy;
 
+#[Lazy]
 class ListJorong extends Component
 {
     use WithPagination;
@@ -18,7 +20,7 @@ class ListJorong extends Component
     public $search = '';
     public $nagariFilter = '';
     public $kecamatanFilter = '';
-    public $perPage = 5;
+    public $perPage = 10;
     public $sortField = 'nama_jorong';
     public $sortDirection = 'asc';
 
