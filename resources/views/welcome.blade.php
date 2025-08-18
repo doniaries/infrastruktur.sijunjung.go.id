@@ -228,12 +228,32 @@
 
                             // Tambahkan popup dengan informasi BTS
                             marker.bindPopup(`
-                                <div class="p-2">
-                                    <h3 class="font-bold">${bts.pemilik || 'Tidak diketahui'}</h3>
-                                    <p><strong>Alamat:</strong> ${bts.alamat || 'Tidak diketahui'}</p>
-                                    <p><strong>Teknologi:</strong> ${bts.teknologi || 'Tidak diketahui'}</p>
-                                    <p><strong>Status:</strong> ${bts.status || 'Tidak diketahui'}</p>
-                                    <p><strong>Tahun Bangun:</strong> ${bts.tahun_bangun || 'Tidak diketahui'}</p>
+                                <div class="bts-popup min-w-[250px] p-3 bg-white dark:bg-gray-800 rounded shadow-lg">
+                                    <h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-900 border-b pb-2">${bts.pemilik || 'Tidak diketahui'}</h3>
+                                    <div class="space-y-1.5">
+                                        <p class="text-sm">
+                                            <span class="font-semibold text-gray-700">Alamat:</span>
+                                            <span class="text-gray-800">${bts.alamat || 'Tidak diketahui'}</span>
+                                        </p>
+                                        <p class="text-sm">
+                                            <span class="font-semibold text-gray-700">Teknologi:</span>
+                                            <span class="text-gray-800">${bts.teknologi || 'Tidak diketahui'}</span>
+                                        </p>
+                                        <p class="text-sm">
+                                            <span class="font-semibold text-gray-700">Status:</span>
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                                bts.status === 'Aktif' ? 'bg-green-100 text-green-800' : 
+                                                bts.status === 'Non-Aktif' ? 'bg-red-100 text-red-800' :
+                                                'bg-yellow-100 text-yellow-800'
+                                            }">
+                                                ${bts.status || 'Tidak diketahui'}
+                                            </span>
+                                        </p>
+                                        <p class="text-sm">
+                                            <span class="font-semibold text-gray-700">Tahun Bangun:</span>
+                                            <span class="text-gray-800">${bts.tahun_bangun || 'Tidak diketahui'}</span>
+                                        </p>
+                                    </div>
                                 </div>
                             `);
                         }

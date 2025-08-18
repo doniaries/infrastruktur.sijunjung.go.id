@@ -10,6 +10,26 @@
                 </div>
             </div>
 
+            <!-- Card Filter Horizontal Section -->
+            <div class="overflow-x-auto mb-6">
+                <div class="flex space-x-3 min-w-max pb-2">
+                    <div
+                        class="flex items-center px-4 py-2 bg-yellow-900/70 text-yellow-400 font-semibold rounded-lg shadow-sm mr-2">
+                        Semua
+                        <span
+                            class="ml-2 px-2 py-0.5 bg-yellow-700 text-yellow-100 rounded text-xs">{{ $totalData }}</span>
+                    </div>
+                    @foreach ($nagaris as $nagari)
+                        <div
+                            class="flex items-center px-4 py-2 bg-gray-800/80 dark:bg-gray-700 text-yellow-400 font-semibold rounded-lg shadow-sm">
+                            {{ strtoupper($nagari->nama) }}
+                            <span
+                                class="ml-2 px-2 py-0.5 bg-yellow-700 text-yellow-100 rounded text-xs">{{ $nagari->jumlah_jorong ?? 0 }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             <!-- Search, Filter and Export Section -->
             <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
                 <div class="flex-1 min-w-64">
