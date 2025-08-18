@@ -45,6 +45,13 @@ class ListBts extends ListRecords
         return $tabs;
     }
 
+    protected function getTableRecordUrlUsing(): ?\Closure
+    {
+        return function (\App\Models\Bts $record) {
+            return static::getResource()::getUrl('edit', ['record' => $record]);
+        };
+    }
+
     // public function getTableBulkActions()
     // {
     //     return  [

@@ -8,11 +8,11 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "barryvdh/laravel-dompdf": "^3.1",
         "bezhansalleh/filament-shield": "^3.3",
-        "diogogpinto/filament-auth-ui-enhancer": "*",
-        "dotswan/filament-map-picker": "^1.7",
+        "diogogpinto/filament-auth-ui-enhancer": "^1.0",
+        "dotswan/filament-map-picker": "^1.8",
         "eightynine/filament-excel-import": "^3.1",
         "filament/filament": "^3.2",
         "filament/forms": "^3.2",
@@ -26,7 +26,7 @@
         "pxlrbt/filament-excel": "^2.4",
         "spatie/laravel-sitemap": "^7.3",
         "stechstudio/filament-impersonate": "^3.16",
-        "stephenjude/filament-blog": "*",
+        "stephenjude/filament-blog": "^3.0",
         "swisnl/filament-backgrounds": "^1.1"
     },
     "require-dev": {

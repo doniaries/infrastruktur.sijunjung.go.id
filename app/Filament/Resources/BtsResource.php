@@ -314,7 +314,7 @@ class BtsResource extends Resource
         return [
             'index' => Pages\ListBts::route('/'),
             'create' => Pages\CreateBts::route('/create'),
-            // 'edit' => Pages\EditBts::route('/{record}/edit'),
+            'edit' => Pages\EditBts::route('/{record}/edit'),
         ];
     }
 
