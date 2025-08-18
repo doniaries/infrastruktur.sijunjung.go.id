@@ -1,16 +1,34 @@
 <x-layouts.app>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 100,
+                mirror: true
+            });
+        });
+    </script>
+    
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Hero Section -->
-    <section id="hero"
-        class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden">
+    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden" data-aos="fade-up">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
 
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 relative z-10">
-            <div class="mr-auto place-self-center lg:col-span-7">
+            <div class="mr-auto place-self-center lg:col-span-7" data-aos="fade-right">
                 <h1
                     class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
                     Sistem Informasi Infrastruktur TI Sijunjung</h1>
@@ -54,13 +72,13 @@
 
     <!-- Features Section -->
     <section id="features-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10" data-aos="fade-left">
 
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-file-alt text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Laporan Gangguan</h3>
@@ -74,7 +92,7 @@
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-broadcast-tower text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Pemetaan BTS</h3>
@@ -89,7 +107,7 @@
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-map text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Data Nagari</h3>
@@ -103,7 +121,7 @@
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
                     <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-home text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Data Jorong</h3>
@@ -120,7 +138,7 @@
 
     <!-- BTS Map Section -->
     <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-right">
             <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten
                     Sijunjung</h2>
@@ -151,7 +169,7 @@
 
     <!-- Stats Section -->
     <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
-        <div class="py-12 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="py-12 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-left">
             <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Statistik
                     Infrastruktur</h2>
