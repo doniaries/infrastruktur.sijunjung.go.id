@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('images/kabupaten-sijunjung.png'))
             ->brandName('Infrastruktur TI')
             ->login(Login::class)
-            ->registration()
+            // ->registration()
             ->spa()
             // ->topNavigation()
             ->colors([
