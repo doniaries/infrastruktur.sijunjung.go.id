@@ -16,6 +16,8 @@ class Kecamatan extends Model
     protected $fillable = [
         'nama',
     ];
+    
+    protected $withCount = ['nagari'];
 
     public function opd()
     {

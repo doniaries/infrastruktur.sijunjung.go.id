@@ -87,13 +87,6 @@
                                     </p>
                                 </a>
                             </div>
-
-                            <div class="mt-3">
-                                <a href="/list-nagari?kecamatan={{ $kecamatan->id }}"
-                                   class="detail-button card-base w-full text-center text-xs font-semibold px-2 py-1.5">
-                                    Lihat Detail Kecamatan
-                                </a>
-                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -183,23 +176,6 @@
             --card-text: #ffffff;
             --card-hover-bg: #166534; /* green-800 */
             --card-hover-text: #ffffff;
-        }
-
-        /* Detail Button */
-        .detail-button {
-            --btn-bg: #1d4ed8; /* blue-700 */
-            --btn-border: #2563eb; /* blue-600 */
-            --btn-text: #ffffff;
-            --btn-hover-bg: #1e40af; /* blue-800 */
-            --btn-hover-text: #ffffff;
-        }
-
-        .dark .detail-button {
-            --btn-bg: theme('colors.blue.700');
-            --btn-border: theme('colors.blue.600');
-            --btn-text: theme('colors.white');
-            --btn-hover-bg: theme('colors.blue.600');
-            --btn-hover-text: theme('colors.white');
         }
 
         /* Apply Styles */

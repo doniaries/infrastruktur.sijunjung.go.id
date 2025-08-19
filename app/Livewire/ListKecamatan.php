@@ -3,11 +3,13 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\DB;
 
 class ListKecamatan extends Component
 {
+    use WithPagination;
     public $search = '';
     public $perPage = 12;
 
