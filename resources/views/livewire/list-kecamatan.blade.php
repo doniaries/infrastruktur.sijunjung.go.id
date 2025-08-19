@@ -78,35 +78,49 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-2 mt-3">
+                            <div class="grid grid-cols-1 gap-2 mt-3">
+                                <!-- Nagari Card -->
                                 <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}" 
                                    class="nagari-card card-base group">
                                     <div class="flex justify-between items-center">
-                                        <div>
-                                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Nagari</p>
-                                            <p class="text-sm font-black text-gray-800 dark:text-white">
-                                                {{ $kecamatan->nagari_count }}
-                                            </p>
+                                        <div class="flex items-center space-x-3">
+                                            <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                                                <i class="fas fa-map-marked-alt text-blue-600 dark:text-blue-300"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-bold text-gray-500 dark:text-gray-300">Nagari</p>
+                                                <div class="flex items-baseline space-x-2">
+                                                    <p class="text-lg font-black text-gray-800 dark:text-white">
+                                                        {{ $kecamatan->nagari_count }}
+                                                    </p>
+                                                    @if($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
+                                                    <span class="text-xs text-blue-600 dark:text-blue-300">
+                                                        • {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }} jiwa
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
-                                        @if($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
-                                        <div class="text-right">
-                                            <p class="text-[10px] font-medium text-gray-500 dark:text-gray-400">Penduduk</p>
-                                            <p class="text-xs font-bold text-blue-600 dark:text-blue-400">
-                                                {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }} jiwa
-                                            </p>
-                                        </div>
-                                        @endif
+                                        <i class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
                                     </div>
                                 </a>
+                                
+                                <!-- Jorong Card -->
                                 <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
                                    class="jorong-card card-base group">
-                                    <div class="flex items-center">
-                                        <div>
-                                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Jorong</p>
-                                            <p class="text-sm font-black text-gray-800 dark:text-white">
-                                                {{ $kecamatan->jorong_count }}
-                                            </p>
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
+                                                <i class="fas fa-map-marker-alt text-green-600 dark:text-green-300"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-bold text-gray-500 dark:text-gray-300">Jorong</p>
+                                                <p class="text-lg font-black text-gray-800 dark:text-white">
+                                                    {{ $kecamatan->jorong_count }}
+                                                </p>
+                                            </div>
                                         </div>
+                                        <i class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
                                     </div>
                                 </a>
                             </div>
@@ -203,15 +217,22 @@
 
         /* Apply Styles */
         .card-base {
-            position: relative;
+            background: var(--card-bg, #ffffff);
+            border: 1px solid var(--card-border, #e5e7eb);
             border-radius: 0.75rem;
-            border: 1px solid var(--card-border);
-            background-color: var(--card-bg);
-            color: var(--card-text);
+            padding: 0.875rem 1rem;
+            transition: all 0.2s ease-in-out;
             box-shadow: var(--card-shadow);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--card-text, #1f2937);
+            position: relative;
             overflow: hidden;
-            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-base:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .nagari-card::before,
