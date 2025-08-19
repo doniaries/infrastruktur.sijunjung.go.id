@@ -13,7 +13,7 @@ class LoginRateLimiter
     /**
      * The maximum number of attempts allowed.
      */
-    protected $maxAttempts = 5;
+    protected $maxAttempts = 2;
 
     /**
      * The number of minutes to throttle for.
@@ -28,10 +28,10 @@ class LoginRateLimiter
         // Only apply rate limiting to login attempts
         if ($this->shouldRateLimit($request)) {
             $key = $this->resolveRequestSignature($request);
-            
+
             if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
                 $seconds = RateLimiter::availableIn($key);
-                
+
                 throw new ThrottleRequestsException(
                     'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . $seconds . ' detik.',
                     null,
@@ -39,24 +39,24 @@ class LoginRateLimiter
                     $seconds
                 );
             }
-            
+
             // Increment the login attempts
             RateLimiter::hit($key, $this->decayMinutes * 60);
         }
-        
+
         return $next($request);
     }
-    
+
     /**
      * Determine if the request should be rate limited.
      */
     protected function shouldRateLimit(Request $request): bool
     {
-        return $request->routeIs('filament.admin.auth.login') && 
-               $request->isMethod('POST') && 
-               !$request->user('filament');
+        return $request->routeIs('filament.admin.auth.login') &&
+            $request->isMethod('POST') &&
+            !$request->user('filament');
     }
-    
+
     /**
      * Resolve request signature.
      */
@@ -64,13 +64,13 @@ class LoginRateLimiter
     {
         return sha1(
             $request->method() .
-            '|' . $request->server('SERVER_NAME') .
-            '|' . $request->path() .
-            '|' . $request->ip() .
-            '|' . $request->input('email', '')
+                '|' . $request->server('SERVER_NAME') .
+                '|' . $request->path() .
+                '|' . $request->ip() .
+                '|' . $request->input('email', '')
         );
     }
-    
+
     /**
      * Get the rate limit headers.
      */
@@ -88,7 +88,7 @@ class LoginRateLimiter
 
         return $headers;
     }
-    
+
     /**
      * Calculate the number of remaining attempts.
      */

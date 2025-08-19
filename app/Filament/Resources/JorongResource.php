@@ -9,9 +9,13 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Rules\CaseInsensitiveUnique;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Validation\Rule;
 
 class JorongResource extends Resource
 {
@@ -38,21 +42,6 @@ class JorongResource extends Resource
                 Forms\Components\TextInput::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->required()
-                    ->unique(ignoreRecord: true, table: 'jorongs')
-                    ->rules(['required', 'string', 'max:255', 
-                        function ($get) {
-                            return function (string $attribute, $value, $fail) use ($get) {
-                                $exists = \App\Models\Jorong::whereRaw('UPPER(nama_jorong) = ?', [strtoupper($value)])
-                                    ->where('id', '!=', $get('id') ?? 0)
-                                    ->exists();
-                                if ($exists) {
-                                    $fail('Nama jorong ini sudah digunakan.');
-                                }
-                            };
-                        }
-                    ])
-                    ->live()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('nama_jorong', strtoupper($state)))
                     ->extraInputAttributes(['style' => 'text-transform: uppercase']),
                 Forms\Components\TextInput::make('nama_kepala_jorong')
                     ->label('Nama Kepala Jorong')
