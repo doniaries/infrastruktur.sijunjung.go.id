@@ -108,6 +108,9 @@
                                 <thead
                                     class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                                     <tr>
+                                        <th scope="col" class="px-4 py-3 w-12">
+                                            <span>No</span>
+                                        </th>
                                         <th scope="col" class="px-4 py-3">
                                             <button wire:click="sortBy('nama_jorong')"
                                                 class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
@@ -262,13 +265,15 @@
                                 </thead>
                                 <tbody>
                                     @forelse($jorongs as $index => $jorong)
-                                        <tr wire:key="jorong-{{ $jorong->id }}" x-data="{ inView: false }"
+                                            <tr wire:key="jorong-{{ $jorong->id }}" x-data="{ inView: false }"
                                             x-intersect="inView = true"
                                             x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
                                             class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform"
                                             style="transition: opacity 0.3s ease, transform 0.3s ease;">
-                                            <td
-                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+                                                {{ ($jorongs->currentPage() - 1) * $jorongs->perPage() + $loop->iteration }}
+                                            </td>
+                                            <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $jorong->nama_jorong }}
                                             </td>
                                             <td class="px-4 py-3">
@@ -299,7 +304,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6"
+                                            <td colspan="7"
                                                 class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
                                                 <div class="flex flex-col items-center">
                                                     <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
