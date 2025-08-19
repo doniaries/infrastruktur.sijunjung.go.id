@@ -14,6 +14,29 @@ class Jorong extends Model
     use HasModelCache;
 
     protected $table = "jorongs";
+    
+    /**
+     * The attributes that should be indexed.
+     *
+     * @var array
+     */
+    protected $indexes = [
+        'nagari_id',
+        'nama_jorong',
+    ];
+    
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+    
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
 
     protected $fillable = [
         'nagari_id',
@@ -27,13 +50,45 @@ class Jorong extends Model
 
     protected $casts = [
         'jumlah_penduduk_jorong' => 'integer',
-        'luas_jorong' => 'integer',
+        'luas_jorong' => 'float',
         'nama_jorong' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
+    
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['nagari'];
+    
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+    
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 25;
 
+    /**
+     * Get the nagari that owns the jorong.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function nagari(): BelongsTo
     {
-        return $this->belongsTo(Nagari::class);
+        return $this->belongsTo(Nagari::class)->withDefault([
+            'nama_nagari' => 'N/A',
+            'kecamatan' => (object)['nama' => 'N/A']
+        ]);
     }
 
     // Mutator - Mengubah data sebelum disimpan ke database
@@ -57,9 +112,22 @@ class Jorong extends Model
     }
 
     // Query Scopes untuk optimasi
+    /**
+     * Eager load relationships for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeWithRelations($query)
     {
-        return $query->with(['nagari.kecamatan']);
+        return $query->with([
+            'nagari' => function ($query) {
+                $query->select('id', 'nama_nagari', 'kecamatan_id')
+                    ->with(['kecamatan' => function ($q) {
+                        $q->select('id', 'nama');
+                    }]);
+            }
+        ]);
     }
 
     public function scopeFilterBySearch($query, $search)
@@ -94,10 +162,20 @@ class Jorong extends Model
         });
     }
 
+    /**
+     * Order the query by kecamatan and jorong name.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeOrderByKecamatanAndJorong($query)
     {
-        return $query->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
+        return $query->select('jorongs.*')
+            ->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
             ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+            ->orderBy('kecamatans.nama')
+            ->orderBy('nagaris.nama_nagari')
+            ->orderBy('jorongs.nama_jorong')
             ->orderBy('kecamatans.nama')
             ->orderBy('jorongs.nama_jorong')
             ->select('jorongs.*');

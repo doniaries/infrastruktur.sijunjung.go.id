@@ -2,21 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\JorongResource\Pages;
-use App\Filament\Resources\JorongResource\RelationManagers;
-use App\Models\Jorong;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use App\Rules\CaseInsensitiveUnique;
+use App\Models\Jorong;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
+use Filament\Resources\Resource;
+use App\Rules\CaseInsensitiveUnique;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\JorongResource\Pages;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Resources\JorongResource\RelationManagers;
 
 class JorongResource extends Resource
 {
@@ -63,9 +64,21 @@ class JorongResource extends Resource
             ]);
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        if (! config('filament.cache.enabled', true)) {
+            return parent::getNavigationBadge();
+        }
+
+        return Cache::remember('jorongs_count', now()->addHours(6), function () {
+            return static::getModel()::count();
+        });
+    }
+
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['nagari.kecamatan']))
             ->columns([
                 Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
@@ -120,12 +133,16 @@ class JorongResource extends Resource
             ->defaultSort('nagari.nama_nagari', 'asc')
             ->striped()
             ->filters([
-                // Tables\Filters\SelectFilter::make('nagari_id')
-                //     ->relationship('nagari', 'nama_nagari')
-                //     ->label('Filter by Nagari')
-                //     ->searchable()
-                //     ->preload(),
-
+                Tables\Filters\SelectFilter::make('nagari_id')
+                    ->relationship('nagari', 'nama_nagari')
+                    ->label('Filter by Nagari')
+                    ->searchable()
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('kecamatan_id')
+                    ->relationship('nagari.kecamatan', 'nama')
+                    ->label('Filter by Kecamatan')
+                    ->searchable()
+                    ->preload()
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -156,10 +173,6 @@ class JorongResource extends Resource
     }
 
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 
     public static function getNavigationBadgeColor(): string|array|null
     {

@@ -14,7 +14,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Nagari extends Model
 {
     use HasModelCache;
+    
     protected $table = "nagaris";
+    
+    /**
+     * The attributes that should be indexed.
+     *
+     * @var array
+     */
+    protected $indexes = [
+        'kecamatan_id',
+        'nama_nagari',
+    ];
+    
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['kecamatan'];
+    
+    /**
+     * The number of models to return for pagination.
+     *
+     * @var int
+     */
+    protected $perPage = 25;
 
     protected $fillable = [
         'nama_nagari',
@@ -31,12 +56,22 @@ class Nagari extends Model
     protected $casts = [
         'jumlah_penduduk_nagari' => 'integer',
         'jumlah_jorong' => 'integer',
-        'luas_nagari' => 'integer',
+        'luas_nagari' => 'float',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
+    /**
+     * Get the kecamatan that owns the nagari.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function kecamatan(): BelongsTo
     {
-        return $this->belongsTo(Kecamatan::class);
+        return $this->belongsTo(Kecamatan::class)->withDefault([
+            'nama' => 'N/A'
+        ]);
     }
 
     public function jorongs(): HasMany
@@ -79,9 +114,23 @@ class Nagari extends Model
     }
 
     // Query Scopes untuk optimasi
+    /**
+     * Eager load relationships for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeWithRelations($query)
     {
-        return $query->with(['kecamatan', 'jorongs']);
+        return $query->with([
+            'kecamatan' => function ($query) {
+                $query->select('id', 'nama');
+            },
+            'jorongs' => function ($query) {
+                $query->select('id', 'nagari_id', 'nama_jorong')
+                    ->orderBy('nama_jorong');
+            }
+        ]);
     }
 
     public function scopeFilterBySearch($query, $search)
@@ -104,11 +153,17 @@ class Nagari extends Model
         });
     }
 
+    /**
+     * Order the query by kecamatan and nagari name.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     * @return \Illuminate\Database\Query\Builder
+     */
     public function scopeOrderByKecamatanAndNagari($query)
     {
-        return $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
+        return $query->select('nagaris.*')
+            ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
             ->orderBy('kecamatans.nama')
-            ->orderBy('nagaris.nama_nagari')
-            ->select('nagaris.*');
+            ->orderBy('nagaris.nama_nagari');
     }
 }

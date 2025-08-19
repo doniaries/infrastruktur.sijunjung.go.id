@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Cache;
+use Filament\Tables\Filters\SelectFilter;
 
 class NagariResource extends Resource
 {
@@ -24,6 +26,17 @@ class NagariResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return 'Master Data';
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        if (! config('filament.cache.enabled', true)) {
+            return parent::getNavigationBadge();
+        }
+        
+        return Cache::remember('nagaris_count', now()->addHours(6), function () {
+            return static::getModel()::count();
+        });
     }
 
     public static function form(Form $form): Form
@@ -92,6 +105,7 @@ class NagariResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['kecamatan']))
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
@@ -148,7 +162,23 @@ class NagariResource extends Resource
             ])
             ->defaultSort('kecamatan.nama', 'asc')
             ->filters([
-                //
+                SelectFilter::make('kecamatan_id')
+                    ->relationship('kecamatan', 'nama')
+                    ->searchable()
+                    ->preload()
+                    ->label('Filter by Kecamatan'),
+                SelectFilter::make('has_jorong')
+                    ->options([
+                        '1' => 'With Jorong',
+                        '0' => 'Without Jorong',
+                    ])
+                    ->query(function (Builder $query, $data) {
+                        return match ($data['value']) {
+                            '1' => $query->whereHas('jorongs'),
+                            '0' => $query->whereDoesntHave('jorongs'),
+                            default => $query,
+                        };
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
@@ -179,10 +209,6 @@ class NagariResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 
     public static function getNavigationBadgeColor(): string|array|null
     {
