@@ -86,7 +86,7 @@ class Lapor extends Model
     {
         return $query->when($search, function ($q) use ($search) {
             $q->where(function ($subQuery) use ($search) {
-                $subQuery->where('nomor_tiket', 'like', '%' . $search . '%')
+                $subQuery->where('no_tiket', 'like', '%' . $search . '%')
                     ->orWhere('nama_pelapor', 'like', '%' . $search . '%')
                     ->orWhere('uraian_laporan', 'like', '%' . $search . '%')
                     ->orWhereHas('opd', function ($opd) use ($search) {
