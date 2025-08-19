@@ -1,10 +1,10 @@
 <x-layouts.app>
     <!-- AOS CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <script>
         // Initialize AOS
         document.addEventListener('DOMContentLoaded', function() {
@@ -17,13 +17,14 @@
             });
         });
     </script>
-    
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Hero Section -->
-    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden" data-aos="fade-up">
+    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden"
+        data-aos="fade-up">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
 
@@ -58,15 +59,14 @@
                     </div>
                 </div>
                 <a href="{{ route('public.laporform') }}"
-                    class="inline-flex items-center justify-center px-6 py-3 mr-3 text-base font-medium text-center text-white rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl hover:scale-105 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 hover:backdrop-blur-lg hover:border-white/30 transition-all duration-300 ease-in-out transform dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 btn-primary-enhanced ripple glow-on-hover">
-                    Lapor Sekarang
-                    <i class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1"></i>
+                    class="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-center text-gray-900 rounded-xl bg-gradient-to-r from-blue-700 to-blue-800 border-0 shadow-md hover:shadow-lg transition-all duration-300 btn-primary-enhanced">
+                    <span class="relative z-10">Laporkan Sekarang</span>
+                    <i
+                        class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1 relative z-10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]"></i>
                 </a>
 
             </div>
-            {{-- <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                <img src="{{ asset('images/rumahgadang.png') }}" alt="Rumah Gadang">
-            </div> --}}
+
         </div>
     </section>
 
@@ -77,8 +77,8 @@
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
+                        data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-file-alt text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Laporan Gangguan</h3>
@@ -91,8 +91,8 @@
                 </div>
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
+                        data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-broadcast-tower text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Pemetaan BTS</h3>
@@ -106,8 +106,8 @@
                 </div>
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
+                        data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-map text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Data Nagari</h3>
@@ -120,8 +120,8 @@
                 </div>
                 <div
                     class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div
-                        class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
+                        data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-home text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Data Jorong</h3>
@@ -183,7 +183,8 @@
                             class="bg-white dark:bg-gray-700 rounded-lg shadow-lg sm:grid sm:grid-cols-3 overflow-hidden dark:border dark:border-gray-600">
                             <div
                                 class="flex flex-col p-8 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt
+                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     BTS
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -193,7 +194,8 @@
                             </div>
                             <div
                                 class="flex flex-col p-8 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt
+                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     Nagari
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -203,7 +205,8 @@
                             </div>
                             <div
                                 class="flex flex-col p-8 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt
+                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     Jorong
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -1083,11 +1086,14 @@
 
         /* Enhanced Button Hover Effects */
 
-        /* Primary Button (Lapor Sekarang) Enhanced Hover */
+        /* Primary Button (Laporkan Sekarang) Enhanced Hover */
         .btn-primary-enhanced {
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            z-index: 1;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary-enhanced::before {
@@ -1097,23 +1103,24 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary-enhanced:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(37, 99, 235, 0.3);
+            color: white !important;
         }
 
         .btn-primary-enhanced:hover::before {
             left: 100%;
         }
 
-        .btn-primary-enhanced:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
-        }
-
         .btn-primary-enhanced:active {
-            transform: translateY(-1px) scale(1.02);
-            transition: all 0.1s ease;
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
         }
 
         /* Feature Card Button Enhanced Hover */
