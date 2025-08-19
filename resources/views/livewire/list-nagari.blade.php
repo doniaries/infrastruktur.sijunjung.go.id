@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            <!-- Card Filter Horizontal Section -->
+            {{-- <!-- Card Filter Horizontal Section -->
             <div class="overflow-x-auto mb-6">
                 <div class="flex space-x-3 min-w-max pb-2">
                     <div
@@ -28,7 +28,7 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Search, Filter and Export Section -->
             <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
