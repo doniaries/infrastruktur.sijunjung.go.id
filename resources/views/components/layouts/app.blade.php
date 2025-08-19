@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full dark">
 
 <head>
     <meta charset="utf-8">
@@ -656,6 +656,12 @@
 
     <!-- Script untuk memastikan header tetap pada posisinya saat mode gelap/terang berubah -->
     <script>
+        // Set dark mode as default if no preference is set
+        if (!localStorage.getItem('color-theme') && !window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Pastikan header tetap pada posisinya saat mode gelap/terang berubah
             const darkModeObserver = new MutationObserver(function(mutations) {
