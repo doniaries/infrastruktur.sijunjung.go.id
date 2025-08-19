@@ -33,7 +33,8 @@
                     <span class="block text-blue-600 dark:text-blue-400 mt-1 sm:mt-2">Infrastruktur TI Sijunjung</span>
                 </h1>
 
-                <p class="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 px-3 sm:px-0">
+                <p
+                    class="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 px-3 sm:px-0">
                     Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                     Sistem ini membantu Anda melacak laporan secara real-time.
                 </p>
@@ -54,7 +55,7 @@
         </div>
     </section>
 
-    <!-- ==============================================
+    {{-- <!-- ==============================================
         FEATURES SECTION
     ================================================ -->
     <section id="features-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
@@ -132,10 +133,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- BTS Map Section -->
-    <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-10 sm:py-16">
+    <section id="bts-map" class="bg-white dark:bg-gray-900 text-center text-gray-900 dark:text-white py-10 sm:py-16">
         <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
             <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS
@@ -170,7 +171,8 @@
     <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-10 sm:py-16">
         <div class="py-8 sm:py-12 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-left">
             <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
-                <h2 class="mb-4 text-2xl sm:text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                <h2
+                    class="mb-4 text-2xl sm:text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                     Statistik Infrastruktur
                 </h2>
                 <p class="text-gray-500 sm:text-xl dark:text-gray-300">Data statistik infrastruktur di Kabupaten
@@ -183,8 +185,7 @@
                             class="bg-white dark:bg-gray-700 rounded-lg shadow-lg sm:grid sm:grid-cols-3 overflow-hidden dark:border dark:border-gray-600">
                             <div
                                 class="flex flex-col p-8 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt
-                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     BTS
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -194,8 +195,7 @@
                             </div>
                             <div
                                 class="flex flex-col p-8 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt
-                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     Nagari
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -205,8 +205,7 @@
                             </div>
                             <div
                                 class="flex flex-col p-8 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <dt
-                                    class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-300">
                                     Jorong
                                 </dt>
                                 <dd class="order-1 text-5xl font-extrabold leading-none text-primary-600 dark:text-blue-300"
@@ -319,7 +318,7 @@
                             const floatingNav = document.createElement('div');
                             floatingNav.id = 'floating-nav';
                             floatingNav.className =
-                                'fixed right-6 top-1/2 transform -translate-y-1/2 z-50 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-200 dark:border-gray-700 p-2 opacity-0 transition-all duration-300';
+                                'fixed right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full shadow-lg border border-gray-200/50 dark:border-gray-700/50 p-1 sm:p-2 opacity-0 transition-all duration-300';
 
                             const navItems = [{
                                     id: 'hero',
@@ -346,8 +345,9 @@
                             navItems.forEach((item, index) => {
                                 const navButton = document.createElement('button');
                                 navButton.className =
-                                    'block w-10 h-10 rounded-full mb-2 last:mb-0 bg-gray-100 dark:bg-gray-700 hover:bg-blue-500 dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-200 relative group btn-nav-enhanced glow-on-hover';
-                                navButton.innerHTML = `<i class="${item.icon} text-sm"></i>`;
+                                    'flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full mb-2 last:mb-0 bg-gray-100/80 dark:bg-gray-700/80 hover:bg-blue-500 dark:hover:bg-blue-600 text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-200 relative group btn-nav-enhanced glow-on-hover';
+                                navButton.innerHTML =
+                                    `<i class="${item.icon} text-xs sm:text-sm"></i>`;
                                 navButton.title = item.title;
 
                                 // Add tooltip
@@ -707,6 +707,34 @@
 
         <!-- Background Effects Styles and Script -->
         <style>
+            /* Prevent horizontal scroll */
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* Ensure all sections don't exceed viewport width */
+            section {
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+            }
+
+            /* Floating navigation adjustments */
+            #floating-nav {
+                display: none;
+                /* Hide by default */
+            }
+
+            @media (min-width: 640px) {
+                #floating-nav {
+                    display: block;
+                    /* Show on sm screens and up */
+                }
+            }
+
             /* Stars for dark mode */
             .star {
                 position: absolute;
