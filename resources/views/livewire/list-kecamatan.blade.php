@@ -80,18 +80,34 @@
 
                             <div class="grid grid-cols-2 gap-2 mt-3">
                                 <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}" 
-                                   class="nagari-card card-base">
-                                    <p class="text-xs font-bold">Nagari</p>
-                                    <p class="text-sm font-black">
-                                        {{ $kecamatan->nagari_count }}
-                                    </p>
+                                   class="nagari-card card-base group">
+                                    <div class="flex justify-between items-center">
+                                        <div>
+                                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Nagari</p>
+                                            <p class="text-sm font-black text-gray-800 dark:text-white">
+                                                {{ $kecamatan->nagari_count }}
+                                            </p>
+                                        </div>
+                                        @if($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
+                                        <div class="text-right">
+                                            <p class="text-[10px] font-medium text-gray-500 dark:text-gray-400">Penduduk</p>
+                                            <p class="text-xs font-bold text-blue-600 dark:text-blue-400">
+                                                {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }} jiwa
+                                            </p>
+                                        </div>
+                                        @endif
+                                    </div>
                                 </a>
                                 <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
-                                   class="jorong-card card-base">
-                                    <p class="text-xs font-bold">Jorong</p>
-                                    <p class="text-sm font-black">
-                                        {{ $kecamatan->jorong_count }}
-                                    </p>
+                                   class="jorong-card card-base group">
+                                    <div class="flex items-center">
+                                        <div>
+                                            <p class="text-xs font-bold text-gray-500 dark:text-gray-400">Jorong</p>
+                                            <p class="text-sm font-black text-gray-800 dark:text-white">
+                                                {{ $kecamatan->jorong_count }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                         </div>
