@@ -19,7 +19,7 @@
         HERO SECTION
     ================================================ -->
     <section id="hero"
-        class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16 md:py-24 relative overflow-hidden"
+        class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 sm:py-16 md:py-24 relative overflow-hidden"
         data-aos="fade-up">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
@@ -28,12 +28,12 @@
             <!-- Hero Content -->
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h1
-                    class="mb-6 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl dark:text-white">
+                    class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                     <span class="block">Sistem Informasi</span>
-                    <span class="block text-blue-600 dark:text-blue-400">Infrastruktur TI Sijunjung</span>
+                    <span class="block text-blue-600 dark:text-blue-400 mt-1 sm:mt-2">Infrastruktur TI Sijunjung</span>
                 </h1>
 
-                <p class="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-300 mb-10">
+                <p class="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 px-3 sm:px-0">
                     Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
                     Sistem ini membantu Anda melacak laporan secara real-time.
                 </p>
@@ -68,33 +68,33 @@
                 </p>
             </div>
 
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-0">
                 <!-- Feature 1: Laporan Gangguan -->
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900"
+                    class="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900 h-full flex flex-col">
+                    <div class="flex justify-center items-center mb-3 sm:mb-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary-100 dark:bg-primary-900"
                         data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-file-alt text-primary-600 text-xl dark:text-primary-300"></i>
                     </div>
-                    <h3 class="mb-2 text-xl font-bold dark:text-white">Laporan Gangguan</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">
+                    <h3 class="mb-2 text-lg sm:text-xl font-bold dark:text-white">Laporan Gangguan</h3>
+                    <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 mb-4 flex-grow">
                         Laporkan gangguan jaringan dengan mudah dan cepat. Sistem akan mengirimkan notifikasi kepada
                         petugas terkait.
                     </p>
                     <a href="{{ url('/list-laporan') }}"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced">
-                        <i class="fas fa-arrow-right mr-2"></i> Lihat Laporan
+                        class="inline-flex items-center justify-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced w-full sm:w-auto text-center">
+                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i> Lihat Laporan
                     </a>
                 </div>
                 <!-- Feature 2: Pemetaan BTS -->
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900"
+                    class="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900 h-full flex flex-col">
+                    <div class="flex justify-center items-center mb-3 sm:mb-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary-100 dark:bg-primary-900"
                         data-aos="zoom-in" data-aos-delay="150">
                         <i class="fas fa-broadcast-tower text-primary-600 text-xl dark:text-primary-300"></i>
                     </div>
-                    <h3 class="mb-2 text-xl font-bold dark:text-white">Pemetaan BTS</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">
+                    <h3 class="mb-2 text-lg sm:text-xl font-bold dark:text-white">Pemetaan BTS</h3>
+                    <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 mb-4 flex-grow">
                         Lihat lokasi dan informasi mengenai Base Transceiver
                         Station (BTS) yang tersebar di Kabupaten Sijunjung.</p>
                     <a href="{{ url('/list-bts') }}"
@@ -103,13 +103,13 @@
                     </a>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
+                    class="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900 h-full flex flex-col">
                     <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
                         data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-map text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
-                    <h3 class="mb-2 text-xl font-bold dark:text-white">Data Nagari</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">Akses informasi tentang Nagari di Kabupaten
+                    <h3 class="mb-2 text-lg sm:text-xl font-bold dark:text-white">Data Nagari</h3>
+                    <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 mb-4 flex-grow">Akses informasi tentang Nagari di Kabupaten
                         Sijunjung beserta infrastruktur yang tersedia di wilayah tersebut.</p>
                     <a href="{{ url('/list-nagari') }}"
                         class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced ripple">
@@ -117,13 +117,13 @@
                     </a>
                 </div>
                 <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
+                    class="bg-white dark:bg-gray-700 p-4 sm:p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900 h-full flex flex-col">
                     <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
                         data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-home text-primary-600 lg:text-xl dark:text-primary-300"></i>
                     </div>
-                    <h3 class="mb-2 text-xl font-bold dark:text-white">Data Jorong</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">Akses informasi tentang Jorong di Kabupaten
+                    <h3 class="mb-2 text-lg sm:text-xl font-bold dark:text-white">Data Jorong</h3>
+                    <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 mb-4 flex-grow">Akses informasi tentang Jorong di Kabupaten
                         Sijunjung beserta infrastruktur yang tersedia di wilayah tersebut.</p>
                     <a href="{{ url('/list-jorong') }}"
                         class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced ripple">
@@ -135,8 +135,8 @@
     </section>
 
     <!-- BTS Map Section -->
-    <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-right">
+    <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-10 sm:py-16">
+        <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
             <div class="max-w-screen-md mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS
                     Kabupaten
@@ -167,11 +167,12 @@
     </section> --}}
 
     <!-- Stats Section -->
-    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
-        <div class="py-12 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-left">
+    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-10 sm:py-16">
+        <div class="py-8 sm:py-12 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-left">
             <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Statistik
-                    Infrastruktur</h2>
+                <h2 class="mb-4 text-2xl sm:text-3xl md:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    Statistik Infrastruktur
+                </h2>
                 <p class="text-gray-500 sm:text-xl dark:text-gray-300">Data statistik infrastruktur di Kabupaten
                     Sijunjung</p>
             </div>
