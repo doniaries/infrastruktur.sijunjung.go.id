@@ -24,8 +24,8 @@ use Filament\Infolists\Components\Section;
 use Filament\Tables\Enums\ActionsPosition;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\BtsResource\Pages;
+use Illuminate\Support\Facades\Cache;
 use Filament\Forms\Components\Actions\Action;
-use Filament\Support\Enums\VerticalAlignment;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\BtsResource\RelationManagers;
 
@@ -34,10 +34,24 @@ class BtsResource extends Resource
     protected static ?string $model = Bts::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
+    
+    protected static ?int $navigationSort = 1;
+    
+    protected static ?string $navigationGroup = 'Data Infrastruktur';
+    
+    protected static ?string $modelLabel = 'BTS';
+    
+    protected static ?string $pluralModelLabel = 'Daftar BTS';
 
-    public static function getNavigationGroup(): ?string
+    public static function getNavigationBadge(): ?string
     {
-        return 'Data Infrastruktur';
+        if (! config('filament.cache.enabled', true)) {
+            return parent::getNavigationBadge();
+        }
+        
+        return Cache::remember('bts_count', now()->addHours(6), function () {
+            return static::getModel()::count();
+        });
     }
 
     public static function form(Form $form): Form
@@ -225,6 +239,7 @@ class BtsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->withRelations())
             ->columns([
                 Tables\Columns\TextColumn::make('tahun_bangun')
                     ->sortable(),
@@ -253,11 +268,12 @@ class BtsResource extends Resource
                 //     ->searchable(),
                 Tables\Columns\TextColumn::make('operator.nama_operator')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match (strtoupper($state)) {
                         'TELKOMSEL' => 'danger',
-
                         'INDOSAT' => 'warning',
                         'XL AXIATA' => 'primary',
+                        'TIDAK DIKETAHUI' => 'gray',
+                        default => 'gray',
                     })
                     ->sortable()
                     ->searchable(),
@@ -280,19 +296,55 @@ class BtsResource extends Resource
             ])
             ->defaultSort('tahun_bangun', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('operator_id')
+                    ->relationship('operator', 'nama_operator')
+                    ->searchable()
+                    ->preload()
+                    ->label('Operator'),
+                Tables\Filters\SelectFilter::make('kecamatan_id')
+                    ->relationship('kecamatan', 'nama')
+                    ->searchable()
+                    ->preload()
+                    ->label('Kecamatan'),
+                Tables\Filters\SelectFilter::make('teknologi')
+                    ->options([
+                        '2G' => '2G',
+                        '3G' => '3G',
+                        '4G' => '4G',
+                        '4G+5G' => '4G+5G',
+                        '5G' => '5G',
+                    ])
+                    ->label('Teknologi'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'aktif' => 'Aktif',
+                        'non-aktif' => 'Non-Aktif',
+                    ])
+                    ->label('Status'),
+                Tables\Filters\SelectFilter::make('tahun_bangun')
+                    ->options(
+                        \App\Models\Bts::select('tahun_bangun')
+                            ->distinct()
+                            ->orderBy('tahun_bangun', 'desc')
+                            ->pluck('tahun_bangun', 'tahun_bangun')
+                            ->toArray()
+                    )
+                    ->label('Tahun Bangun')
             ])
             ->actions([
-                Tables\Actions\DeleteAction::make()
-                    ->iconButton(),
-                Tables\Actions\EditAction::make()
-                    ->iconButton(),
                 Tables\Actions\ViewAction::make()
+                    ->iconButton()
+                    ->tooltip('Detail')
                     ->stickyModalHeader()
-                    ->stickyModalFooter()
-                    ->iconButton(),
-
+                    ->stickyModalFooter(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton()
+                    ->tooltip('Edit'),
+                Tables\Actions\DeleteAction::make()
+                    ->iconButton()
+                    ->tooltip('Hapus'),
             ], position: ActionsPosition::BeforeColumns)
+            ->recordUrl(fn (Bts $record): string => route('filament.admin.resources.bts.edit', $record))
 
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -318,8 +370,4 @@ class BtsResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 }
