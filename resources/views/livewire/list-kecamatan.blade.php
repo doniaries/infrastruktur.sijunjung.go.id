@@ -19,10 +19,13 @@
             </div>
             <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari kecamatan..."
                 class="block w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            @if($search)
-                <button type="button" wire:click="$set('search', '')" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <svg class="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            @if ($search)
+                <button type="button" wire:click="$set('search', '')"
+                    class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <svg class="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             @endif
@@ -80,8 +83,8 @@
 
                             <div class="grid grid-cols-1 gap-2 mt-3">
                                 <!-- Nagari Card -->
-                                <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}" 
-                                   class="nagari-card card-base group">
+                                <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}"
+                                    class="nagari-card card-base group">
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center space-x-3">
                                             <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
@@ -93,21 +96,24 @@
                                                     <p class="text-lg font-black text-gray-800 dark:text-white">
                                                         {{ $kecamatan->nagari_count }}
                                                     </p>
-                                                    @if($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
-                                                    <span class="text-xs text-blue-600 dark:text-blue-300">
-                                                        • {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }} jiwa
-                                                    </span>
+                                                    @if ($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
+                                                        <span class="text-xs text-blue-600 dark:text-blue-300">
+                                                            •
+                                                            {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }}
+                                                            jiwa
+                                                        </span>
                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
-                                        <i class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
+                                        <i
+                                            class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
                                     </div>
                                 </a>
-                                
+
                                 <!-- Jorong Card -->
                                 <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
-                                   class="jorong-card card-base group">
+                                    class="jorong-card card-base group">
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center space-x-3">
                                             <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
@@ -120,7 +126,8 @@
                                                 </p>
                                             </div>
                                         </div>
-                                        <i class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
+                                        <i
+                                            class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
                                     </div>
                                 </a>
                             </div>
@@ -153,9 +160,12 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
             }
+
             50% {
                 opacity: .5;
             }
@@ -181,37 +191,49 @@
 
         /* Nagari Card */
         .nagari-card {
-            --card-bg: #1d4ed8; /* blue-700 */
-            --card-border: #2563eb; /* blue-600 */
+            --card-bg: #1d4ed8;
+            /* blue-700 */
+            --card-border: #2563eb;
+            /* blue-600 */
             --card-text: #ffffff;
-            --card-hover-bg: #1e40af; /* blue-800 */
+            --card-hover-bg: #1e40af;
+            /* blue-800 */
             --card-hover-text: #ffffff;
             --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2393c5fd'%3E%3Cpath d='M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z' /%3E%3Cpath d='M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z' /%3E%3C/svg%3E");
         }
 
         .dark .nagari-card {
-            --card-bg: #1d4ed8; /* blue-700 */
-            --card-border: #2563eb; /* blue-600 */
+            --card-bg: #1d4ed8;
+            /* blue-700 */
+            --card-border: #2563eb;
+            /* blue-600 */
             --card-text: #ffffff;
-            --card-hover-bg: #1e40af; /* blue-800 */
+            --card-hover-bg: #1e40af;
+            /* blue-800 */
             --card-hover-text: #ffffff;
         }
 
         /* Jorong Card */
         .jorong-card {
-            --card-bg: #15803d; /* green-700 */
-            --card-border: #16a34a; /* green-600 */
+            --card-bg: #15803d;
+            /* green-700 */
+            --card-border: #16a34a;
+            /* green-600 */
             --card-text: #ffffff;
-            --card-hover-bg: #166534; /* green-800 */
+            --card-hover-bg: #166534;
+            /* green-800 */
             --card-hover-text: #ffffff;
             --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2386efac'%3E%3Cpath fill-rule='evenodd' d='M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9a3 3 0 016 0v6a3 3 0 01-3 3h-1.5v.75a3 3 0 01-3 3h-6a3 3 0 01-3-3v-1.5H3a3 3 0 01-3-3V9a3 3 0 013-3h12.75z' clip-rule='evenodd' /%3E%3C/svg%3E");
         }
 
         .dark .jorong-card {
-            --card-bg: #15803d; /* green-700 */
-            --card-border: #16a34a; /* green-600 */
+            --card-bg: #15803d;
+            /* green-700 */
+            --card-border: #16a34a;
+            /* green-600 */
             --card-text: #ffffff;
-            --card-hover-bg: #166534; /* green-800 */
+            --card-hover-bg: #166534;
+            /* green-800 */
             --card-hover-text: #ffffff;
         }
 
@@ -229,7 +251,7 @@
             display: flex;
             align-items: center;
         }
-        
+
         .card-base:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
