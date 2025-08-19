@@ -61,6 +61,7 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                             <tr>
+                                <th scope="col" class="px-4 py-3 w-12">No</th>
                                 <th scope="col" class="px-4 py-3">No Tiket</th>
                                 <th scope="col" class="px-4 py-3">Tanggal</th>
                                 <th scope="col" class="px-4 py-3">OPD</th>
@@ -71,8 +72,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($laporans as $lapor)
+                            @forelse($laporans as $index => $lapor)
                                 <tr class="border-b dark:border-gray-700">
+                                    <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+                                        {{ $laporans->firstItem() + $index }}
+                                    </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <span
                                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 font-mono">
