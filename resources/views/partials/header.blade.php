@@ -45,6 +45,11 @@
                         <div
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Wilayah</div>
+                        <a href="{{ url('/list-kecamatan') }}"
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
+                            <i class="fas fa-map-marked-alt text-blue-500 mr-3 w-5 text-center"></i>
+                            Kecamatan
+                        </a>
                         <a href="{{ url('/list-nagari') }}"
                             class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
                             <i class="fas fa-city text-blue-500 mr-3 w-5 text-center"></i>
@@ -55,6 +60,7 @@
                             <i class="fas fa-map-pin text-blue-500 mr-3 w-5 text-center"></i>
                             Jorong
                         </a>
+
                     </div>
                 </div>
 

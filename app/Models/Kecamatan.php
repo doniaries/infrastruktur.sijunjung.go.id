@@ -27,9 +27,10 @@ class Kecamatan extends Model
         return $this->hasMany(Nagari::class);
     }
 
-    public function jorong()
+    // Jorongs are accessed through the nagari relationship
+    public function jorongs()
     {
-        return $this->hasMany(Jorong::class);
+        return $this->hasManyThrough(Jorong::class, Nagari::class);
     }
 
     // Mutator - Mengubah data sebelum disimpan ke database

@@ -40,6 +40,7 @@ Route::get('/list-laporan', ListLaporan::class)->name('list.laporan');
 Route::get('/list-bts', ListBts::class)->name('list.bts');
 Route::get('/list-nagari', ListNagari::class)->name('list.nagari');
 Route::get('/list-jorong', ListJorong::class)->name('list.jorong');
+Route::get('/list-kecamatan', \App\Livewire\ListKecamatan::class)->name('list.kecamatan');
 
 
 // Tangkap semua route yang tidak ditemukan (hanya satu fallback)
