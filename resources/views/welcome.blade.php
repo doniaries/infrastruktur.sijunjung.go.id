@@ -1,103 +1,110 @@
 <x-layouts.app>
-    <!-- AOS CSS -->
+    <!-- ==============================================
+        EXTERNAL DEPENDENCIES
+    ================================================ -->
+    <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script>
-        // Initialize AOS
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                easing: 'ease-out-cubic',
-                once: true,
-                offset: 100,
-                mirror: true
-            });
-        });
-    </script>
-
-    <!-- Leaflet CSS -->
+    <!-- Leaflet for Maps -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
 
-    <!-- Hero Section -->
-    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden"
-        data-aos="fade-up">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- ==============================================
+        HERO SECTION
+    ================================================ -->
+    <section id="hero" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 relative overflow-hidden" data-aos="fade-up">
         <!-- Background Effects -->
         <div id="background-effects" class="absolute inset-0 pointer-events-none"></div>
 
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 relative z-10">
+            <!-- Hero Content -->
             <div class="mr-auto place-self-center lg:col-span-7" data-aos="fade-right">
-                <h1
-                    class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-                    Sistem Informasi Infrastruktur TI Sijunjung</h1>
+                <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+                    Sistem Informasi Infrastruktur TI Sijunjung
+                </h1>
                 <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-300">
-                    Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. Sistem ini
-                    membantu Anda melacak laporan secara real-time.</p>
+                    Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat. 
+                    Sistem ini membantu Anda melacak laporan secara real-time.
+                </p>
                 <div class="type-hero mb-6 text-2xl font-bold text-primary-700 dark:text-blue-300">
                     <span class="tw-typewriter-hero"></span>
                 </div>
 
-                <!-- Kolom Pencarian -->
+                <!-- Search Form -->
                 <div class="max-w-2xl mb-8">
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-400"></i>
                         </div>
                         <div class="flex">
-                            <input type="text" id="heroSearch"
-                                placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD..."
-                                class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <input type="text" 
+                                   id="heroSearch"
+                                   class="w-full pl-10 pr-4 py-3 text-gray-900 bg-white border border-gray-300 rounded-l-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="Cari laporan berdasarkan No Tiket, Nama Pelapor, atau OPD...">
                             <button type="button"
-                                class="px-6 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300">
+                                    class="px-6 py-3 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
-
                     </div>
                 </div>
+
+                <!-- CTA Button -->
                 <a href="{{ route('public.laporform') }}"
-                    class="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-center text-gray-900 rounded-xl bg-gradient-to-r from-blue-700 to-blue-800 border-0 shadow-md hover:shadow-lg transition-all duration-300 btn-primary-enhanced">
+                   class="inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-center text-white rounded-xl bg-gradient-to-r from-blue-700 to-blue-800 border-0 shadow-md hover:shadow-lg transition-all duration-300 btn-primary-enhanced">
                     <span class="relative z-10">Laporkan Sekarang</span>
-                    <i
-                        class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1 relative z-10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]"></i>
+                    <i class="fas fa-arrow-right w-5 h-5 ml-2 -mr-1 relative z-10 drop-shadow-[0_1px_1px_rgba(0,0,0,0.3)]"></i>
                 </a>
-
             </div>
-
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- ==============================================
+        FEATURES SECTION
+    ================================================ -->
     <section id="features-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6 relative z-10" data-aos="fade-left">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+                    Layanan Kami
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-300 mx-auto">
+                    Berbagai layanan yang tersedia untuk mendukung kebutuhan infrastruktur TI Anda
+                </p>
+            </div>
 
-            <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
-                <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
-                        data-aos="zoom-in" data-aos-delay="100">
-                        <i class="fas fa-file-alt text-primary-600 lg:text-xl dark:text-primary-300"></i>
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <!-- Feature 1: Laporan Gangguan -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
+                    <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900"
+                         data-aos="zoom-in" data-aos-delay="100">
+                        <i class="fas fa-file-alt text-primary-600 text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Laporan Gangguan</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">Laporkan gangguan jaringan dengan mudah dan cepat.
-                        Sistem akan mengirimkan notifikasi kepada petugas terkait.</p>
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">
+                        Laporkan gangguan jaringan dengan mudah dan cepat. Sistem akan mengirimkan notifikasi kepada petugas terkait.
+                    </p>
                     <a href="{{ url('/list-laporan') }}"
-                        class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced ripple">
+                       class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced">
                         <i class="fas fa-arrow-right mr-2"></i> Lihat Laporan
                     </a>
                 </div>
-                <div
-                    class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
-                    <div class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900"
-                        data-aos="zoom-in" data-aos-delay="100">
-                        <i class="fas fa-broadcast-tower text-primary-600 lg:text-xl dark:text-primary-300"></i>
+                <!-- Feature 2: Pemetaan BTS -->
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-primary-200 dark:border-primary-900">
+                    <div class="flex justify-center items-center mb-4 w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900"
+                         data-aos="zoom-in" data-aos-delay="150">
+                        <i class="fas fa-broadcast-tower text-primary-600 text-xl dark:text-primary-300"></i>
                     </div>
                     <h3 class="mb-2 text-xl font-bold dark:text-white">Pemetaan BTS</h3>
-                    <p class="text-gray-500 dark:text-gray-300 mb-4">Lihat lokasi dan informasi mengenai Base
-                        Transceiver
+                    <p class="text-gray-500 dark:text-gray-300 mb-4">
+                        Lihat lokasi dan informasi mengenai Base Transceiver
                         Station (BTS) yang tersebar di Kabupaten Sijunjung.</p>
                     <a href="{{ url('/list-bts') }}"
                         class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced ripple">
@@ -226,12 +233,24 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <!-- BTS Map Script -->
+        <!-- ==============================================
+        JAVASCRIPT INITIALIZATION
+    ================================================ -->
     <script>
+        // Initialize AOS (Animate On Scroll)
         document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi peta di elemen dengan id 'btsMap'
-            const map = L.map('btsMap').setView([-0.6477, 101.3184], 9); // Koordinat Sijunjung dan zoom level
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 100,
+                mirror: true
+            });
 
-            // Tambahkan layer peta dasar dari OpenStreetMap
+            // Initialize Leaflet Map
+            const map = L.map('btsMap').setView([-0.6477, 101.3184], 9); // Koordinat Sijunjung
+
+            // Add OpenStreetMap base layer
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 maxZoom: 19
