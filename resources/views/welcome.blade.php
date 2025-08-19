@@ -673,6 +673,23 @@
         });
     </script>
 
+    <!-- Kecamatan Section -->
+    <section id="kecamatan-section" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-up">
+            <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Daftar Kecamatan</h2>
+                <p class="text-gray-500 dark:text-gray-300 sm:text-xl">
+                    Eksplorasi daftar kecamatan di Kabupaten Sijunjung beserta informasi terkait.
+                </p>
+            </div>
+            
+            <!-- Kecamatan List Component -->
+            <div class="mt-8">
+                @livewire('list-kecamatan')
+            </div>
+        </div>
+    </section>
+
     <!-- Background Effects Styles and Script -->
     <style>
         /* Stars for dark mode */

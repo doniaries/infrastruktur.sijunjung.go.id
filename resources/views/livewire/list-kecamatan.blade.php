@@ -32,7 +32,7 @@
     <!-- Loading State -->
     <div wire:loading.flex class="justify-center w-full">
         <div class="w-full animate-pulse">
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 @for ($i = 0; $i < 6; $i++)
                     <div
                         class="bg-gray-200 dark:bg-slate-900 rounded-lg p-3 h-32 border border-blue-100 dark:border-blue-800">
@@ -51,7 +51,7 @@
     <!-- Content -->
     <div wire:loading.remove>
         @if ($kecamatans->count() > 0)
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 @foreach ($kecamatans as $kecamatan)
                     <div x-data="{ inView: false }" x-intersect="inView = true"
                         x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
