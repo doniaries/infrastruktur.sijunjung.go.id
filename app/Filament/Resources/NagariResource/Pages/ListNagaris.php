@@ -8,10 +8,28 @@ use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ListNagaris extends ListRecords
 {
     protected static string $resource = NagariResource::class;
+
+    protected function getTableRecordUrlUsing(): ?\Closure
+    {
+        return function (Model $record): ?string {
+            $resource = static::getResource();
+
+            if ($resource::hasPage('edit') && $resource::canEdit($record)) {
+                return $resource::getUrl('edit', ['record' => $record]);
+            }
+
+            if ($resource::hasPage('view') && $resource::canView($record)) {
+                return $resource::getUrl('view', ['record' => $record]);
+            }
+
+            return null;
+        };
+    }
 
     protected function getHeaderActions(): array
     {
@@ -34,7 +52,7 @@ class ListNagaris extends ListRecords
 
         foreach ($kecamatans as $kecamatan) {
             $count = \App\Models\Nagari::where('kecamatan_id', $kecamatan->id)->count();
-            
+
             $tabs[$kecamatan->nama] = Tab::make($kecamatan->nama)
                 ->badge($count)
                 ->modifyQueryUsing(function (Builder $query) use ($kecamatan) {

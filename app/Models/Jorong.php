@@ -28,6 +28,7 @@ class Jorong extends Model
     protected $casts = [
         'jumlah_penduduk_jorong' => 'integer',
         'luas_jorong' => 'integer',
+        'nama_jorong' => 'string',
     ];
 
     public function nagari(): BelongsTo

@@ -100,6 +100,7 @@ class NagariResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('kontak_wali_nagari')
                     ->label('Kontak')
+                    ->copyable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('alamat_kantor_nagari')
                     ->label('Alamat Kantor')
@@ -138,8 +139,10 @@ class NagariResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->slideOver(),
                 Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
