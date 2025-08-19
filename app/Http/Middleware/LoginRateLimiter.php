@@ -11,36 +11,89 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 class LoginRateLimiter
 {
     /**
+     * The maximum number of attempts allowed.
+     */
+    protected $maxAttempts = 5;
+
+    /**
+     * The number of minutes to throttle for.
+     */
+    protected $decayMinutes = 1;
+
+    /**
      * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         // Only apply rate limiting to login attempts
-        if ($request->routeIs('filament.admin.auth.login') && $request->isMethod('POST')) {
-            $email = $request->input('email', '');
-            $key = 'login_attempts:' . $email . '|' . $request->ip();
+        if ($this->shouldRateLimit($request)) {
+            $key = $this->resolveRequestSignature($request);
             
-            // Check if too many attempts (5 attempts per minute)
-            if (RateLimiter::tooManyAttempts($key, 5)) {
-                $retryAfter = RateLimiter::availableIn($key);
+            if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
+                $seconds = RateLimiter::availableIn($key);
                 
                 throw new ThrottleRequestsException(
-                    'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . $retryAfter . ' detik.',
+                    'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . $seconds . ' detik.',
                     null,
-                    [
-                        'Retry-After' => $retryAfter,
-                        'X-RateLimit-Limit' => 5,
-                        'X-RateLimit-Remaining' => 0,
-                    ]
+                    $this->getHeaders($key, $this->maxAttempts, $this->calculateRemainingAttempts($key, $this->maxAttempts, $seconds)),
+                    $seconds
                 );
             }
             
-            // Hit the rate limiter for this attempt
-            RateLimiter::hit($key, 60); // 60 seconds decay
+            // Increment the login attempts
+            RateLimiter::hit($key, $this->decayMinutes * 60);
         }
         
         return $next($request);
+    }
+    
+    /**
+     * Determine if the request should be rate limited.
+     */
+    protected function shouldRateLimit(Request $request): bool
+    {
+        return $request->routeIs('filament.admin.auth.login') && 
+               $request->isMethod('POST') && 
+               !$request->user('filament');
+    }
+    
+    /**
+     * Resolve request signature.
+     */
+    protected function resolveRequestSignature($request): string
+    {
+        return sha1(
+            $request->method() .
+            '|' . $request->server('SERVER_NAME') .
+            '|' . $request->path() .
+            '|' . $request->ip() .
+            '|' . $request->input('email', '')
+        );
+    }
+    
+    /**
+     * Get the rate limit headers.
+     */
+    protected function getHeaders($key, $maxAttempts, $remainingAttempts, $retryAfter = null): array
+    {
+        $headers = [
+            'X-RateLimit-Limit' => $maxAttempts,
+            'X-RateLimit-Remaining' => $remainingAttempts,
+        ];
+
+        if (!is_null($retryAfter)) {
+            $headers['Retry-After'] = $retryAfter;
+            $headers['X-RateLimit-Reset'] = now()->addSeconds($retryAfter)->getTimestamp();
+        }
+
+        return $headers;
+    }
+    
+    /**
+     * Calculate the number of remaining attempts.
+     */
+    protected function calculateRemainingAttempts($key, $maxAttempts, $retryAfter = null): int
+    {
+        return is_null($retryAfter) ? $maxAttempts - RateLimiter::attempts($key) : 0;
     }
 }
