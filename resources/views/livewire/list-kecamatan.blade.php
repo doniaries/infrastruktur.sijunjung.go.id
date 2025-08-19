@@ -72,44 +72,28 @@
                             </div>
 
                             <div class="grid grid-cols-2 gap-2 mt-3">
-                                <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}"
-                                    class="group relative block p-3 rounded-lg overflow-hidden transition-all duration-200
-                                           border border-blue-200 dark:border-blue-600
-                                           bg-white dark:bg-blue-800
-                                           hover:bg-blue-600 dark:hover:bg-blue-700
-                                           hover:shadow-md hover:-translate-y-0.5">
-                                    <div class="relative">
-                                        <p class="text-xs font-bold text-blue-700 dark:text-blue-100 group-hover:text-white transition-colors">
-                                            Nagari
-                                        </p>
-                                        <p class="text-sm font-black text-blue-900 dark:text-white group-hover:text-white transition-colors">
-                                            {{ $kecamatan->nagari_count }}
-                                        </p>
-                                    </div>
+                                <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}" 
+                                   class="nagari-card card-base">
+                                    <p class="text-xs font-bold">Nagari</p>
+                                    <p class="text-sm font-black">
+                                        {{ $kecamatan->nagari_count }}
+                                    </p>
                                 </a>
                                 <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
-                                    class="group relative block p-3 rounded-lg overflow-hidden transition-all duration-200
-                                           border border-green-200 dark:border-green-600
-                                           bg-white dark:bg-green-800
-                                           hover:bg-green-600 dark:hover:bg-green-700
-                                           hover:shadow-md hover:-translate-y-0.5">
-                                    <div class="relative">
-                                        <p class="text-xs font-bold text-green-700 dark:text-green-100 group-hover:text-white transition-colors">
-                                            Jorong
-                                        </p>
-                                        <p class="text-sm font-black text-green-900 dark:text-white group-hover:text-white transition-colors">
-                                            {{ $kecamatan->jorong_count }}
-                                        </p>
-                                    </div>
+                                   class="jorong-card card-base">
+                                    <p class="text-xs font-bold">Jorong</p>
+                                    <p class="text-sm font-black">
+                                        {{ $kecamatan->jorong_count }}
+                                    </p>
                                 </a>
                             </div>
-                            {{-- 
+
                             <div class="mt-3">
                                 <a href="/list-nagari?kecamatan={{ $kecamatan->id }}"
-                                    class="block w-full text-center text-xs font-semibold px-2 py-1.5 rounded border border-blue-200 dark:border-blue-600 text-blue-700 dark:text-white bg-white/90 dark:bg-blue-700 hover:bg-blue-50 dark:hover:bg-blue-600 transition-all duration-200 hover:shadow-sm">
+                                   class="detail-button card-base w-full text-center text-xs font-semibold px-2 py-1.5">
                                     Lihat Detail Kecamatan
                                 </a>
-                            </div> --}}
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -133,20 +117,140 @@
     </div>
 
     <style>
+        /* Animations */
         .animate-pulse {
             animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
             }
-
             50% {
-                opacity: 0.5;
+                opacity: .5;
             }
+        }
+
+        /* Custom Card Styles */
+        .kecamatan-container {
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            --card-text: #1f2937;
+            --card-hover-bg: #f9fafb;
+            --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --card-hover-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --card-glow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .kecamatan-container {
+            --card-bg: theme('colors.gray.800');
+            --card-border: theme('colors.gray.700');
+            --card-text: theme('colors.gray.200');
+            --card-hover-bg: theme('colors.gray.700');
+        }
+
+        /* Nagari Card */
+        .nagari-card {
+            --card-bg: #1d4ed8; /* blue-700 */
+            --card-border: #2563eb; /* blue-600 */
+            --card-text: #ffffff;
+            --card-hover-bg: #1e40af; /* blue-800 */
+            --card-hover-text: #ffffff;
+            --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2393c5fd'%3E%3Cpath d='M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z' /%3E%3Cpath d='M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z' /%3E%3C/svg%3E");
+        }
+
+        .dark .nagari-card {
+            --card-bg: #1d4ed8; /* blue-700 */
+            --card-border: #2563eb; /* blue-600 */
+            --card-text: #ffffff;
+            --card-hover-bg: #1e40af; /* blue-800 */
+            --card-hover-text: #ffffff;
+        }
+
+        /* Jorong Card */
+        .jorong-card {
+            --card-bg: #15803d; /* green-700 */
+            --card-border: #16a34a; /* green-600 */
+            --card-text: #ffffff;
+            --card-hover-bg: #166534; /* green-800 */
+            --card-hover-text: #ffffff;
+            --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2386efac'%3E%3Cpath fill-rule='evenodd' d='M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9a3 3 0 016 0v6a3 3 0 01-3 3h-1.5v.75a3 3 0 01-3 3h-6a3 3 0 01-3-3v-1.5H3a3 3 0 01-3-3V9a3 3 0 013-3h12.75z' clip-rule='evenodd' /%3E%3C/svg%3E");
+        }
+
+        .dark .jorong-card {
+            --card-bg: #15803d; /* green-700 */
+            --card-border: #16a34a; /* green-600 */
+            --card-text: #ffffff;
+            --card-hover-bg: #166534; /* green-800 */
+            --card-hover-text: #ffffff;
+        }
+
+        /* Detail Button */
+        .detail-button {
+            --btn-bg: #1d4ed8; /* blue-700 */
+            --btn-border: #2563eb; /* blue-600 */
+            --btn-text: #ffffff;
+            --btn-hover-bg: #1e40af; /* blue-800 */
+            --btn-hover-text: #ffffff;
+        }
+
+        .dark .detail-button {
+            --btn-bg: theme('colors.blue.700');
+            --btn-border: theme('colors.blue.600');
+            --btn-text: theme('colors.white');
+            --btn-hover-bg: theme('colors.blue.600');
+            --btn-hover-text: theme('colors.white');
+        }
+
+        /* Apply Styles */
+        .card-base {
+            position: relative;
+            border-radius: 0.75rem;
+            border: 1px solid var(--card-border);
+            background-color: var(--card-bg);
+            color: var(--card-text);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            padding: 1.25rem;
+        }
+
+        .nagari-card::before,
+        .jorong-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4rem;
+            height: 4rem;
+            background-image: var(--card-icon);
+            background-size: 2.5rem;
+            background-position: top right;
+            background-repeat: no-repeat;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        .card-base:hover {
+            background-color: var(--card-hover-bg);
+            color: var(--card-hover-text, var(--card-text));
+            box-shadow: var(--card-hover-shadow);
+            transform: translateY(-0.25rem);
+        }
+
+        .card-base p:first-child {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-base p:last-child {
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.2;
         }
     </style>
 </div>
