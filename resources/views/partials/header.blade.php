@@ -211,6 +211,11 @@
                         :class="{ 'rotate-180': open }"></i>
                 </button>
                 <div class="pl-4 mt-1 space-y-1" x-show="open" x-collapse>
+                    <a href="{{ url('/list-kecamatan') }}"
+                        class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
+                        <i class="fas fa-map-marked-alt text-blue-500 mr-3 w-5 text-center"></i>
+                        Kecamatan
+                    </a>
                     <a href="{{ url('/list-nagari') }}"
                         class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-city text-blue-400 mr-3 w-5 text-center"></i>
