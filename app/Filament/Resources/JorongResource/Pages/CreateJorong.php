@@ -10,8 +10,6 @@ class CreateJorong extends CreateRecord
 {
     protected static string $resource = JorongResource::class;
 
-
-
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');

@@ -38,10 +38,22 @@ class NagariResource extends Resource
                 Forms\Components\TextInput::make('nama_nagari')
                     ->label('Nama Nagari')
                     ->required()
-                    ->unique(ignoreRecord: true)
+                    ->unique(ignoreRecord: true, table: 'nagaris')
+                    ->rules(['required', 'string', 'max:255', 
+                        function ($get) {
+                            return function (string $attribute, $value, $fail) use ($get) {
+                                $exists = \App\Models\Nagari::whereRaw('UPPER(nama_nagari) = ?', [strtoupper($value)])
+                                    ->where('id', '!=', $get('id') ?? 0)
+                                    ->exists();
+                                if ($exists) {
+                                    $fail('Nama nagari ini sudah digunakan.');
+                                }
+                            };
+                        }
+                    ])
                     ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
-                    ->maxLength(255),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('nama_nagari', strtoupper($state)))
+                    ->extraInputAttributes(['style' => 'text-transform: uppercase']),
                 Forms\Components\TextInput::make('nama_wali_nagari')
                     ->label('Nama Wali Nagari')
                     ->maxLength(255),

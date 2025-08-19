@@ -38,10 +38,22 @@ class JorongResource extends Resource
                 Forms\Components\TextInput::make('nama_jorong')
                     ->label('Nama Jorong')
                     ->required()
-                    ->unique(ignoreRecord: true)
+                    ->unique(ignoreRecord: true, table: 'jorongs')
+                    ->rules(['required', 'string', 'max:255', 
+                        function ($get) {
+                            return function (string $attribute, $value, $fail) use ($get) {
+                                $exists = \App\Models\Jorong::whereRaw('UPPER(nama_jorong) = ?', [strtoupper($value)])
+                                    ->where('id', '!=', $get('id') ?? 0)
+                                    ->exists();
+                                if ($exists) {
+                                    $fail('Nama jorong ini sudah digunakan.');
+                                }
+                            };
+                        }
+                    ])
                     ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
-                    ->maxLength(255),
+                    ->afterStateUpdated(fn ($state, callable $set) => $set('nama_jorong', strtoupper($state)))
+                    ->extraInputAttributes(['style' => 'text-transform: uppercase']),
                 Forms\Components\TextInput::make('nama_kepala_jorong')
                     ->label('Nama Kepala Jorong')
                     ->maxLength(255),
