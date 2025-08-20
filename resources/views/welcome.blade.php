@@ -29,13 +29,14 @@
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h1
                     class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                    <span class="block">Bank Data</span>
+                    <span class="block">Data Infrastruktur TI & Laporan Gangguan</span>
                     <span class="block text-blue-600 dark:text-blue-400 mt-1 sm:mt-2">Infrastruktur TI Sijunjung</span>
                 </h1>
 
                 <p
                     class="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-10 px-3 sm:px-0">
-                    Laporkan gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan akurat.
+                    Data Infrastruktur TI dan Laporan Gangguan jaringan atau konsultasi teknis dengan mudah, cepat, dan
+                    akurat.
                     Sistem ini membantu Anda melacak laporan secara real-time.
                 </p>
 
