@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Bank Data Infrastruktur TI - Dinas Kominfo Sijunjung">
+    <meta name="description" content="Infrastruktur TI - Dinas Kominfo Sijunjung">
     <meta name="keywords"
-        content="Dinas Kominfo Sijunjung, infrastruktur TI, sistem informasi, laravel, filament, admin panel">
+        content="Dinas Kominfo Sijunjung, infrastruktur TI,Data Infrastruktur TI, laporan gangguan, sistem informasi, laravel, filament, admin panel">
     <meta name="author" content="Admin Panel">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
