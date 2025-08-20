@@ -29,7 +29,7 @@
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h1
                     class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                    <span class="block">Bank data</span>
+                    <span class="block">Bank Data</span>
                     <span class="block text-blue-600 dark:text-blue-400 mt-1 sm:mt-2">Infrastruktur TI Sijunjung</span>
                 </h1>
 

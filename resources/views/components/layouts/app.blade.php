@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="Sistem Informasi Infrastruktur TI - Aplikasi berbasis Laravel dengan Filament Admin Panel">
-    <meta name="keywords" content="infrastruktur, sistem informasi, laravel, filament, admin panel">
+    <meta name="description" content="Bank Data Infrastruktur TI - Dinas Kominfo Sijunjung">
+    <meta name="keywords"
+        content="Dinas Kominfo Sijunjung, infrastruktur TI, sistem informasi, laravel, filament, admin panel">
     <meta name="author" content="Admin Panel">
     <meta name="robots" content="index, follow">
     <meta name="google-site-verification" content="4K5Ik2HmVn7IBgAeytIkqUr-ScWT7BdxcZZ-bKCyfJQ" />
@@ -259,7 +259,7 @@
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-primary-enhanced::before {
             content: '';
             position: absolute;
@@ -270,28 +270,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-primary-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-primary-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
         }
-        
+
         .btn-primary-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         .btn-export-enhanced {
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-export-enhanced::before {
             content: '';
             position: absolute;
@@ -302,28 +302,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-export-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-export-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(220, 38, 38, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
         }
-        
+
         .btn-export-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         .btn-feature-enhanced {
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-feature-enhanced::before {
             content: '';
             position: absolute;
@@ -334,28 +334,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-feature-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-feature-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
         }
-        
+
         .btn-feature-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         .btn-nav-enhanced {
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-nav-enhanced::before {
             content: '';
             position: absolute;
@@ -366,28 +366,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-nav-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-nav-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
         }
-        
+
         .btn-nav-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         .btn-scroll-enhanced {
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-scroll-enhanced::before {
             content: '';
             position: absolute;
@@ -398,28 +398,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-scroll-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-scroll-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
         }
-        
+
         .btn-scroll-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         .btn-search-enhanced {
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .btn-search-enhanced::before {
             content: '';
             position: absolute;
@@ -430,28 +430,28 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.6s ease;
         }
-        
+
         .btn-search-enhanced:hover::before {
             left: 100%;
         }
-        
+
         .btn-search-enhanced:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4), 0 5px 15px rgba(0, 0, 0, 0.1);
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
         }
-        
+
         .btn-search-enhanced:active {
             transform: translateY(-1px) scale(1.02);
             transition: all 0.1s ease;
         }
-        
+
         /* Ripple Effect for Buttons */
         .ripple {
             position: relative;
             overflow: hidden;
         }
-        
+
         .ripple-effect {
             position: absolute;
             border-radius: 50%;
@@ -460,54 +460,55 @@
             animation: ripple-animation 0.6s linear;
             pointer-events: none;
         }
-        
+
         @keyframes ripple-animation {
             to {
                 transform: scale(4);
                 opacity: 0;
             }
         }
-        
+
         /* Glow Effect for Active States */
         .glow-on-hover {
             transition: all 0.3s ease;
         }
-        
+
         .glow-on-hover:hover {
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.2);
         }
-        
+
         /* Magnetic Effect */
         .magnetic {
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        
+
         .magnetic:hover {
             transform: translateY(-5px) scale(1.05);
         }
-        
+
         /* Shimmer Effect */
         .shimmer {
             background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
             background-size: 200% 200%;
             animation: shimmer 2s infinite;
         }
-        
+
         @keyframes shimmer {
             0% {
                 background-position: -200% -200%;
             }
+
             100% {
                 background-position: 200% 200%;
             }
         }
-        
+
         /* Loading State */
         .btn-loading {
             position: relative;
             color: transparent !important;
         }
-        
+
         .btn-loading::after {
             content: '';
             position: absolute;
@@ -522,7 +523,7 @@
             border-top-color: transparent;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             to {
                 transform: rotate(360deg);
@@ -558,7 +559,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     {{-- Tidak perlu mengimpor app.js lagi karena sudah diimpor di bagian head --}}
-    
+
     <script>
         // Enhanced Button Effects JavaScript
         document.addEventListener('DOMContentLoaded', function() {
@@ -568,26 +569,26 @@
                 const circle = document.createElement('span');
                 const diameter = Math.max(button.clientWidth, button.clientHeight);
                 const radius = diameter / 2;
-                
+
                 circle.style.width = circle.style.height = `${diameter}px`;
                 circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
                 circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
                 circle.classList.add('ripple-effect');
-                
+
                 const ripple = button.getElementsByClassName('ripple-effect')[0];
                 if (ripple) {
                     ripple.remove();
                 }
-                
+
                 button.appendChild(circle);
             }
-            
+
             // Add ripple effect to all buttons with ripple class
             const rippleButtons = document.querySelectorAll('.ripple');
             rippleButtons.forEach(button => {
                 button.addEventListener('click', createRipple);
             });
-            
+
             // Magnetic effect for buttons
             const magneticButtons = document.querySelectorAll('.magnetic');
             magneticButtons.forEach(button => {
@@ -595,22 +596,22 @@
                     const rect = this.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    
+
                     this.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
                 });
-                
+
                 button.addEventListener('mouseleave', function() {
                     this.style.transform = 'translate(0, 0) scale(1)';
                 });
             });
-            
+
             // Loading state simulation for buttons
             const loadingButtons = document.querySelectorAll('[data-loading]');
             loadingButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     this.classList.add('btn-loading');
                     this.disabled = true;
-                    
+
                     // Remove loading state after 2 seconds (adjust as needed)
                     setTimeout(() => {
                         this.classList.remove('btn-loading');
@@ -618,7 +619,7 @@
                     }, 2000);
                 });
             });
-            
+
             // Enhanced hover effects with sound (optional)
             const enhancedButtons = document.querySelectorAll('[class*="-enhanced"]');
             enhancedButtons.forEach(button => {
@@ -629,7 +630,7 @@
                     }
                 });
             });
-            
+
             // Smooth scroll for scroll buttons
             const scrollButtons = document.querySelectorAll('.btn-scroll-enhanced');
             scrollButtons.forEach(button => {
@@ -637,7 +638,7 @@
                     e.preventDefault();
                     const target = this.getAttribute('href') || '#top';
                     const element = document.querySelector(target);
-                    
+
                     if (element) {
                         element.scrollIntoView({
                             behavior: 'smooth',
