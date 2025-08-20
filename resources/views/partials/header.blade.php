@@ -67,7 +67,7 @@
                     <a href="{{ url('/list-laporan') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
                         <i class="fas fa-clipboard-list mr-2"></i>
-                        Laporan
+                        Daftar Laporan
                     </a>
                 </div>
 
@@ -75,7 +75,7 @@
                     <a href="{{ url('/lapor') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
                         <i class="fas fa-exclamation-circle mr-2"></i>
-                        Lapor
+                        Buat Laporan
                         <span class="ml-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Baru</span>
                     </a>
                 </div>
@@ -230,12 +230,12 @@
             <a href="{{ url('/list-laporan') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
-                Laporan
+                Daftar Laporan
             </a>
             <a href="{{ url('/lapor') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
-                Lapor
+                Buat Laporan
                 <span class="ml-2 bg-blue-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">Baru</span>
             </a>
             <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
