@@ -754,37 +754,39 @@
                 }
             }
 
-            /* Moon for dark mode */
-            .moon {
+            /* Realistic crescent moon */
+            .crescent-moon {
                 position: absolute;
                 top: 20px;
                 right: 50px;
                 width: 60px;
                 height: 60px;
-                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
                 border-radius: 50%;
-                animation: moonGlow 4s ease-in-out infinite alternate;
-                box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+                background: 
+                    radial-gradient(circle at 30% 30%, #f8f9fa 0%, #e9ecef 70%, #d1d5db 100%);
+                box-shadow: 
+                    0 0 30px rgba(200, 230, 255, 0.8),
+                    0 0 60px rgba(173, 216, 230, 0.4);
                 z-index: 10;
+                overflow: hidden;
+                transform: rotate(-20deg);
             }
 
-            .moon::before {
+            .crescent-moon::before {
                 content: '';
                 position: absolute;
-                top: 8px;
-                left: 12px;
-                width: 8px;
-                height: 8px;
-                background: rgba(180, 180, 180, 0.8);
+                top: 0;
+                right: 0;
+                width: 120%;
+                height: 100%;
+                background: #0f172a;
                 border-radius: 50%;
-                z-index: 11;
-                box-shadow:
-                    15px 5px 0 -2px rgba(180, 180, 180, 0.6),
-                    8px 18px 0 -3px rgba(180, 180, 180, 0.5),
-                    20px 20px 0 -4px rgba(180, 180, 180, 0.4);
+                transform: translateX(40%);
+                box-shadow: 
+                    inset 5px 0 8px rgba(0, 0, 0, 0.3);
             }
 
-            @keyframes moonGlow {
+            @keyframes crescentMoonGlow {
                 0% {
                     transform: scale(1);
                     box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
@@ -993,7 +995,7 @@
             }
 
             html:not(.dark) .star,
-            html:not(.dark) .moon {
+            html:not(.dark) .crescent-moon {
                 display: none;
             }
 
@@ -1325,14 +1327,14 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const backgroundEffects = document.getElementById('background-effects');
 
-                function createStarsAndMoon() {
+                function createStarsAndCrescentMoon() {
                     // Clear existing effects
                     backgroundEffects.innerHTML = '';
 
-                    // Create moon for dark mode
-                    const moon = document.createElement('div');
-                    moon.className = 'moon';
-                    backgroundEffects.appendChild(moon);
+                    // Create crescent moon for dark mode
+                    const crescentMoon = document.createElement('div');
+                    crescentMoon.className = 'crescent-moon';
+                    backgroundEffects.appendChild(crescentMoon);
 
                     // Create stars for dark mode
                     for (let i = 0; i < 50; i++) {
@@ -1374,7 +1376,7 @@
                 function updateBackgroundEffects() {
                     const isDark = document.documentElement.classList.contains('dark');
                     if (isDark) {
-                        createStarsAndMoon();
+                        createStarsAndCrescentMoon();
                     } else {
                         createSunAndClouds();
                     }
