@@ -29,8 +29,8 @@
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h1
                     class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                    <span class="block">Data Infrastruktur TI & Laporan Gangguan</span>
-                    <span class="block text-blue-600 dark:text-blue-400 mt-1 sm:mt-2">Infrastruktur TI Sijunjung</span>
+                    <span class="block">Infrastruktur TI &</span>
+                    <span class="block text-blue-600 dark:text-yellow-400 dark:hover:text-yellow-300 transition-colors duration-200 mt-1 sm:mt-2">Laporan Gangguan</span>
                 </h1>
 
                 <p
