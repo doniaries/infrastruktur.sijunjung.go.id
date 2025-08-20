@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+<div class="bg-white dark:bg-gray-800 overflow-hidden rounded-xl shadow-md p-4 sm:p-6 max-w-7xl mx-auto">
     <!-- Title Section -->
     <div class="flex justify-center mb-6">
         <div
@@ -9,7 +9,7 @@
     </div>
 
     <!-- Search and Filter Section -->
-    <div class="mb-6 max-w-2xl mx-auto">
+    <div class="mb-10 max-w-3xl mx-auto px-4">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,7 +35,7 @@
     <!-- Loading State -->
     <div wire:loading.flex class="justify-center w-full">
         <div class="w-full animate-pulse">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-2">
                 @for ($i = 0; $i < 6; $i++)
                     <div
                         class="bg-gray-200 dark:bg-slate-900 rounded-lg p-3 h-32 border border-blue-100 dark:border-blue-800">
@@ -54,11 +54,11 @@
     <!-- Content -->
     <div wire:loading.remove>
         @if ($kecamatans->count() > 0)
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-2">
                 @foreach ($kecamatans as $kecamatan)
                     <div x-data="{ inView: false }" x-intersect="inView = true"
                         x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
-                        class="bg-white dark:bg-slate-900 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100 dark:border-blue-800 overflow-hidden hover:-translate-y-1">
+                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-1 h-full flex flex-col group">
                         <div class="p-3">
                             <div class="flex items-center mb-2">
                                 <div
@@ -87,7 +87,7 @@
                                     class="nagari-card card-base group">
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center space-x-3">
-                                            <div class="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                                            <div class="p-5 flex-grow rounded-lg bg-blue-100 dark:bg-blue-900/50">
                                                 <i class="fas fa-map-marked-alt text-blue-600 dark:text-blue-300"></i>
                                             </div>
                                             <div>
@@ -116,7 +116,7 @@
                                     class="jorong-card card-base group">
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center space-x-3">
-                                            <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
+                                            <div class="p-5 flex-grow rounded-lg bg-green-100 dark:bg-green-900/50">
                                                 <i class="fas fa-map-marker-alt text-green-600 dark:text-green-300"></i>
                                             </div>
                                             <div>
