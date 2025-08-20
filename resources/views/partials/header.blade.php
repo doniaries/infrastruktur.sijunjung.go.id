@@ -11,6 +11,7 @@
                     </div>
                     <span
                         class="ml-3 text-xl font-bold text-gray-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">Infrastruktur
+                        TI
                         Sijunjung</span>
                 </a>
             </div>
