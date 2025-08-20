@@ -136,7 +136,7 @@
     </section> --}}
 
     <!-- BTS Map Section -->
-    <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-10 sm:py-16">
+    <section id="bts-map" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-10 sm:py-16">
         <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
             <div class="max-w-4xl mx-auto text-center mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten
@@ -167,7 +167,7 @@
     </section> --}}
 
     <!-- Stats Section -->
-    <section id="stats-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-10 sm:py-16">
+    <section id="stats-section" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-10 sm:py-16">
         <div class="py-8 sm:py-12 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-left">
             <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
                 <h2
@@ -219,7 +219,7 @@
         </div>
 
         <!-- Kecamatan Section -->
-        <section id="kecamatan-section" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-16">
+        <section id="kecamatan-section" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-16">
             <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6" data-aos="fade-up">
                 <div class="max-w-screen-md mb-10 lg:mb-16 text-center mx-auto">
                     <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Daftar
@@ -242,9 +242,7 @@
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
         <!-- BTS Map Script -->
-        <!-- ==============================================
-        JAVASCRIPT INITIALIZATION
-    ================================================ -->
+
         <script>
             // Initialize AOS (Animate On Scroll)
             document.addEventListener('DOMContentLoaded', function() {
@@ -762,9 +760,9 @@
                 width: 60px;
                 height: 60px;
                 border-radius: 50%;
-                background: 
+                background:
                     radial-gradient(circle at 30% 30%, #f8f9fa 0%, #e9ecef 70%, #d1d5db 100%);
-                box-shadow: 
+                box-shadow:
                     0 0 30px rgba(200, 230, 255, 0.8),
                     0 0 60px rgba(173, 216, 230, 0.4);
                 z-index: 10;
@@ -782,7 +780,7 @@
                 background: #0f172a;
                 border-radius: 50%;
                 transform: translateX(40%);
-                box-shadow: 
+                box-shadow:
                     inset 5px 0 8px rgba(0, 0, 0, 0.3);
             }
 
