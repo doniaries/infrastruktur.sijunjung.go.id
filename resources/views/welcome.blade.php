@@ -136,14 +136,11 @@
     </section> --}}
 
     <!-- BTS Map Section -->
-    <section id="bts-map" class="bg-white dark:bg-gray-900 text-center text-gray-900 dark:text-white py-10 sm:py-16">
+    <section id="bts-map" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-10 sm:py-16">
         <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
-            <div class="max-w-screen-md mb-8 lg:mb-16">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS
-                    Kabupaten
-                    Sijunjung</h2>
-                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang
-                    tersebar di seluruh Kabupaten Sijunjung.</p>
+            <div class="max-w-4xl mx-auto text-center mb-8 lg:mb-16">
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten Sijunjung</h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang tersebar di seluruh Kabupaten Sijunjung.</p>
             </div>
             <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg relative" style="z-index: 1;">
                 <div id="btsMap" class="w-full h-full"></div>
