@@ -14,7 +14,7 @@ class Jorong extends Model
     use HasModelCache;
 
     protected $table = "jorongs";
-    
+
     /**
      * The attributes that should be indexed.
      *
@@ -24,14 +24,14 @@ class Jorong extends Model
         'nagari_id',
         'nama_jorong',
     ];
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
     public $timestamps = true;
-    
+
     /**
      * The attributes that should be cast.
      *
@@ -56,21 +56,21 @@ class Jorong extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-    
+
     /**
      * The relationships that should always be loaded.
      *
      * @var array
      */
     protected $with = ['nagari'];
-    
+
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
     protected $appends = ['full_name'];
-    
+
     /**
      * The number of models to return for pagination.
      *
@@ -176,8 +176,16 @@ class Jorong extends Model
             ->orderBy('kecamatans.nama')
             ->orderBy('nagaris.nama_nagari')
             ->orderBy('jorongs.nama_jorong')
-            ->orderBy('kecamatans.nama')
-            ->orderBy('jorongs.nama_jorong')
             ->select('jorongs.*');
+    }
+    
+    /**
+     * Get the full name of the jorong (Jorong Name - Nagari Name).
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->nama_jorong . ' - ' . ($this->nagari->nama_nagari ?? '');
     }
 }
