@@ -79,23 +79,8 @@
 
 
             <!-- Table Section -->
-            <section <section
-                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
+            <div class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
-                            <tr>
-                                <th scope="col" class="px-4 py-3">Operator</th>
-                                <th scope="col" class="px-4 py-3">Kecamatan</th>
-                                <th scope="col" class="px-4 py-3">Nagari</th>
-                                <th scope="col" class="px-4 py-3">Koordinat</th>
-                                <th scope="col" class="px-4 py-3">Alamat</th>
-                                <th scope="col" class="px-4 py-3">Teknologi</th>
-                                <th scope="col" class="px-4 py-3">Status</th>
-                                <th scope="col" class="px-4 py-3">Tahun Bangun</th>
-                            </tr>
-                        </thead>
-                        </tbody>
 
                         <!-- Skeleton Loading -->
                         <div wire:loading.flex class="flex justify-center w-full">
@@ -137,25 +122,22 @@
                         <!-- Akhir Skeleton Loading -->
 
                         <!-- Table -->
-                        <div class="flex justify-center w-full" wire:loading.remove>
-                            <section
-                                class="bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-6xl mx-auto">
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
-                                            <tr>
-                                                <th scope="col" class="px-4 py-3">Operator</th>
-                                                <th scope="col" class="px-4 py-3">Kecamatan</th>
-                                                <th scope="col" class="px-4 py-3">Nagari</th>
-                                                <th scope="col" class="px-4 py-3">Koordinat</th>
-                                                <th scope="col" class="px-4 py-3">Alamat</th>
-                                                <th scope="col" class="px-4 py-3">Teknologi</th>
-                                                <th scope="col" class="px-4 py-3">Status</th>
-                                                <th scope="col" class="px-4 py-3">Tahun Bangun</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                        <div class="w-full" wire:loading.remove>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
+                                        <tr>
+                                            <th scope="col" class="px-4 py-3">Operator</th>
+                                            <th scope="col" class="px-4 py-3">Kecamatan</th>
+                                            <th scope="col" class="px-4 py-3">Nagari</th>
+                                            <th scope="col" class="px-4 py-3">Koordinat</th>
+                                            <th scope="col" class="px-4 py-3">Alamat</th>
+                                            <th scope="col" class="px-4 py-3">Teknologi</th>
+                                            <th scope="col" class="px-4 py-3">Status</th>
+                                            <th scope="col" class="px-4 py-3">Tahun Bangun</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                             @forelse($bts as $item)
                                                 <tr class="border-b dark:border-gray-700">
                                                     <td class="px-4 py-3 whitespace-nowrap">
@@ -267,18 +249,15 @@
                                                     </td>
                                                 </tr>
                                             @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-
+                                    </tbody>
+                                </table>
+                            </div>
+                            
                             <!-- Pagination -->
-                            <div
-                                class="mt-6 bg-gray-100 dark:bg-gray-900 relative shadow-md sm:rounded-lg overflow-hidden max-w-5xl mx-auto">
+                            <div class="px-4 py-3 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 sm:px-6">
                                 {{ $bts->links('vendor.livewire.custom-pagination') }}
                             </div>
                         </div>
                 </div>
-
-
+            </div>
         </div>
