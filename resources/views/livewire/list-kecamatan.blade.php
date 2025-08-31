@@ -1,6 +1,6 @@
 <div class="bg-white dark:bg-gray-800 overflow-hidden rounded-xl shadow-md p-4 sm:p-6 max-w-7xl mx-auto">
     <!-- Title Section -->
-    <div class="flex justify-center mb-6">
+    <div class="flex justify-between items-center mb-6">
         <div
             class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
             <h2 class="text-xl font-bold">Data Kecamatan</h2>
@@ -9,7 +9,7 @@
     </div>
 
     <!-- Search and Filter Section -->
-    <div class="mb-10 max-w-3xl mx-auto px-4">
+    <div class="mb-6 max-w-3xl mx-auto px-4">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,18 +35,35 @@
     <!-- Loading State -->
     <div wire:loading.flex class="justify-center w-full">
         <div class="w-full animate-pulse">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-2">
-                @for ($i = 0; $i < 6; $i++)
-                    <div
-                        class="bg-gray-200 dark:bg-slate-900 rounded-lg p-3 h-32 border border-blue-100 dark:border-blue-800">
-                        <div class="h-3.5 bg-gray-300 dark:bg-gray-600 rounded w-3/4 mb-2"></div>
-                        <div class="grid grid-cols-2 gap-2 mt-3">
-                            <div class="h-8 bg-gray-200 dark:bg-green-600 rounded-sm text-color-gray-600"></div>
-                            <div class="h-8 bg-gray-200 dark:bg-green-600 rounded-sm text-color-gray-600"></div>
-                        </div>
-                        <div class="h-7 mt-2 bg-gray-200 dark:bg-gray-600 rounded-sm"></div>
-                    </div>
-                @endfor
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kecamatan</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nagari</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Jorong</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @for ($i = 0; $i < 6; $i++)
+                            <tr>
+                                <td class="px-6 py-4">
+                                    <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4"></div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2"></div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/4"></div>
+                                </td>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -54,86 +71,60 @@
     <!-- Content -->
     <div wire:loading.remove>
         @if ($kecamatans->count() > 0)
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-2">
-                @foreach ($kecamatans as $kecamatan)
-                    <div x-data="{ inView: false }" x-intersect="inView = true"
-                        x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
-                        class="bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-1 h-full flex flex-col group">
-                        <div class="p-3">
-                            <div class="flex items-center mb-2">
-                                <div
-                                    class="flex items-center space-x-2 bg-white/70 dark:bg-blue-900/40 px-3 py-2 rounded-md w-full backdrop-blur-sm">
-                                    <div
-                                        class="p-1.5 rounded-md bg-white/80 dark:bg-blue-800/60 text-blue-600 dark:text-blue-100 shadow-sm flex-shrink-0">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                            </path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                    </div>
-                                    <h3 class="text-sm font-bold text-blue-800 dark:text-blue-100 truncate"
-                                        title="{{ $kecamatan->nama }}">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kecamatan</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nagari</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Jorong</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Penduduk</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        @foreach ($kecamatans as $index => $kecamatan)
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ ($kecamatans->currentPage() - 1) * $kecamatans->perPage() + $loop->iteration }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                         {{ $kecamatan->nama }}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-2 mt-3">
-                                <!-- Nagari Card -->
-                                <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}"
-                                    class="nagari-card card-base group">
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="p-5 flex-grow rounded-lg bg-blue-100 dark:bg-blue-900/50">
-                                                <i class="fas fa-map-marked-alt text-blue-600 dark:text-blue-300"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-bold text-gray-500 dark:text-gray-300">Nagari</p>
-                                                <div class="flex items-baseline space-x-2">
-                                                    <p class="text-lg font-black text-gray-800 dark:text-white">
-                                                        {{ $kecamatan->nagari_count }}
-                                                    </p>
-                                                    @if ($kecamatan->nagari->sum('jumlah_penduduk_nagari') > 0)
-                                                        <span class="text-xs text-blue-600 dark:text-blue-300">
-                                                            •
-                                                            {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }}
-                                                            jiwa
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <i
-                                            class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
                                     </div>
-                                </a>
-
-                                <!-- Jorong Card -->
-                                <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
-                                    class="jorong-card card-base group">
-                                    <div class="flex justify-between items-center">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="p-5 flex-grow rounded-lg bg-green-100 dark:bg-green-900/50">
-                                                <i class="fas fa-map-marker-alt text-green-600 dark:text-green-300"></i>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm font-bold text-gray-500 dark:text-gray-300">Jorong</p>
-                                                <p class="text-lg font-black text-gray-800 dark:text-white">
-                                                    {{ $kecamatan->jorong_count }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <i
-                                            class="fas fa-chevron-right text-gray-400 group-hover:translate-x-1 transition-transform"></i>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        {{ $kecamatan->nagari_count }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        {{ $kecamatan->jorong_count }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900 dark:text-gray-100">
+                                    {{ number_format($kecamatan->nagari->sum('jumlah_penduduk_nagari'), 0, ',', '.') }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <div class="flex justify-center space-x-2">
+                                        <a href="/list-nagari?kecamatanFilter={{ $kecamatan->id }}"
+                                            class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                                            title="Lihat Nagari">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </a>
+                                        <a href="/list-jorong?kecamatanFilter={{ $kecamatan->id }}"
+                                            class="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 transition-colors"
+                                            title="Lihat Jorong">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
 
             <!-- Pagination -->
@@ -154,145 +145,17 @@
     </div>
 
     <style>
-        /* Animations */
         .animate-pulse {
             animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
             }
-
             50% {
                 opacity: .5;
             }
-        }
-
-        /* Custom Card Styles */
-        .kecamatan-container {
-            --card-bg: #ffffff;
-            --card-border: #e5e7eb;
-            --card-text: #1f2937;
-            --card-hover-bg: #f9fafb;
-            --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --card-hover-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            --card-glow: 0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-
-        .dark .kecamatan-container {
-            --card-bg: theme('colors.gray.800');
-            --card-border: theme('colors.gray.700');
-            --card-text: theme('colors.gray.200');
-            --card-hover-bg: theme('colors.gray.700');
-        }
-
-        /* Nagari Card */
-        .nagari-card {
-            --card-bg: #1d4ed8;
-            /* blue-700 */
-            --card-border: #2563eb;
-            /* blue-600 */
-            --card-text: #ffffff;
-            --card-hover-bg: #1e40af;
-            /* blue-800 */
-            --card-hover-text: #ffffff;
-            --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2393c5fd'%3E%3Cpath d='M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z' /%3E%3Cpath d='M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z' /%3E%3C/svg%3E");
-        }
-
-        .dark .nagari-card {
-            --card-bg: #1d4ed8;
-            /* blue-700 */
-            --card-border: #2563eb;
-            /* blue-600 */
-            --card-text: #ffffff;
-            --card-hover-bg: #1e40af;
-            /* blue-800 */
-            --card-hover-text: #ffffff;
-        }
-
-        /* Jorong Card */
-        .jorong-card {
-            --card-bg: #15803d;
-            /* green-700 */
-            --card-border: #16a34a;
-            /* green-600 */
-            --card-text: #ffffff;
-            --card-hover-bg: #166534;
-            /* green-800 */
-            --card-hover-text: #ffffff;
-            --card-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2386efac'%3E%3Cpath fill-rule='evenodd' d='M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9a3 3 0 016 0v6a3 3 0 01-3 3h-1.5v.75a3 3 0 01-3 3h-6a3 3 0 01-3-3v-1.5H3a3 3 0 01-3-3V9a3 3 0 013-3h12.75z' clip-rule='evenodd' /%3E%3C/svg%3E");
-        }
-
-        .dark .jorong-card {
-            --card-bg: #15803d;
-            /* green-700 */
-            --card-border: #16a34a;
-            /* green-600 */
-            --card-text: #ffffff;
-            --card-hover-bg: #166534;
-            /* green-800 */
-            --card-hover-text: #ffffff;
-        }
-
-        /* Apply Styles */
-        .card-base {
-            background: var(--card-bg, #ffffff);
-            border: 1px solid var(--card-border, #e5e7eb);
-            border-radius: 0.75rem;
-            padding: 0.875rem 1rem;
-            transition: all 0.2s ease-in-out;
-            box-shadow: var(--card-shadow);
-            color: var(--card-text, #1f2937);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-
-        .card-base:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-
-        .nagari-card::before,
-        .jorong-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 4rem;
-            height: 4rem;
-            background-image: var(--card-icon);
-            background-size: 2.5rem;
-            background-position: top right;
-            background-repeat: no-repeat;
-            opacity: 0.2;
-            pointer-events: none;
-        }
-
-        .card-base:hover {
-            background-color: var(--card-hover-bg);
-            color: var(--card-hover-text, var(--card-text));
-            box-shadow: var(--card-hover-shadow);
-            transform: translateY(-0.25rem);
-        }
-
-        .card-base p:first-child {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.25rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .card-base p:last-child {
-            font-size: 1.25rem;
-            font-weight: 800;
-            line-height: 1.2;
         }
     </style>
 </div>

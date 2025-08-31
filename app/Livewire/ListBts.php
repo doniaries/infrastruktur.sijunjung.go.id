@@ -20,7 +20,7 @@ class ListBts extends Component
     public $kecamatanFilter = '';
     public $teknologiFilter = '';
     public $statusFilter = '';
-    public $perPage = 10;
+    public $perPage = 6;
     public $sortField = 'tahun_bangun';
     public $sortDirection = 'desc';
 
