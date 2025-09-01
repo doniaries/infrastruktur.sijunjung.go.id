@@ -13,7 +13,7 @@ class LoginRateLimiter
     /**
      * The maximum number of attempts allowed.
      */
-    protected $maxAttempts = 2;
+    protected $maxAttempts = 3;
 
     /**
      * The number of minutes to throttle for.
@@ -25,6 +25,11 @@ class LoginRateLimiter
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Skip rate limiting for authenticated users
+        if (auth()->check()) {
+            return $next($request);
+        }
+
         // Only apply rate limiting to login attempts
         if ($this->shouldRateLimit($request)) {
             $key = $this->resolveRequestSignature($request);
@@ -40,8 +45,10 @@ class LoginRateLimiter
                 );
             }
 
-            // Increment the login attempts
-            RateLimiter::hit($key, $this->decayMinutes * 60);
+            // Only increment on login attempts
+            if ($request->is('admin/login') && $request->isMethod('post')) {
+                RateLimiter::hit($key, $this->decayMinutes * 60);
+            }
         }
 
         return $next($request);
@@ -52,9 +59,8 @@ class LoginRateLimiter
      */
     protected function shouldRateLimit(Request $request): bool
     {
-        return $request->routeIs('filament.admin.auth.login') &&
-            $request->isMethod('POST') &&
-            !$request->user('filament');
+        // Only apply rate limiting to login and forgot password pages
+        return $request->is('admin/login*') || $request->is('admin/forgot-password*');
     }
 
     /**
