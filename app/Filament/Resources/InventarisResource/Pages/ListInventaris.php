@@ -21,24 +21,23 @@ class ListInventaris extends ListRecords
 
     public function getTabs(): array
     {
+        $counts = \App\Models\Inventaris::getStatusCounts();
+        
         return [
             'all' => Tab::make('Semua')
-                ->badge(\App\Models\Inventaris::count()),
+                ->badge($counts['all'] ?? 0),
+                
             'baik' => Tab::make('Baik')
-                ->badge(\App\Models\Inventaris::where('status', 'baik')->count())
-                ->modifyQueryUsing(function (Builder $query) {
-                    return $query->where('status', 'baik');
-                }),
+                ->badge($counts['baik'] ?? 0)
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'baik')),
+                
             'rusak' => Tab::make('Rusak')
-                ->badge(\App\Models\Inventaris::where('status', 'rusak')->count())
-                ->modifyQueryUsing(function (Builder $query) {
-                    return $query->where('status', 'rusak');
-                }),
+                ->badge($counts['rusak'] ?? 0)
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'rusak')),
+                
             'hilang' => Tab::make('Hilang')
-                ->badge(\App\Models\Inventaris::where('status', 'hilang')->count())
-                ->modifyQueryUsing(function (Builder $query) {
-                    return $query->where('status', 'hilang');
-                }),
+                ->badge($counts['hilang'] ?? 0)
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('status', 'hilang')),
         ];
     }
 }

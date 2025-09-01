@@ -16,7 +16,7 @@ class Kecamatan extends Model
     protected $fillable = [
         'nama',
     ];
-    
+
     protected $withCount = ['nagari'];
 
     public function opd()
@@ -52,6 +52,24 @@ class Kecamatan extends Model
     {
         return Cache::rememberForever('kecamatan_' . $id, function () use ($id) {
             return self::find($id);
+        });
+    }
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            Cache::forget('kecamatan_count');
+        });
+
+        static::deleted(function () {
+            Cache::forget('kecamatan_count');
+        });
+    }
+
+    public static function getCount()
+    {
+        return Cache::remember('kecamatan_count', now()->addMinutes(5), function () {
+            return static::count();
         });
     }
 }

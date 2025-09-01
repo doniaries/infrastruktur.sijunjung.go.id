@@ -83,7 +83,7 @@ class OperatorResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return \App\Models\Operator::getCount();
     }
 
     public static function getNavigationBadgeColor(): string|array|null

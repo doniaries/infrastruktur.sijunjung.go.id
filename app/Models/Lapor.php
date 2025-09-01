@@ -7,6 +7,7 @@ use App\Enums\JenisLaporan;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Filament\Resources\LaporResource;
@@ -38,6 +39,26 @@ class Lapor extends Model
         'keterangan_petugas',
         // 'hasil_laporan',
     ];
+
+    public static function getCount(): int
+    {
+        return Cache::remember('lapor_count', now()->addMinutes(5), function () {
+            return static::count();
+        });
+    }
+
+    public static function getStatusCounts(): array
+    {
+        return Cache::remember('lapor_status_counts', now()->addMinutes(5), function () {
+            return [
+                'all' => static::count(),
+                'diterima' => static::where('status_laporan', 'diterima')->count(),
+                'diproses' => static::where('status_laporan', 'diproses')->count(),
+                'selesai' => static::where('status_laporan', 'selesai')->count(),
+                'ditolak' => static::where('status_laporan', 'ditolak')->count(),
+            ];
+        });
+    }
 
     public function user(): BelongsTo
     {
@@ -73,6 +94,17 @@ class Lapor extends Model
             ) {
                 $lapor->keterangan_petugas = 'Laporan dibaca';
             }
+        });
+
+        // Clear cache on save or delete
+        static::saved(function () {
+            Cache::forget('lapor_count');
+            Cache::forget('lapor_status_counts');
+        });
+
+        static::deleted(function () {
+            Cache::forget('lapor_count');
+            Cache::forget('lapor_status_counts');
         });
     }
 

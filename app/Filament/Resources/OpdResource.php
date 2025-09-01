@@ -26,7 +26,6 @@ class OpdResource extends Resource
         return 'Master Data';
     }
 
-
     public static function form(Form $form): Form
     {
         return $form
@@ -95,7 +94,7 @@ class OpdResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return \App\Models\Opd::getCount();
     }
 
     public static function getNavigationBadgeColor(): string|array|null

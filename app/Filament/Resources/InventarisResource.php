@@ -114,6 +114,6 @@ class InventarisResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return \App\Models\Inventaris::getCount();
     }
 }

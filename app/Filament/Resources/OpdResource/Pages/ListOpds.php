@@ -26,108 +26,49 @@ class ListOpds extends ListRecords
     {
         $tabs = [
             'all' => Tab::make('Semua')
-                ->badge(\App\Models\Opd::count()),
+                ->badge(\App\Models\Opd::getCount()),
         ];
 
+        // Get all counts in a single query using the cached method
+        $rangeCounts = \App\Models\Opd::getLetterRangeCounts();
+
         // Tab berdasarkan huruf awal
-        $hurufAwal = ['A-D', 'E-K', 'L-P', 'Q-Z'];
-        
-        foreach ($hurufAwal as $range) {
-            if ($range === 'A-D') {
-                $count = \App\Models\Opd::where(function($query) {
-                    $query->where('nama', 'LIKE', 'A%')
-                          ->orWhere('nama', 'LIKE', 'B%')
-                          ->orWhere('nama', 'LIKE', 'C%')
-                          ->orWhere('nama', 'LIKE', 'D%');
-                })->count();
-                
-                $tabs['a_d'] = Tab::make($range)
-                    ->badge($count)
-                    ->modifyQueryUsing(function (Builder $query) {
-                        return $query->where(function($query) {
-                            $query->where('nama', 'LIKE', 'A%')
-                                  ->orWhere('nama', 'LIKE', 'B%')
-                                  ->orWhere('nama', 'LIKE', 'C%')
-                                  ->orWhere('nama', 'LIKE', 'D%');
-                        });
-                    });
-            } elseif ($range === 'E-K') {
-                $count = \App\Models\Opd::where(function($query) {
-                    $query->where('nama', 'LIKE', 'E%')
-                          ->orWhere('nama', 'LIKE', 'F%')
-                          ->orWhere('nama', 'LIKE', 'G%')
-                          ->orWhere('nama', 'LIKE', 'H%')
-                          ->orWhere('nama', 'LIKE', 'I%')
-                          ->orWhere('nama', 'LIKE', 'J%')
-                          ->orWhere('nama', 'LIKE', 'K%');
-                })->count();
-                
-                $tabs['e_k'] = Tab::make($range)
-                    ->badge($count)
-                    ->modifyQueryUsing(function (Builder $query) {
-                        return $query->where(function($query) {
-                            $query->where('nama', 'LIKE', 'E%')
-                                  ->orWhere('nama', 'LIKE', 'F%')
-                                  ->orWhere('nama', 'LIKE', 'G%')
-                                  ->orWhere('nama', 'LIKE', 'H%')
-                                  ->orWhere('nama', 'LIKE', 'I%')
-                                  ->orWhere('nama', 'LIKE', 'J%')
-                                  ->orWhere('nama', 'LIKE', 'K%');
-                        });
-                    });
-            } elseif ($range === 'L-P') {
-                $count = \App\Models\Opd::where(function($query) {
-                    $query->where('nama', 'LIKE', 'L%')
-                          ->orWhere('nama', 'LIKE', 'M%')
-                          ->orWhere('nama', 'LIKE', 'N%')
-                          ->orWhere('nama', 'LIKE', 'O%')
-                          ->orWhere('nama', 'LIKE', 'P%');
-                })->count();
-                
-                $tabs['l_p'] = Tab::make($range)
-                    ->badge($count)
-                    ->modifyQueryUsing(function (Builder $query) {
-                        return $query->where(function($query) {
-                            $query->where('nama', 'LIKE', 'L%')
-                                  ->orWhere('nama', 'LIKE', 'M%')
-                                  ->orWhere('nama', 'LIKE', 'N%')
-                                  ->orWhere('nama', 'LIKE', 'O%')
-                                  ->orWhere('nama', 'LIKE', 'P%');
-                        });
-                    });
-            } else { // Q-Z
-                $count = \App\Models\Opd::where(function($query) {
-                    $query->where('nama', 'LIKE', 'Q%')
-                          ->orWhere('nama', 'LIKE', 'R%')
-                          ->orWhere('nama', 'LIKE', 'S%')
-                          ->orWhere('nama', 'LIKE', 'T%')
-                          ->orWhere('nama', 'LIKE', 'U%')
-                          ->orWhere('nama', 'LIKE', 'V%')
-                          ->orWhere('nama', 'LIKE', 'W%')
-                          ->orWhere('nama', 'LIKE', 'X%')
-                          ->orWhere('nama', 'LIKE', 'Y%')
-                          ->orWhere('nama', 'LIKE', 'Z%');
-                })->count();
-                
-                $tabs['q_z'] = Tab::make($range)
-                    ->badge($count)
-                    ->modifyQueryUsing(function (Builder $query) {
-                        return $query->where(function($query) {
-                            $query->where('nama', 'LIKE', 'Q%')
-                                  ->orWhere('nama', 'LIKE', 'R%')
-                                  ->orWhere('nama', 'LIKE', 'S%')
-                                  ->orWhere('nama', 'LIKE', 'T%')
-                                  ->orWhere('nama', 'LIKE', 'U%')
-                                  ->orWhere('nama', 'LIKE', 'V%')
-                                  ->orWhere('nama', 'LIKE', 'W%')
-                                  ->orWhere('nama', 'LIKE', 'X%')
-                                  ->orWhere('nama', 'LIKE', 'Y%')
-                                  ->orWhere('nama', 'LIKE', 'Z%');
-                        });
-                    });
-            }
+        foreach ($rangeCounts as $range => $count) {
+            $tabKey = strtolower(str_replace('-', '_', $range));
+            $tabs[$tabKey] = $this->createTab($range, $count);
         }
 
         return $tabs;
+    }
+
+    /**
+     * Create a tab with the given range and count
+     */
+    protected function createTab(string $range, int $count): Tab
+    {
+        $ranges = [
+            'A-D' => ['A%', 'B%', 'C%', 'D%'],
+            'E-K' => ['E%', 'F%', 'G%', 'H%', 'I%', 'J%', 'K%'],
+            'L-P' => ['L%', 'M%', 'N%', 'O%', 'P%'],
+            'Q-Z' => [
+                'Q%', 'R%', 'S%', 'T%', 'U%', 'V%', 'W%', 'X%', 'Y%', 'Z%',
+                '0%', '1%', '2%', '3%', '4%', '5%', '6%', '7%', '8%', '9%'
+            ]
+        ];
+
+        $prefixes = $ranges[$range] ?? [];
+
+        return Tab::make($range)
+            ->badge($count)
+            ->modifyQueryUsing(function (Builder $query) use ($prefixes) {
+                return $query->where(function($query) use ($prefixes) {
+                    $first = array_shift($prefixes);
+                    $query->where('nama', 'LIKE', $first);
+                    
+                    foreach ($prefixes as $prefix) {
+                        $query->orWhere('nama', 'LIKE', $prefix);
+                    }
+                });
+            });
     }
 }

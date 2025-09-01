@@ -28,17 +28,6 @@ class NagariResource extends Resource
         return 'Master Data';
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        if (! config('filament.cache.enabled', true)) {
-            return parent::getNavigationBadge();
-        }
-        
-        return Cache::remember('nagaris_count', now()->addHours(6), function () {
-            return static::getModel()::count();
-        });
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -52,7 +41,10 @@ class NagariResource extends Resource
                     ->label('Nama Nagari')
                     ->required()
                     ->unique(ignoreRecord: true, table: 'nagaris')
-                    ->rules(['required', 'string', 'max:255', 
+                    ->rules([
+                        'required',
+                        'string',
+                        'max:255',
                         function ($get) {
                             return function (string $attribute, $value, $fail) use ($get) {
                                 $exists = \App\Models\Nagari::whereRaw('UPPER(nama_nagari) = ?', [strtoupper($value)])
@@ -65,7 +57,7 @@ class NagariResource extends Resource
                         }
                     ])
                     ->live()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('nama_nagari', strtoupper($state)))
+                    ->afterStateUpdated(fn($state, callable $set) => $set('nama_nagari', strtoupper($state)))
                     ->extraInputAttributes(['style' => 'text-transform: uppercase']),
                 Forms\Components\TextInput::make('nama_wali_nagari')
                     ->label('Nama Wali Nagari')
@@ -105,7 +97,7 @@ class NagariResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->with(['kecamatan']))
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['kecamatan']))
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
@@ -207,6 +199,11 @@ class NagariResource extends Resource
             // 'create' => Pages\CreateNagari::route('/create'),
             // 'edit' => Pages\EditNagari::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return \App\Models\Nagari::getCount();
     }
 
 

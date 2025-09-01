@@ -56,84 +56,78 @@ class Login extends BaseLogin
     {
         $data = $this->form->getState();
         $request = request();
-
-
-        // if (!Auth::attempt($data, $data['remember'] ?? false)) {
-        //     $this->addError('email', 'Email atau kata sandi tidak cocok.');
-        //     return null;
-        // }
-
-        // return Auth::user();
-
-
+        
         // Get rate limiting config
         $maxAttempts = config('rate-limiting.login.max_attempts', 3);
         $decayMinutes = config('rate-limiting.login.decay_minutes', 1);
-
+        
         // Create throttle key based on email and IP
         $throttleKey = 'login:' . $data['email'] . '|' . $request->ip();
-
-        // Check if too many attempts
-        if (RateLimiter::tooManyAttempts($throttleKey, $maxAttempts)) {
-            $seconds = RateLimiter::availableIn($throttleKey);
-
-            Notification::make()
-                ->title('Terlalu banyak percobaan login')
-                ->body("Silakan coba lagi dalam {$seconds} detik.")
-                ->danger()
-                ->persistent()
-                ->send();
-
-            throw ValidationException::withMessages([
-                'data.email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
-            ]);
-        }
-
-        // Attempt authentication
-        if (!\Filament\Facades\Filament::auth()->attempt([
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ], $data['remember'] ?? false)) {
-
-            // Increment failed attempts with proper decay time
-            RateLimiter::hit($throttleKey, $decayMinutes * 60);
-
-            // Show immediate notification for failed attempt
-            $remainingAttempts = $maxAttempts - RateLimiter::attempts($throttleKey);
-
-            if ($remainingAttempts > 0) {
-                Notification::make()
-                    ->title('Login gagal')
-                    ->body("Email atau password tidak valid. Sisa percobaan: {$remainingAttempts}")
-                    ->warning()
-                    ->send();
-            } else {
+        
+        try {
+            // Check if too many attempts
+            if (RateLimiter::tooManyAttempts($throttleKey, $maxAttempts)) {
                 $seconds = RateLimiter::availableIn($throttleKey);
+                
+                throw ValidationException::withMessages([
+                    'data.email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik.",
+                ]);
+            }
+            
+            // Attempt authentication
+            if (!\Filament\Facades\Filament::auth()->attempt([
+                'email' => $data['email'],
+                'password' => $data['password'],
+            ], $data['remember'] ?? false)) {
+                // Increment failed attempts with proper decay time
+                RateLimiter::hit($throttleKey, $decayMinutes * 60);
+                
+                $remainingAttempts = $maxAttempts - RateLimiter::attempts($throttleKey);
+                
+                if ($remainingAttempts > 0) {
+                    throw ValidationException::withMessages([
+                        'data.email' => __('filament-panels::pages/auth/login.messages.failed') . " Sisa percobaan: {$remainingAttempts}",
+                    ]);
+                }
+                
+                throw ValidationException::withMessages([
+                    'data.email' => __('filament-panels::pages/auth/login.messages.failed'),
+                ]);
+            }
+            
+            // Clear rate limiter on successful login
+            RateLimiter::clear($throttleKey);
+            
+            // Regenerate session
+            $request->session()->regenerate();
+            
+            return app(LoginResponse::class);
+            
+        } catch (ValidationException $e) {
+            $message = $e->validator->errors()->first('data.email');
+            
+            if (str_contains($message, 'Terlalu banyak percobaan login')) {
                 Notification::make()
-                    ->title('Akun terkunci')
-                    ->body("Terlalu banyak percobaan gagal. Coba lagi dalam {$seconds} detik.")
+                    ->title('Terlalu banyak percobaan login')
+                    ->body($message)
                     ->danger()
                     ->persistent()
                     ->send();
+            } else if (str_contains($message, 'Sisa percobaan')) {
+                Notification::make()
+                    ->title('Login gagal')
+                    ->body($message)
+                    ->warning()
+                    ->send();
+            } else {
+                Notification::make()
+                    ->title('Login gagal')
+                    ->body($message)
+                    ->danger()
+                    ->send();
             }
-
-            throw ValidationException::withMessages([
-                'data.email' => __('filament-panels::pages/auth/login.messages.failed'),
-            ]);
+            
+            throw $e;
         }
-
-        // Clear rate limiter on successful login
-        RateLimiter::clear($throttleKey);
-
-        // Regenerate session
-        $request->session()->regenerate();
-
-        Notification::make()
-            ->title('Login berhasil')
-            ->body('Selamat datang kembali!')
-            ->success()
-            ->send();
-
-        return app(LoginResponse::class);
     }
 }

@@ -7,16 +7,15 @@ use App\Models\Kecamatan;
 use App\Traits\HasModelCache;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Nagari extends Model
 {
     use HasModelCache;
-    
+
     protected $table = "nagaris";
-    
+
     /**
      * The attributes that should be indexed.
      *
@@ -26,20 +25,32 @@ class Nagari extends Model
         'kecamatan_id',
         'nama_nagari',
     ];
-    
+
     /**
      * The relationships that should always be loaded.
      *
      * @var array
      */
     protected $with = ['kecamatan'];
-    
+
     /**
      * The number of models to return for pagination.
      *
      * @var int
      */
     protected $perPage = 25;
+
+    /**
+     * Get the total count of Nagari records with caching
+     *
+     * @return int
+     */
+    public static function getCount(): int
+    {
+        return Cache::remember('nagari_count', now()->addMinutes(5), function () {
+            return static::count();
+        });
+    }
 
     protected $fillable = [
         'nama_nagari',
@@ -48,10 +59,26 @@ class Nagari extends Model
         'alamat_kantor_nagari',
         'jumlah_penduduk_nagari',
         'jumlah_jorong',
-        'luas_nagari',
         'kecamatan_id',
+        'luas_nagari',
 
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::saved(function () {
+            Cache::forget('nagari_count');
+        });
+
+        static::deleted(function () {
+            Cache::forget('nagari_count');
+        });
+    }
 
     protected $casts = [
         'jumlah_penduduk_nagari' => 'integer',
@@ -62,11 +89,7 @@ class Nagari extends Model
         'deleted_at' => 'datetime',
     ];
 
-    /**
-     * Get the kecamatan that owns the nagari.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function kecamatan(): BelongsTo
     {
         return $this->belongsTo(Kecamatan::class)->withDefault([
@@ -113,13 +136,6 @@ class Nagari extends Model
         });
     }
 
-    // Query Scopes untuk optimasi
-    /**
-     * Eager load relationships for the model.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Query\Builder
-     */
     public function scopeWithRelations($query)
     {
         return $query->with([
@@ -153,12 +169,7 @@ class Nagari extends Model
         });
     }
 
-    /**
-     * Order the query by kecamatan and nagari name.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Query\Builder
-     */
+
     public function scopeOrderByKecamatanAndNagari($query)
     {
         return $query->select('nagaris.*')
