@@ -41,28 +41,35 @@ class ListJorongs extends ListRecords
         ];
     }
 
-    public function getTabs(): array
-    {
-        $tabs = [
-            'all' => Tab::make('Semua')
-                ->badge(\App\Models\Jorong::count()),
-        ];
+    // public function getTabs(): array
+    // {
+    //     $tabs = [
+    //         'all' => Tab::make('Semua')
+    //             ->badge(\App\Models\Jorong::count()),
+    //     ];
 
-        $kecamatans = Kecamatan::withCount('jorongs')
-            ->has('jorongs')
-            ->orderBy('nama')
-            ->get();
+    //     // Get all jorongs with their nagari and kecamatan relationships
+    //     $jorongs = \App\Models\Jorong::with(['nagari.kecamatan'])
+    //         ->orderBy('nama_jorong')
+    //         ->get()
+    //         ->groupBy('nagari.kecamatan.nama');
 
-        foreach ($kecamatans as $kecamatan) {
-            $tabs['kec_' . $kecamatan->id] = Tab::make($kecamatan->name)
-                ->badge($kecamatan->getCachedCount('jorongs'))
-                ->modifyQueryUsing(fn(Builder $query) => $query->whereHas('nagari', function ($query) use ($kecamatan) {
-                    $query->where('kecamatan_id', $kecamatan->id);
-                }));
-        }
+    //     // Create tabs for each kecamatan with jorongs grouped by nagari
+    //     foreach ($jorongs as $kecamatanName => $jorongsGroup) {
+    //         $nagariGroups = $jorongsGroup->groupBy('nagari.nama_nagari');
 
-        return $tabs;
-    }
+    //         foreach ($nagariGroups as $nagariName => $jorongsInNagari) {
+    //             $tabName = "$kecamatanName - $nagariName";
+    //             $nagariId = $jorongsInNagari->first()->nagari_id;
+
+    //             $tabs["nagari_$nagariId"] = Tab::make($tabName)
+    //                 ->badge($jorongsInNagari->count())
+    //                 ->modifyQueryUsing(fn(Builder $query) => $query->where('nagari_id', $nagariId));
+    //         }
+    //     }
+
+    //     return $tabs;
+    // }
 
     public function getTableFilters(): array
     {
