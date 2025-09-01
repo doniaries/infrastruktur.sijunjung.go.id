@@ -15,6 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Only show warning when running seeders directly, not during tests
+        if (app()->runningInConsole() && !app()->runningUnitTests()) {
+            $this->command->warn('==================================================');
+            $this->command->warn(' PERINGATAN: DATA AKAN DIHAPUS DAN DIISI KEMBALI');
+            $this->command->warn('==================================================');
+            $this->command->warn('Tindakan ini akan menghapus SEMUA DATA yang ada di database.');
+            $this->command->warn('Pastikan Anda sudah membackup data penting sebelum melanjutkan.');
+            $this->command->line('');
+            
+            if (!$this->command->confirm('Apakah Anda yakin ingin melanjutkan?', false)) {
+                $this->command->info('Proses seeding dibatalkan.');
+                return;
+            }
+            
+            $this->command->warn('Menghapus data lama dan menjalankan seeder...');
+            $this->command->line('');
+        }
+
         // User::factory(10)->create();
 
         $this->call([
