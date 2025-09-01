@@ -25,13 +25,8 @@ class LoginRateLimiter
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Skip rate limiting for authenticated users
-        if (auth()->check()) {
-            return $next($request);
-        }
-
-        // Only apply rate limiting to login attempts
-        if ($this->shouldRateLimit($request)) {
+        // Only apply rate limiting to login form submissions
+        if ($request->is('admin') && $request->isMethod('post') && $request->filled('email')) {
             $key = $this->resolveRequestSignature($request);
 
             if (RateLimiter::tooManyAttempts($key, $this->maxAttempts)) {
@@ -45,10 +40,7 @@ class LoginRateLimiter
                 );
             }
 
-            // Only increment on login attempts
-            if ($request->is('admin/login') && $request->isMethod('post')) {
-                RateLimiter::hit($key, $this->decayMinutes * 60);
-            }
+            RateLimiter::hit($key, $this->decayMinutes * 60);
         }
 
         return $next($request);
@@ -59,8 +51,8 @@ class LoginRateLimiter
      */
     protected function shouldRateLimit(Request $request): bool
     {
-        // Only apply rate limiting to login and forgot password pages
-        return $request->is('admin/login*') || $request->is('admin/forgot-password*');
+        // Only apply rate limiting to login form submission
+        return $request->is('admin') && $request->isMethod('post');
     }
 
     /**

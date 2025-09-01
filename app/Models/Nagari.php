@@ -71,12 +71,19 @@ class Nagari extends Model
      */
     protected static function booted()
     {
-        static::saved(function () {
+        static::saved(function ($model) {
             Cache::forget('nagari_count');
+            $model->clearAllCaches();
         });
 
-        static::deleted(function () {
+        static::deleted(function ($model) {
             Cache::forget('nagari_count');
+            $model->clearAllCaches();
+        });
+
+        // Clear caches when related Jorong models are updated
+        static::updated(function ($model) {
+            $model->clearAllCaches();
         });
     }
 
@@ -117,15 +124,26 @@ class Nagari extends Model
     // Accessor untuk menghitung total penduduk dari semua jorong
     public function getJumlahPendudukNagariAttribute()
     {
-        // Use the loaded aggregate if available, otherwise fallback to query
-        return $this->jorongs_sum_jumlah_penduduk_jorong ?? $this->jorongs()->sum('jumlah_penduduk_jorong');
+        // Use the loaded aggregate if available, otherwise use cached sum
+        return $this->jorongs_sum_jumlah_penduduk_jorong ?? $this->getCachedSum('jorongs', 'jumlah_penduduk_jorong');
     }
 
     // Accessor untuk menghitung jumlah jorong
     public function getJumlahJorongAttribute()
     {
-        // Use the loaded count if available, otherwise fallback to query
-        return $this->jorongs_count ?? $this->jorongs()->count();
+        // Use the loaded count if available, otherwise use cached count
+        return $this->jorongs_count ?? $this->getCachedCount('jorongs');
+    }
+
+    /**
+     * Define which relations should have their caches cleared
+     */
+    public function getRelationsToClear()
+    {
+        return [
+            'jorongs' => ['jumlah_penduduk_jorong'],
+            // Add other relations and their sum columns here if needed
+        ];
     }
 
     // Static cache for frequently accessed Nagari by ID

@@ -93,11 +93,12 @@ class UserResource extends Resource
                     ->label('Status User')
                     ->boolean()
                     ->action(function ($record, $column) {
-                        if (!auth()->user()->hasRole(['super_admin'])) {
+                        if (!auth()->check() || !auth()->user()->hasRole('super_admin')) {
                             Notification::make()
                                 ->title("Hanya Super Admin yang dapat mengubah status user")
                                 ->danger()
                                 ->send();
+                            return;
                             return;
                         }
 
@@ -196,6 +197,6 @@ class UserResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return static::getModel()::getCount();
     }
 }

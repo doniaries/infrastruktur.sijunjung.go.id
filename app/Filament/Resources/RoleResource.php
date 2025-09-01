@@ -2,40 +2,34 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\KecamatanResource\Pages;
-use App\Filament\Resources\KecamatanResource\RelationManagers;
-use App\Models\Kecamatan;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
-class KecamatanResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Kecamatan::class;
+    protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationGroup = 'Setting';
 
-    public static function getNavigationGroup(): ?string
-    {
-        return 'Master Data';
-    }
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nama')
+                Forms\Components\TextInput::make('name')
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->live()
-                    ->extraInputAttributes(['style' => 'text-transform: uppercase'])
-                    ->maxLength(100),
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('guard_name')
+                    ->default('web')
+                    ->maxLength(255),
             ]);
     }
 
@@ -43,9 +37,9 @@ class KecamatanResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nama')
-                    ->label('Nama Kecamatan')
-                    ->sortable()
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('guard_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -56,8 +50,6 @@ class KecamatanResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('nama', 'asc')
-            ->striped()
             ->filters([
                 //
             ])
@@ -82,9 +74,9 @@ class KecamatanResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListKecamatans::route('/'),
-            // 'create' => Pages\CreateKecamatan::route('/create'),
-            // 'edit' => Pages\EditKecamatan::route('/{record}/edit'),
+            'index' => \App\Filament\Resources\RoleResource\Pages\ListRoles::route('/'),
+            'create' => \App\Filament\Resources\RoleResource\Pages\CreateRole::route('/create'),
+            'edit' => \App\Filament\Resources\RoleResource\Pages\EditRole::route('/{record}/edit'),
         ];
     }
 
@@ -93,8 +85,18 @@ class KecamatanResource extends Resource
         return static::getModel()::getCount();
     }
 
-    public static function getNavigationBadgeColor(): string|array|null
+    public static function canCreate(): bool
     {
-        return 'danger';
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return $record->name !== 'super_admin';
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return $record->name !== 'super_admin';
     }
 }

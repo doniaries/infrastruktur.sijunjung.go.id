@@ -107,10 +107,22 @@ class Jorong extends Model
     }
 
     // Static cache for frequently accessed Jorong by ID
-    public static function getCachedById($id)
+    protected static function booted()
     {
-        return Cache::rememberForever('jorong_' . $id, function () use ($id) {
-            return self::find($id);
+        static::saved(function ($model) {
+            Cache::forget('jorong_count');
+            // Clear the parent Nagari's caches
+            if ($model->nagari) {
+                $model->nagari->clearAllCaches();
+            }
+        });
+
+        static::deleted(function ($model) {
+            Cache::forget('jorong_count');
+            // Clear the parent Nagari's caches
+            if ($model->nagari) {
+                $model->nagari->clearAllCaches();
+            }
         });
     }
 

@@ -8,6 +8,54 @@ use Illuminate\Support\Facades\Log;
 trait HasModelCache
 {
     /**
+     * Get cached sum of a column
+     */
+    public function getCachedSum(string $relation, string $column, $default = 0)
+    {
+        $cacheKey = $this->getCacheKey("sum_{$relation}_{$column}");
+        
+        return Cache::remember($cacheKey, now()->addMinutes(5), function () use ($relation, $column) {
+            return $this->{$relation}()->sum($column) ?? 0;
+        });
+    }
+
+    /**
+     * Get cached count of related records
+     */
+    public function getCachedCount(string $relation)
+    {
+        $cacheKey = $this->getCacheKey("count_{$relation}");
+        
+        return Cache::remember($cacheKey, now()->addMinutes(5), function () use ($relation) {
+            return $this->{$relation}()->count();
+        });
+    }
+
+    /**
+     * Clear all cached sums, counts, and model instances for this model
+     */
+    public function clearAllCaches()
+    {
+        // Clear model instance cache
+        if ($this->exists) {
+            Cache::forget($this->getCacheKey($this->getKey()));
+        }
+        
+        // Clear relation caches
+        $relations = method_exists($this, 'getRelationsToClear') ? $this->getRelationsToClear() : [];
+        
+        foreach ($relations as $relation => $columns) {
+            Cache::forget($this->getCacheKey("count_{$relation}"));
+            
+            foreach ((array)$columns as $column) {
+                Cache::forget($this->getCacheKey("sum_{$relation}_{$column}"));
+            }
+        }
+        
+        // Clear any other cached data
+        Cache::forget($this->getCacheKey('all'));
+    }
+    /**
      * Get cached model by ID with fallback
      */
     public static function getCachedById($id, $minutes = 1440) // default 24 jam
