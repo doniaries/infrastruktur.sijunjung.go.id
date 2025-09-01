@@ -243,47 +243,47 @@ class JorongSeeder extends Seeder
             ['id' => 164, 'nagari_id' => 38, 'nama_jorong' => 'Takuang', 'jumlah_penduduk_jorong' => null],
 
             // Nagari Paru (nagari_id=39) - 3 jorong
-            ['id' => 158, 'nagari_id' => 39, 'nama_jorong' => 'Batu Ranjau', 'jumlah_penduduk_jorong' => null],
-            ['id' => 159, 'nagari_id' => 39, 'nama_jorong' => 'Bukik Buar', 'jumlah_penduduk_jorong' => null],
-            ['id' => 160, 'nagari_id' => 39, 'nama_jorong' => 'Kampung Tarandam', 'jumlah_penduduk_jorong' => null],
+            ['id' => 165, 'nagari_id' => 39, 'nama_jorong' => 'Batu Ranjau', 'jumlah_penduduk_jorong' => null],
+            ['id' => 166, 'nagari_id' => 39, 'nama_jorong' => 'Bukik Buar', 'jumlah_penduduk_jorong' => null],
+            ['id' => 167, 'nagari_id' => 39, 'nama_jorong' => 'Kampung Tarandam', 'jumlah_penduduk_jorong' => null],
 
             // Nagari Silokek (nagari_id=36) - 2 jorong
-            ['id' => 161, 'nagari_id' => 36, 'nama_jorong' => 'Tanjung Medan', 'jumlah_penduduk_jorong' => null],
-            ['id' => 162, 'nagari_id' => 36, 'nama_jorong' => 'Sankiamo', 'jumlah_penduduk_jorong' => null],
+            ['id' => 168, 'nagari_id' => 36, 'nama_jorong' => 'Tanjung Medan', 'jumlah_penduduk_jorong' => null],
+            ['id' => 169, 'nagari_id' => 36, 'nama_jorong' => 'Sankiamo', 'jumlah_penduduk_jorong' => null],
             
             // Nagari Durian Gadang (nagari_id=40) - 5 jorong
-            ['id' => 163, 'nagari_id' => 40, 'nama_jorong' => 'Koto Mudik', 'jumlah_penduduk_jorong' => null],
-            ['id' => 164, 'nagari_id' => 40, 'nama_jorong' => 'Koto Ilie', 'jumlah_penduduk_jorong' => null],
-            ['id' => 165, 'nagari_id' => 40, 'nama_jorong' => 'Pinang', 'jumlah_penduduk_jorong' => null],
-            ['id' => 166, 'nagari_id' => 40, 'nama_jorong' => 'Tanggalo', 'jumlah_penduduk_jorong' => null],
-            ['id' => 167, 'nagari_id' => 40, 'nama_jorong' => 'Silukah', 'jumlah_penduduk_jorong' => null],
+            ['id' => 170, 'nagari_id' => 40, 'nama_jorong' => 'Koto Mudik', 'jumlah_penduduk_jorong' => null],
+            ['id' => 171, 'nagari_id' => 40, 'nama_jorong' => 'Koto Ilie', 'jumlah_penduduk_jorong' => null],
+            ['id' => 172, 'nagari_id' => 40, 'nama_jorong' => 'Pinang', 'jumlah_penduduk_jorong' => null],
+            ['id' => 173, 'nagari_id' => 40, 'nama_jorong' => 'Tanggalo', 'jumlah_penduduk_jorong' => null],
+            ['id' => 174, 'nagari_id' => 40, 'nama_jorong' => 'Silukah', 'jumlah_penduduk_jorong' => null],
 
             // Nagari Aie Angek (nagari_id=41) - 7 jorong
-            ['id' => 168, 'nagari_id' => 41, 'nama_jorong' => 'Koto Benek', 'jumlah_penduduk_jorong' => null],
-            ['id' => 169, 'nagari_id' => 41, 'nama_jorong' => 'Silabau', 'jumlah_penduduk_jorong' => null],
-            ['id' => 170, 'nagari_id' => 41, 'nama_jorong' => 'Kapalo Koto', 'jumlah_penduduk_jorong' => null],
-            ['id' => 171, 'nagari_id' => 41, 'nama_jorong' => 'Tanggalo', 'jumlah_penduduk_jorong' => null],
-            ['id' => 172, 'nagari_id' => 41, 'nama_jorong' => 'Padang Doto', 'jumlah_penduduk_jorong' => null],
-            ['id' => 173, 'nagari_id' => 41, 'nama_jorong' => 'Kulampi', 'jumlah_penduduk_jorong' => null],
-            ['id' => 174, 'nagari_id' => 41, 'nama_jorong' => 'Sungai Duo', 'jumlah_penduduk_jorong' => null],
+            ['id' => 175, 'nagari_id' => 41, 'nama_jorong' => 'Koto Benek', 'jumlah_penduduk_jorong' => null],
+            ['id' => 176, 'nagari_id' => 41, 'nama_jorong' => 'Silabau', 'jumlah_penduduk_jorong' => null],
+            ['id' => 177, 'nagari_id' => 41, 'nama_jorong' => 'Kapalo Koto', 'jumlah_penduduk_jorong' => null],
+            ['id' => 178, 'nagari_id' => 41, 'nama_jorong' => 'Tanggalo', 'jumlah_penduduk_jorong' => null],
+            ['id' => 179, 'nagari_id' => 41, 'nama_jorong' => 'Padang Doto', 'jumlah_penduduk_jorong' => null],
+            ['id' => 180, 'nagari_id' => 41, 'nama_jorong' => 'Kulampi', 'jumlah_penduduk_jorong' => null],
+            ['id' => 181, 'nagari_id' => 41, 'nama_jorong' => 'Sungai Duo', 'jumlah_penduduk_jorong' => null],
 
             // ========================================
             // KECAMATAN LUBUK TAROK (kec_id=6) - 24 jorong
             // ========================================
 
             // Nagari Lubuk Tarok (nagari_id=28) - 24 jorong
-            ['id' => 175, 'nagari_id' => 28, 'nama_jorong' => 'Andopan', 'jumlah_penduduk_jorong' => 681],
-            ['id' => 176, 'nagari_id' => 28, 'nama_jorong' => 'Jambu Lipo', 'jumlah_penduduk_jorong' => 1613],
-            ['id' => 177, 'nagari_id' => 28, 'nama_jorong' => 'Koto Tuo', 'jumlah_penduduk_jorong' => 2209],
-            ['id' => 178, 'nagari_id' => 28, 'nama_jorong' => 'Padang Basiku', 'jumlah_penduduk_jorong' => 667],
-            ['id' => 179, 'nagari_id' => 28, 'nama_jorong' => 'Silalak Kulik', 'jumlah_penduduk_jorong' => 699],
-            ['id' => 180, 'nagari_id' => 28, 'nama_jorong' => 'Sungai Jodi', 'jumlah_penduduk_jorong' => 1018],
-            ['id' => 181, 'nagari_id' => 28, 'nama_jorong' => 'Tigo Korong', 'jumlah_penduduk_jorong' => 745],
-            ['id' => 182, 'nagari_id' => 29, 'nama_jorong' => 'Rumbai', 'jumlah_penduduk_jorong' => 561],
-            ['id' => 183, 'nagari_id' => 29, 'nama_jorong' => 'Lalan', 'jumlah_penduduk_jorong' => 817],
-            ['id' => 184, 'nagari_id' => 29, 'nama_jorong' => 'Batu Ajung', 'jumlah_penduduk_jorong' => 870],
-            ['id' => 185, 'nagari_id' => 29, 'nama_jorong' => 'Batang Lalan', 'jumlah_penduduk_jorong' => 524],
-            ['id' => 186, 'nagari_id' => 29, 'nama_jorong' => 'Sikaladi', 'jumlah_penduduk_jorong' => 762],
+            ['id' => 182, 'nagari_id' => 28, 'nama_jorong' => 'Andopan', 'jumlah_penduduk_jorong' => 681],
+            ['id' => 183, 'nagari_id' => 28, 'nama_jorong' => 'Jambu Lipo', 'jumlah_penduduk_jorong' => 1613],
+            ['id' => 184, 'nagari_id' => 28, 'nama_jorong' => 'Koto Tuo', 'jumlah_penduduk_jorong' => 2209],
+            ['id' => 185, 'nagari_id' => 28, 'nama_jorong' => 'Padang Basiku', 'jumlah_penduduk_jorong' => 667],
+            ['id' => 200, 'nagari_id' => 28, 'nama_jorong' => 'Silalak Kulik', 'jumlah_penduduk_jorong' => 699],
+            ['id' => 201, 'nagari_id' => 28, 'nama_jorong' => 'Sungai Jodi', 'jumlah_penduduk_jorong' => 1018],
+            ['id' => 202, 'nagari_id' => 28, 'nama_jorong' => 'Tigo Korong', 'jumlah_penduduk_jorong' => 745],
+            ['id' => 203, 'nagari_id' => 29, 'nama_jorong' => 'Rumbai', 'jumlah_penduduk_jorong' => 561],
+            ['id' => 204, 'nagari_id' => 29, 'nama_jorong' => 'Lalan', 'jumlah_penduduk_jorong' => 817],
+            ['id' => 205, 'nagari_id' => 29, 'nama_jorong' => 'Batu Ajung', 'jumlah_penduduk_jorong' => 870],
+            ['id' => 206, 'nagari_id' => 29, 'nama_jorong' => 'Batang Lalan', 'jumlah_penduduk_jorong' => 524],
+            ['id' => 207, 'nagari_id' => 29, 'nama_jorong' => 'Sikaladi', 'jumlah_penduduk_jorong' => 762],
             ['id' => 187, 'nagari_id' => 30, 'nama_jorong' => 'Koto', 'jumlah_penduduk_jorong' => 1078],
             ['id' => 189, 'nagari_id' => 30, 'nama_jorong' => 'Koto Tangah', 'jumlah_penduduk_jorong' => 731],
             ['id' => 190, 'nagari_id' => 30, 'nama_jorong' => 'Taratak', 'jumlah_penduduk_jorong' => 966],
@@ -302,20 +302,20 @@ class JorongSeeder extends Seeder
             // ========================================
 
             // Nagari Batu Manjulur (nagari_id=24) - 14 jorong
-            ['id' => 200, 'nagari_id' => 24, 'nama_jorong' => 'Batu Manjulur Barat', 'jumlah_penduduk_jorong' => 1094],
-            ['id' => 201, 'nagari_id' => 24, 'nama_jorong' => 'Batu Manjulur Timur', 'jumlah_penduduk_jorong' => 789],
-            ['id' => 202, 'nagari_id' => 25, 'nama_jorong' => 'Pamuatan Timur', 'jumlah_penduduk_jorong' => 887],
-            ['id' => 203, 'nagari_id' => 25, 'nama_jorong' => 'Pamuatan Barat', 'jumlah_penduduk_jorong' => 767],
-            ['id' => 204, 'nagari_id' => 26, 'nama_jorong' => 'Tapi Balai', 'jumlah_penduduk_jorong' => 1982],
-            ['id' => 205, 'nagari_id' => 26, 'nama_jorong' => 'Kapalo Koto', 'jumlah_penduduk_jorong' => 1766],
-            ['id' => 206, 'nagari_id' => 26, 'nama_jorong' => 'Guguk Tinggi', 'jumlah_penduduk_jorong' => 1365],
-            ['id' => 207, 'nagari_id' => 26, 'nama_jorong' => 'Simancung', 'jumlah_penduduk_jorong' => 1335],
-            ['id' => 208, 'nagari_id' => 26, 'nama_jorong' => 'Ladang Kapeh', 'jumlah_penduduk_jorong' => 1303],
-            ['id' => 209, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Tongah', 'jumlah_penduduk_jorong' => 251],
-            ['id' => 210, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Panjang', 'jumlah_penduduk_jorong' => 353],
-            ['id' => 211, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Lamo', 'jumlah_penduduk_jorong' => 415],
-            ['id' => 212, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Ateh', 'jumlah_penduduk_jorong' => 493],
-            ['id' => 213, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Guguk Bulek', 'jumlah_penduduk_jorong' => 138],
+            ['id' => 300, 'nagari_id' => 24, 'nama_jorong' => 'Batu Manjulur Barat', 'jumlah_penduduk_jorong' => 1094],
+            ['id' => 301, 'nagari_id' => 24, 'nama_jorong' => 'Batu Manjulur Timur', 'jumlah_penduduk_jorong' => 789],
+            ['id' => 302, 'nagari_id' => 25, 'nama_jorong' => 'Pamuatan Timur', 'jumlah_penduduk_jorong' => 887],
+            ['id' => 303, 'nagari_id' => 25, 'nama_jorong' => 'Pamuatan Barat', 'jumlah_penduduk_jorong' => 767],
+            ['id' => 304, 'nagari_id' => 26, 'nama_jorong' => 'Tapi Balai', 'jumlah_penduduk_jorong' => 1982],
+            ['id' => 305, 'nagari_id' => 26, 'nama_jorong' => 'Kapalo Koto', 'jumlah_penduduk_jorong' => 1766],
+            ['id' => 306, 'nagari_id' => 26, 'nama_jorong' => 'Guguk Tinggi', 'jumlah_penduduk_jorong' => 1365],
+            ['id' => 307, 'nagari_id' => 26, 'nama_jorong' => 'Simancung', 'jumlah_penduduk_jorong' => 1335],
+            ['id' => 308, 'nagari_id' => 26, 'nama_jorong' => 'Ladang Kapeh', 'jumlah_penduduk_jorong' => 1303],
+            ['id' => 309, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Tongah', 'jumlah_penduduk_jorong' => 251],
+            ['id' => 310, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Panjang', 'jumlah_penduduk_jorong' => 353],
+            ['id' => 311, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Lamo', 'jumlah_penduduk_jorong' => 415],
+            ['id' => 312, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Koto Ateh', 'jumlah_penduduk_jorong' => 493],
+            ['id' => 313, 'nagari_id' => 27, 'nama_jorong' => 'Dusun Guguk Bulek', 'jumlah_penduduk_jorong' => 138],
 
             // ========================================
             // KECAMATAN LIMO KOTO (kec_id=2) - 36 jorong
@@ -441,16 +441,16 @@ class JorongSeeder extends Seeder
             ['id' => 296, 'nagari_id' => 52, 'nama_jorong' => 'Simpang Sawah Silupak', 'jumlah_penduduk_jorong' => 261],
 
             // Nagari Tanjung Bonai Aur Selatan (nagari_id=53) - 5 jorong
-            ['id' => 297, 'nagari_id' => 53, 'nama_jorong' => 'Pincuran Tujuh', 'jumlah_penduduk_jorong' => 666],
-            ['id' => 298, 'nagari_id' => 53, 'nama_jorong' => 'Air Seriau', 'jumlah_penduduk_jorong' => 519],
-            ['id' => 299, 'nagari_id' => 53, 'nama_jorong' => 'Payo Lawe', 'jumlah_penduduk_jorong' => 415],
-            ['id' => 300, 'nagari_id' => 53, 'nama_jorong' => 'Kuok', 'jumlah_penduduk_jorong' => 396],
-            ['id' => 301, 'nagari_id' => 53, 'nama_jorong' => 'Koto Puntian', 'jumlah_penduduk_jorong' => 300],
+            ['id' => 400, 'nagari_id' => 53, 'nama_jorong' => 'Pincuran Tujuh', 'jumlah_penduduk_jorong' => 666],
+            ['id' => 401, 'nagari_id' => 53, 'nama_jorong' => 'Air Seriau', 'jumlah_penduduk_jorong' => 519],
+            ['id' => 402, 'nagari_id' => 53, 'nama_jorong' => 'Payo Lawe', 'jumlah_penduduk_jorong' => 415],
+            ['id' => 403, 'nagari_id' => 53, 'nama_jorong' => 'Kuok', 'jumlah_penduduk_jorong' => 396],
+            ['id' => 404, 'nagari_id' => 53, 'nama_jorong' => 'Koto Puntian', 'jumlah_penduduk_jorong' => 300],
 
             // Nagari Sumpur Kudus Selatan (nagari_id=51) - 3 jorong
-            ['id' => 302, 'nagari_id' => 51, 'nama_jorong' => 'Uncang Labuah', 'jumlah_penduduk_jorong' => 426],
-            ['id' => 303, 'nagari_id' => 51, 'nama_jorong' => 'Calau', 'jumlah_penduduk_jorong' => 766],
-            ['id' => 304, 'nagari_id' => 51, 'nama_jorong' => 'Kampung Baru', 'jumlah_penduduk_jorong' => 519],
+            ['id' => 405, 'nagari_id' => 51, 'nama_jorong' => 'Uncang Labuah', 'jumlah_penduduk_jorong' => 426],
+            ['id' => 406, 'nagari_id' => 51, 'nama_jorong' => 'Calau', 'jumlah_penduduk_jorong' => 766],
+            ['id' => 407, 'nagari_id' => 51, 'nama_jorong' => 'Kampung Baru', 'jumlah_penduduk_jorong' => 519],
         ];
 
         foreach ($jorongs as $jorong) {
