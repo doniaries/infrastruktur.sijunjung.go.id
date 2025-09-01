@@ -45,13 +45,16 @@ class Jorong extends Model
         'kontak_kepala_jorong',
         'jumlah_penduduk_jorong',
         'luas_jorong',
-
+        'status_blankspot',
+        'alasan_blankspot',
+        'koordinat_blankspot',
     ];
 
     protected $casts = [
         'jumlah_penduduk_jorong' => 'integer',
         'luas_jorong' => 'float',
         'nama_jorong' => 'string',
+        'status_blankspot' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
@@ -177,6 +180,17 @@ class Jorong extends Model
             ->orderBy('nagaris.nama_nagari')
             ->orderBy('jorongs.nama_jorong')
             ->select('jorongs.*');
+    }
+    
+    /**
+     * Scope a query to only include blankspot jorongs.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBlankspot($query)
+    {
+        return $query->where('status_blankspot', true);
     }
     
     /**
