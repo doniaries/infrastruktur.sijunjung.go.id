@@ -1284,14 +1284,9 @@
             document.addEventListener('DOMContentLoaded', function() {
                 const backgroundEffects = document.getElementById('background-effects');
 
-                function createStarsAndCrescentMoon() {
+                function createStars() {
                     // Clear existing effects
                     backgroundEffects.innerHTML = '';
-
-                    // Create crescent moon for dark mode
-                    const crescentMoon = document.createElement('div');
-                    crescentMoon.className = 'crescent-moon';
-                    backgroundEffects.appendChild(crescentMoon);
 
                     // Create stars for dark mode
                     for (let i = 0; i < 50; i++) {
@@ -1333,7 +1328,7 @@
                 function updateBackgroundEffects() {
                     const isDark = document.documentElement.classList.contains('dark');
                     if (isDark) {
-                        createStarsAndCrescentMoon();
+                        createStars();
                     } else {
                         createSunAndClouds();
                     }
