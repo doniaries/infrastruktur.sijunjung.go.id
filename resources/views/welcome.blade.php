@@ -30,7 +30,9 @@
                 <h1
                     class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                     <span class="block">Infrastruktur TI &</span>
-                    <span class="block text-blue-600 dark:text-yellow-400 dark:hover:text-yellow-300 transition-colors duration-200 mt-1 sm:mt-2">Laporan Gangguan</span>
+                    <span
+                        class="block text-blue-600 dark:text-yellow-400 dark:hover:text-yellow-300 transition-colors duration-200 mt-1 sm:mt-2">Laporan
+                        Gangguan</span>
                 </h1>
 
                 <p
@@ -44,7 +46,7 @@
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+        {{-- <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
             <a href="#features-section"
                 class="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                 <span class="sr-only">Scroll down</span>
@@ -53,7 +55,7 @@
                         d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </a>
-        </div>
+        </div> --}}
     </section>
 
     {{-- <!-- ==============================================
@@ -290,7 +292,7 @@
                                         <p class="text-sm">
                                             <span class="font-semibold text-gray-700">Status:</span>
                                             <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                                                bts.status === 'Aktif' ? 'bg-green-100 text-green-800' : 
+                                                bts.status === 'Aktif' ? 'bg-green-100 text-green-800' :
                                                 bts.status === 'Non-Aktif' ? 'bg-red-100 text-red-800' :
                                                 'bg-yellow-100 text-yellow-800'
                                             }">
