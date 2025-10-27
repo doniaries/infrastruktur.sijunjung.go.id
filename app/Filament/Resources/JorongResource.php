@@ -5,7 +5,10 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Jorong;
+use App\Models\Nagari;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
+use App\Models\Kecamatan;
 use Filament\Tables\Table;
 use Illuminate\Validation\Rule;
 use Filament\Resources\Resource;
@@ -13,6 +16,7 @@ use App\Rules\CaseInsensitiveUnique;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\JorongResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -133,16 +137,51 @@ class JorongResource extends Resource
             ->defaultSort('nagari.nama_nagari', 'asc')
             ->striped()
             ->filters([
-                Tables\Filters\SelectFilter::make('nagari_id')
-                    ->relationship('nagari', 'nama_nagari')
-                    ->label('Filter by Nagari')
-                    ->searchable()
-                    ->preload(),
-                Tables\Filters\SelectFilter::make('kecamatan_id')
-                    ->relationship('nagari.kecamatan', 'nama')
-                    ->label('Filter by Kecamatan')
+                SelectFilter::make('kecamatan_id')
+                    ->label('Kecamatan')
+                    ->options(Kecamatan::query()->orderBy('nama')->pluck('nama', 'id'))
                     ->searchable()
                     ->preload()
+                    ->query(function ($query, $state) {
+                        if ($state) {
+                            $query->whereHas('nagari.kecamatan', fn($q) => $q->whereKey($state));
+                        }
+                    })
+                    ->indicateUsing(
+                        fn($state) =>
+                        $state ? 'Kecamatan: ' . (Kecamatan::find($state)?->nama ?? '-') : null
+                    ),
+
+                SelectFilter::make('nagari_id')
+                    ->label('Nagari')
+                    ->options(Nagari::query()->orderBy('nama_nagari')->pluck('nama_nagari', 'id'))
+                    ->searchable()
+                    ->preload()
+                    ->query(function ($query, $state) {
+                        if ($state) {
+                            $query->where('nagari_id', $state);
+                        }
+                    })
+                    ->indicateUsing(
+                        fn($state) =>
+                        $state ? 'Nagari: ' . (Nagari::find($state)?->nama_nagari ?? '-') : null
+                    ),
+
+                SelectFilter::make('id')
+                    ->label('Jorong')
+                    ->options(Jorong::query()->orderBy('nama_jorong')->pluck('nama_jorong', 'id'))
+                    ->searchable()
+                    ->preload()
+                    ->query(function ($query, $state) {
+                        if ($state) {
+                            $query->whereKey($state);
+                        }
+                    })
+                    ->indicateUsing(
+                        fn($state) =>
+                        $state ? 'Jorong: ' . (Jorong::find($state)?->nama_jorong ?? '-') : null
+                    ),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

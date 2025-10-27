@@ -753,49 +753,7 @@
                 }
             }
 
-            /* Realistic crescent moon */
-            .crescent-moon {
-                position: absolute;
-                top: 20px;
-                right: 50px;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background:
-                    radial-gradient(circle at 30% 30%, #f8f9fa 0%, #e9ecef 70%, #d1d5db 100%);
-                box-shadow:
-                    0 0 30px rgba(200, 230, 255, 0.8),
-                    0 0 60px rgba(173, 216, 230, 0.4);
-                z-index: 10;
-                overflow: hidden;
-                transform: rotate(-20deg);
-            }
 
-            .crescent-moon::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 120%;
-                height: 100%;
-                background: #0f172a;
-                border-radius: 50%;
-                transform: translateX(40%);
-                box-shadow:
-                    inset 5px 0 8px rgba(0, 0, 0, 0.3);
-            }
-
-            @keyframes crescentMoonGlow {
-                0% {
-                    transform: scale(1);
-                    box-shadow: 0 0 20px rgba(248, 249, 250, 0.6), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
-                }
-
-                100% {
-                    transform: scale(1.05);
-                    box-shadow: 0 0 30px rgba(248, 249, 250, 0.8), inset -5px -5px 10px rgba(0, 0, 0, 0.1);
-                }
-            }
 
             /* Sun for light mode */
             .sun {
