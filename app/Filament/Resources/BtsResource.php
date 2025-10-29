@@ -45,13 +45,8 @@ class BtsResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! config('filament.cache.enabled', true)) {
-            return parent::getNavigationBadge();
-        }
-        
-        return Cache::remember('bts_count', now()->addHours(6), function () {
-            return static::getModel()::count();
-        });
+        // Ambil jumlah BTS langsung dari database (real-time)
+        return (string) static::getModel()::count();
     }
 
     public static function form(Form $form): Form

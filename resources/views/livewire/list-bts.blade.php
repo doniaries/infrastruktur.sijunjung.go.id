@@ -18,7 +18,7 @@
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                d="M8 16l4-4-4-4m8 8V8a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2z" />
                         </svg>
                     </div>
                     @if ($search)
@@ -80,14 +80,14 @@
                 </button>
                 <div class="min-w-48">
                     <div class="flex gap-2">
-                        <select wire:model.live="tahunFilter" class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                        <select wire:model.live="tahunFilter" class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                             <option value="">Tahun Dari</option>
                             @for ($year = date('Y'); $year >= 2000; $year--)
                                 <option value="{{ $year }}">{{ $year }}</option>
                             @endfor
                         </select>
                         <span class="mx-1">-</span>
-                        <select wire:model.live="tahunFilterTo" class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                        <select wire:model.live="tahunFilterTo" class="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
                             <option value="">Tahun Sampai</option>
                             @for ($year = date('Y'); $year >= 2000; $year--)
                                 <option value="{{ $year }}">{{ $year }}</option>
