@@ -23,8 +23,10 @@ class ListBts extends Component
     public $perPage = 6;
     public $sortField = 'tahun_bangun';
     public $sortDirection = 'desc';
+    public $tahunFilter = '';
+    public $tahunFilterTo = '';
 
-    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter', 'tahunFilter', 'tahunFilterTo', 'sortField', 'sortDirection'];
 
     public function updatingSearch()
     {
@@ -51,6 +53,13 @@ class ListBts extends Component
         $this->resetPage();
     }
 
+    public function updatingTahunFilter() {
+        $this->resetPage();
+    }
+    public function updatingTahunFilterTo() {
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -72,6 +81,12 @@ class ListBts extends Component
             ->filterByKecamatan($this->kecamatanFilter)
             ->filterByTeknologi($this->teknologiFilter)
             ->filterByStatus($this->statusFilter);
+        if ($this->tahunFilter) {
+            $query->where('tahun_bangun', '>=', $this->tahunFilter);
+        }
+        if ($this->tahunFilterTo) {
+            $query->where('tahun_bangun', '<=', $this->tahunFilterTo);
+        }
 
         // Apply sorting
         switch ($this->sortField) {
