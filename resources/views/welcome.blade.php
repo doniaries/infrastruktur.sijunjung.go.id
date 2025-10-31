@@ -310,7 +310,10 @@
                         });
 
                         // Smooth Scrolling Navigation
+                        // Dinonaktifkan: pembuatan floating navigation dan efek hover berat; gunakan Tailwind util
                         document.addEventListener('DOMContentLoaded', function() {
+                            /* Dinonaktifkan untuk performa: gunakan anchor biasa & CSS scroll-behavior */
+                            return;
                             // Add smooth scrolling behavior to HTML
                             document.documentElement.style.scrollBehavior = 'smooth';
 

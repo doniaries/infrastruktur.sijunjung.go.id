@@ -85,145 +85,125 @@ document.addEventListener('DOMContentLoaded', () => {
         initThemeToggle();
     }, 1000);
     
-    // Enhanced mobile menu toggle with animation
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
+    /*
+     * Dinonaktifkan: mobile menu toggle manual.
+     * Sekarang menu mobile dikontrol oleh Tailwind (checkbox + peer-checked) tanpa JS.
+     */
+    // const mobileMenuButton = document.getElementById('mobile-menu-button');
+    // const mobileMenu = document.getElementById('mobile-menu');
+    // if (mobileMenuButton && mobileMenu) {
+    //     mobileMenuButton.addEventListener('click', function() {
+    //         const isExpanded = mobileMenu.classList.contains('open');
+    //         if (isExpanded) {
+    //             mobileMenu.classList.remove('open');
+    //             setTimeout(() => {
+    //                 mobileMenu.style.display = 'none';
+    //             }, 300);
+    //         } else {
+    //             mobileMenu.style.display = 'block';
+    //             setTimeout(() => {
+    //                 void mobileMenu.offsetHeight;
+    //                 mobileMenu.classList.add('open');
+    //             }, 10);
+    //         }
+    //         const desktopMenu = document.querySelector('.md\\:flex');
+    //         if (desktopMenu && window.innerWidth >= 768) {
+    //             desktopMenu.style.display = 'flex';
+    //         }
+    //         const expanded = this.getAttribute('aria-expanded') === 'true';
+    //         this.setAttribute('aria-expanded', !expanded);
+    //         const icon = this.querySelector('i');
+    //         if (icon) {
+    //             icon.classList.toggle('fa-bars');
+    //             icon.classList.toggle('fa-times');
+    //         }
+    //     });
+    // }
 
-    if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', function() {
-            const isExpanded = mobileMenu.classList.contains('open');
-            if (isExpanded) {
-                mobileMenu.classList.remove('open');
-                // Don't hide immediately, let the transition finish
-                setTimeout(() => {
-                    mobileMenu.style.display = 'none';
-                }, 300); // Match this with the transition duration
-            } else {
-                // Make sure it's visible before adding the open class
-                mobileMenu.style.display = 'block';
-                // Small delay to ensure display:block takes effect
-                setTimeout(() => {
-                    // Trigger reflow to enable animation
-                    void mobileMenu.offsetHeight;
-                    mobileMenu.classList.add('open');
-                }, 10);
-            }
-            
-            // Memastikan menu desktop tetap tampil
-            const desktopMenu = document.querySelector('.md\\:flex');
-            if (desktopMenu && window.innerWidth >= 768) {
-                desktopMenu.style.display = 'flex';
-            }
+    /*
+     * Dinonaktifkan: dropdown handling manual.
+     * Gunakan komponen bawaan Tailwind/Flowbite untuk dropdown agar tanpa JS custom.
+     */
+    // const dropdowns = document.querySelectorAll('.dropdown');
+    // dropdowns.forEach(dropdown => {
+    //     const button = dropdown.querySelector('button');
+    //     const menu = dropdown.querySelector('.dropdown-menu');
+    //     if (button && menu) {
+    //         button.addEventListener('click', (e) => {
+    //             e.stopPropagation();
+    //             const isOpen = !menu.classList.contains('opacity-0');
+    //             document.querySelectorAll('.dropdown-menu').forEach(m => {
+    //                 if (m !== menu) {
+    //                     m.classList.add('opacity-0', 'invisible', '-translate-y-2');
+    //                 }
+    //             });
+    //             if (isOpen) {
+    //                 menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+    //             } else {
+    //                 menu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+    //             }
+    //         });
+    //         if (window.innerWidth > 768) {
+    //             dropdown.addEventListener('mouseenter', () => {
+    //                 menu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
+    //             });
+    //             dropdown.addEventListener('mouseleave', () => {
+    //                 menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+    //             });
+    //         }
+    //     }
+    // });
 
-            // Toggle aria-expanded attribute
-            const expanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !expanded);
+    // Dinonaktifkan: penutupan dropdown global (digantikan oleh Flowbite behavior)
+    // document.addEventListener('click', function() {
+    //     document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    //         menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
+    //     });
+    // });
 
-            // Change icon
-            const icon = this.querySelector('i');
-            if (icon) {
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            }
-        });
-    }
+    // Dinonaktifkan: resize handler untuk mobile menu (tak diperlukan dengan Tailwind)
+    // window.addEventListener('resize', function() {
+    //     if (window.innerWidth > 768 && mobileMenu) {
+    //         mobileMenu.classList.remove('open');
+    //         mobileMenu.style.display = 'none';
+    //         const menuButton = document.getElementById('mobile-menu-button');
+    //         if (menuButton) {
+    //             menuButton.setAttribute('aria-expanded', 'false');
+    //             const icon = menuButton.querySelector('i');
+    //             if (icon) {
+    //                 icon.classList.add('fa-bars');
+    //                 icon.classList.remove('fa-times');
+    //             }
+    //         }
+    //         const desktopMenu = document.querySelector('.hidden.md\\:flex');
+    //         if (desktopMenu) {
+    //             desktopMenu.classList.remove('hidden');
+    //             desktopMenu.classList.add('md:flex');
+    //         }
+    //     }
+    // });
 
-    // Improved dropdown handling
-    const dropdowns = document.querySelectorAll('.dropdown');
-
-    dropdowns.forEach(dropdown => {
-        const button = dropdown.querySelector('button');
-        const menu = dropdown.querySelector('.dropdown-menu');
-
-        if (button && menu) {
-            // Handle click
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isOpen = !menu.classList.contains('opacity-0');
-
-                // Close all other dropdowns first
-                document.querySelectorAll('.dropdown-menu').forEach(m => {
-                    if (m !== menu) {
-                        m.classList.add('opacity-0', 'invisible', '-translate-y-2');
-                    }
-                });
-
-                // Toggle current dropdown
-                if (isOpen) {
-                    menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
-                } else {
-                    menu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
-                }
-            });
-
-            // Handle hover for desktop
-            if (window.innerWidth > 768) {
-                dropdown.addEventListener('mouseenter', () => {
-                    menu.classList.remove('opacity-0', 'invisible', '-translate-y-2');
-                });
-
-                dropdown.addEventListener('mouseleave', () => {
-                    menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
-                });
-            }
-        }
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', function() {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.add('opacity-0', 'invisible', '-translate-y-2');
-        });
-    });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && mobileMenu) {
-            mobileMenu.classList.remove('open');
-            mobileMenu.style.display = 'none';
-            const menuButton = document.getElementById('mobile-menu-button');
-            if (menuButton) {
-                menuButton.setAttribute('aria-expanded', 'false');
-                const icon = menuButton.querySelector('i');
-                if (icon) {
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                }
-            }
-            
-            // Memastikan menu desktop tampil
-            const desktopMenu = document.querySelector('.hidden.md\\:flex');
-            if (desktopMenu) {
-                desktopMenu.classList.remove('hidden');
-                desktopMenu.classList.add('md:flex');
-            }
-        }
-    });
-
-    // Close mobile menu when clicking on links
-    if (mobileMenu) {
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                // Close the mobile menu
-                mobileMenu.classList.remove('open');
-                setTimeout(() => {
-                    mobileMenu.style.display = 'none';
-                }, 300);
-                
-                // Reset the menu button
-                const menuButton = document.getElementById('mobile-menu-button');
-                if (menuButton) {
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    const icon = menuButton.querySelector('i');
-                    if (icon) {
-                        icon.classList.add('fa-bars');
-                        icon.classList.remove('fa-times');
-                    }
-                }
-            });
-        });
-    }
+    // Dinonaktifkan: auto-close menu mobile saat klik link (tak diperlukan)
+    // if (mobileMenu) {
+    //     const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    //     mobileMenuLinks.forEach(link => {
+    //         link.addEventListener('click', function() {
+    //             mobileMenu.classList.remove('open');
+    //             setTimeout(() => {
+    //                 mobileMenu.style.display = 'none';
+    //             }, 300);
+    //             const menuButton = document.getElementById('mobile-menu-button');
+    //             if (menuButton) {
+    //                 menuButton.setAttribute('aria-expanded', 'false');
+    //                 const icon = menuButton.querySelector('i');
+    //                 if (icon) {
+    //                     icon.classList.add('fa-bars');
+    //                     icon.classList.remove('fa-times');
+    //                 }
+    //             }
+    //         });
+    //     });
+    // }
 
     // Add active state to current page link
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';

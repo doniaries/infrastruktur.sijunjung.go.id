@@ -1,6 +1,6 @@
 <!-- Header Section -->
 <!-- Premium Professional Navigation Bar -->
-<nav class="bg-white dark:bg-gray-900 sticky top-0 z-50 transition-all duration-300">
+<nav class="fixed w-full bg-white dark:bg-gray-900 shadow-md z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
         <div class="flex justify-between h-16 transition-all duration-300">
             <!-- Left Section - Logo/Brand -->
@@ -177,18 +177,21 @@
                     </a>
                 @endif
 
-                <button id="mobile-menu-button"
-                    class="md:hidden p-2 text-gray-600 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+                <!-- Toggle mobile menu tanpa JS: gunakan checkbox + peer -->
+                <label for="mobile-menu-toggle"
+                    class="md:hidden p-2 text-gray-600 hover:text-blue-600 rounded-lg hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
                     <i class="fas fa-bars text-xl"></i>
                     <span class="sr-only">Menu</span>
-                </button>
+                </label>
             </div>
         </div>
     </div>
 
     <!-- Mobile Menu -->
+    <!-- Checkbox sebagai peer untuk kontrol visibilitas menu -->
+    <input type="checkbox" id="mobile-menu-toggle" class="peer hidden" />
     <div id="mobile-menu"
-        class="mobile-menu md:hidden bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        class="hidden peer-checked:block md:hidden bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div class="px-2 pt-2 pb-4 space-y-1">
             <a href="{{ url('/') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
@@ -200,17 +203,17 @@
                 <i class="fas fa-broadcast-tower text-blue-500 mr-3 w-5 text-center"></i>
                 BTS
             </a>
-            <div class="group" x-data="{ open: false }">
-                <button @click="open = !open" type="button"
-                    class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+            <!-- Submenu Wilayah menggunakan details/summary agar tanpa JS -->
+            <details class="group">
+                <summary
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200 cursor-pointer list-none">
                     <div class="flex items-center">
                         <i class="fas fa-map-marker-alt text-blue-500 mr-3 w-5 text-center"></i>
                         Wilayah
                     </div>
-                    <i class="fas fa-chevron-down text-xs transition-transform duration-200"
-                        :class="{ 'rotate-180': open }"></i>
-                </button>
-                <div class="pl-4 mt-1 space-y-1" x-show="open" x-collapse>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-open:rotate-180"></i>
+                </summary>
+                <div class="pl-4 mt-1 space-y-1">
                     <a href="{{ url('/list-kecamatan') }}"
                         class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                         <i class="fas fa-map-marked-alt text-blue-400 mr-3 w-5 text-center"></i>
@@ -227,7 +230,7 @@
                         Jorong
                     </a>
                 </div>
-            </div>
+            </details>
             <a href="{{ url('/list-laporan') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>

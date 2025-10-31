@@ -620,38 +620,30 @@
                 });
             });
 
-            // Enhanced hover effects with sound (optional)
-            const enhancedButtons = document.querySelectorAll('[class*="-enhanced"]');
-            enhancedButtons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    // Add subtle vibration effect if supported
-                    if (navigator.vibrate) {
-                        navigator.vibrate(10);
-                    }
-                });
-            });
+            // Dinonaktifkan: efek hover dengan vibrasi (bisa digantikan util Tailwind hover:)
+            // const enhancedButtons = document.querySelectorAll('[class*="-enhanced"]');
+            // enhancedButtons.forEach(button => {
+            //     button.addEventListener('mouseenter', function() {
+            //         if (navigator.vibrate) {
+            //             navigator.vibrate(10);
+            //         }
+            //     });
+            // });
 
-            // Smooth scroll for scroll buttons
-            const scrollButtons = document.querySelectorAll('.btn-scroll-enhanced');
-            scrollButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href') || '#top';
-                    const element = document.querySelector(target);
-
-                    if (element) {
-                        element.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    } else {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+            // Dinonaktifkan: smooth scroll via JS, gunakan CSS `html { scroll-behavior: smooth; }`
+            // const scrollButtons = document.querySelectorAll('.btn-scroll-enhanced');
+            // scrollButtons.forEach(button => {
+            //     button.addEventListener('click', function(e) {
+            //         e.preventDefault();
+            //         const target = this.getAttribute('href') || '#top';
+            //         const element = document.querySelector(target);
+            //         if (element) {
+            //             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            //         } else {
+            //             window.scrollTo({ top: 0, behavior: 'smooth' });
+            //         }
+            //     });
+            // });
         });
     </script>
 
@@ -684,17 +676,17 @@
                 attributes: true
             });
 
-            // Header scroll effect - menambahkan bayangan saat scroll
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('nav');
-                if (header) {
-                    if (window.scrollY > 50) {
-                        header.classList.add('header-scrolled');
-                    } else {
-                        header.classList.remove('header-scrolled');
-                    }
-                }
-            });
+            // Dinonaktifkan: efek bayangan header via JS, gunakan kelas Tailwind statis
+            // window.addEventListener('scroll', function() {
+            //     const header = document.querySelector('nav');
+            //     if (header) {
+            //         if (window.scrollY > 50) {
+            //             header.classList.add('header-scrolled');
+            //         } else {
+            //             header.classList.remove('header-scrolled');
+            //         }
+            //     }
+            // });
         });
     </script>
 
