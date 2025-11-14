@@ -12,8 +12,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
     <!-- ==============================================
         HERO SECTION
@@ -240,9 +239,7 @@
             </div>
         </section>
 
-        <!-- Leaflet JS -->
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
 
         <!-- BTS Map Script -->
 
@@ -1285,102 +1282,5 @@
             }
         </style>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const backgroundEffects = document.getElementById('background-effects');
 
-                function createStars() {
-                    // Clear existing effects
-                    backgroundEffects.innerHTML = '';
-
-                    // Create stars for dark mode
-                    for (let i = 0; i < 50; i++) {
-                        const star = document.createElement('div');
-                        star.className = 'star';
-                        star.style.left = Math.random() * 100 + '%';
-                        star.style.top = Math.random() * 100 + '%';
-                        star.style.width = Math.random() * 3 + 1 + 'px';
-                        star.style.height = star.style.width;
-                        star.style.animationDelay = Math.random() * 2 + 's';
-                        star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                        backgroundEffects.appendChild(star);
-                    }
-                }
-
-                function createSunAndClouds() {
-                    // Clear existing effects
-                    backgroundEffects.innerHTML = '';
-
-                    // Create sun
-                    const sun = document.createElement('div');
-                    sun.className = 'sun';
-                    backgroundEffects.appendChild(sun);
-
-                    // Create cloud formation
-                    const cloudFormation = document.createElement('div');
-                    cloudFormation.className = 'cloud-formation';
-
-                    // Create individual clouds within the formation
-                    for (let i = 1; i <= 5; i++) {
-                        const cloud = document.createElement('div');
-                        cloud.className = `cloud cloud-${i}`;
-                        cloudFormation.appendChild(cloud);
-                    }
-
-                    backgroundEffects.appendChild(cloudFormation);
-                }
-
-                function updateBackgroundEffects() {
-                    const isDark = document.documentElement.classList.contains('dark');
-                    if (isDark) {
-                        createStars();
-                    } else {
-                        createSunAndClouds();
-                    }
-                }
-
-                // Initial setup
-                updateBackgroundEffects();
-
-                // Watch for theme changes
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                            updateBackgroundEffects();
-                        }
-                    });
-                });
-
-                observer.observe(document.documentElement, {
-                    attributes: true,
-                    attributeFilter: ['class']
-                });
-            });
-
-
-
-            // Search Function
-            function searchLaporan() {
-                const searchTerm = document.getElementById('heroSearch').value.trim();
-                if (searchTerm) {
-                    // Redirect to list-laporan page with search parameter
-                    window.location.href = '/list-laporan?search=' + encodeURIComponent(searchTerm);
-                } else {
-                    // If no search term, just go to list-laporan page
-                    window.location.href = '/list-laporan';
-                }
-            }
-
-            // Add Enter key support for search
-            document.addEventListener('DOMContentLoaded', function() {
-                const searchInput = document.getElementById('heroSearch');
-                if (searchInput) {
-                    searchInput.addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            searchLaporan();
-                        }
-                    });
-                }
-            });
-        </script>
 </x-layouts.app>
