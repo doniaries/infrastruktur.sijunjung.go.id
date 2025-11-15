@@ -47,8 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (header) {
                     if (window.scrollY > 10) {
                         header.classList.add('header-scrolled');
+                        header.classList.add('is-fixed');
+                        document.body.classList.add('has-fixed-header');
                     } else {
                         header.classList.remove('header-scrolled');
+                        header.classList.remove('is-fixed');
+                        document.body.classList.remove('has-fixed-header');
                     }
                 }
                 ticking = false;
@@ -124,30 +128,55 @@ document.addEventListener('DOMContentLoaded', () => {
         window.AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 100, mirror: true });
     }
 
-    if (window.L && document.getElementById('btsMap')) {
-        const map = L.map('btsMap').setView([-0.6477, 101.3184], 9);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const btsMapEl = document.getElementById('btsMap');
+    if (window.L && btsMapEl && !btsMapEl.classList.contains('leaflet-container')) {
+        const map = L.map('btsMap', { zoomControl: true }).setView([-0.6477, 101.3184], 9);
+        const tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19,
-        }).addTo(map);
+            maxZoom: 19
+        });
+        tile.addTo(map);
+        map.attributionControl.setPrefix(false);
+        L.control.scale({ metric: true, imperial: false }).addTo(map);
+        const shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
+        const baseIcon = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/';
+        function iconByStatus(status) {
+            let file = 'marker-icon-2x-orange.png';
+            if (status === 'Aktif') file = 'marker-icon-2x-green.png';
+            else if (status === 'Non-Aktif') file = 'marker-icon-2x-red.png';
+            return L.icon({
+                iconUrl: baseIcon + file,
+                iconRetinaUrl: baseIcon + file,
+                shadowUrl,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+        }
         fetch('/bts-map-data')
             .then(res => res.json())
             .then(data => {
+                const bounds = L.latLngBounds();
                 data.forEach(bts => {
-                    if (bts.lat && bts.lng) {
-                        const marker = L.marker([parseFloat(bts.lat), parseFloat(bts.lng)]).addTo(map);
+                    const lat = parseFloat(bts.lat);
+                    const lng = parseFloat(bts.lng);
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        const marker = L.marker([lat, lng], { icon: iconByStatus(bts.status) }).addTo(map);
                         marker.bindPopup(
-                            `<div class="bts-popup min-w-[250px] p-3 bg-white dark:bg-gray-800 rounded shadow-lg">`
-                            + `<h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-900 border-b pb-2">${bts.pemilik || 'Tidak diketahui'}</h3>`
+                            `<div class="min-w-[250px] p-3">`
+                            + `<h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100 border-b pb-2">${bts.pemilik || 'Tidak diketahui'}</h3>`
                             + `<div class="space-y-1.5">`
-                            + `<p class="text-sm"><span class="font-semibold text-gray-700">Alamat:</span> <span class="text-gray-800">${bts.alamat || 'Tidak diketahui'}</span></p>`
-                            + `<p class="text-sm"><span class="font-semibold text-gray-700">Teknologi:</span> <span class="text-gray-800">${bts.teknologi || 'Tidak diketahui'}</span></p>`
-                            + `<p class="text-sm"><span class="font-semibold text-gray-700">Status:</span> <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${bts.status === 'Aktif' ? 'bg-green-100 text-green-800' : bts.status === 'Non-Aktif' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">${bts.status || 'Tidak diketahui'}</span></p>`
-                            + `<p class="text-sm"><span class="font-semibold text-gray-700">Tahun Bangun:</span> <span class="text-gray-800">${bts.tahun_bangun || 'Tidak diketahui'}</span></p>`
+                            + `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Alamat:</span> <span class="text-gray-800 dark:text-gray-200">${bts.alamat || 'Tidak diketahui'}</span></p>`
+                            + `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Teknologi:</span> <span class="text-gray-800 dark:text-gray-200">${bts.teknologi || 'Tidak diketahui'}</span></p>`
+                            + `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Status:</span> <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${bts.status === 'Aktif' ? 'bg-green-100 text-green-800' : bts.status === 'Non-Aktif' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}">${bts.status || 'Tidak diketahui'}</span></p>`
+                            + `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Tahun Bangun:</span> <span class="text-gray-800 dark:text-gray-200">${bts.tahun_bangun || 'Tidak diketahui'}</span></p>`
                             + `</div></div>`
                         );
+                        bounds.extend([lat, lng]);
                     }
                 });
+                if (bounds.isValid()) map.fitBounds(bounds, { padding: [20, 20] });
             })
             .catch(err => console.error('Error fetching BTS data:', err));
     }

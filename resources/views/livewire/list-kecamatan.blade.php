@@ -156,7 +156,9 @@
                         </td>
                         <td
                             class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {{ $kecamatan->nama }}
+                            <a href="{{ url('/list-nagari') }}?kecamatanFilter={{ $kecamatan->id }}" wire:navigate class="text-blue-600 dark:text-blue-400 hover:underline">
+                                {{ $kecamatan->nama }}
+                            </a>
                         </td>
                         <td class="px-4 py-3 text-center">
                             <span
