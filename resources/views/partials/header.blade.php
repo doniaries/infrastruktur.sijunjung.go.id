@@ -27,14 +27,6 @@
                 </div>
 
                 <div class="dropdown relative">
-                    <a href="{{ url('/list-bts') }}"
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
-                        <i class="fas fa-broadcast-tower mr-2"></i>
-                        BTS
-                    </a>
-                </div>
-
-                <div class="dropdown relative">
                     <button
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
                         <i class="fas fa-map-marker-alt mr-2"></i>
@@ -70,6 +62,37 @@
                         <i class="fas fa-clipboard-list mr-2"></i>
                         Daftar Laporan
                     </a>
+                </div>
+
+                <div class="dropdown relative">
+                    <button
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                        <i class="fas fa-database mr-2"></i>
+                        Data Infrastruktur
+                        <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200"></i>
+                    </button>
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700">
+                        <div
+                            class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Data Infrastruktur</div>
+                        <a href="{{ url('/list-opd') }}"
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
+                            <i class="fas fa-building text-blue-500 mr-3 w-5 text-center"></i>
+                            OPD
+                        </a>
+
+                        <a href="{{ url('/list-inventaris') }}"
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
+                            <i class="fas fa-folder-open text-blue-500 mr-3 w-5 text-center"></i>
+                            Inventaris
+                        </a>
+                        <a href="{{ url('/list-bts') }}"
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200">
+                            <i class="fas fa-broadcast-tower text-blue-500 mr-3 w-5 text-center"></i>
+                            BTS
+                        </a>
+                    </div>
                 </div>
 
                 <div class="dropdown relative">
@@ -198,11 +221,7 @@
                 <i class="fas fa-home text-blue-500 mr-3 w-5 text-center"></i>
                 Beranda
             </a>
-            <a href="{{ url('/list-bts') }}"
-                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
-                <i class="fas fa-broadcast-tower text-blue-500 mr-3 w-5 text-center"></i>
-                BTS
-            </a>
+
             <!-- Submenu Wilayah menggunakan details/summary agar tanpa JS -->
             <details class="group">
                 <summary
@@ -242,6 +261,38 @@
                 Buat Laporan
                 <span class="ml-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">!</span>
             </a>
+            <details class="group">
+                <summary
+                    class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200 cursor-pointer list-none">
+                    <div class="flex items-center">
+                        <i class="fas fa-database text-blue-500 mr-3 w-5 text-center"></i>
+                        Data Infrastruktur
+                    </div>
+                    <i class="fas fa-chevron-down text-xs transition-transform duration-200 group-open:rotate-180"></i>
+                </summary>
+                <div class="pl-4 mt-1 space-y-1">
+                    <a href="{{ url('/list-opd') }}"
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        <i class="fas fa-building text-blue-400 mr-3 w-5 text-center"></i>
+                        OPD
+                    </a>
+                    <a href="{{ url('/list-peralatan') }}"
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        <i class="fas fa-cube text-blue-400 mr-3 w-5 text-center"></i>
+                        Peralatan
+                    </a>
+                    <a href="{{ url('/list-inventaris') }}"
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        <i class="fas fa-folder-open text-blue-400 mr-3 w-5 text-center"></i>
+                        Inventaris
+                    </a>
+                    <a href="{{ url('/list-bts') }}"
+                        class="px-4 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                        <i class="fas fa-broadcast-tower text-blue-400 mr-3 w-5 text-center"></i>
+                        BTS
+                    </a>
+                </div>
+            </details>
             <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                 @if (Auth::check())
                     <a href="{{ route('filament.admin.pages.dashboard') }}"

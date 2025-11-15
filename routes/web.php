@@ -41,6 +41,9 @@ Route::get('/list-bts', ListBts::class)->name('list.bts');
 Route::get('/list-nagari', ListNagari::class)->name('list.nagari');
 Route::get('/list-jorong', ListJorong::class)->name('list.jorong');
 Route::get('/list-kecamatan', \App\Livewire\ListKecamatan::class)->name('list.kecamatan');
+Route::get('/list-opd', \App\Livewire\ListOpd::class)->name('list.opd');
+Route::get('/list-peralatan', \App\Livewire\ListPeralatan::class)->name('list.peralatan');
+Route::get('/list-inventaris', \App\Livewire\ListInventaris::class)->name('list.inventaris');
 
 
 // Tangkap semua route yang tidak ditemukan (hanya satu fallback)
