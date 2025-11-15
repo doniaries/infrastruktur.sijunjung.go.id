@@ -34,7 +34,7 @@
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200"></i>
                     </button>
                     <div
-                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                         <div
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Wilayah</div>
@@ -72,7 +72,7 @@
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200"></i>
                     </button>
                     <div
-                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                         <div
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Data Infrastruktur</div>
