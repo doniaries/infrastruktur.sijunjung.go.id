@@ -55,6 +55,8 @@ nav { transition: all 0.3s ease; }
 .nav-link { position: relative; transition: all 0.3s ease; }
 .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: currentColor; transition: width 0.3s ease; }
 .nav-link:hover::after { width: 100%; }
+.nav-link i { transition: transform 0.2s ease; }
+.nav-link:hover i { transform: translateY(-1px) scale(1.05); }
 
 /* Dropdown */
 .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }

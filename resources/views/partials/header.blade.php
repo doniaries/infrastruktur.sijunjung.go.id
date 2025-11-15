@@ -1,6 +1,6 @@
 <!-- Header Section -->
 <!-- Premium Professional Navigation Bar -->
-<nav id="site-header" class="sticky top-0 w-full bg-white dark:bg-gray-900 shadow-md z-50 transition-all duration-300">
+<nav id="site-header" class="sticky top-0 w-full bg-white/80 dark:bg-gray-900/70 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-md z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
         <div class="flex justify-between h-16 transition-all duration-300">
             <!-- Left Section - Logo/Brand -->
@@ -20,21 +20,21 @@
             <div class="hidden md:flex items-center space-x-1">
                 <div class="dropdown relative">
                     <a href="{{ url('/') }}"
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-home mr-2"></i>
                         Beranda
                     </a>
                 </div>
 
-                <div class="dropdown relative">
+                <div class="dropdown relative group">
                     <button
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-map-marker-alt mr-2"></i>
                         Wilayah
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200"></i>
                     </button>
                     <div
-                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700">
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                         <div
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Wilayah</div>
@@ -58,21 +58,21 @@
 
                 <div class="dropdown relative">
                     <a href="{{ url('/list-laporan') }}"
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-clipboard-list mr-2"></i>
                         Daftar Laporan
                     </a>
                 </div>
 
-                <div class="dropdown relative">
+                <div class="dropdown relative group">
                     <button
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-database mr-2"></i>
                         Data Infrastruktur
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform duration-200"></i>
                     </button>
                     <div
-                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700">
+                        class="dropdown-menu absolute left-0 mt-2 w-56 bg-white/95 dark:bg-gray-800/95 backdrop-blur rounded-xl shadow-xl py-1 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                         <div
                             class="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             Data Infrastruktur</div>
@@ -108,10 +108,10 @@
             <!-- Right Section - Actions -->
             <div class="flex items-center space-x-3 h-16">
                 <button id="theme-toggle" type="button"
-                    class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative"
+                    class="h-11 w-11 rounded-xl p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 relative"
                     aria-label="Toggle dark mode">
-                    <i class="fas fa-moon text-violet-700 block dark:hidden text-xl" id="dark-icon"></i>
-                    <i class="fas fa-sun text-yellow-500 hidden dark:block text-xl" id="light-icon"></i>
+                    <i class="fas fa-moon text-violet-700 block dark:hidden text-lg" id="dark-icon"></i>
+                    <i class="fas fa-sun text-yellow-500 hidden dark:block text-lg" id="light-icon"></i>
                 </button>
 
                 @if (Auth::check())
