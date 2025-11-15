@@ -16,12 +16,12 @@ class UserSeeder extends Seeder
         DB::transaction(function () {
             // Hapus semua data user yang sudah ada
             User::query()->delete();
-            
+
             // Super Admin
             $superAdmin = User::create([
                 'name' => 'DON BORLAND',
                 'email' => 'superadmin@gmail.com',
-                'password' => bcrypt('@Iamsuperadmin'),
+                'password' => bcrypt('password'),
                 // 'is_active' => true,
             ]);
             $superAdmin->assignRole('super_admin');
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             $petugas1 = User::create([
                 'name' => 'Petugas 1',
                 'email' => 'petugas1@gmail.com',
-                'password' => bcrypt('petugas1'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $petugas1->assignRole('petugas');
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
             $petugas2 = User::create([
                 'name' => 'Petugas 2',
                 'email' => 'petugas2@gmail.com',
-                'password' => bcrypt('petugas2'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $petugas2->assignRole('petugas');
@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
             $petugas3 = User::create([
                 'name' => 'DINI RAHMAWATI, ST, MM',
                 'email' => 'kabidti@gmail.com',
-                'password' => bcrypt('kabidti'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $petugas3->assignRole('petugas');
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
             $petugas4 = User::create([
                 'name' => 'drg. EZWANDRA, M.Sc',
                 'email' => 'kadiskominfo@gmail.com',
-                'password' => bcrypt('kadiskominfo'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $petugas4->assignRole('petugas');
@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
             $pengguna = User::create([
                 'name' => 'Pengguna',
                 'email' => 'pengguna@gmail.com',
-                'password' => bcrypt('pengguna'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $pengguna->assignRole('pengguna');
@@ -77,7 +77,7 @@ class UserSeeder extends Seeder
             $pengguna2 = User::create([
                 'name' => 'Pengguna',
                 'email' => 'pengguna2@gmail.com',
-                'password' => bcrypt('pengguna2'),
+                'password' => bcrypt('password'),
                 'is_active' => true,
             ]);
             $pengguna2->assignRole('pengguna');

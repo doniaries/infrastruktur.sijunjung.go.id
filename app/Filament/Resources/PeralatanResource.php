@@ -50,6 +50,14 @@ class PeralatanResource extends Resource
                     ->required()
                     ->maxLength(255),
 
+                Forms\Components\FileUpload::make('foto')
+                    ->image()
+                    ->disk('public')
+                    ->directory('peralatan')
+                    ->acceptedFileTypes(['image/jpeg','image/png','image/webp'])
+                    ->maxSize(1024)
+                    ->visibility('public')
+                    ->helperText('Unggah gambar ringan (JPEG/PNG/WebP, maks 1MB)'),
 
             ]);
     }
@@ -58,6 +66,10 @@ class PeralatanResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('foto')
+                    ->disk('public')
+                    ->circular()
+                    ->size(40),
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jenis_peralatan')

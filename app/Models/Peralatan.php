@@ -13,6 +13,7 @@ class Peralatan extends Model
         'nama',
         'jenis_peralatan',
         'tahun_pengadaan',
+        'foto',
     ];
 
     /**

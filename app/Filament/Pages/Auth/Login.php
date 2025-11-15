@@ -42,6 +42,7 @@ class Login extends BaseLogin
         return TextInput::make('password')
             ->label(__('filament-panels::pages/auth/login.form.password.label'))
             ->password()
+            ->revealable()
             ->required()
             ->extraInputAttributes(['tabindex' => 2]);
     }

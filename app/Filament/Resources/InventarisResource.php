@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Models\Opd;
+use App\Models\Peralatan;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Set;
@@ -30,6 +31,15 @@ class InventarisResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('jenis_peralatan')
+                    ->label('Jenis Peralatan')
+                    ->options(fn() => Peralatan::query()
+                        ->select('jenis_peralatan')
+                        ->distinct()
+                        ->orderBy('jenis_peralatan')
+                        ->pluck('jenis_peralatan', 'jenis_peralatan'))
+                    ->reactive()
+                    ->required(),
                 Forms\Components\Select::make('opd_id')
                     ->relationship('opd', 'nama')
                     ->searchable()
@@ -38,10 +48,21 @@ class InventarisResource extends Resource
                     ->required(),
 
                 Forms\Components\Select::make('peralatan_id')
-                    ->relationship('peralatan', 'nama')
+                    ->label('Peralatan')
+                    ->options(function (callable $get) {
+                        $jenis = $get('jenis_peralatan');
+                        return Peralatan::query()
+                            ->when($jenis, fn($q) => $q->where('jenis_peralatan', $jenis))
+                            ->orderBy('nama')
+                            ->pluck('nama', 'id');
+                    })
                     ->searchable()
                     ->preload()
-
+                    ->reactive()
+                    ->afterStateUpdated(function (Forms\Components\Set $set, $state) {
+                        $jenis = optional(Peralatan::find($state))->jenis_peralatan;
+                        $set('jenis_peralatan', $jenis);
+                    })
                     ->required(),
 
                 Forms\Components\TextInput::make('jenis_peralatan')
@@ -50,12 +71,27 @@ class InventarisResource extends Resource
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('jumlah')
-                    ->required()
-                    ->maxLength(255),
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
 
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'baik' => 'Baik',
+                        'rusak' => 'Rusak',
+                        'tidak digunakan' => 'Tidak Digunakan',
+                    ])
+                    ->required(),
+
+                Forms\Components\FileUpload::make('foto')
+                    ->image()
+                    ->disk('public')
+                    ->directory('inventaris')
+                    ->acceptedFileTypes(['image/jpeg','image/png','image/webp'])
+                    ->maxSize(1024)
+                    ->visibility('public')
+                    ->helperText('Unggah foto kondisi terkini (maks 1MB, JPEG/PNG/WebP)'),
             ]);
     }
 
@@ -63,15 +99,32 @@ class InventarisResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('peralatan_id')
-                    ->numeric()
+                Tables\Columns\ImageColumn::make('foto')
+                    ->label('Foto')
+                    ->disk('public')
+                    ->circular()
+                    ->size(40),
+                Tables\Columns\TextColumn::make('opd.nama')
+                    ->label('OPD')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('peralatan.nama')
+                    ->label('Peralatan')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jenis_peralatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('jumlah')
-                    ->searchable(),
+                    ->label('Jumlah')
+                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->colors([
+                        'success' => 'baik',
+                        'warning' => 'rusak',
+                        'danger' => 'tidak digunakan',
+                    ])
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

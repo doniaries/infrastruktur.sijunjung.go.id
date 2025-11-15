@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('opd_id')->constrained('opds')->cascadeOnDelete();
             $table->foreignId('peralatan_id')->constrained('peralatans')->cascadeOnDelete();
             $table->string('jenis_peralatan');
-            $table->string('jumlah');
+            $table->integer('jumlah');
             $table->string('status');
             $table->timestamps();
 

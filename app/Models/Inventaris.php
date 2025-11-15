@@ -10,10 +10,16 @@ class Inventaris extends Model
     protected $table = 'inventaris';
 
     protected $fillable = [
+        'opd_id',
         'peralatan_id',
         'jenis_peralatan',
         'jumlah',
         'status',
+        'foto',
+    ];
+
+    protected $casts = [
+        'jumlah' => 'integer',
     ];
 
     public function peralatan()
@@ -53,7 +59,7 @@ class Inventaris extends Model
                 'all' => static::count(),
                 'baik' => static::where('status', 'baik')->count(),
                 'rusak' => static::where('status', 'rusak')->count(),
-                'hilang' => static::where('status', 'hilang')->count(),
+                'tidak digunakan' => static::where('status', 'tidak digunakan')->count(),
             ];
         });
     }
