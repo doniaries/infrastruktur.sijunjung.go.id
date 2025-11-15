@@ -31,6 +31,13 @@ class InventarisResource extends Resource
     {
         return $form
             ->schema([
+
+                Forms\Components\Select::make('opd_id')
+                    ->relationship('opd', 'nama')
+                    ->searchable()
+                    // ->getOptionLabelFromRecordUsing(fn(Opd $record) => $record->nama)
+                    ->preload()
+                    ->required(),
                 Forms\Components\Select::make('jenis_peralatan')
                     ->label('Jenis Peralatan')
                     ->options(fn() => Peralatan::query()
@@ -40,15 +47,8 @@ class InventarisResource extends Resource
                         ->pluck('jenis_peralatan', 'jenis_peralatan'))
                     ->reactive()
                     ->required(),
-                Forms\Components\Select::make('opd_id')
-                    ->relationship('opd', 'nama')
-                    ->searchable()
-                    // ->getOptionLabelFromRecordUsing(fn(Opd $record) => $record->nama)
-                    ->preload()
-                    ->required(),
-
                 Forms\Components\Select::make('peralatan_id')
-                    ->label('Peralatan')
+                    ->label('Nama Peralatan')
                     ->options(function (callable $get) {
                         $jenis = $get('jenis_peralatan');
                         return Peralatan::query()
@@ -59,16 +59,11 @@ class InventarisResource extends Resource
                     ->searchable()
                     ->preload()
                     ->reactive()
-                    ->afterStateUpdated(function (Forms\Components\Set $set, $state) {
+                    ->afterStateUpdated(function ($state, Set $set) {
                         $jenis = optional(Peralatan::find($state))->jenis_peralatan;
                         $set('jenis_peralatan', $jenis);
                     })
                     ->required(),
-
-                Forms\Components\TextInput::make('jenis_peralatan')
-                    ->disabled()
-                    ->dehydrated()
-                    ->maxLength(255),
 
                 Forms\Components\TextInput::make('jumlah')
                     ->numeric()
@@ -88,7 +83,7 @@ class InventarisResource extends Resource
                     ->image()
                     ->disk('public')
                     ->directory('inventaris')
-                    ->acceptedFileTypes(['image/jpeg','image/png','image/webp'])
+                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->maxSize(1024)
                     ->visibility('public')
                     ->helperText('Unggah foto kondisi terkini (maks 1MB, JPEG/PNG/WebP)'),
@@ -98,6 +93,10 @@ class InventarisResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with([
+                'opd:id,nama',
+                'peralatan:id,nama,jenis_peralatan',
+            ]))
             ->columns([
                 Tables\Columns\ImageColumn::make('foto')
                     ->label('Foto')

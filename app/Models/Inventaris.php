@@ -24,12 +24,12 @@ class Inventaris extends Model
 
     public function peralatan()
     {
-        return $this->belongsTo(Peralatan::class);
+        return $this->belongsTo(Peralatan::class)->select(['id','nama','jenis_peralatan']);
     }
 
     public function opd()
     {
-        return $this->belongsTo(Opd::class);
+        return $this->belongsTo(Opd::class)->select(['id','nama']);
     }
 
     protected static function booted()

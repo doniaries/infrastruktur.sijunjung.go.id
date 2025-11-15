@@ -11,10 +11,12 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
@@ -38,40 +40,68 @@ class PublicLaporForm extends Component implements HasForms
     {
         return $form
             ->schema([
-                Section::make('Form Pengaduan')
+                Section::make('Informasi Tiket')
                     ->columnSpanFull()
-                    ->description('Silakan isi form pengaduan di bawah ini')
+                    ->description('Tanggal dan nomor tiket')
                     ->schema([
-                        DateTimePicker::make('tgl_laporan')
-                            ->default(Carbon::now())
-                            ->timezone('Asia/Jakarta')
-                            ->readOnly()
-                            ->required(),
+                        Grid::make(2)
+                            ->schema([
+                                DateTimePicker::make('tgl_laporan')
+                                    ->label('Tanggal Tiket')
+                                    ->default(Carbon::now())
+                                    ->timezone('Asia/Jakarta')
+                                    ->readOnly()
+                                    ->required()
+                                    ->helperText('Otomatis sesuai zona Asia/Jakarta')
+                                    ->columnSpan(1),
 
-                        TextInput::make('no_tiket')
-                            ->prefixIcon('heroicon-o-ticket')
-                            ->label('No Tiket')
-                            ->hint('Nomor Tiket Harap Dicatat Untuk Cek Status Laporan!')
-                            ->hintColor('danger')
-                            ->default(function () {
-                                do {
-                                    $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
-                                } while (Lapor::where('no_tiket', $noTiket)->exists());
-                                return $noTiket;
-                            })
-                            ->readOnly(),
+                                TextInput::make('no_tiket')
+                                    ->prefixIcon('heroicon-o-ticket')
+                                    ->label('Nomor Tiket')
+                                    ->hint('Catat atau gunakan tombol salin untuk menyimpan')
+                                    ->hintColor('danger')
+                                    ->default(function () {
+                                        do {
+                                            $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
+                                        } while (Lapor::where('no_tiket', $noTiket)->exists());
+                                        return $noTiket;
+                                    })
+                                    ->readOnly()
+                                    ->helperText('Klik ikon untuk menyalin ke clipboard')
+                                    ->extraAttributes(['x-ref' => 'no_tiket'])
+                                    ->columnSpan(1)
+                                    ->suffixActions([
+                                        Action::make('copy_no_tiket')
+                                            ->label('Salin')
+                                            ->icon('heroicon-m-clipboard')
+                                            ->tooltip('Salin kode tiket')
+                                            ->color('primary')
+                                            ->iconButton()
+                                            ->extraAttributes([
+                                                'title' => 'Salin kode tiket',
+                                                'x-on:click.prevent' => 'navigator.clipboard.writeText($refs.no_tiket?.value || ""); $wire.copyNoTiket()',
+                                            ]),
+                                    ]),
+                            ]),
+                    ]),
 
+                Section::make('Detail Laporan')
+                    ->columnSpanFull()
+                    ->description('Isi data pelapor dan detail laporan')
+                    ->schema([
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->placeholder('Masukkan nama lengkap'),
 
                         TextInput::make('nomor_kontak')
                             ->tel()
                             ->minLength(5)
                             ->maxLength(15)
                             ->unique(ignoreRecord: true)
-                            ->required(),
+                            ->required()
+                            ->placeholder('Contoh: 081234567890'),
 
                         Select::make('opd_id')
                             ->label('OPD')
@@ -79,7 +109,8 @@ class PublicLaporForm extends Component implements HasForms
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->live(),
+                            ->live()
+                            ->helperText('Pilih OPD terkait laporan'),
 
                         Select::make('jenis_laporan')
                             ->options([
@@ -89,24 +120,29 @@ class PublicLaporForm extends Component implements HasForms
                             ])
                             ->default('Laporan Gangguan')
                             ->required()
-                            ->live(),
+                            ->live()
+                            ->helperText('Pilih jenis layanan'),
 
                         Textarea::make('uraian_laporan')
                             ->label('Uraian Laporan')
                             ->required()
-                            ->rows(5),
+                            ->rows(5)
+                            ->placeholder('Jelaskan masalah atau kebutuhan secara ringkas dan jelas'),
+
                         FileUpload::make('foto_laporan')
                             ->label('Foto Laporan')
                             ->directory('public/foto_laporan')
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*'])
                             ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan'),
+
                         FileUpload::make('file_laporan')
                             ->label('Lampiran')
                             ->directory('public/laporan')
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*'])
                             ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth'),
+
                         CaptchaField::make('captcha'),
                     ])
                     ->columns(2)
@@ -179,6 +215,16 @@ class PublicLaporForm extends Component implements HasForms
                 ->duration(3000)
                 ->send();
         }
+    }
+
+    public function copyNoTiket(): void
+    {
+        Notification::make()
+            ->success()
+            ->title('Kode tiket telah disalin')
+            ->body('Kode tiket berhasil disalin ke clipboard')
+            ->duration(3000)
+            ->send();
     }
 
     public function render(): View
