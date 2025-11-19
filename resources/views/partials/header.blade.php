@@ -1,6 +1,7 @@
 <!-- Header Section -->
 <!-- Premium Professional Navigation Bar -->
-<nav id="site-header" class="sticky top-0 w-full bg-white/80 dark:bg-gray-900/70 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-md z-50 transition-all duration-300">
+<nav id="site-header"
+    class="sticky top-0 w-full bg-white/80 dark:bg-gray-900/70 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-md z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
         <div class="flex justify-between h-16 transition-all duration-300">
             <!-- Left Section - Logo/Brand -->
@@ -56,13 +57,6 @@
                     </div>
                 </div>
 
-                <div class="dropdown relative">
-                    <a href="{{ url('/list-laporan') }}"
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
-                        <i class="fas fa-clipboard-list mr-2"></i>
-                        Daftar Laporan
-                    </a>
-                </div>
 
                 <div class="dropdown relative group">
                     <button
@@ -94,7 +88,13 @@
                         </a>
                     </div>
                 </div>
-
+                <div class="dropdown relative">
+                    <a href="{{ url('/list-laporan') }}"
+                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
+                        <i class="fas fa-clipboard-list mr-2"></i>
+                        Daftar Laporan
+                    </a>
+                </div>
                 <div class="dropdown relative">
                     <a href="{{ url('/lapor') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
@@ -325,5 +325,22 @@
     </div>
 </nav>
 
-<!-- JavaScript for enhanced functionality is now in app.js -->
-<!-- End of Header Section -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var toggle = document.getElementById('mobile-menu-toggle');
+  var menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+  var mq = window.matchMedia('(min-width: 768px)');
+  var sync = function(){
+    if (mq.matches && toggle.checked) {
+      toggle.checked = false;
+      menu.classList.add('hidden');
+      var details = menu.querySelectorAll('details');
+      details.forEach(function(d){ d.open = false; });
+    }
+  };
+  sync();
+  if (mq.addEventListener) mq.addEventListener('change', sync); else mq.addListener(sync);
+  window.addEventListener('resize', sync);
+});
+</script>
