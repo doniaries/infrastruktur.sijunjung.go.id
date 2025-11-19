@@ -1,5 +1,5 @@
 <x-layouts.app>
-    
+
 
 
 
@@ -9,14 +9,14 @@
     <section id="hero"
         class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white py-12 sm:py-16 md:py-24 relative overflow-hidden"
         data-aos="fade-up">
-        
+
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <!-- Hero Content -->
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h1
                     class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-                    <span class="block">Infrastruktur TI &</span>
+                    <span class="block">Bank Data Infrastruktur TI &</span>
                     <span
                         class="block text-blue-600 dark:text-yellow-400 dark:hover:text-yellow-300 transition-colors duration-200 mt-1 sm:mt-2">Laporan
                         Gangguan</span>
@@ -229,13 +229,13 @@
 
 
 
-        
-
-        
 
 
 
-        
+
+
+
+
 
 
 </x-layouts.app>
