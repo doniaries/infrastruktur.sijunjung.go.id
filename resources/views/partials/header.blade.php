@@ -193,7 +193,7 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}"
+                    <a href="{{ route('login') }}" aria-label="Masuk"
                         class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors duration-200">
                         <i class="fas fa-sign-in-alt"></i>
                         <span class="hidden md:inline">Masuk</span>
