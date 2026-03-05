@@ -157,25 +157,23 @@ class Nagari extends Model
     {
         // Use pre-loaded count if available
         $directBtsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
-
-        // Consider BTS covering from other nagaris
         $coveringBtsCount = $this->btsCovering()->count();
-
         $totalBtsCount = $directBtsCount + $coveringBtsCount;
 
         if ($totalBtsCount === 0) {
             return 'Blankspot';
         }
 
-        // Use pre-loaded unique jorong with bts count if available
-        $jorongWithBtsCount = isset($this->jorong_bts_count)
-            ? (int) $this->jorong_bts_count
-            : $this->bts()->whereNotNull('jorong_id')->distinct('jorong_id')->count('jorong_id');
-
-        // Also consider jorongs covered by covering BTS if any specifically mentioned in pivot
-        $coveredJorongsCount = $this->btsCovering()->whereNotNull('bts_nagari_coverage.jorong_id')->distinct('bts_nagari_coverage.jorong_id')->count('bts_nagari_coverage.jorong_id');
-
-        $totalJorongWithCoverage = $jorongWithBtsCount + $coveredJorongsCount;
+        // Use pre-loaded unique jorong count if available (pre-loaded in Livewire)
+        $totalJorongWithCoverage = 0;
+        if (isset($this->jorong_bts_count)) {
+            $totalJorongWithCoverage = (int) $this->jorong_bts_count;
+        } else {
+            // Manual fallback if not pre-loaded
+            $directJorongs = $this->bts()->whereNotNull('jorong_id')->distinct('jorong_id')->pluck('jorong_id')->toArray();
+            $coveredJorongs = $this->btsCovering()->whereNotNull('bts_nagari_coverage.jorong_id')->distinct('bts_nagari_coverage.jorong_id')->pluck('bts_nagari_coverage.jorong_id')->toArray();
+            $totalJorongWithCoverage = count(array_unique(array_merge($directJorongs, $coveredJorongs)));
+        }
 
         if ($this->jumlah_jorong > 1 && $totalJorongWithCoverage === 1) {
             return 'Lemah Sinyal';
@@ -212,6 +210,10 @@ class Nagari extends Model
             'jorongs' => function ($query) {
                 $query->select('id', 'nagari_id', 'nama_jorong')
                     ->orderBy('nama_jorong');
+            }
+        ])->withCount([
+            'bts as jorong_bts_count' => function ($query) {
+                $query->selectRaw('COUNT(DISTINCT jorong_id)');
             }
         ]);
     }
