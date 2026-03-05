@@ -20,11 +20,12 @@ class ListJorong extends Component
     public $search = '';
     public $nagariFilter = '';
     public $kecamatanFilter = '';
+    public $statusSinyalFilter = '';
     public $perPage = 10;
     public $sortField = 'nama_jorong';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection'];
 
     public function updatingSearch()
     {
@@ -48,6 +49,11 @@ class ListJorong extends Component
         $this->resetPage();
     }
 
+    public function updatingStatusSinyalFilter()
+    {
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -62,9 +68,19 @@ class ListJorong extends Component
     private function buildQuery()
     {
         $query = Jorong::withRelations()
+            ->withCount('bts')
             ->filterBySearch($this->search)
             ->filterByNagari($this->nagariFilter)
             ->filterByKecamatan($this->kecamatanFilter);
+
+        // Apply Status Sinyal Filter
+        if ($this->statusSinyalFilter) {
+            if ($this->statusSinyalFilter === 'Blankspot') {
+                $query->whereDoesntHave('bts');
+            } elseif ($this->statusSinyalFilter === 'Sinyal Baik') {
+                $query->whereHas('bts');
+            }
+        }
 
         // Apply sorting
         switch ($this->sortField) {
@@ -132,7 +148,8 @@ class ListJorong extends Component
             'filters' => [
                 'search' => $this->search,
                 'nagariFilter' => $this->nagariFilter,
-                'kecamatanFilter' => $this->kecamatanFilter
+                'kecamatanFilter' => $this->kecamatanFilter,
+                'statusSinyalFilter' => $this->statusSinyalFilter
             ]
         ]);
 

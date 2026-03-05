@@ -53,6 +53,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="min-w-48">
+                        <select wire:model.live="statusSinyalFilter"
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Semua Status Sinyal</option>
+                            <option value="Blankspot">Blankspot (Tanpa BTS)</option>
+                            <option value="Sinyal Baik">Sinyal Baik (Ada BTS)</option>
+                        </select>
+                    </div>
                     <div class="min-w-fit">
                         <button wire:click="exportPdf"
                             class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform w-full h-[42px] btn-export-enhanced ripple glow-on-hover">
@@ -268,6 +276,9 @@
                                                 @endif
                                             </button>
                                         </th>
+                                        <th scope="col" class="px-4 py-3 text-center">
+                                            <span>STATUS SINYAL</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -308,6 +319,19 @@
                                                 <span
                                                     class="font-medium">{{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}</span>
                                                 <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">Ha</span>
+                                            </td>
+                                            <td class="px-4 py-3 text-center">
+                                                @php
+                                                    $statusSinyal = $jorong->status_sinyal;
+                                                    $badgeColor = match ($statusSinyal) {
+                                                        'Blankspot' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+                                                        'Sinyal Baik' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+                                                        default => 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
+                                                    };
+                                                @endphp
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $badgeColor }}">
+                                                    {{ $statusSinyal }}
+                                                </span>
                                             </td>
                                         </tr>
                                     @empty

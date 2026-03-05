@@ -33,7 +33,7 @@ class Bts extends Model
      *
      * @var array
      */
-    protected $with = ['operator', 'kecamatan', 'nagari', 'jorong'];
+    // protected $with = ['operator', 'kecamatan', 'nagari', 'jorong'];
 
     /**
      * The number of models to return for pagination.

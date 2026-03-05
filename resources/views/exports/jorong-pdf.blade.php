@@ -84,6 +84,9 @@
         @if($filters['kecamatanFilter'])
             <p><strong>Filter Kecamatan:</strong> {{ $jorongs->first()?->nagari?->kecamatan?->nama ?? 'Tidak diketahui' }}</p>
         @endif
+        @if($filters['statusSinyalFilter'])
+            <p><strong>Filter Status Sinyal:</strong> {{ $filters['statusSinyalFilter'] }}</p>
+        @endif
     </div>
 
     @if($jorongs->count() > 0)
@@ -91,12 +94,13 @@
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="20%">Nama Jorong</th>
-                    <th width="20%">Nagari</th>
+                    <th width="15%">Nama Jorong</th>
+                    <th width="15%">Nagari</th>
                     <th width="15%">Kecamatan</th>
-                    <th width="20%">Kepala Jorong</th>
+                    <th width="15%">Kepala Jorong</th>
                     <th width="10%">Penduduk</th>
                     <th width="10%">Luas (Ha)</th>
+                    <th width="15%">Status Sinyal</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,7 +112,8 @@
                         <td>{{ $jorong->nagari?->kecamatan?->nama ?? '-' }}</td>
                         <td>{{ $jorong->nama_kepala_jorong ?? '-' }}</td>
                         <td class="text-right">{{ number_format($jorong->jumlah_penduduk_jorong ?? 0, 0, ',', '.') }}</td>
-                <td class="text-right">{{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}</td>
+                        <td class="text-right">{{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}</td>
+                        <td class="text-center">{{ $jorong->status_sinyal }}</td>
                     </tr>
                 @endforeach
             </tbody>

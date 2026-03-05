@@ -94,6 +94,25 @@ class Jorong extends Model
         ]);
     }
 
+    /**
+     * Get the BTS records for the jorong.
+     */
+    public function bts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bts::class, 'jorong_id');
+    }
+
+    /**
+     * Accessor untuk mendapatkan status sinyal Jorong
+     * Blankspot: Tidak ada BTS di Jorong ini
+     * Sinyal Baik: Ada BTS di Jorong ini
+     */
+    public function getStatusSinyalAttribute()
+    {
+        $btsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
+        return $btsCount === 0 ? 'Blankspot' : 'Sinyal Baik';
+    }
+
     // Mutator - Mengubah data sebelum disimpan ke database
     public function setNamaAttribute($value)
     {
@@ -193,7 +212,7 @@ class Jorong extends Model
             ->orderBy('jorongs.nama_jorong')
             ->select('jorongs.*');
     }
-    
+
     /**
      * Scope a query to only include blankspot jorongs.
      *
@@ -204,7 +223,7 @@ class Jorong extends Model
     {
         return $query->where('status_blankspot', true);
     }
-    
+
     /**
      * Get the full name of the jorong (Jorong Name - Nagari Name).
      *

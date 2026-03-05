@@ -1,0 +1,45 @@
+Nagari Status Sinyal Verification:
+- Palangki: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Koto Baru: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Muaro Bodi: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Mundam Sakti: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Koto Tuo: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Sungai Lansek: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Kamang: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Muaro Takuang: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Aia Amo: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+- Sungai Batuang: Sinyal Baik (BTS Count: , Jorong BTS: 0, Total Jorong: 5)
+
+Total Queries: 32
+Query 1: select *, (select count(distinct jorong_id) from `bts` where `nagari_id` = `nagaris`.`id` and `jorong_id` is not null) as `jorong_bts_count` from `nagaris` limit 10
+Query 2: select `kecamatans`.*, (select count(*) from `nagaris` where `kecamatans`.`id` = `nagaris`.`kecamatan_id`) as `nagari_count` from `kecamatans` where `kecamatans`.`id` in (3, 8)
+Query 3: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 4: select * from `cache` where `key` in (?)
+Query 5: select * from `cache` where `key` in (?)
+Query 6: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 7: select * from `cache` where `key` in (?)
+Query 8: select * from `cache` where `key` in (?)
+Query 9: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 10: select * from `cache` where `key` in (?)
+Query 11: select * from `cache` where `key` in (?)
+Query 12: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 13: select * from `cache` where `key` in (?)
+Query 14: select * from `cache` where `key` in (?)
+Query 15: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 16: select * from `cache` where `key` in (?)
+Query 17: select * from `cache` where `key` in (?)
+Query 18: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 19: select * from `cache` where `key` in (?)
+Query 20: select * from `cache` where `key` in (?)
+Query 21: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 22: select * from `cache` where `key` in (?)
+Query 23: select * from `cache` where `key` in (?)
+Query 24: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 25: select * from `cache` where `key` in (?)
+Query 26: select * from `cache` where `key` in (?)
+Query 27: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 28: select * from `cache` where `key` in (?)
+Query 29: select * from `cache` where `key` in (?)
+Query 30: select count(*) as aggregate from `bts` where `bts`.`nagari_id` = ? and `bts`.`nagari_id` is not null
+Query 31: select * from `cache` where `key` in (?)
+Query 32: select * from `cache` where `key` in (?)

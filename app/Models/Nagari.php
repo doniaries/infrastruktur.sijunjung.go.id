@@ -148,16 +148,17 @@ class Nagari extends Model
      */
     public function getStatusSinyalAttribute()
     {
-        $btsCount = $this->bts()->count();
-        
+        // Use pre-loaded count if available
+        $btsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
+
         if ($btsCount === 0) {
             return 'Blankspot';
         }
 
-        $jorongWithBtsCount = $this->bts()
-            ->whereNotNull('jorong_id')
-            ->distinct('jorong_id')
-            ->count('jorong_id');
+        // Use pre-loaded unique jorong with bts count if available (assigned from subquery in Resource)
+        $jorongWithBtsCount = isset($this->jorong_bts_count)
+            ? (int) $this->jorong_bts_count
+            : $this->bts()->whereNotNull('jorong_id')->distinct('jorong_id')->count('jorong_id');
 
         if ($this->jumlah_jorong > 1 && $jorongWithBtsCount === 1) {
             return 'Lemah Sinyal';

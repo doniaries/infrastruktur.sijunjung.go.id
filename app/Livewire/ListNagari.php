@@ -6,7 +6,6 @@ use App\Models\Nagari;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Cache;
 use App\Helpers\CacheHelper;
 use Livewire\Attributes\Lazy;
 
@@ -17,11 +16,12 @@ class ListNagari extends Component
 
     public $search = '';
     public $kecamatanFilter = '';
+    public $statusSinyalFilter = '';
     public $perPage = 10;
     public $sortField = 'nama_nagari';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'kecamatanFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection'];
 
     // public function placeholder()
     // {
@@ -41,6 +41,11 @@ class ListNagari extends Component
         $this->resetPage();
     }
 
+    public function updatingStatusSinyalFilter()
+    {
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -56,8 +61,15 @@ class ListNagari extends Component
     private function buildQuery()
     {
         $query = Nagari::withRelations()
-            ->withCount('jorongs')
-            ->selectSub(function($query) {
+            ->withCount(['jorongs', 'bts'])
+            ->select('*')
+            ->selectSub(function ($query) {
+                $query->selectRaw('count(distinct jorong_id)')
+                    ->from('bts')
+                    ->whereColumn('nagari_id', 'nagaris.id')
+                    ->whereNotNull('jorong_id');
+            }, 'jorong_bts_count')
+            ->selectSub(function ($query) {
                 $query->from('jorongs')
                     ->selectRaw('COALESCE(SUM(jumlah_penduduk_jorong), 0)')
                     ->whereColumn('jorongs.nagari_id', 'nagaris.id');
@@ -65,12 +77,44 @@ class ListNagari extends Component
             ->filterBySearch($this->search)
             ->filterByKecamatan($this->kecamatanFilter);
 
+        // Apply Status Sinyal Filter
+        if ($this->statusSinyalFilter) {
+            $query->where(function ($query) {
+                match ($this->statusSinyalFilter) {
+                    'Blankspot' => $query->whereDoesntHave('bts'),
+                    'Lemah Sinyal' => $query->whereHas('bts')
+                        ->where(function ($q) {
+                            $q->whereHas('jorongs', null, '>', 1)
+                                ->whereIn('id', function ($sub) {
+                                    $sub->select('nagari_id')
+                                        ->from('bts')
+                                        ->whereNotNull('jorong_id')
+                                        ->groupBy('nagari_id')
+                                        ->havingRaw('COUNT(DISTINCT jorong_id) = 1');
+                                });
+                        }),
+                    'Sinyal Baik' => $query->whereHas('bts')
+                        ->where(function ($q) {
+                            $q->whereHas('jorongs', null, '<=', 1)
+                                ->orWhereIn('id', function ($sub) {
+                                    $sub->select('nagari_id')
+                                        ->from('bts')
+                                        ->whereNotNull('jorong_id')
+                                        ->groupBy('nagari_id')
+                                        ->havingRaw('COUNT(DISTINCT jorong_id) > 1');
+                                });
+                        }),
+                    default => null,
+                };
+            });
+        }
+
         // Apply sorting
         switch ($this->sortField) {
             case 'kecamatan':
                 $query->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
                     ->orderBy('kecamatans.nama', $this->sortDirection)
-                    ;
+                ;
                 break;
             case 'jumlah_penduduk':
                 $query->orderByRaw('(
@@ -117,7 +161,8 @@ class ListNagari extends Component
             'totalData' => $nagaris->count(),
             'filters' => [
                 'search' => $this->search,
-                'kecamatanFilter' => $this->kecamatanFilter
+                'kecamatanFilter' => $this->kecamatanFilter,
+                'statusSinyalFilter' => $this->statusSinyalFilter
             ]
         ]);
 

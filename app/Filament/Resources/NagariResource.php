@@ -97,7 +97,15 @@ class NagariResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn(Builder $query) => $query->with(['kecamatan']))
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['kecamatan'])
+                ->withCount(['bts', 'jorongs'])
+                ->select('*')
+                ->selectSub(function ($query) {
+                    $query->selectRaw('count(distinct jorong_id)')
+                        ->from('bts')
+                        ->whereColumn('nagari_id', 'nagaris.id')
+                        ->whereNotNull('jorong_id');
+                }, 'jorong_bts_count'))
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')

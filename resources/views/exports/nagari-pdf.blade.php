@@ -81,6 +81,9 @@
         @if($filters['kecamatanFilter'])
             <p><strong>Filter Kecamatan:</strong> {{ $nagaris->first()?->kecamatan?->nama ?? 'Tidak diketahui' }}</p>
         @endif
+        @if($filters['statusSinyalFilter'])
+            <p><strong>Filter Status Sinyal:</strong> {{ $filters['statusSinyalFilter'] }}</p>
+        @endif
     </div>
 
     @if($nagaris->count() > 0)
@@ -88,11 +91,12 @@
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="25%">Nama Nagari</th>
+                    <th width="20%">Nama Nagari</th>
                     <th width="15%">Kecamatan</th>
-                    <th width="25%">Wali Nagari</th>
-                    <th width="15%">Penduduk</th>
-                    <th width="15%">Luas (Ha)</th>
+                    <th width="20%">Wali Nagari</th>
+                    <th width="13%">Penduduk</th>
+                    <th width="12%">Luas (Ha)</th>
+                    <th width="15%">Status Sinyal</th>
                 </tr>
             </thead>
             <tbody>
@@ -103,7 +107,8 @@
                         <td>{{ $nagari->kecamatan?->nama ?? '-' }}</td>
                         <td>{{ $nagari->nama_wali_nagari ?? '-' }}</td>
                         <td class="text-right">{{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }}</td>
-                <td class="text-right">{{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}</td>
+                        <td class="text-right">{{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}</td>
+                        <td class="text-center">{{ $nagari->status_sinyal }}</td>
                     </tr>
                 @endforeach
             </tbody>
