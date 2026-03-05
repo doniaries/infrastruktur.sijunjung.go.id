@@ -143,6 +143,15 @@ class NagariResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->suffix(' Ha'),
+                Tables\Columns\TextColumn::make('status_sinyal')
+                    ->label('Status Sinyal')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Blankspot' => 'danger',
+                        'Lemah Sinyal' => 'warning',
+                        'Sinyal Baik' => 'success',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -168,6 +177,45 @@ class NagariResource extends Resource
                         return match ($data['value']) {
                             '1' => $query->whereHas('jorongs'),
                             '0' => $query->whereDoesntHave('jorongs'),
+                            default => $query,
+                        };
+                    }),
+                SelectFilter::make('status_sinyal')
+                    ->label('Filter Status Sinyal')
+                    ->options([
+                        'Blankspot' => 'Blankspot',
+                        'Lemah Sinyal' => 'Lemah Sinyal',
+                        'Sinyal Baik' => 'Sinyal Baik',
+                    ])
+                    ->query(function (Builder $query, $data) {
+                        if (empty($data['value'])) {
+                            return $query;
+                        }
+
+                        return match ($data['value']) {
+                            'Blankspot' => $query->whereDoesntHave('bts'),
+                            'Lemah Sinyal' => $query->whereHas('bts')
+                                ->whereHas('jorongs', null, '>', 1)
+                                ->where(function ($query) {
+                                    $query->whereIn('id', function ($sub) {
+                                        $sub->select('nagari_id')
+                                            ->from('bts')
+                                            ->whereNotNull('jorong_id')
+                                            ->groupBy('nagari_id')
+                                            ->havingRaw('COUNT(DISTINCT jorong_id) = 1');
+                                    });
+                                }),
+                            'Sinyal Baik' => $query->whereHas('bts')
+                                ->where(function ($query) {
+                                    $query->whereHas('jorongs', null, '<=', 1)
+                                        ->orWhereIn('id', function ($sub) {
+                                            $sub->select('nagari_id')
+                                                ->from('bts')
+                                                ->whereNotNull('jorong_id')
+                                                ->groupBy('nagari_id')
+                                                ->havingRaw('COUNT(DISTINCT jorong_id) > 1');
+                                        });
+                                }),
                             default => $query,
                         };
                     })

@@ -109,6 +109,11 @@ class Nagari extends Model
         return $this->hasMany(Jorong::class);
     }
 
+    public function bts(): HasMany
+    {
+        return $this->hasMany(Bts::class);
+    }
+
     // Mutator - Mengubah data sebelum disimpan ke database
     public function setNamaAttribute($value)
     {
@@ -133,6 +138,32 @@ class Nagari extends Model
     {
         // Use the loaded count if available, otherwise use cached count
         return $this->jorongs_count ?? $this->getCachedCount('jorongs');
+    }
+
+    /**
+     * Accessor untuk mendapatkan status sinyal Nagari
+     * Blankspot: Tidak ada BTS di Nagari
+     * Lemah Sinyal: Banyak Jorong tapi BTS hanya ada di satu jorong
+     * Sinyal Baik: Selain kondisi di atas
+     */
+    public function getStatusSinyalAttribute()
+    {
+        $btsCount = $this->bts()->count();
+        
+        if ($btsCount === 0) {
+            return 'Blankspot';
+        }
+
+        $jorongWithBtsCount = $this->bts()
+            ->whereNotNull('jorong_id')
+            ->distinct('jorong_id')
+            ->count('jorong_id');
+
+        if ($this->jumlah_jorong > 1 && $jorongWithBtsCount === 1) {
+            return 'Lemah Sinyal';
+        }
+
+        return 'Sinyal Baik';
     }
 
     /**
