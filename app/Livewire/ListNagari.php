@@ -61,8 +61,8 @@ class ListNagari extends Component
     private function buildQuery()
     {
         $query = Nagari::withRelations()
+            ->select('nagaris.*')
             ->withCount(['jorongs', 'bts'])
-            ->select('*')
             ->selectSub(function ($query) {
                 $query->selectRaw('count(distinct jorong_id)')
                     ->from('bts')

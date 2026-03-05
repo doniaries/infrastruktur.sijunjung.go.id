@@ -91,12 +91,16 @@
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="20%">Nama Nagari</th>
-                    <th width="15%">Kecamatan</th>
-                    <th width="20%">Wali Nagari</th>
-                    <th width="13%">Penduduk</th>
-                    <th width="12%">Luas (Ha)</th>
-                    <th width="15%">Status Sinyal</th>
+                    <th width="18%">Nama Nagari</th>
+                    <th width="12%">Kecamatan</th>
+                    <th width="15%">Wali Nagari</th>
+                    <th width="10%">Penduduk</th>
+                    <th width="9%">Luas (Ha)</th>
+                    @if(!isset($filters['statusSinyalFilter']) || $filters['statusSinyalFilter'] !== 'Blankspot')
+                    <th width="9%">Jml Jorong</th>
+                    @endif
+                    <th width="9%">Jml BTS</th>
+                    <th width="13%">Status Sinyal</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,6 +112,10 @@
                         <td>{{ $nagari->nama_wali_nagari ?? '-' }}</td>
                         <td class="text-right">{{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }}</td>
                         <td class="text-right">{{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}</td>
+                        @if(!isset($filters['statusSinyalFilter']) || $filters['statusSinyalFilter'] !== 'Blankspot')
+                        <td class="text-center">{{ $nagari->jumlah_jorong }}</td>
+                        @endif
+                        <td class="text-center">{{ $nagari->bts_count ?? 0 }}</td>
                         <td class="text-center">{{ $nagari->status_sinyal }}</td>
                     </tr>
                 @endforeach

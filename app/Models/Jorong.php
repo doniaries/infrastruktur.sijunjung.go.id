@@ -204,13 +204,12 @@ class Jorong extends Model
      */
     public function scopeOrderByKecamatanAndJorong($query)
     {
-        return $query->select('jorongs.*')
+        return $query->addSelect('jorongs.*')
             ->join('nagaris', 'jorongs.nagari_id', '=', 'nagaris.id')
             ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
             ->orderBy('kecamatans.nama')
             ->orderBy('nagaris.nama_nagari')
-            ->orderBy('jorongs.nama_jorong')
-            ->select('jorongs.*');
+            ->orderBy('jorongs.nama_jorong');
     }
 
     /**

@@ -80,6 +80,17 @@
 
     <!-- Impersonate Banner -->
     <x-impersonate::banner />
+
+    {{-- Unregister stale service workers to prevent fetch interception errors --}}
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                registrations.forEach(function(registration) {
+                    registration.unregister();
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -6,9 +6,7 @@ use App\Models\Jorong;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Layout;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Cache;
 use App\Helpers\CacheHelper;
 use Livewire\Attributes\Lazy;
 
@@ -68,6 +66,7 @@ class ListJorong extends Component
     private function buildQuery()
     {
         $query = Jorong::withRelations()
+            ->select('jorongs.*')
             ->withCount('bts')
             ->filterBySearch($this->search)
             ->filterByNagari($this->nagariFilter)

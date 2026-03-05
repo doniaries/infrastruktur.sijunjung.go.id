@@ -222,7 +222,7 @@ class Nagari extends Model
 
     public function scopeOrderByKecamatanAndNagari($query)
     {
-        return $query->select('nagaris.*')
+        return $query->addSelect('nagaris.*')
             ->join('kecamatans', 'nagaris.kecamatan_id', '=', 'kecamatans.id')
             ->orderBy('kecamatans.nama')
             ->orderBy('nagaris.nama_nagari');
