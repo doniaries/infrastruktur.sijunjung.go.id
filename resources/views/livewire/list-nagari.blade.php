@@ -2,383 +2,210 @@
     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             <!-- Title Section -->
-            <div class="flex justify-center mb-6">
-                <div
-                    class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
-                    <i class="fas fa-city mr-2"></i>
-                    <h2 class="text-xl font-bold">DATA NAGARI</h2>
-                    <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-black rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 border border-blue-800/20"
+                     style="background: linear-gradient(to right, #1d4ed8, #3730a3);">
+                    <i class="fas fa-city mr-3 text-xl text-white"></i>
+                    <h2 class="text-2xl uppercase tracking-wider text-white">DATA NAGARI</h2>
+                    <span class="ml-3 px-3 py-1 bg-white/30 backdrop-blur-sm rounded-full text-sm border border-white/40 text-white font-black">{{ $totalData }}</span>
                 </div>
             </div>
 
-
-            <!-- Search, Filter and Export Section -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center">
-                <div class="flex-1 min-w-64 relative">
-                    <input type="text" wire:model.live="search" placeholder="Cari nagari..."
-                        class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    @if ($search)
-                        <button type="button" wire:click="$set('search', '')"
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                            <svg class="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    @endif
-                </div>
-                <div class="min-w-48">
-                    <select wire:model.live="kecamatanFilter"
-                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                        <option value="">Semua Kecamatan</option>
-                        @foreach ($kecamatans as $kecamatan)
-                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="min-w-48">
-                    <select wire:model.live="statusSinyalFilter"
-                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                        <option value="">Semua Status Sinyal</option>
-                        <option value="Blankspot">Blankspot</option>
-                        <option value="Lemah Sinyal">Lemah Sinyal</option>
-                        <option value="Sinyal Baik">Sinyal Baik</option>
-                    </select>
-                </div>
-                <button wire:click="exportPdf"
-                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 min-w-fit btn-export-enhanced ripple glow-on-hover">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                        </path>
-                    </svg>
-                    Export PDF
-                </button>
-            </div>
-
-            <!-- Skeleton Loading Section -->
-            <section class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full"
-                wire:loading.flex>
-                <div class="w-full p-6 relative">
-                    <!-- Spinner Centered in Table -->
-                    <div class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                        <svg class="animate-spin h-10 w-10 text-blue-600 dark:text-blue-400 mb-2"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                        </svg>
-                        <span class="text-sm text-blue-600 dark:text-blue-400">Memuat data...</span>
-                    </div>
-                    <!-- Skeleton Header -->
-                    <div class="flex justify-center mb-6">
-                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg w-48 animate-pulse"></div>
+            <!-- DataTables Header Controls -->
+            <div class="mb-6 flex flex-col lg:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-900 dark:text-gray-100 font-black whitespace-nowrap">Tampilkan</span>
+                        <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 transition-colors duration-200 font-bold">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <span class="text-sm text-gray-900 dark:text-gray-100 font-black">data</span>
                     </div>
 
-                    <!-- Skeleton Search and Filter -->
-                    <div class="mb-6 flex flex-wrap gap-3 items-center">
-                        <div class="flex-1 min-w-64">
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full animate-pulse"></div>
-                        </div>
-                        <div class="min-w-48">
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-full animate-pulse"></div>
-                        </div>
-                        <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded-md w-32 animate-pulse"></div>
-                    </div>
-
-                    <!-- Skeleton Table -->
-                    <div class="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg">
-                        <!-- Table Header -->
-                        <div class="grid grid-cols-6 gap-4 bg-gray-100 dark:bg-gray-700 p-4">
-                            @foreach (['Nama Nagari', 'Kecamatan', 'Wali Nagari', 'Penduduk', 'Luas (Ha)', 'Jorong'] as $header)
-                                <div class="h-5 bg-gray-200 dark:bg-gray-600 rounded animate-pulse"></div>
+                    <div class="min-w-48 flex-1 sm:flex-none">
+                        <select wire:model.live="kecamatanFilter"
+                            class="w-full bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 font-bold">
+                            <option value="">Semua Kecamatan</option>
+                            @foreach ($kecamatans as $kecamatan)
+                                <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
                             @endforeach
-                        </div>
+                        </select>
+                    </div>
 
-                        <!-- Table Rows -->
-                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                            @for ($i = 0; $i < 5; $i++)
-                                <div class="grid grid-cols-6 gap-4 p-4 items-center">
-                                    @foreach (range(1, 6) as $col)
-                                        <div>
-                                            <div class="h-4 bg-gray-100 dark:bg-gray-800 rounded animate-pulse"></div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endfor
-                        </div>
-
-                        <!-- Skeleton Pagination -->
-                        <div
-                            class="flex justify-between items-center p-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-                            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32 animate-pulse"></div>
-                            <div class="flex space-x-2">
-                                @foreach (range(1, 3) as $page)
-                                    <div class="h-8 w-8 bg-gray-200 dark:bg-gray-700 rounded-md animate-pulse"></div>
-                                @endforeach
-                            </div>
-                        </div>
+                    <div class="min-w-48 flex-1 sm:flex-none">
+                        <select wire:model.live="statusSinyalFilter"
+                            class="w-full bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 font-bold">
+                            <option value="">Semua Status Sinyal</option>
+                            <option value="Blankspot">Blankspot</option>
+                            <option value="Lemah Sinyal">Lemah Sinyal</option>
+                            <option value="Sinyal Baik">Sinyal Baik</option>
+                        </select>
                     </div>
                 </div>
-            </section>
 
-            {{-- <!-- Skeleton Loading -->
-            <div wire:loading.flex class="flex justify-center w-full">
-                <section
-                    class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
-                    <!-- Skeleton Header -->
-                    <div class="p-6">
-                        <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                            <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                <div class="flex items-center gap-3 w-full lg:w-auto">
+                    <div class="relative flex-1 lg:w-64">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
                         </div>
+                        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari nagari..."
+                            class="block w-full pl-10 pr-3 py-2 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
                     </div>
+                    <button wire:click="exportPdf"
+                        class="inline-flex items-center px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md transition-all duration-200 uppercase text-[10px] tracking-wider">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        PDF
+                    </button>
+                </div>
+            </div>
 
-                    <!-- Skeleton Table -->
-                    <div class="overflow-x-auto">
-                        <div class="h-12 bg-gray-200 dark:bg-gray-700"></div>
-                        <div class="space-y-4 p-4">
-                            @for ($i = 0; $i < 5; $i++)
-                                <div class="h-16 bg-gray-100 dark:bg-gray-700 rounded"></div>
-                            @endfor
-                        </div>
+            <!-- Table Container -->
+            <div class="relative overflow-x-auto shadow-md sm:rounded-xl border border-gray-200 dark:border-gray-700">
+                <!-- Loading Overlay -->
+                <div wire:loading.flex class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
+                    <div class="flex flex-col items-center">
+                        <i class="fas fa-circle-notch animate-spin text-4xl text-blue-700 mb-2"></i>
+                        <span class="text-sm font-black text-blue-700 dark:text-blue-400 uppercase tracking-widest">Memproses...</span>
                     </div>
-                </section>
-            </div> --}}
+                </div>
 
-            <!-- Table Section -->
-            <div class="overflow-x-auto w-full" wire:loading.remove>
-                <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400" style="min-width: 900px;">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
+                <table class="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                    <thead class="text-xs text-black uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
                         <tr>
-                            <th scope="col" class="px-4 py-3 w-12 whitespace-nowrap">
+                            <th scope="col" class="px-6 py-4 font-black border-r border-gray-300 dark:border-gray-600 w-16 text-center text-black dark:text-white">No</th>
+                            <th scope="col" wire:click="sortBy('nama_nagari')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 text-black dark:text-white">
                                 <div class="flex items-center">
-                                    <span>No</span>
+                                    NAMA NAGARI
+                                    <span class="ml-2 flex flex-col items-center">
+                                        <i class="fas fa-caret-up text-[10px] {{ $sortField === 'nama_nagari' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }}"></i>
+                                        <i class="fas fa-caret-down text-[10px] {{ $sortField === 'nama_nagari' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }} -mt-1"></i>
+                                    </span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 min-w-[160px]">
-                                <div class="flex items-center space-x-1">
-                                    <span>NAMA NAGARI</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
+                            <th scope="col" wire:click="sortBy('kecamatan')" class="px-6 py-4 font-bold cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                                <div class="flex items-center">
+                                    Kecamatan
+                                    <span class="ml-2 flex flex-col items-center">
+                                        <i class="fas fa-caret-up text-[10px] {{ $sortField === 'kecamatan' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }}"></i>
+                                        <i class="fas fa-caret-down text-[10px] {{ $sortField === 'kecamatan' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }} -mt-1"></i>
+                                    </span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 min-w-[140px]">
-                                <div class="flex items-center space-x-1">
-                                    <span>Kecamatan</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
+                            <th scope="col" wire:click="sortBy('nama_wali_nagari')" class="px-6 py-4 font-bold cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                                <div class="flex items-center">
+                                    Wali Nagari
+                                    <span class="ml-2 flex flex-col items-center">
+                                        <i class="fas fa-caret-up text-[10px] {{ $sortField === 'nama_wali_nagari' && $sortDirection === 'asc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }}"></i>
+                                        <i class="fas fa-caret-down text-[10px] {{ $sortField === 'nama_wali_nagari' && $sortDirection === 'desc' ? 'text-blue-600' : 'text-gray-400 opacity-50' }} -mt-1"></i>
+                                    </span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 min-w-[160px]">
-                                <div class="flex items-center space-x-1">
-                                    <span>NAMA WALI NAGARI</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
+                            <th scope="col" wire:click="sortBy('jumlah_penduduk')" class="px-6 py-4 font-black text-right cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 text-black dark:text-white">
+                                <div class="flex items-center justify-end">
+                                    Penduduk
+                                    <span class="ml-2 flex flex-col items-center">
+                                        <i class="fas fa-caret-up text-[10px] {{ $sortField === 'jumlah_penduduk' && $sortDirection === 'asc' ? 'text-blue-700' : 'text-gray-500 opacity-50' }}"></i>
+                                        <i class="fas fa-caret-down text-[10px] {{ $sortField === 'jumlah_penduduk' && $sortDirection === 'desc' ? 'text-blue-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                    </span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 text-right min-w-[130px] whitespace-nowrap">
-                                <div class="flex items-center space-x-1 ml-auto">
-                                    <span>JML Penduduk</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
+                            <th scope="col" wire:click="sortBy('luas_nagari')" class="px-6 py-4 font-black text-center cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 text-black dark:text-white">
+                                <div class="flex items-center justify-center">
+                                    Luas (Ha)
+                                    <span class="ml-2 flex flex-col items-center">
+                                        <i class="fas fa-caret-up text-[10px] {{ $sortField === 'luas_nagari' && $sortDirection === 'asc' ? 'text-blue-700' : 'text-gray-500 opacity-50' }}"></i>
+                                        <i class="fas fa-caret-down text-[10px] {{ $sortField === 'luas_nagari' && $sortDirection === 'desc' ? 'text-blue-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                    </span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 text-right min-w-[130px] whitespace-nowrap">
-                                <div class="flex items-center space-x-1 ml-auto">
-                                    <span>LUAS NAGARI (Ha)</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </div>
-                            </th>
-                            @if($statusSinyalFilter !== 'Blankspot')
-                            <th scope="col" class="px-4 py-3 text-center min-w-[120px] whitespace-nowrap">
-                                <div class="flex items-center space-x-1 mx-auto justify-center">
-                                    <span>JML JORONG</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </div>
-                            </th>
-                            @endif
-                            <th scope="col" class="px-4 py-3 text-center min-w-[110px] whitespace-nowrap">
-                                <div class="flex items-center space-x-1 mx-auto justify-center">
-                                    <span>JML BTS</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-4 py-3 text-center min-w-[130px] whitespace-nowrap">
-                                <div class="flex items-center space-x-1 mx-auto justify-center">
-                                    <span>STATUS SINYAL</span>
-                                    <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                    </svg>
-                                </div>
-                            </th>
+                            <th scope="col" class="px-6 py-4 font-bold text-center">Status Sinyal</th>
                         </tr>
                     </thead>
+                    <tbody class="divide-y divide-gray-300 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                        <!-- Skeleton Rows while loading -->
+                        @for ($i = 0; $i < $perPage; $i++)
+                            <tr wire:loading class="animate-pulse">
+                                <td class="px-6 py-4 border-r border-gray-300 dark:border-gray-700/50 text-center"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto"></div></td>
+                                <td class="px-6 py-4"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-2"></div><div class="h-3 bg-gray-100 dark:bg-gray-800 rounded w-32"></div></td>
+                                <td class="px-6 py-4"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div></td>
+                                <td class="px-6 py-4"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div></td>
+                                <td class="px-6 py-4 text-right"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 ml-auto"></div></td>
+                                <td class="px-6 py-4 text-center"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 mx-auto"></div></td>
+                                <td class="px-6 py-4 text-center"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-24 mx-auto"></div></td>
+                            </tr>
+                        @endfor
 
-                    <tbody>
                         @forelse($nagaris as $nagari)
-                            <tr wire:key="nagari-{{ $nagari->id }}" x-data="{ inView: false }"
-                                x-intersect="inView = true"
-                                x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
-                                class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform"
-                                style="transition: opacity 0.3s ease, transform 0.3s ease;">
-                                <td
-                                    class="px-4 py-3 whitespace-nowrap text-sm text-center text-gray-500 dark:text-gray-400">
+                            <tr wire:loading.remove wire:key="nag-{{ $nagari->id }}" class="hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors duration-150 group">
+                                <td class="px-6 py-4 text-center text-gray-700 dark:text-gray-400 font-black border-r border-gray-300 dark:border-gray-700/50">
                                     {{ ($nagaris->currentPage() - 1) * $nagaris->perPage() + $loop->iteration }}
                                 </td>
-                                <td
-                                    class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    <a href="{{ url('/list-jorong') }}?nagariFilter={{ $nagari->id }}" wire:navigate class="text-blue-600 dark:text-blue-400 hover:underline">
+                                <td class="px-6 py-4">
+                                    <a href="{{ url('/list-jorong') }}?nagariFilter={{ $nagari->id }}" wire:navigate class="text-blue-800 dark:text-blue-400 font-black hover:text-blue-700 dark:hover:text-blue-300 group-hover:underline flex items-center">
+                                        <i class="fas fa-map-marker-alt mr-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                         {{ $nagari->nama_nagari }}
                                     </a>
+                                    <div class="text-[10px] text-gray-600 dark:text-gray-400 mt-0.5 flex items-center font-black">
+                                        <span class="mr-2"><i class="fas fa-building mr-1"></i>{{ $nagari->jorongs_count }} Jorong</span>
+                                        <span><i class="fas fa-broadcast-tower mr-1"></i>{{ $nagari->bts_count }} BTS</span>
+                                    </div>
                                 </td>
-                                <td class="px-4 py-3 whitespace-nowrap">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                        {{ $nagari->kecamatan ? $nagari->kecamatan->nama : '-' }}
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-300 text-[11px] font-black rounded-lg border border-green-300 dark:border-green-800">
+                                        {{ $nagari->kecamatan->nama ?? '-' }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                                <td class="px-6 py-4 text-gray-900 dark:text-gray-100 font-black uppercase text-xs">
                                     {{ $nagari->nama_wali_nagari }}
                                 </td>
-                                <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                    {{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }} Jiwa
+                                <td class="px-6 py-4 text-right font-black text-gray-900 dark:text-white">
+                                    {{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }}
                                 </td>
-                                <td class="px-4 py-3 text-sm text-right text-gray-900 dark:text-gray-100">
-                                    {{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }} Ha
+                                <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100 font-black">
+                                    {{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}
                                 </td>
-                                @if($statusSinyalFilter !== 'Blankspot')
-                                <td class="px-4 py-3 text-center">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-600 text-white dark:bg-blue-500 dark:text-white">
-                                        {{ $nagari->jumlah_jorong }} Jorong
-                                    </span>
-                                </td>
-                                @endif
-                                <td class="px-4 py-3 text-center">
-                                    <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-600 text-white dark:bg-indigo-500 dark:text-white">
-                                        {{ $nagari->bts_count }} BTS
-                                    </span>
-                                </td>
-                                <td class="px-4 py-3 text-center">
+                                <td class="px-6 py-4 text-center">
                                     @php
                                         $statusSinyal = $nagari->status_sinyal;
-                                        $badgeColor = match ($statusSinyal) {
-                                            'Blankspot' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-                                            'Lemah Sinyal' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-                                            'Sinyal Baik' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                                            default => 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
+                                        $badgeStyle = match ($statusSinyal) {
+                                            'Blankspot' => 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/50 dark:text-red-200 dark:border-red-800',
+                                            'Lemah Sinyal' => 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-200 dark:border-yellow-800',
+                                            'Sinyal Baik' => 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/50 dark:text-green-200 dark:border-green-800',
+                                            default => 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/50 dark:text-gray-200 dark:border-gray-800',
                                         };
                                     @endphp
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $badgeColor }}">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black border-2 {{ $badgeStyle }} uppercase tracking-wider">
                                         {{ $statusSinyal }}
                                     </span>
                                 </td>
                             </tr>
                         @empty
-                            <tr>
-                                <td colspan="7" class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
-                                    <div class="flex flex-col items-center">
-                                        <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                                            </path>
-                                        </svg>
-                                        <p class="text-lg font-medium">Belum Ada Data</p>
-                                        <p class="text-sm">Data nagari belum tersedia atau tidak ditemukan</p>
+                            <tr wire:loading.remove>
+                                <td colspan="7" class="px-6 py-20 text-center">
+                                    <div class="flex flex-col items-center justify-center text-gray-400">
+                                        <i class="fas fa-search-minus text-6xl mb-4 opacity-10"></i>
+                                        <p class="text-xl font-black uppercase tracking-tighter text-gray-900 dark:text-gray-100">Data Tidak Ditemukan</p>
+                                        <p class="text-sm italic font-medium">Kata kunci atau filter yang Anda pilih tidak membuahkan hasil.</p>
                                     </div>
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+            </div>
 
-                <!-- Pagination -->
-                <div class="mt-6">
+            <!-- DataTables Footer Controls -->
+            <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-300 dark:border-gray-700">
+                <div class="text-sm text-gray-900 dark:text-gray-100 font-black">
+                    Menampilkan <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->firstItem() ?? 0 }}</span> sampai <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->lastItem() ?? 0 }}</span> dari <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->total() }}</span> entri data
+                </div>
+                <div class="pagination-wrapper">
                     {{ $nagaris->links('vendor.livewire.custom-pagination') }}
                 </div>
             </div>
-            <style>
-                /* Hover effects for table rows */
-                tr:hover {
-                    transform: translateX(4px);
-                }
-
-                tr {
-                    transition: transform 0.2s ease-in-out;
-                }
-
-                /* Animation for lazy loading */
-                .opacity-0 {
-                    opacity: 0;
-                }
-
-                .opacity-100 {
-                    opacity: 1;
-                }
-
-                .translate-y-4 {
-                    transform: translateY(1rem);
-                }
-
-                .translate-y-0 {
-                    transform: translateY(0);
-                }
-
-                .dark tr:hover {
-                    background-color: rgba(59, 130, 246, 0.1);
-                }
-
-                /* Smooth transitions for filter changes */
-                .transition-all {
-                    transition-property: all;
-                    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                    transition-duration: 300ms;
-                }
-            </style>
-
-            <script>
-                // Simple scroll to top when pagination changes
-                window.addEventListener('livewire:update', function() {
-                    const tableSection = document.querySelector('section[wire\\:loading\\.remove]');
-                    if (tableSection) {
-                        tableSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            </script>
         </div>
     </div>
 </div>

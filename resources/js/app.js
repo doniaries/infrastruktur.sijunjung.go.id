@@ -1,7 +1,7 @@
 // import "./bootstrap";
 import "flowbite";
 
-document.addEventListener("DOMContentLoaded", () => {
+function initAll() {
     function initThemeToggle() {
         const themeToggleBtn = document.getElementById("theme-toggle");
         if (themeToggleBtn) {
@@ -239,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         rect.top <=
                             (window.innerHeight ||
                                 document.documentElement.clientHeight) -
-                                offset && rect.bottom >= offset
+                            (offset || 100) && rect.bottom >= (offset || 100)
                     );
                 }
                 function checkAndAnimate() {
@@ -262,7 +262,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 checkAndAnimate();
                 window.addEventListener("scroll", checkAndAnimate);
-                if (isInViewport(document.getElementById("stats-section")))
+                const statsSect = document.getElementById("stats-section");
+                if (statsSect && isInViewport(statsSect))
                     setTimeout(checkAndAnimate, 500);
             })
             .catch(() => {});
@@ -291,4 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
             link.classList.remove("text-gray-700");
         }
     });
-});
+}
+
+document.addEventListener("DOMContentLoaded", initAll);
+document.addEventListener("livewire:navigated", initAll);

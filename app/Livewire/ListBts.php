@@ -26,7 +26,7 @@ class ListBts extends Component
     public $tahunFilter = '';
     public $tahunFilterTo = '';
 
-    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter', 'tahunFilter', 'tahunFilterTo', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'operatorFilter', 'kecamatanFilter', 'teknologiFilter', 'statusFilter', 'tahunFilter', 'tahunFilterTo', 'sortField', 'sortDirection', 'perPage'];
 
     public function updatingSearch()
     {
@@ -53,10 +53,12 @@ class ListBts extends Component
         $this->resetPage();
     }
 
-    public function updatingTahunFilter() {
+    public function updatingTahunFilter()
+    {
         $this->resetPage();
     }
-    public function updatingTahunFilterTo() {
+    public function updatingTahunFilterTo()
+    {
         $this->resetPage();
     }
 

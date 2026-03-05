@@ -14,14 +14,20 @@ class ListPeralatan extends Component
 
     public $search = '';
     public $jenisFilter = '';
-    public $perPage = 10;
+    public $perPage = 6;
     public $sortField = 'nama';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'jenisFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'jenisFilter', 'sortField', 'sortDirection', 'perPage'];
 
-    public function updatingSearch() { $this->resetPage(); }
-    public function updatingJenisFilter() { $this->resetPage(); }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+    public function updatingJenisFilter()
+    {
+        $this->resetPage();
+    }
 
     public function sortBy($field)
     {
@@ -37,7 +43,7 @@ class ListPeralatan extends Component
     private function buildQuery()
     {
         $query = Peralatan::query()
-            ->when($this->search, fn($q) => $q->where('nama', 'like', '%'.$this->search.'%'))
+            ->when($this->search, fn($q) => $q->where('nama', 'like', '%' . $this->search . '%'))
             ->when($this->jenisFilter, fn($q) => $q->where('jenis_peralatan', $this->jenisFilter));
 
         $query->orderBy($this->sortField, $this->sortDirection);

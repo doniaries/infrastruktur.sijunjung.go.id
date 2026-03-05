@@ -17,15 +17,24 @@ class ListInventaris extends Component
     public $search = '';
     public $opdFilter = '';
     public $peralatanFilter = '';
-    public $perPage = 10;
+    public $perPage = 6;
     public $sortField = 'opd';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'opdFilter', 'peralatanFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'opdFilter', 'peralatanFilter', 'sortField', 'sortDirection', 'perPage'];
 
-    public function updatingSearch() { $this->resetPage(); }
-    public function updatingOpdFilter() { $this->resetPage(); }
-    public function updatingPeralatanFilter() { $this->resetPage(); }
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+    public function updatingOpdFilter()
+    {
+        $this->resetPage();
+    }
+    public function updatingPeralatanFilter()
+    {
+        $this->resetPage();
+    }
 
     public function sortBy($field)
     {
@@ -42,8 +51,8 @@ class ListInventaris extends Component
     {
         $query = Inventaris::query()->with(['opd', 'peralatan'])
             ->when($this->search, function ($q) {
-                $term = '%'.$this->search.'%';
-                $q->where(function($sub) use ($term) {
+                $term = '%' . $this->search . '%';
+                $q->where(function ($sub) use ($term) {
                     $sub->where('jenis_peralatan', 'like', $term)
                         ->orWhere('status', 'like', $term)
                         ->orWhereHas('opd', fn($oq) => $oq->where('nama', 'like', $term))

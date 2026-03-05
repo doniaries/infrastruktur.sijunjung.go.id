@@ -23,7 +23,7 @@ class ListJorong extends Component
     public $sortField = 'nama_jorong';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'nagariFilter', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection', 'perPage'];
 
     public function updatingSearch()
     {
@@ -48,6 +48,11 @@ class ListJorong extends Component
     }
 
     public function updatingStatusSinyalFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
     {
         $this->resetPage();
     }

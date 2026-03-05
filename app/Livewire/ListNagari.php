@@ -21,7 +21,7 @@ class ListNagari extends Component
     public $sortField = 'nama_nagari';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'kecamatanFilter', 'statusSinyalFilter', 'sortField', 'sortDirection', 'perPage'];
 
     // public function placeholder()
     // {
@@ -42,6 +42,11 @@ class ListNagari extends Component
     }
 
     public function updatingStatusSinyalFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
     {
         $this->resetPage();
     }

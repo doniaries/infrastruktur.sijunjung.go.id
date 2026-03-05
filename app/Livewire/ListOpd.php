@@ -13,13 +13,18 @@ class ListOpd extends Component
     use WithPagination;
 
     public $search = '';
-    public $perPage = 10;
+    public $perPage = 6;
     public $sortField = 'nama';
     public $sortDirection = 'asc';
 
-    protected $queryString = ['search', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'sortField', 'sortDirection', 'perPage'];
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPerPage()
     {
         $this->resetPage();
     }

@@ -21,11 +21,16 @@ class ListLaporan extends Component
     public $search = '';
     public $statusFilter = '';
     public $opdFilter = '';
-    public $perPage = 5;
+    public $perPage = 6;
     public $sortField = 'created_at';
     public $sortDirection = 'desc';
 
-    protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket', 'sortField', 'sortDirection'];
+    protected $queryString = ['search', 'statusFilter', 'opdFilter', 'ticket', 'sortField', 'sortDirection', 'perPage'];
+
+    public function updatingPerPage()
+    {
+        $this->resetPage();
+    }
 
     // public function placeholder()
     // {

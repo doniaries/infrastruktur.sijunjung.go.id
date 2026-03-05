@@ -3,424 +3,235 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 <!-- Title Section -->
-                <div class="flex justify-center mb-6">
-                    <div
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 dark:bg-blue-700 text-white font-medium rounded-lg shadow-sm">
-                        <i class="fas fa-map-pin mr-2"></i>
-                        <h2 class="text-xl font-bold">DATA JORONG</h2>
-                        <span class="ml-2 px-2 py-1 bg-white/20 rounded-full text-sm">{{ $totalData }}</span>
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex items-center px-6 py-3 bg-green-700 text-white font-black rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 border border-green-800/20"
+                         style="background: linear-gradient(to right, #059669, #0d9488);">
+                        <i class="fas fa-map-pin mr-3 text-xl text-white"></i>
+                        <h2 class="text-2xl uppercase tracking-wider text-white">DATA JORONG</h2>
+                        <span class="ml-3 px-3 py-1 bg-white/30 backdrop-blur-sm rounded-full text-sm border border-white/40 text-white font-black">{{ $totalData }}</span>
                     </div>
                 </div>
 
-                <!-- Search, Filter and Export Section -->
-                <div class="mb-6 flex flex-wrap gap-3 items-center max-w-6xl mx-auto">
-                    <div class="min-w-64 max-w-80 relative">
-                        <input type="text" wire:model.live="search" placeholder="Cari jorong..."
-                            class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                <!-- DataTables Header Controls -->
+                <div class="mb-6 flex flex-col space-y-4 bg-gray-50 dark:bg-gray-900/50 p-6 rounded-xl border border-gray-100 dark:border-gray-700">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-900 dark:text-gray-100 font-black whitespace-nowrap">Tampilkan</span>
+                            <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2 transition-colors duration-200 font-bold">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <span class="text-sm text-gray-900 dark:text-gray-100 font-black">data</span>
                         </div>
-                        @if ($search)
-                            <button type="button" wire:click="$set('search', '')"
-                                class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <svg class="h-5 w-5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        @endif
-                    </div>
-                    <div class="min-w-48">
-                        <select wire:model.live="kecamatanFilter"
-                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                            <option value="">Semua Kecamatan</option>
-                            @foreach ($kecamatans as $kecamatan)
-                                <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
-                            @endforeach
-                        </select>
 
+                        <div class="min-w-[200px] flex-1 sm:flex-none">
+                            <select wire:model.live="kecamatanFilter"
+                                class="w-full bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2 font-bold">
+                                <option value="">Semua Kecamatan</option>
+                                @foreach ($kecamatans as $kecamatan)
+                                    <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="min-w-[200px] flex-1 sm:flex-none">
+                            <select wire:model.live="nagariFilter"
+                                class="w-full bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2 font-bold">
+                                <option value="">Semua Nagari</option>
+                                @foreach ($nagaris as $nagari)
+                                    <option value="{{ $nagari->id }}">{{ $nagari->nama_nagari }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="min-w-[200px] flex-1 sm:flex-none">
+                            <select wire:model.live="statusSinyalFilter"
+                                class="w-full bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block p-2 font-bold">
+                                <option value="">Semua Status Sinyal</option>
+                                <option value="Blankspot">Blankspot (Tanpa BTS)</option>
+                                <option value="Sinyal Baik">Sinyal Baik (Ada BTS)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="min-w-48">
-                        <select wire:model.live="nagariFilter"
-                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                            <option value="">Semua Nagari</option>
-                            @foreach ($nagaris as $nagari)
-                                <option value="{{ $nagari->id }}">{{ $nagari->nama_nagari }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="min-w-48">
-                        <select wire:model.live="statusSinyalFilter"
-                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
-                            <option value="">Semua Status Sinyal</option>
-                            <option value="Blankspot">Blankspot (Tanpa BTS)</option>
-                            <option value="Sinyal Baik">Sinyal Baik (Ada BTS)</option>
-                        </select>
-                    </div>
-                    <div class="min-w-fit">
+
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+                        <div class="relative w-full sm:w-96">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
+                            </div>
+                            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari jorong atau kepala jorong..."
+                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
+                        </div>
                         <button wire:click="exportPdf"
-                            class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 hover:shadow-lg hover:scale-105 text-white font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform w-full h-[42px] btn-export-enhanced ripple glow-on-hover">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            Export PDF
+                            class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider">
+                            <i class="fas fa-file-pdf mr-2 text-xs"></i>
+                            PDF
                         </button>
                     </div>
                 </div>
 
-                <!-- Skeleton Loading -->
-                <div wire:loading.flex class="flex justify-center w-full">
-                    <section
-                        class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl animate-pulse">
-                        <!-- Spinner Centered in Table -->
-                        <div
-                            class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                            <svg class="animate-spin h-10 w-10 text-blue-600 dark:text-blue-400 mb-2"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
-                                </path>
-                            </svg>
-                            <span class="text-sm text-blue-600 dark:text-blue-400">Memuat data...</span>
+                <!-- Table Container -->
+                <div class="relative overflow-x-auto shadow-xl sm:rounded-xl border border-gray-200 dark:border-gray-700">
+                    <!-- Loading Overlay -->
+                    <div wire:loading.flex class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
+                        <div class="flex flex-col items-center">
+                            <i class="fas fa-circle-notch animate-spin text-4xl text-green-700 mb-2"></i>
+                            <span class="text-sm font-black text-green-700 dark:text-green-400 uppercase tracking-widest">Sinkronisasi...</span>
                         </div>
-                        <!-- Skeleton Header -->
-                        <div class="p-6">
-                            <div class="h-8 bg-gray-200 dark:bg-gray-700 rounded w-48 mb-6"></div>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                                <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                                <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                                <div class="h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                            </div>
-                        </div>
+                    </div>
 
-                        <!-- Skeleton Table -->
-                        <div class="overflow-x-auto">
-                            <div class="h-12 bg-gray-200 dark:bg-gray-700"></div>
-                            <div class="space-y-4 p-4">
-                                @for ($i = 0; $i < 5; $i++)
-                                    <div class="h-16 bg-gray-100 dark:bg-gray-700 rounded"></div>
-                                @endfor
-                            </div>
-                        </div>
-                    </section>
+                    <table class="w-full text-sm text-left text-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-black uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
+                            <tr>
+                                <th scope="col" class="px-6 py-4 font-black border-r border-gray-300 dark:border-gray-600 w-16 text-center text-black dark:text-white">No</th>
+                                <th scope="col" wire:click="sortBy('nama_jorong')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center">
+                                        NAMA JORONG
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'nama_jorong' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'nama_jorong' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" wire:click="sortBy('nagari')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center">
+                                        NAGARI
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'nagari' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'nagari' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" wire:click="sortBy('kecamatan')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center">
+                                        KECAMATAN
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'kecamatan' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'kecamatan' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" wire:click="sortBy('nama_kepala_jorong')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center">
+                                        KEPALA JORONG
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'nama_kepala_jorong' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'nama_kepala_jorong' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" wire:click="sortBy('jumlah_penduduk_jorong')" class="px-6 py-4 font-black text-right cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center justify-end">
+                                        Penduduk
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'jumlah_penduduk_jorong' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'jumlah_penduduk_jorong' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" wire:click="sortBy('luas_jorong')" class="px-6 py-4 font-black text-center cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 whitespace-nowrap text-black dark:text-white">
+                                    <div class="flex items-center justify-center">
+                                        Luas (Ha)
+                                        <span class="ml-2 flex flex-col items-center">
+                                            <i class="fas fa-caret-up text-[10px] {{ $sortField === 'luas_jorong' && $sortDirection === 'asc' ? 'text-green-700' : 'text-gray-500 opacity-50' }}"></i>
+                                            <i class="fas fa-caret-down text-[10px] {{ $sortField === 'luas_jorong' && $sortDirection === 'desc' ? 'text-green-700' : 'text-gray-500 opacity-50' }} -mt-1"></i>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 font-black text-center text-black dark:text-white">BTS</th>
+                                <th scope="col" class="px-6 py-4 font-black text-center whitespace-nowrap text-black dark:text-white">Status Sinyal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-300 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                            <!-- Skeleton Rows while loading -->
+                            @for ($i = 0; $i < $perPage; $i++)
+                                <tr wire:loading class="animate-pulse">
+                                    <td class="px-6 py-4 border-r border-gray-300 dark:border-gray-700/50 text-center"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-8 mx-auto"></div></td>
+                                    <td class="px-6 py-4"><div class="h-5 bg-gray-200 dark:bg-gray-700 rounded-lg w-32"></div></td>
+                                    <td class="px-6 py-4"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div></td>
+                                    <td class="px-6 py-4"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-lg w-24"></div></td>
+                                    <td class="px-6 py-4"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-32"></div></td>
+                                    <td class="px-6 py-4 text-right"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 ml-auto"></div></td>
+                                    <td class="px-6 py-4 text-center"><div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16 mx-auto"></div></td>
+                                    <td class="px-6 py-4 text-center"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-lg w-10 mx-auto"></div></td>
+                                    <td class="px-6 py-4 text-center"><div class="h-6 bg-gray-200 dark:bg-gray-700 rounded-full w-24 mx-auto"></div></td>
+                                </tr>
+                            @endfor
+
+                            @forelse($jorongs as $jorong)
+                                <tr wire:loading.remove wire:key="jor-{{ $jorong->id }}" class="hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors duration-150 group">
+                                    <td class="px-6 py-4 text-center text-gray-700 dark:text-gray-400 font-black border-r border-gray-300 dark:border-gray-700/50 text-xs">
+                                        {{ ($jorongs->currentPage() - 1) * $jorongs->perPage() + $loop->iteration }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-black text-gray-900 dark:text-white group-hover:text-blue-800 dark:group-hover:text-blue-400 transition-colors">
+                                            {{ $jorong->nama_jorong }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-100 text-[11px] font-black rounded-lg whitespace-nowrap border border-blue-200 dark:border-blue-700">
+                                            {{ $jorong->nagari->nama_nagari ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-900 dark:text-indigo-100 text-[11px] font-black rounded-lg whitespace-nowrap border border-indigo-200 dark:border-indigo-700">
+                                            {{ $jorong->nagari->kecamatan->nama ?? '-' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-900 dark:text-gray-100 font-black uppercase text-xs">
+                                        {{ $jorong->nama_kepala_jorong }}
+                                    </td>
+                                    <td class="px-6 py-4 text-right font-black text-gray-900 dark:text-white">
+                                        {{ number_format($jorong->jumlah_penduduk_jorong ?? 0, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center text-gray-900 dark:text-gray-100 font-black">
+                                        {{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-flex items-center justify-center px-2 py-1 bg-teal-100 dark:bg-teal-900/40 text-teal-900 dark:text-teal-100 text-[11px] font-black rounded-lg min-w-[40px] border border-teal-200 dark:border-teal-700">
+                                            {{ $jorong->bts_count }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        @php
+                                            $st = strtolower($jorong->status_sinyal);
+                                            $stClasses = match(true) {
+                                                str_contains($st, 'baik') => 'bg-green-100 text-green-900 border-green-400 dark:bg-green-900/40 dark:text-green-300 dark:border-green-800',
+                                                default => 'bg-red-100 text-red-900 border-red-400 dark:bg-red-900/40 dark:text-red-300 dark:border-red-800'
+                                            };
+                                        @endphp
+                                        <span class="px-3 py-1 rounded-full text-[10px] font-black border-2 uppercase tracking-widest whitespace-nowrap shadow-sm {{ $stClasses }}">
+                                            {{ $jorong->status_sinyal }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr wire:loading.remove>
+                                    <td colspan="9" class="px-6 py-20 text-center">
+                                        <div class="flex flex-col items-center justify-center text-gray-400">
+                                            <i class="fas fa-map-marked-alt text-6xl mb-4 opacity-10"></i>
+                                            <p class="text-xl font-black uppercase tracking-tighter text-gray-900 dark:text-gray-100">MASA PENCARIAN NIHIL</p>
+                                            <p class="text-sm italic font-medium">Coba sesuaikan kata kunci atau filter kecamatan/nagari Anda.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
 
-                <!-- Table -->
-                <div class="flex justify-center w-full" wire:loading.remove>
-                    <section class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg overflow-hidden w-full max-w-6xl">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3 w-12">
-                                            <span>No</span>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            <button wire:click="sortBy('nama_jorong')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                                <span>NAMA JORONG</span>
-                                                @if ($sortField === 'nama_jorong')
-                                                    @if ($sortDirection === 'asc')
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @else
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                        </svg>
-                                                    @endif
-                                                @else
-                                                    <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            <button wire:click="sortBy('nagari')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                                <span>NAGARI</span>
-                                                @if ($sortField === 'nagari')
-                                                    @if ($sortDirection === 'asc')
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @else
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                        </svg>
-                                                    @endif
-                                                @else
-                                                    <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            <button wire:click="sortBy('kecamatan')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                                <span>KECAMATAN</span>
-                                                @if ($sortField === 'kecamatan')
-                                                    @if ($sortDirection === 'asc')
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @else
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                        </svg>
-                                                    @endif
-                                                @else
-                                                    <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3">
-                                            <button wire:click="sortBy('nama_kepala_jorong')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400">
-                                                <span>KEPALA JORONG</span>
-                                                @if ($sortField === 'nama_kepala_jorong')
-                                                    @if ($sortDirection === 'asc')
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @else
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                        </svg>
-                                                    @endif
-                                                @else
-                                                    <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3 text-right">
-                                            <button wire:click="sortBy('jumlah_penduduk_jorong')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
-                                                <span>PENDUDUK/span>
-                                                    @if ($sortField === 'jumlah_penduduk_jorong')
-                                                        @if ($sortDirection === 'asc')
-                                                            <svg class="w-3 h-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                            </svg>
-                                                        @else
-                                                            <svg class="w-3 h-3" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                            </svg>
-                                                        @endif
-                                                    @else
-                                                        <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3 text-right">
-                                            <button wire:click="sortBy('luas_jorong')"
-                                                class="flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 ml-auto">
-                                                <span>LUAS JORONG (Ha)</span>
-                                                @if ($sortField === 'luas_jorong')
-                                                    @if ($sortDirection === 'asc')
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                    @else
-                                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" />
-                                                        </svg>
-                                                    @endif
-                                                @else
-                                                    <svg class="w-3 h-3 opacity-50" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                                    </svg>
-                                                @endif
-                                            </button>
-                                        </th>
-                                        <th scope="col" class="px-4 py-3 text-center">
-                                            <span>STATUS SINYAL</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($jorongs as $index => $jorong)
-                                        <tr wire:key="jorong-{{ $jorong->id }}" x-data="{ inView: false }"
-                                            x-intersect="inView = true"
-                                            x-bind:class="{ 'opacity-0 translate-y-4': !inView, 'opacity-100 translate-y-0': inView }"
-                                            class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 transform"
-                                            style="transition: opacity 0.3s ease, transform 0.3s ease;">
-                                            <td class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
-                                                {{ ($jorongs->currentPage() - 1) * $jorongs->perPage() + $loop->iteration }}
-                                            </td>
-                                            <td
-                                                class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $jorong->nama_jorong }}
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span
-                                                    class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300 transition-all duration-300 hover:scale-105">
-                                                    {{ $jorong->nagari ? $jorong->nagari->nama_nagari : '-' }}
-                                                </span>
-                                            </td>
-                                            <td class="px-4 py-3">
-                                                <span
-                                                    class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 transition-all duration-300 hover:scale-105">
-                                                    {{ $jorong->nagari && $jorong->nagari->kecamatan ? $jorong->nagari->kecamatan->nama : '-' }}
-                                                </span>
-                                            </td>
-                                            <td class="px-4 py-3 text-gray-900 dark:text-white">
-                                                {{ $jorong->nama_kepala_jorong }}
-                                            </td>
-                                            <td class="px-4 py-3 text-right text-gray-900 dark:text-white">
-                                                <span
-                                                    class="font-medium">{{ number_format($jorong->jumlah_penduduk_jorong ?? 0, 0, ',', '.') }}</span>
-                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">Jiwa</span>
-                                            </td>
-                                            <td class="px-4 py-3 text-right text-gray-900 dark:text-white">
-                                                <span
-                                                    class="font-medium">{{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}</span>
-                                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">Ha</span>
-                                            </td>
-                                            <td class="px-4 py-3 text-center">
-                                                @php
-                                                    $statusSinyal = $jorong->status_sinyal;
-                                                    $badgeColor = match ($statusSinyal) {
-                                                        'Blankspot' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-                                                        'Sinyal Baik' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-                                                        default => 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200',
-                                                    };
-                                                @endphp
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $badgeColor }}">
-                                                    {{ $statusSinyal }}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="7"
-                                                class="px-4 py-12 text-center text-gray-500 dark:text-gray-400">
-                                                <div class="flex flex-col items-center">
-                                                    <svg class="w-12 h-12 mb-4 text-gray-400" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                                        </path>
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z">
-                                                        </path>
-                                                    </svg>
-                                                    <p class="text-lg font-medium">Belum Ada Data</p>
-                                                    <p class="text-sm">Data jorong belum tersedia atau tidak
-                                                        ditemukan
-                                                    </p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Pagination -->
-                        <div
-                            class="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 py-3">
-                            {{ $jorongs->links('vendor.livewire.custom-pagination') }}
-                        </div>
-                    </section>
+                <!-- DataTables Footer Controls -->
+                <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-300 dark:border-gray-700">
+                    <div class="text-sm text-gray-900 dark:text-gray-100 font-black">
+                        Menampilkan <span class="text-blue-800 dark:text-blue-400 font-black">{{ $jorongs->firstItem() ?? 0 }}</span> - <span class="text-blue-800 dark:text-blue-400 font-black">{{ $jorongs->lastItem() ?? 0 }}</span> dari total <span class="text-blue-800 dark:text-blue-400 font-black">{{ $jorongs->total() }}</span> entri data
+                    </div>
+                    <div class="pagination-wrapper">
+                        {{ $jorongs->links('vendor.livewire.custom-pagination') }}
+                    </div>
                 </div>
             </div>
-
-            <style>
-                /* Hover effects for table rows */
-                tr:hover {
-                    transform: translateX(4px);
-                }
-
-                tr {
-                    transition: transform 0.2s ease-in-out;
-                }
-
-                /* Animation for lazy loading */
-                .opacity-0 {
-                    opacity: 0;
-                }
-
-                .opacity-100 {
-                    opacity: 1;
-                }
-
-                .translate-y-4 {
-                    transform: translateY(1rem);
-                }
-
-                .translate-y-0 {
-                    transform: translateY(0);
-                }
-
-                .dark tr:hover {
-                    background-color: rgba(59, 130, 246, 0.1);
-                }
-
-                /* Smooth transitions for filter changes */
-                .transition-all {
-                    transition-property: all;
-                    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                    transition-duration: 300ms;
-                }
-            </style>
-
-            <script>
-                // Simple scroll to top when pagination changes
-                window.addEventListener('livewire:update', function() {
-                    const tableSection = document.querySelector('section[wire\\:loading\\.remove]');
-                    if (tableSection) {
-                        tableSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            </script>
         </div>
     </div>
 </div>
