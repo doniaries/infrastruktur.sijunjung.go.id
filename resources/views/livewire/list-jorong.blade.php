@@ -57,25 +57,31 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-gray-200 dark:border-gray-700 pt-4">
-                        <div class="relative w-full sm:w-96">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
+                        <div class="flex items-center gap-3 w-full flex-1">
+                            <div class="relative flex-1 lg:min-w-[400px]">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
+                                </div>
+                                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari jorong..."
+                                    class="block w-full pl-10 pr-3 py-2 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
                             </div>
-                            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari jorong atau kepala jorong..."
-                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-green-500/20 focus:border-green-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
+                            <button wire:click="exportPdf" wire:loading.attr="disabled"
+                                class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider whitespace-nowrap disabled:opacity-50">
+                                <i class="fas fa-file-pdf mr-2 text-xs"></i>
+                                PDF
+                            </button>
                         </div>
-                        <button wire:click="exportPdf"
-                            class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider">
-                            <i class="fas fa-file-pdf mr-2 text-xs"></i>
-                            PDF
-                        </button>
+                        <div wire:loading wire:target="exportPdf" class="flex items-center text-red-600 dark:text-red-400 animate-pulse ml-2">
+                            <i class="fas fa-spinner animate-spin mr-2"></i>
+                            <span class="text-[10px] font-black uppercase tracking-tight">Proses Eksport ke PDF...</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Table Container -->
                 <div class="relative overflow-x-auto shadow-xl sm:rounded-xl border border-gray-200 dark:border-gray-700">
-                    <!-- Loading Overlay -->
-                    <div wire:loading.flex class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
+                    <!-- Loading Overlay (Data Only) -->
+                    <div wire:loading.flex wire:target="search, perPage, nagariFilter, kecamatanFilter, statusSinyalFilter, sortBy, gotoPage, nextPage, previousPage" class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
                         <div class="flex flex-col items-center">
                             <i class="fas fa-circle-notch animate-spin text-4xl text-green-700 mb-2"></i>
                             <span class="text-sm font-black text-green-700 dark:text-green-400 uppercase tracking-widest">Sinkronisasi...</span>

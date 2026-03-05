@@ -68,44 +68,50 @@
 
                     <!-- Second Row: Search, Years and Export -->
                     <div class="flex flex-col lg:flex-row justify-between items-center gap-4 border-t border-gray-300 dark:border-gray-700 pt-4">
-                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-                            <div class="relative flex-1 sm:flex-none sm:w-80">
+                        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto flex-1">
+                            <div class="relative flex-1 sm:min-w-[300px]">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
                                 </div>
-                                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari BTS atau alamat..."
-                                    class="block w-full pl-10 pr-3 py-2.5 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
+                                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari BTS..."
+                                    class="block w-full pl-10 pr-3 py-2 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
                             </div>
 
                             <div class="flex items-center gap-2 bg-white dark:bg-gray-800 p-1 rounded-lg border border-gray-400 dark:border-gray-600">
-                                <select wire:model.live="tahunFilter" class="bg-transparent border-none text-xs focus:ring-0 p-1.5 dark:text-white font-black">
-                                    <option value="">Dari Tahun</option>
+                                <select wire:model.live="tahunFilter" class="bg-transparent border-none text-[10px] focus:ring-0 p-1.5 dark:text-white font-black">
+                                    <option value="">Tahun</option>
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         <option value="{{ $year }}">{{ $year }}</option>
                                     @endfor
                                 </select>
                                 <span class="text-gray-900 dark:text-gray-400 font-black">-</span>
-                                <select wire:model.live="tahunFilterTo" class="bg-transparent border-none text-xs focus:ring-0 p-1.5 dark:text-white font-black">
-                                    <option value="">s/d Tahun</option>
+                                <select wire:model.live="tahunFilterTo" class="bg-transparent border-none text-[10px] focus:ring-0 p-1.5 dark:text-white font-black">
+                                    <option value="">s/d</option>
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         <option value="{{ $year }}">{{ $year }}</option>
                                     @endfor
                                 </select>
                             </div>
-                        </div>
 
-                        <button wire:click="exportPdf"
-                            class="w-full lg:w-auto inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider">
-                            <i class="fas fa-file-pdf mr-2 text-xs"></i>
-                            PDF
-                        </button>
+                            <div class="flex items-center gap-3">
+                                <button wire:click="exportPdf" wire:loading.attr="disabled"
+                                    class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider whitespace-nowrap disabled:opacity-50">
+                                    <i class="fas fa-file-pdf mr-2 text-xs"></i>
+                                    PDF
+                                </button>
+                                <div wire:loading wire:target="exportPdf" class="flex items-center text-red-600 dark:text-red-400 animate-pulse">
+                                    <i class="fas fa-spinner animate-spin mr-2"></i>
+                                    <span class="text-[10px] font-black uppercase tracking-tight">Proses Eksport ke PDF...</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Table Container -->
                 <div class="relative overflow-x-auto shadow-xl sm:rounded-xl border border-gray-200 dark:border-gray-700">
-                    <!-- Loading Overlay -->
-                    <div wire:loading.flex class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
+                    <!-- Loading Overlay (Data Only) -->
+                    <div wire:loading.flex wire:target="search, perPage, kecamatanFilter, operatorFilter, teknologiFilter, statusFilter, tahunFilter, tahunFilterTo, sortBy, gotoPage, nextPage, previousPage" class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
                         <div class="flex flex-col items-center">
                             <i class="fas fa-circle-notch animate-spin text-4xl text-blue-700 mb-2"></i>
                             <span class="text-sm font-black text-blue-700 dark:text-blue-400 uppercase tracking-widest">Sinkronisasi...</span>
