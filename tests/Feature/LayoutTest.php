@@ -11,6 +11,7 @@ class LayoutTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
+        $response->dump();
         $response->assertSee('<title>');
         $response->assertSee('Infrastruktur TI - Dinas Kominfo Sijunjung');
     }
