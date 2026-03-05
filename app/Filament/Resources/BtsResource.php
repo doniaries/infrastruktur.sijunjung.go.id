@@ -100,6 +100,46 @@ class BtsResource extends Resource
                                         ->zoom(14)
                                         ->detectRetina()
                                         ->showMyLocationButton(true),
+                                    Forms\Components\Select::make('kecamatan_id')
+                                        ->relationship('kecamatan', 'nama')
+                                        ->required()
+                                        ->live(),
+
+                                    Forms\Components\Select::make('nagari_id')
+                                        ->relationship(
+                                            'nagari',
+                                            'nama_nagari',
+                                            fn(Builder $query, callable $get) =>
+                                            $query->when(
+                                                $get('kecamatan_id'),
+                                                fn($query, $kecamatan_id) =>
+                                                $query->where('kecamatan_id', $kecamatan_id)
+                                            )
+                                        )
+                                        ->required()
+                                        ->searchable()
+                                        ->preload()
+                                        ->live()
+                                        ->visible(fn(callable $get) => filled($get('kecamatan_id')))
+                                        ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
+
+                                    Forms\Components\Select::make('jorong_id')
+                                        ->relationship(
+                                            'jorong',
+                                            'nama_jorong',
+                                            fn(Builder $query, callable $get) =>
+                                            $query->when(
+                                                $get('nagari_id'),
+                                                fn($query, $nagari_id) =>
+                                                $query->where('nagari_id', $nagari_id)
+                                            )
+                                        )
+                                        ->searchable()
+                                        ->preload()
+                                        ->visible(fn(callable $get) => filled($get('nagari_id'))),
+                                    Forms\Components\TextInput::make('alamat')
+                                        ->label('Alamat Lengkap')
+                                        ->required(),
 
                                     Forms\Components\Grid::make()
                                         ->columns(2)
@@ -146,15 +186,9 @@ class BtsResource extends Resource
                                         ->label('Pemilik BTS')
                                         ->required(),
 
-                                    Forms\Components\TextInput::make('alamat')
-                                        ->label('Alamat Lengkap')
-                                        ->required(),
 
-                                    Forms\Components\Textarea::make('keterangan')
-                                        ->label('Keterangan / Catatan')
-                                        ->placeholder('Contoh: BTS ini juga menjangkau nagari tetangga...')
-                                        ->rows(4)
-                                        ->columnSpanFull(),
+
+
                                 ]),
                         ])
                         ->columnSpan(2),
@@ -162,47 +196,6 @@ class BtsResource extends Resource
                     // Sidebar Column (Right)
                     Forms\Components\Group::make()
                         ->schema([
-                            Forms\Components\Section::make('Lokasi Administratif')
-                                ->schema([
-                                    Forms\Components\Select::make('kecamatan_id')
-                                        ->relationship('kecamatan', 'nama')
-                                        ->required()
-                                        ->live(),
-
-                                    Forms\Components\Select::make('nagari_id')
-                                        ->relationship(
-                                            'nagari',
-                                            'nama_nagari',
-                                            fn(Builder $query, callable $get) =>
-                                            $query->when(
-                                                $get('kecamatan_id'),
-                                                fn($query, $kecamatan_id) =>
-                                                $query->where('kecamatan_id', $kecamatan_id)
-                                            )
-                                        )
-                                        ->required()
-                                        ->searchable()
-                                        ->preload()
-                                        ->live()
-                                        ->visible(fn(callable $get) => filled($get('kecamatan_id')))
-                                        ->afterStateUpdated(fn(callable $set) => $set('jorong_id', null)),
-
-                                    Forms\Components\Select::make('jorong_id')
-                                        ->relationship(
-                                            'jorong',
-                                            'nama_jorong',
-                                            fn(Builder $query, callable $get) =>
-                                            $query->when(
-                                                $get('nagari_id'),
-                                                fn($query, $nagari_id) =>
-                                                $query->where('nagari_id', $nagari_id)
-                                            )
-                                        )
-                                        ->searchable()
-                                        ->preload()
-                                        ->visible(fn(callable $get) => filled($get('nagari_id'))),
-                                ]),
-
                             Forms\Components\Section::make('Cakupan Sinyal')
                                 ->description('Nagari lain yang terjangkau')
                                 ->schema([
@@ -221,7 +214,13 @@ class BtsResource extends Resource
                                         ->searchable()
                                         ->preload()
                                         ->helperText('Hanya nagari dalam kecamatan yang sama'),
+                                    Forms\Components\Textarea::make('keterangan')
+                                        ->label('Keterangan / Catatan')
+                                        ->placeholder('Contoh: BTS ini juga menjangkau nagari tetangga...')
+                                        ->rows(4)
+                                        ->columnSpanFull(),
                                 ]),
+
 
                             Forms\Components\Section::make('Metadata')
                                 ->schema([

@@ -157,9 +157,16 @@ class ListNagari extends Component
     {
         $nagaris = $this->buildQuery()->get();
 
+        $kecamatanName = '';
+        if ($this->kecamatanFilter) {
+            $kecamatan = \App\Models\Kecamatan::find($this->kecamatanFilter);
+            $kecamatanName = $kecamatan ? $kecamatan->nama : '';
+        }
+
         $pdf = Pdf::loadView('exports.nagari-pdf', [
             'nagaris' => $nagaris,
             'totalData' => $nagaris->count(),
+            'kecamatanName' => $kecamatanName,
             'filters' => [
                 'search' => $this->search,
                 'kecamatanFilter' => $this->kecamatanFilter,
@@ -167,9 +174,22 @@ class ListNagari extends Component
             ]
         ]);
 
+        // Dynamic Filename
+        $filename = 'data-nagari';
+        if ($this->statusSinyalFilter) {
+            $filename .= '-' . strtolower(str_replace(' ', '-', $this->statusSinyalFilter));
+        }
+        if ($kecamatanName) {
+            $filename .= '-' . strtolower(str_replace(' ', '-', $kecamatanName));
+        }
+        if ($this->search) {
+            $filename .= '-search-' . strtolower(str_replace(' ', '-', $this->search));
+        }
+        $filename .= '-' . date('Y-m-d') . '.pdf';
+
         return response()->streamDownload(function () use ($pdf) {
             echo $pdf->output();
-        }, 'data-nagari-' . date('Y-m-d') . '.pdf');
+        }, $filename);
     }
 
     public function render()

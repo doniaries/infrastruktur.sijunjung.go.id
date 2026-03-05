@@ -68,39 +68,45 @@
 </head>
 <body>
     <div class="header">
-        <h1>DATA NAGARI</h1>
-        <h2>Kabupaten Sijunjung, Provinsi Sumatera Barat</h2>
+        <h1>
+            @if($filters['statusSinyalFilter'])
+                DATA NAGARI {{ strtoupper($filters['statusSinyalFilter']) }}
+            @else
+                DATA SELURUH NAGARI
+            @endif
+        </h1>
+        <h2>
+            Kabupaten Sijunjung
+            @if($kecamatanName)
+                - Kecamatan {{ $kecamatanName }}
+            @endif
+        </h2>
+        <div style="margin-top: 10px; font-weight: bold; font-size: 14px;">
+            Total: {{ $totalData }} Nagari
+        </div>
     </div>
 
-    <div class="info">
-        <p><strong>Total Data:</strong> {{ $totalData }} Nagari</p>
-        <p><strong>Tanggal Export:</strong> {{ date('d F Y, H:i') }} WIB</p>
-        @if($filters['search'])
-            <p><strong>Filter Pencarian:</strong> "{{ $filters['search'] }}"</p>
-        @endif
-        @if($filters['kecamatanFilter'])
-            <p><strong>Filter Kecamatan:</strong> {{ $nagaris->first()?->kecamatan?->nama ?? 'Tidak diketahui' }}</p>
-        @endif
-        @if($filters['statusSinyalFilter'])
-            <p><strong>Filter Status Sinyal:</strong> {{ $filters['statusSinyalFilter'] }}</p>
-        @endif
-    </div>
+    @if($filters['search'])
+        <div style="margin-bottom: 10px; font-style: italic;">
+            Pencarian: "{{ $filters['search'] }}"
+        </div>
+    @endif
 
     @if($nagaris->count() > 0)
         <table>
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="18%">Nama Nagari</th>
-                    <th width="12%">Kecamatan</th>
-                    <th width="15%">Wali Nagari</th>
+                    <th width="20%">Nama Nagari</th>
+                    <th width="15%">Kecamatan</th>
+                    <th width="18%">Wali Nagari</th>
                     <th width="10%">Penduduk</th>
-                    <th width="9%">Luas (Ha)</th>
-                    @if(!isset($filters['statusSinyalFilter']) || $filters['statusSinyalFilter'] !== 'Blankspot')
-                    <th width="9%">Jml Jorong</th>
+                    <th width="10%">Luas (Ha)</th>
+                    @if($filters['statusSinyalFilter'] !== 'Blankspot')
+                    <th width="8%">Jorong</th>
                     @endif
-                    <th width="9%">Jml BTS</th>
-                    <th width="13%">Status Sinyal</th>
+                    <th width="7%">BTS</th>
+                    <th width="12%">Sinyal</th>
                 </tr>
             </thead>
             <tbody>
@@ -112,11 +118,11 @@
                         <td>{{ $nagari->nama_wali_nagari ?? '-' }}</td>
                         <td class="text-right">{{ number_format($nagari->jumlah_penduduk_nagari ?? 0, 0, ',', '.') }}</td>
                         <td class="text-right">{{ number_format($nagari->luas_nagari ?? 0, 0, ',', '.') }}</td>
-                        @if(!isset($filters['statusSinyalFilter']) || $filters['statusSinyalFilter'] !== 'Blankspot')
+                        @if($filters['statusSinyalFilter'] !== 'Blankspot')
                         <td class="text-center">{{ $nagari->jumlah_jorong }}</td>
                         @endif
                         <td class="text-center">{{ $nagari->bts_count ?? 0 }}</td>
-                        <td class="text-center">{{ $nagari->status_sinyal }}</td>
+                        <td class="text-center" style="font-size: 10px;">{{ $nagari->status_sinyal }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -129,8 +135,15 @@
     @endif
 
     <div class="footer">
-        <p>Dokumen ini digenerate secara otomatis oleh Sistem Infrastruktur TI Sijunjung</p>
-        <p>{{ url('/') }}</p>
+        <div style="float: left; text-align: left;">
+            Exported on: {{ date('d/m/Y H:i') }} WIB
+        </div>
+        <div style="float: right;">
+            Halaman 1 dari 1
+        </div>
+        <div style="clear: both; padding-top: 10px; text-align: center; border-top: 1px solid #eee; margin-top: 10px;">
+            <p>Sistem Informasi Infrastruktur Teknologi Informasi Kabupaten Sijunjung</p>
+        </div>
     </div>
 </body>
 </html>
