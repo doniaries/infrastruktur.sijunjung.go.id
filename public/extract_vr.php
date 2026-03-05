@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Advanced ZIP Extractor (VR Version)
- * Use this script to extract large ZIP files onto the server.
+ * VR.zip Extractor (Strict to Tours Folder)
+ * Use this script to extract VR.zip file inside 'tours' directory.
  */
 
 set_time_limit(0);
@@ -11,78 +11,47 @@ ini_set('memory_limit', '1024M');
 // Configuration
 $targetDir = 'tours';
 
-// Try to find ZIP files in the target directory
-$zips = glob("$targetDir/*.zip");
-$rootZips = glob("*.zip");
-
+// Look for VR.zip specifically in 'tours' or root
 $zipFile = null;
-if (isset($_GET['file'])) {
-    $zipFile = $targetDir . '/' . basename($_GET['file']);
-} elseif (count($zips) > 0) {
-    // Priority for VR.zip
-    foreach ($zips as $z) {
-        if (basename($z) === 'VR.zip') {
-            $zipFile = $z;
-            break;
-        }
-    }
-    if (!$zipFile) $zipFile = $zips[0];
-} elseif (count($rootZips) > 0) {
-    // Priority for VR.zip in root
-    foreach ($rootZips as $z) {
-        if (basename($z) === 'VR.zip') {
-            $zipFile = $z;
-            $targetDir = '.';
-            break;
-        }
-    }
-    if (!$zipFile) {
-        $zipFile = $rootZips[0];
-        $targetDir = '.';
-    }
+if (file_exists("$targetDir/VR.zip")) {
+    $zipFile = "$targetDir/VR.zip";
+} elseif (file_exists("VR.zip")) {
+    $zipFile = "VR.zip";
 }
 
 header('Content-Type: text/html; charset=utf-8');
-echo "<html><head><title>VR Extractor Utility</title>
+echo "<html><head><title>VR.zip Extractor</title>
 <style>
     body{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f0f2f5; padding:40px; color:#1c1e21;}
     .container{max-width:700px; margin:0 auto; background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
-    h1{color:#1877f2; margin-top:0; display:flex; align-items:center; gap:10px;}
+    h1{color:#1877f2; margin-top:0;}
     .card{border:1px solid #dddfe2; border-radius:8px; padding:20px; margin-bottom:20px; background:#f9fafb;}
-    .btn{display:inline-block; background:#1877f2; color:#fff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold; transition:background 0.2s;}
-    .btn:hover{background:#166fe5;}
-    .status{padding:15px; background:#f0f2f5; border-left:4px solid #1877f2; border-radius:4px; margin-top:20px; font-family:monospace; white-space:pre-wrap; word-break:break-all;}
-    code{background:#e4e6eb; padding:2px 6px; border-radius:4px; font-family:monospace;}
-    .success{color:#28a745; font-weight:bold;}
-    .error{color:#dc3545; font-weight:bold;}
+    .btn{display:inline-block; background:#1877f2; color:#fff; padding:12px 24px; text-decoration:none; border-radius:6px; font-weight:bold;}
+    .status{padding:15px; background:#f0f2f5; border-left:4px solid #1877f2; border-radius:4px; margin-top:20px; font-family:monospace;}
 </style></head><body>";
 
 echo "<div class='container'>
-    <h1>📦 VR Extractor Utility</h1>
-    <p>Alat ini siap mengekstrak data VR Anda ke folder tujuan.</p>";
+    <h1>📦 VR.zip Extractor</h1>";
 
-if (!$zipFile || !file_exists($zipFile)) {
+if (!$zipFile) {
     echo "<div class='card'>
-        <h3>❌ File Tidak Ditemukan</h3>
-        <p>File <code>VR.zip</code> tidak terdeteksi di <code>public/tours/</code> atau <code>public/</code>.</p>
-        <p>Silakan upload file Anda dan refresh halaman ini.</p>
+        <h3 style='color:#dc3545;'>❌ File VR.zip Tidak Ditemukan</h3>
+        <p>Pastikan file <code>VR.zip</code> sudah diupload ke folder <code>public/tours/</code> atau <code>public/</code>.</p>
     </div>";
 } else {
     echo "<div class='card'>
-        <h3>📄 File Siap Ekstrak</h3>
-        <p>File Ditemukan: <strong>$zipFile</strong></p>
-        <p>Lokasi Ekstraksi: <code>public/$targetDir/</code></p>
+        <h3>📄 File Terdeteksi</h3>
+        <p>File: <strong>$zipFile</strong></p>
+        <p>Tujuan Ekstraksi: <strong>public/$targetDir/</strong></p>
         
         <form method='GET'>
             <input type='hidden' name='run' value='1'>
-            <input type='hidden' name='file' value='" . basename($zipFile) . "'>
-            <input type='hidden' name='dir' value='$targetDir'>
-            <button type='submit' class='btn'>Ekstrak VR Sekarang</button>
+            <button type='submit' class='btn'>Ekstrak Sekarang</button>
         </form>
     </div>";
 
     if (isset($_GET['run'])) {
-        echo "<div class='status'>Sedang mengekstrak $zipFile...<br>";
+        echo "<div class='status'>Mengekstrak $zipFile ke $targetDir...<br>";
 
         $zip = new ZipArchive;
         if ($zip->open($zipFile) === TRUE) {
@@ -92,14 +61,13 @@ if (!$zipFile || !file_exists($zipFile)) {
 
             if ($zip->extractTo($targetDir)) {
                 $zip->close();
-                echo "<span class='success'>✅ BERHASIL! File VR telah diekstrak.</span><br>";
-                echo "Data sekarang tersedia di folder <code>$targetDir/</code>.</div>";
-                echo "<p style='color:#dc3545; font-weight:bold;'>⚠️ PENTING: Segera hapus file <code>extract_vr.php</code> ini dari server Anda demi keamanan.</p>";
+                echo "<br><b style='color:#28a745;'>✅ BERHASIL!</b> Data telah diekstrak ke folder <code>tours/</code>.</div>";
+                echo "<p style='color:#dc3545;'><strong>PENTING:</strong> Segera hapus file <code>extract_vr.php</code> ini!</p>";
             } else {
-                echo "<span class='error'>❌ GAGAL: Tidak dapat menulis ke folder tujuan. Periksa izin folder (CHMOD).</span></div>";
+                echo "<br><b style='color:#dc3545;'>❌ GAGAL:</b> Cek izin folder <code>tours/</code>.</div>";
             }
         } else {
-            echo "<span class='error'>❌ GAGAL: File ZIP tidak dapat dibuka. Mungkin file rusak saat upload.</span></div>";
+            echo "<br><b style='color:#dc3545;'>❌ GAGAL:</b> ZIP tidak dapat dibuka.</div>";
         }
     }
 }
