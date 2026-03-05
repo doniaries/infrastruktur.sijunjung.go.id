@@ -2,45 +2,37 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\BtsResource\Pages;
 use App\Models\Bts;
+use Dotswan\MapPicker\Fields\Map;
+use Dotswan\MapPicker\Infolists\MapEntry;
 use Filament\Forms;
-use Filament\Tables;
-use Components\Group;
-use Filament\Forms\Set;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Forms\Components\Button;
+use Filament\Forms\Set;
+use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Dotswan\MapPicker\Fields\Map;
+use Filament\Tables;
+use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 
 use Filament\Forms\Components\Actions;
-use Filament\Infolists\Components\Grid;
-use Illuminate\Database\Eloquent\Model;
-use Dotswan\MapPicker\Infolists\MapEntry;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Infolists\Components\Section;
-use Filament\Tables\Enums\ActionsPosition;
-use Filament\Infolists\Components\TextEntry;
-use App\Filament\Resources\BtsResource\Pages;
-use Illuminate\Support\Facades\Cache;
 use Filament\Forms\Components\Actions\Action;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\BtsResource\RelationManagers;
 
 class BtsResource extends Resource
 {
     protected static ?string $model = Bts::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-bar';
-    
+
     protected static ?int $navigationSort = 1;
-    
+
     protected static ?string $navigationGroup = 'Data Infrastruktur';
-    
+
     protected static ?string $modelLabel = 'BTS';
-    
+
     protected static ?string $pluralModelLabel = 'Daftar BTS';
 
     public static function getNavigationBadge(): ?string
@@ -164,7 +156,7 @@ class BtsResource extends Resource
                             Forms\Components\Select::make('nagari_id')
                                 ->relationship(
                                     'nagari',
-                                    'nama',
+                                    'nama_nagari',
                                     fn(Builder $query, callable $get) =>
                                     $query->when(
                                         $get('kecamatan_id'),
@@ -172,7 +164,6 @@ class BtsResource extends Resource
                                         $query->where('kecamatan_id', $kecamatan_id)
                                     )
                                 )
-                                ->required()
                                 ->searchable()
                                 ->preload()
                                 ->live()
@@ -182,7 +173,7 @@ class BtsResource extends Resource
                             Forms\Components\Select::make('jorong_id')
                                 ->relationship(
                                     'jorong',
-                                    'nama',
+                                    'nama_jorong',
                                     fn(Builder $query, callable $get) =>
                                     $query->when(
                                         $get('nagari_id'),
@@ -226,6 +217,25 @@ class BtsResource extends Resource
                                 ->default('2023')
                                 ->minValue(2000)
                                 ->maxValue(2030),
+
+                            Forms\Components\Textarea::make('keterangan')
+                                ->label('Keterangan')
+                                ->placeholder('Contoh: BTS ini juga menjangkau nagari tetangga...')
+                                ->rows(3)
+                                ->columnSpanFull(),
+                        ]),
+
+                    Forms\Components\Section::make('Cakupan Multi-Nagari')
+                        ->description('Pilih nagari/jorong lain yang juga terjangkau oleh sinyal BTS ini')
+                        ->columnSpan(1)
+                        ->schema([
+                            Forms\Components\Select::make('nagarisCovered')
+                                ->label('Nagari Terjangkau Lainnya')
+                                ->relationship('nagarisCovered', 'nama_nagari')
+                                ->multiple()
+                                ->searchable()
+                                ->preload()
+                                ->helperText('Pilih nagari tetangga yang mendapatkan sinyal dari BTS ini'),
                         ]),
                 ])
         ]);
@@ -234,7 +244,7 @@ class BtsResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->withRelations())
+            ->modifyQueryUsing(fn(Builder $query) => $query->withRelations())
             ->columns([
                 Tables\Columns\TextColumn::make('tahun_bangun')
                     ->sortable(),
@@ -288,6 +298,10 @@ class BtsResource extends Resource
                         'non-aktif' => 'danger',
                     }),
 
+                Tables\Columns\TextColumn::make('keterangan')
+                    ->label('Keterangan')
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('tahun_bangun', 'desc')
             ->filters([
@@ -339,7 +353,7 @@ class BtsResource extends Resource
                     ->iconButton()
                     ->tooltip('Hapus'),
             ], position: ActionsPosition::BeforeColumns)
-            ->recordUrl(fn (Bts $record): string => route('filament.admin.resources.bts.edit', $record))
+            ->recordUrl(fn(Bts $record): string => route('filament.admin.resources.bts.edit', $record))
 
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -348,6 +362,73 @@ class BtsResource extends Resource
             ]);
     }
 
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make('Informasi Dasar')
+                    ->schema([
+                        Infolists\Components\Grid::make(3)
+                            ->schema([
+                                Infolists\Components\TextEntry::make('tahun_bangun')
+                                    ->label('Tahun Bangun'),
+                                Infolists\Components\TextEntry::make('operator.nama_operator')
+                                    ->label('Operator')
+                                    ->badge(),
+                                Infolists\Components\TextEntry::make('teknologi')
+                                    ->label('Teknologi')
+                                    ->badge(),
+                                Infolists\Components\TextEntry::make('status')
+                                    ->label('Status')
+                                    ->badge()
+                                    ->color(fn(string $state): string => match ($state) {
+                                        'aktif' => 'success',
+                                        'non-aktif' => 'danger',
+                                    }),
+                                Infolists\Components\TextEntry::make('pemilik')
+                                    ->label('Pemilik BTS'),
+                            ]),
+                    ]),
+
+                Infolists\Components\Section::make('Lokasi & Cakupan')
+                    ->schema([
+                        Infolists\Components\Grid::make(2)
+                            ->schema([
+                                Infolists\Components\Group::make([
+                                    Infolists\Components\TextEntry::make('kecamatan.nama')
+                                        ->label('Kecamatan'),
+                                    Infolists\Components\TextEntry::make('nagari.nama_nagari')
+                                        ->label('Nagari Utama'),
+                                    Infolists\Components\TextEntry::make('jorong.nama_jorong')
+                                        ->label('Jorong Utama')
+                                        ->placeholder('Tidak ada jorong spesifik'),
+                                    Infolists\Components\TextEntry::make('alamat')
+                                        ->label('Alamat Lengkap'),
+                                    Infolists\Components\TextEntry::make('titik_koordinat')
+                                        ->label('Koordinat'),
+                                    Infolists\Components\TextEntry::make('keterangan')
+                                        ->label('Keterangan / Catatan')
+                                        ->columnSpanFull(),
+                                ]),
+                                Infolists\Components\Group::make([
+                                    Infolists\Components\TextEntry::make('nagarisCovered.nama_nagari')
+                                        ->label('Nagari Terjangkau Lainnya')
+                                        ->badge()
+                                        ->listWithLineBreaks()
+                                        ->placeholder('Tidak ada nagari tetangga yang terdaftar'),
+                                    MapEntry::make('location')
+                                        ->label('Peta Lokasi')
+                                        ->state(fn($record) => ['lat' => $record->latitude, 'lng' => $record->longitude])
+                                        ->extraStyles([
+                                            'min-height: 300px',
+                                            'border-radius: 10px'
+                                        ]),
+                                ]),
+                            ]),
+                    ]),
+            ]);
+    }
 
     public static function getRelations(): array
     {
@@ -364,5 +445,4 @@ class BtsResource extends Resource
             'edit' => Pages\EditBts::route('/{record}/edit'),
         ];
     }
-
 }

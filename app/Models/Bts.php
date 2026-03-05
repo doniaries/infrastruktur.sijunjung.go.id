@@ -55,6 +55,7 @@ class Bts extends Model
         'teknologi',
         'status',
         'tahun_bangun',
+        'keterangan',
     ];
 
     protected $casts = [
@@ -95,6 +96,19 @@ class Bts extends Model
     public function jorong()
     {
         return $this->belongsTo(Jorong::class, 'jorong_id');
+    }
+
+    public function nagarisCovered()
+    {
+        return $this->belongsToMany(Nagari::class, 'bts_nagari_coverage', 'bts_id', 'nagari_id')
+            ->withPivot('jorong_id')
+            ->withTimestamps();
+    }
+
+    public function jorongsCovered()
+    {
+        return $this->belongsToMany(Jorong::class, 'bts_nagari_coverage', 'bts_id', 'jorong_id')
+            ->withTimestamps();
     }
 
     // Query Scopes untuk optimasi

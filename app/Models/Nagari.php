@@ -114,6 +114,13 @@ class Nagari extends Model
         return $this->hasMany(Bts::class);
     }
 
+    public function btsCovering()
+    {
+        return $this->belongsToMany(Bts::class, 'bts_nagari_coverage', 'nagari_id', 'bts_id')
+            ->withPivot('jorong_id')
+            ->withTimestamps();
+    }
+
     // Mutator - Mengubah data sebelum disimpan ke database
     public function setNamaAttribute($value)
     {
@@ -149,18 +156,28 @@ class Nagari extends Model
     public function getStatusSinyalAttribute()
     {
         // Use pre-loaded count if available
-        $btsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
+        $directBtsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
 
-        if ($btsCount === 0) {
+        // Consider BTS covering from other nagaris
+        $coveringBtsCount = $this->btsCovering()->count();
+
+        $totalBtsCount = $directBtsCount + $coveringBtsCount;
+
+        if ($totalBtsCount === 0) {
             return 'Blankspot';
         }
 
-        // Use pre-loaded unique jorong with bts count if available (assigned from subquery in Resource)
+        // Use pre-loaded unique jorong with bts count if available
         $jorongWithBtsCount = isset($this->jorong_bts_count)
             ? (int) $this->jorong_bts_count
             : $this->bts()->whereNotNull('jorong_id')->distinct('jorong_id')->count('jorong_id');
 
-        if ($this->jumlah_jorong > 1 && $jorongWithBtsCount === 1) {
+        // Also consider jorongs covered by covering BTS if any specifically mentioned in pivot
+        $coveredJorongsCount = $this->btsCovering()->whereNotNull('bts_nagari_coverage.jorong_id')->distinct('bts_nagari_coverage.jorong_id')->count('bts_nagari_coverage.jorong_id');
+
+        $totalJorongWithCoverage = $jorongWithBtsCount + $coveredJorongsCount;
+
+        if ($this->jumlah_jorong > 1 && $totalJorongWithCoverage === 1) {
             return 'Lemah Sinyal';
         }
 

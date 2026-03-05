@@ -67,7 +67,13 @@ class ListNagari extends Component
                 $query->selectRaw('count(distinct jorong_id)')
                     ->from('bts')
                     ->whereColumn('nagari_id', 'nagaris.id')
-                    ->whereNotNull('jorong_id');
+                    ->whereNotNull('jorong_id')
+                    ->union(function ($q) {
+                        $q->select('jorong_id')
+                            ->from('bts_nagari_coverage')
+                            ->whereColumn('nagari_id', 'nagaris.id')
+                            ->whereNotNull('jorong_id');
+                    });
             }, 'jorong_bts_count')
             ->selectSub(function ($query) {
                 $query->from('jorongs')
@@ -80,35 +86,23 @@ class ListNagari extends Component
         // Apply Status Sinyal Filter
         if ($this->statusSinyalFilter) {
             match ($this->statusSinyalFilter) {
-                'Blankspot' => $query->whereDoesntHave('bts'),
+                'Blankspot' => $query->whereDoesntHave('bts')->whereDoesntHave('btsCovering'),
 
                 'Lemah Sinyal' => $query
-                    ->whereHas('bts')
+                    ->where(function ($q) {
+                        $q->whereHas('bts')->orWhereHas('btsCovering');
+                    })
                     ->whereRaw('jumlah_jorong > 1')
-                    ->whereIn('nagaris.id', function ($sub) {
-                        $sub->select('nagari_id')
-                            ->from('bts')
-                            ->whereNotNull('jorong_id')
-                            ->groupBy('nagari_id')
-                            ->havingRaw('COUNT(DISTINCT jorong_id) = 1');
-                    }),
+                    ->havingRaw('jorong_bts_count = 1'),
 
                 'Sinyal Baik' => $query
-                    ->whereHas('bts')
+                    ->where(function ($q) {
+                        $q->whereHas('bts')->orWhereHas('btsCovering');
+                    })
                     ->where(function ($q) {
                         $q->where('jumlah_jorong', '<=', 1)
-                            ->orWhereIn('nagaris.id', function ($sub) {
-                                $sub->select('nagari_id')
-                                    ->from('bts')
-                                    ->whereNotNull('jorong_id')
-                                    ->groupBy('nagari_id')
-                                    ->havingRaw('COUNT(DISTINCT jorong_id) > 1');
-                            })
-                            ->orWhereNotIn('nagaris.id', function ($sub) {
-                                $sub->select('nagari_id')
-                                    ->from('bts')
-                                    ->whereNotNull('jorong_id');
-                            });
+                            ->orHavingRaw('jorong_bts_count > 1')
+                            ->orHavingRaw('jorong_bts_count = 0'); // Coverage doesn't specify jorong
                     }),
 
                 default => null,
