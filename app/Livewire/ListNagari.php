@@ -79,35 +79,42 @@ class ListNagari extends Component
 
         // Apply Status Sinyal Filter
         if ($this->statusSinyalFilter) {
-            $query->where(function ($query) {
-                match ($this->statusSinyalFilter) {
-                    'Blankspot' => $query->whereDoesntHave('bts'),
-                    'Lemah Sinyal' => $query->whereHas('bts')
-                        ->where(function ($q) {
-                            $q->whereHas('jorongs', null, '>', 1)
-                                ->whereIn('id', function ($sub) {
-                                    $sub->select('nagari_id')
-                                        ->from('bts')
-                                        ->whereNotNull('jorong_id')
-                                        ->groupBy('nagari_id')
-                                        ->havingRaw('COUNT(DISTINCT jorong_id) = 1');
-                                });
-                        }),
-                    'Sinyal Baik' => $query->whereHas('bts')
-                        ->where(function ($q) {
-                            $q->whereHas('jorongs', null, '<=', 1)
-                                ->orWhereIn('id', function ($sub) {
-                                    $sub->select('nagari_id')
-                                        ->from('bts')
-                                        ->whereNotNull('jorong_id')
-                                        ->groupBy('nagari_id')
-                                        ->havingRaw('COUNT(DISTINCT jorong_id) > 1');
-                                });
-                        }),
-                    default => null,
-                };
-            });
+            match ($this->statusSinyalFilter) {
+                'Blankspot' => $query->whereDoesntHave('bts'),
+
+                'Lemah Sinyal' => $query
+                    ->whereHas('bts')
+                    ->whereRaw('jumlah_jorong > 1')
+                    ->whereIn('nagaris.id', function ($sub) {
+                        $sub->select('nagari_id')
+                            ->from('bts')
+                            ->whereNotNull('jorong_id')
+                            ->groupBy('nagari_id')
+                            ->havingRaw('COUNT(DISTINCT jorong_id) = 1');
+                    }),
+
+                'Sinyal Baik' => $query
+                    ->whereHas('bts')
+                    ->where(function ($q) {
+                        $q->where('jumlah_jorong', '<=', 1)
+                            ->orWhereIn('nagaris.id', function ($sub) {
+                                $sub->select('nagari_id')
+                                    ->from('bts')
+                                    ->whereNotNull('jorong_id')
+                                    ->groupBy('nagari_id')
+                                    ->havingRaw('COUNT(DISTINCT jorong_id) > 1');
+                            })
+                            ->orWhereNotIn('nagaris.id', function ($sub) {
+                                $sub->select('nagari_id')
+                                    ->from('bts')
+                                    ->whereNotNull('jorong_id');
+                            });
+                    }),
+
+                default => null,
+            };
         }
+
 
         // Apply sorting
         switch ($this->sortField) {

@@ -12,9 +12,8 @@
             </div>
 
 
-
             <!-- Search, Filter and Export Section -->
-            <div class="mb-6 flex flex-wrap gap-3 items-center max-w-4xl mx-auto">
+            <div class="mb-6 flex flex-wrap gap-3 items-center">
                 <div class="flex-1 min-w-64 relative">
                     <input type="text" wire:model.live="search" placeholder="Cari nagari..."
                         class="w-full pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white">
@@ -65,7 +64,7 @@
             </div>
 
             <!-- Skeleton Loading Section -->
-            <section class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg max-w-4xl mx-auto"
+            <section class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg w-full"
                 wire:loading.flex>
                 <div class="w-full p-6 relative">
                     <!-- Spinner Centered in Table -->
@@ -158,16 +157,16 @@
             </div> --}}
 
             <!-- Table Section -->
-            <div class="overflow-x-auto max-w-4xl mx-auto" wire:loading.remove>
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <div class="overflow-x-auto w-full" wire:loading.remove>
+                <table class="min-w-full text-sm text-left text-gray-500 dark:text-gray-400" style="min-width: 900px;">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-300">
                         <tr>
-                            <th scope="col" class="px-4 py-3 w-12">
+                            <th scope="col" class="px-4 py-3 w-12 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <span>No</span>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 w-1/6">
+                            <th scope="col" class="px-4 py-3 min-w-[160px]">
                                 <div class="flex items-center space-x-1">
                                     <span>NAMA NAGARI</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
@@ -176,7 +175,7 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 w-1/6">
+                            <th scope="col" class="px-4 py-3 min-w-[140px]">
                                 <div class="flex items-center space-x-1">
                                     <span>Kecamatan</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
@@ -185,7 +184,7 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 w-1/6">
+                            <th scope="col" class="px-4 py-3 min-w-[160px]">
                                 <div class="flex items-center space-x-1">
                                     <span>NAMA WALI NAGARI</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
@@ -194,7 +193,7 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 text-right w-1/6">
+                            <th scope="col" class="px-4 py-3 text-right min-w-[130px] whitespace-nowrap">
                                 <div class="flex items-center space-x-1 ml-auto">
                                     <span>JML Penduduk</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
@@ -203,7 +202,7 @@
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 text-right w-1/6">
+                            <th scope="col" class="px-4 py-3 text-right min-w-[130px] whitespace-nowrap">
                                 <div class="flex items-center space-x-1 ml-auto">
                                     <span>LUAS NAGARI (Ha)</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
@@ -213,9 +212,9 @@
                                 </div>
                             </th>
                             @if($statusSinyalFilter !== 'Blankspot')
-                            <th scope="col" class="px-4 py-3 text-center w-1/6">
-                                <div class="flex items-center space-x-1 mx-auto">
-                                    <span>JUMLAH JORONG</span>
+                            <th scope="col" class="px-4 py-3 text-center min-w-[120px] whitespace-nowrap">
+                                <div class="flex items-center space-x-1 mx-auto justify-center">
+                                    <span>JML JORONG</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
@@ -223,17 +222,17 @@
                                 </div>
                             </th>
                             @endif
-                            <th scope="col" class="px-4 py-3 text-center w-1/6">
-                                <div class="flex items-center space-x-1 mx-auto">
-                                    <span>JUMLAH BTS</span>
+                            <th scope="col" class="px-4 py-3 text-center min-w-[110px] whitespace-nowrap">
+                                <div class="flex items-center space-x-1 mx-auto justify-center">
+                                    <span>JML BTS</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                                     </svg>
                                 </div>
                             </th>
-                            <th scope="col" class="px-4 py-3 text-center w-1/6">
-                                <div class="flex items-center space-x-1 mx-auto">
+                            <th scope="col" class="px-4 py-3 text-center min-w-[130px] whitespace-nowrap">
+                                <div class="flex items-center space-x-1 mx-auto justify-center">
                                     <span>STATUS SINYAL</span>
                                     <svg class="w-3 h-3 opacity-50" fill="currentColor" viewBox="0 0 20 20">
                                         <path
@@ -243,6 +242,7 @@
                             </th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @forelse($nagaris as $nagari)
                             <tr wire:key="nagari-{{ $nagari->id }}" x-data="{ inView: false }"
@@ -278,14 +278,14 @@
                                 @if($statusSinyalFilter !== 'Blankspot')
                                 <td class="px-4 py-3 text-center">
                                     <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-600 text-white dark:bg-blue-500 dark:text-white">
                                         {{ $nagari->jumlah_jorong }} Jorong
                                     </span>
                                 </td>
                                 @endif
                                 <td class="px-4 py-3 text-center">
                                     <span
-                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-600 text-white dark:bg-indigo-500 dark:text-white">
                                         {{ $nagari->bts_count }} BTS
                                     </span>
                                 </td>
