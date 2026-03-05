@@ -13,75 +13,60 @@ class BtsSeeder extends Seeder
     public function run(): void
     {
         // Hapus data lama
-        Bts::query()->delete();
+        \App\Models\Bts::query()->delete();
 
-        $btsData = [
-            // Nagari Palangki (id: 1) - Sinyal Baik (BTS di beberapa jorong)
-            [
-                'operator_id' => 1, // Telkomsel
-                'kecamatan_id' => 3,
-                'nagari_id' => 1,
-                'jorong_id' => 1,
-                'pemilik' => 'Telkomsel',
-                'alamat' => 'Jorong Pantai Cermin',
-                'teknologi' => '4G',
-                'status' => 'aktif',
-                'tahun_bangun' => '2020',
-            ],
-            [
-                'operator_id' => 2, // Indosat
-                'kecamatan_id' => 3,
-                'nagari_id' => 1,
-                'jorong_id' => 2,
-                'pemilik' => 'Indosat',
-                'alamat' => 'Jorong Tambang Ameh',
-                'teknologi' => '4G',
-                'status' => 'aktif',
-                'tahun_bangun' => '2021',
-            ],
+        $filePath = base_path('bts.xlsx');
 
-            // Nagari Koto Baru (id: 2) - Lemah Sinyal (Banyak jorong tapi BTS hanya di 1 jorong)
-            [
-                'operator_id' => 1,
-                'kecamatan_id' => 3,
-                'nagari_id' => 2,
-                'jorong_id' => 6, // Jorong Pasar
-                'pemilik' => 'Telkomsel',
-                'alamat' => 'Jorong Pasar',
-                'teknologi' => '4G',
-                'status' => 'aktif',
-                'tahun_bangun' => '2019',
-            ],
-            [
-                'operator_id' => 3, // XL
-                'kecamatan_id' => 3,
-                'nagari_id' => 2,
-                'jorong_id' => 6, // Tetap di Jorong Pasar
-                'pemilik' => 'XL Axiata',
-                'alamat' => 'Jorong Pasar',
-                'teknologi' => '4G',
-                'status' => 'aktif',
-                'tahun_bangun' => '2022',
-            ],
+        if (!file_exists($filePath)) {
+            $this->command->error("File bts.xlsx tidak ditemukan di: " . $filePath);
+            return;
+        }
 
-            // Nagari Muaro Bodi (id: 3) - Blankspot (Tidak ada data BTS yang dimasukkan)
+        try {
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+            $worksheet = $spreadsheet->getActiveSheet();
+            $rows = $worksheet->toArray(null, true, true, true);
 
-            // Tambahkan data lain jika diperlukan...
-            [
-                'operator_id' => 1,
-                'kecamatan_id' => 1, // Sijunjung
-                'nagari_id' => 34, // Muaro
-                'jorong_id' => 126,
-                'pemilik' => 'Telkomsel',
-                'alamat' => 'Pusat Kota Muaro',
-                'teknologi' => '4G+5G',
-                'status' => 'aktif',
-                'tahun_bangun' => '2023',
-            ],
-        ];
+            $count = 0;
+            foreach ($rows as $index => $row) {
+                // Skip header (Baris 1)
+                if ($index === 1) continue;
 
-        foreach ($btsData as $data) {
-            Bts::create($data);
+                // Skip jika baris kosong (cek operator_id atau pemilik)
+                if (empty($row['B']) && empty($row['C'])) continue;
+
+                $latitude = null;
+                $longitude = null;
+
+                // Parse koordinat dari kolom G (format: "lat, lng")
+                if (!empty($row['G'])) {
+                    $coords = explode(',', $row['G']);
+                    if (count($coords) === 2) {
+                        $latitude = trim($coords[0]);
+                        $longitude = trim($coords[1]);
+                    }
+                }
+
+                \App\Models\Bts::create([
+                    'operator_id' => $row['B'] ?? null,
+                    'pemilik' => $row['C'] ?? 'Tidak Diketahui',
+                    'kecamatan_id' => $row['D'] ?? null,
+                    'nagari_id' => $row['E'] ?? null,
+                    'jorong_id' => null, // Kolom F adalah alamat, tidak ada jorong_id spesifik
+                    'alamat' => $row['F'] ?? null,
+                    'titik_koordinat' => !empty($row['G']) ? $row['G'] : null,
+                    'latitude' => $latitude,
+                    'longitude' => $longitude,
+                    'teknologi' => !empty($row['H']) ? strtoupper($row['H']) : '4G',
+                    'status' => !empty($row['I']) && strtolower($row['I']) === 'aktif' ? 'aktif' : 'non-aktif',
+                    'tahun_bangun' => $row['J'] ?? date('Y'),
+                ]);
+                $count++;
+            }
+
+            $this->command->info("Berhasil mengimpor $count data BTS dari bts.xlsx");
+        } catch (\Exception $e) {
+            $this->command->error("Terjadi kesalahan saat mengimpor Excel: " . $e->getMessage());
         }
     }
 }
