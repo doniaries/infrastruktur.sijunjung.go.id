@@ -206,12 +206,19 @@
                                 <tr wire:loading.remove wire:key="bts-{{ $item->id }}" class="hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors duration-150 group">
                                     <td class="px-6 py-4">
                                         @php
+                                            $st = strtolower($lapor->status_laporan ? $lapor->status_laporan->value : 'unknown');
+                                            $badgeClass = match(true) {
+                                                str_contains($st, 'belum') => 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
+                                                str_contains($st, 'sedang') => 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                                str_contains($st, 'selesai') => 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-100 text-slate-900 border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
+                                            };
                                             $opName = strtoupper($item->operator->nama_operator ?? '');
                                             $opClasses = match(true) {
-                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30 dark:backdrop-blur-md',
-                                                str_contains($opName, 'INDOSAT') => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-100 dark:border-amber-500/30 dark:backdrop-blur-md',
-                                                str_contains($opName, 'XL') => 'bg-blue-600 text-white border-blue-700 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
-                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
+                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30 dark:backdrop-blur-md',
+                                                str_contains($opName, 'INDOSAT') => 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-100 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                                str_contains($opName, 'XL') => 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-100 text-slate-900 border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
                                             };
                                         @endphp
                                         <span class="px-2.5 py-1 {{ $opClasses }} text-[11px] font-black rounded-lg uppercase tracking-tight shadow-sm border">
@@ -219,9 +226,9 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
-                                            {{ $item->kecamatan->nama ?? '-' }}
-                                        </span>
+                                        <span class="px-3 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-full uppercase tracking-tighter">
+                                        {{ $kecamatan->nagari_count }} Nagari
+                                    </span>
                                     </td>
                                     <td class="px-6 py-4 font-black text-gray-900 dark:text-white uppercase text-xs">
                                         {{ $item->nagari->nama_nagari ?? '-' }}
@@ -235,12 +242,12 @@
                                     <td class="px-6 py-4 text-center">
                                         @php
                                             $tekClasses = match($item->teknologi) {
-                                                '2G' => 'bg-slate-600 text-white border-slate-500 dark:bg-white/5 dark:text-white dark:border-white/10 dark:backdrop-blur-md',
-                                                '3G' => 'bg-blue-600 text-white border-blue-500 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
-                                                '4G' => 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-100 dark:border-emerald-500/30 dark:backdrop-blur-md',
-                                                '4G+5G' => 'bg-cyan-600 text-white border-cyan-500 dark:bg-cyan-500/20 dark:text-cyan-100 dark:border-cyan-500/30 dark:backdrop-blur-md',
-                                                '5G' => 'bg-purple-600 text-white border-purple-500 dark:bg-purple-500/20 dark:text-purple-100 dark:border-purple-500/30 dark:backdrop-blur-md',
-                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
+                                                '2G' => 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-white/5 dark:text-white dark:border-white/10 dark:backdrop-blur-md',
+                                                '3G' => 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
+                                                '4G' => 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-100 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                                '4G+5G' => 'bg-cyan-100 text-cyan-700 border-cyan-200 dark:bg-cyan-500/20 dark:text-cyan-100 dark:border-cyan-500/30 dark:backdrop-blur-md',
+                                                '5G' => 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-500/20 dark:text-purple-100 dark:border-purple-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-100 text-slate-900 border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
                                             };
                                         @endphp
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-black border {{ $tekClasses }} uppercase">
@@ -252,7 +259,7 @@
                                             $st = strtolower($item->status);
                                             $statusActive = ($st === 'aktif');
                                         @endphp
-                                        <span class="px-3 py-1 rounded-full text-[10px] font-black border-2 uppercase tracking-widest {{ $statusActive ? 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30' : 'bg-red-600 text-white border-red-500 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30' }}">
+                                        <span class="px-3 py-1 rounded-full text-[10px] font-black border-2 uppercase tracking-widest {{ $statusActive ? 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30' : 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30' }}">
                                             {{ $item->status }}
                                         </span>
                                     </td>

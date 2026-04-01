@@ -180,12 +180,12 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
                                             {{ $jorong->nagari->nama_nagari ?? '-' }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
+                                        <span class="px-2 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
                                             {{ $jorong->nagari->kecamatan->nama ?? '-' }}
                                         </span>
                                     </td>
@@ -199,7 +199,7 @@
                                         {{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center justify-center px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg min-w-[40px]">
+                                        <span class="inline-flex items-center justify-center px-2 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg min-w-[40px]">
                                             {{ $jorong->bts_count }}
                                         </span>
                                     </td>

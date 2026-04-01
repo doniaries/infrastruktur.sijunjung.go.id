@@ -160,7 +160,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg">
+                                    <span class="px-2 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg">
                                         {{ $nagari->kecamatan->nama ?? '-' }}
                                     </span>
 
@@ -178,10 +178,11 @@
                                     @php
                                         $statusSinyal = $nagari->status_sinyal;
                                         $badgeStyle = match ($statusSinyal) {
-                                            'Blankspot' => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
-                                            'Lemah Sinyal' => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
-                                            'Sinyal Baik' => 'bg-emerald-600 text-white border-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
-                                            default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md',
+                                            'Blankspot' => 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
+                                            'Lemah Sinyal' => 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                            'Sinyal Baik' => 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                            default => 'bg-slate-100 text-slate-900 border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md',
+
 
 
                                         };
