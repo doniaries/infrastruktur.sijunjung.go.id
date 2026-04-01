@@ -48,7 +48,7 @@ jobs:
           coverage: none
 
       - name: 📦 Install Composer dependencies
-        run: composer install --no-dev --prefer-dist --optimize-autoloader
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-scripts
 
       - name: 📦 Install Node dependencies
         run: npm ci
