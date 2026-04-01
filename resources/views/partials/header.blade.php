@@ -88,13 +88,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="dropdown relative">
+                {{-- <div class="dropdown relative">
                     <a href="{{ url('/list-laporan') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-clipboard-list mr-2"></i>
                         Daftar Laporan
                     </a>
-                </div>
+                </div> --}}
                 {{-- <div class="dropdown relative"> --}}
                     {{-- <a href="{{ url('/lapor') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
@@ -250,11 +250,11 @@
                     </a>
                 </div>
             </details>
-            <a href="{{ url('/list-laporan') }}"
+            {{-- <a href="{{ url('/list-laporan') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                 Daftar Laporan
-            </a>
+            </a> --}}
             {{-- <a href="{{ url('/lapor') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
