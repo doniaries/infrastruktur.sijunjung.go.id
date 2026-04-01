@@ -40,7 +40,17 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: 📦 Install dependencies
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, readline, gd, exif
+          coverage: none
+
+      - name: 📦 Install Composer dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader
+
+      - name: 📦 Install Node dependencies
         run: npm ci
 
       - name: 🏗️ Build assets
