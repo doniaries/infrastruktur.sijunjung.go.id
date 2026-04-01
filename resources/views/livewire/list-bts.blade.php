@@ -208,10 +208,10 @@
                                         @php
                                             $opName = strtoupper($item->operator->nama_operator ?? '');
                                             $opClasses = match(true) {
-                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30',
-                                                str_contains($opName, 'INDOSAT') => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-100 dark:border-amber-500/30',
-                                                str_contains($opName, 'XL') => 'bg-blue-600 text-white border-blue-700 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30',
-                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20'
+                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30 dark:backdrop-blur-md',
+                                                str_contains($opName, 'INDOSAT') => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-100 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                                str_contains($opName, 'XL') => 'bg-blue-600 text-white border-blue-700 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
                                             };
                                         @endphp
                                         <span class="px-2.5 py-1 {{ $opClasses }} text-[11px] font-black rounded-lg uppercase tracking-tight shadow-sm border">
@@ -235,12 +235,12 @@
                                     <td class="px-6 py-4 text-center">
                                         @php
                                             $tekClasses = match($item->teknologi) {
-                                                '2G' => 'bg-slate-600 text-white border-slate-500 dark:bg-white/5 dark:text-white dark:border-white/10',
-                                                '3G' => 'bg-blue-600 text-white border-blue-500 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30',
-                                                '4G' => 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-100 dark:border-emerald-500/30',
-                                                '4G+5G' => 'bg-cyan-600 text-white border-cyan-500 dark:bg-cyan-500/20 dark:text-cyan-100 dark:border-cyan-500/30',
-                                                '5G' => 'bg-purple-600 text-white border-purple-500 dark:bg-purple-500/20 dark:text-purple-100 dark:border-purple-500/30',
-                                                default => 'bg-slate-900 text-white border-slate-800'
+                                                '2G' => 'bg-slate-600 text-white border-slate-500 dark:bg-white/5 dark:text-white dark:border-white/10 dark:backdrop-blur-md',
+                                                '3G' => 'bg-blue-600 text-white border-blue-500 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30 dark:backdrop-blur-md',
+                                                '4G' => 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-100 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                                '4G+5G' => 'bg-cyan-600 text-white border-cyan-500 dark:bg-cyan-500/20 dark:text-cyan-100 dark:border-cyan-500/30 dark:backdrop-blur-md',
+                                                '5G' => 'bg-purple-600 text-white border-purple-500 dark:bg-purple-500/20 dark:text-purple-100 dark:border-purple-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
                                             };
                                         @endphp
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-black border {{ $tekClasses }} uppercase">
@@ -257,7 +257,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center justify-center px-3 py-1 bg-gray-100 dark:bg-gray-700/50 text-gray-900 dark:text-white text-xs font-black rounded-lg border border-gray-300 dark:border-gray-600 min-w-[50px]">
+                                        <span class="inline-flex items-center justify-center px-3 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-xs font-black rounded-lg min-w-[50px]">
                                             {{ $item->tahun_bangun }}
                                         </span>
                                     </td>

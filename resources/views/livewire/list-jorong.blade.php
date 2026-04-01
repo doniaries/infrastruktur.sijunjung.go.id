@@ -172,10 +172,12 @@
                                         {{ ($jorongs->currentPage() - 1) * $jorongs->perPage() + $loop->iteration }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" class="text-blue-800 dark:text-blue-400 font-black hover:text-blue-700 dark:hover:text-blue-300 group-hover:underline flex items-center">
-                                            <i class="fas fa-map-marker-alt mr-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                                            {{ $jorong->nama_jorong }}
-                                        </a>
+                                        <div class="flex items-center">
+                                            <i class="fas fa-map-marker-alt mr-3 text-blue-500 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                            <a href="#" class="text-blue-800 dark:text-blue-400 font-extrabold hover:text-blue-700 dark:hover:text-blue-300 group-hover:underline transition-all duration-200">
+                                                {{ $jorong->nama_jorong }}
+                                            </a>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">

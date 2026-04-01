@@ -178,10 +178,11 @@
                                     @php
                                         $statusSinyal = $nagari->status_sinyal;
                                         $badgeStyle = match ($statusSinyal) {
-                                            'Blankspot' => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30',
-                                            'Lemah Sinyal' => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30',
-                                            'Sinyal Baik' => 'bg-emerald-600 text-white border-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30',
-                                            default => 'bg-slate-600 text-white border-slate-700 dark:bg-white/10 dark:text-white dark:border-white/20',
+                                            'Blankspot' => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
+                                            'Lemah Sinyal' => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                            'Sinyal Baik' => 'bg-emerald-600 text-white border-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                            default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md',
+
 
                                         };
                                     @endphp

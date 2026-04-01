@@ -149,10 +149,10 @@
                                         @php
                                             $st = strtolower($lapor->status_laporan ? $lapor->status_laporan->value : 'unknown');
                                             $badgeClass = match(true) {
-                                                str_contains($st, 'belum') => 'bg-red-100 text-red-800 border-red-200',
-                                                str_contains($st, 'sedang') => 'bg-yellow-100 text-yellow-800 border-yellow-200',
-                                                str_contains($st, 'selesai') => 'bg-green-100 text-green-800 border-green-200',
-                                                default => 'bg-gray-100 text-gray-800 border-gray-200'
+                                                str_contains($st, 'belum') => 'bg-red-600 text-white border-red-500 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
+                                                str_contains($st, 'sedang') => 'bg-amber-600 text-white border-amber-500 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
+                                                str_contains($st, 'selesai') => 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
+                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
                                             };
                                         @endphp
                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black border uppercase tracking-widest leading-none {{ $badgeClass }}">
