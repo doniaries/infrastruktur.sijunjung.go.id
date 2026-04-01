@@ -20,6 +20,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Pages\Auth\Login;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Filament\Navigation\NavigationItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -35,6 +36,12 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Infrastruktur TI')
             ->login(Login::class)
             // ->registration()
+            ->navigationItems([
+                NavigationItem::make('Lihat Website')
+                    ->url('/', shouldOpenInNewTab: true)
+                    ->icon('heroicon-o-globe-alt')
+                    ->sort(-1),
+            ])
             ->spa()
             // ->topNavigation()
             ->colors([
