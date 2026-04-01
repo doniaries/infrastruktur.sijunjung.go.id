@@ -208,10 +208,10 @@
                                         @php
                                             $opName = strtoupper($item->operator->nama_operator ?? '');
                                             $opClasses = match(true) {
-                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-100 dark:bg-red-900/40 text-red-900 dark:text-red-300 border-red-200',
-                                                str_contains($opName, 'INDOSAT') => 'bg-yellow-100 dark:bg-yellow-900/40 text-yellow-900 dark:text-yellow-300 border-yellow-200',
-                                                str_contains($opName, 'XL') => 'bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-300 border-blue-200',
-                                                default => 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-300 border-gray-200'
+                                                str_contains($opName, 'TELKOMSEL') => 'bg-red-600 text-white border-red-700 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30',
+                                                str_contains($opName, 'INDOSAT') => 'bg-amber-600 text-white border-amber-700 dark:bg-amber-500/20 dark:text-amber-100 dark:border-amber-500/30',
+                                                str_contains($opName, 'XL') => 'bg-blue-600 text-white border-blue-700 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30',
+                                                default => 'bg-slate-900 text-white border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20'
                                             };
                                         @endphp
                                         <span class="px-2.5 py-1 {{ $opClasses }} text-[11px] font-black rounded-lg uppercase tracking-tight shadow-sm border">
@@ -219,7 +219,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-900 dark:text-green-300 text-[11px] font-black rounded-lg whitespace-nowrap border border-green-200">
+                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
                                             {{ $item->kecamatan->nama ?? '-' }}
                                         </span>
                                     </td>
@@ -235,12 +235,12 @@
                                     <td class="px-6 py-4 text-center">
                                         @php
                                             $tekClasses = match($item->teknologi) {
-                                                '2G' => 'bg-gray-100 text-gray-900 border-gray-300',
-                                                '3G' => 'bg-blue-100 text-blue-900 border-blue-300',
-                                                '4G' => 'bg-green-100 text-green-900 border-green-300',
-                                                '4G+5G' => 'bg-cyan-100 text-cyan-900 border-cyan-300',
-                                                '5G' => 'bg-purple-100 text-purple-900 border-purple-300',
-                                                default => 'bg-gray-100 text-gray-900'
+                                                '2G' => 'bg-slate-600 text-white border-slate-500 dark:bg-white/5 dark:text-white dark:border-white/10',
+                                                '3G' => 'bg-blue-600 text-white border-blue-500 dark:bg-blue-500/20 dark:text-blue-100 dark:border-blue-500/30',
+                                                '4G' => 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-100 dark:border-emerald-500/30',
+                                                '4G+5G' => 'bg-cyan-600 text-white border-cyan-500 dark:bg-cyan-500/20 dark:text-cyan-100 dark:border-cyan-500/30',
+                                                '5G' => 'bg-purple-600 text-white border-purple-500 dark:bg-purple-500/20 dark:text-purple-100 dark:border-purple-500/30',
+                                                default => 'bg-slate-900 text-white border-slate-800'
                                             };
                                         @endphp
                                         <span class="px-2 py-0.5 rounded-md text-[10px] font-black border {{ $tekClasses }} uppercase">
@@ -252,7 +252,7 @@
                                             $st = strtolower($item->status);
                                             $statusActive = ($st === 'aktif');
                                         @endphp
-                                        <span class="px-3 py-1 rounded-full text-[10px] font-black border-2 uppercase tracking-widest {{ $statusActive ? 'bg-green-100 text-green-900 border-green-400 dark:bg-green-900/50 dark:text-green-200' : 'bg-red-100 text-red-900 border-red-400 dark:bg-red-900/50 dark:text-red-200' }}">
+                                        <span class="px-3 py-1 rounded-full text-[10px] font-black border-2 uppercase tracking-widest {{ $statusActive ? 'bg-emerald-600 text-white border-emerald-500 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30' : 'bg-red-600 text-white border-red-500 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30' }}">
                                             {{ $item->status }}
                                         </span>
                                     </td>

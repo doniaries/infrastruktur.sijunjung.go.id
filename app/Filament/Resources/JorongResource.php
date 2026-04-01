@@ -87,16 +87,15 @@ class JorongResource extends Resource
                 Tables\Columns\TextColumn::make('nagari.nama_nagari')
                     ->label('Nama Nagari')
                     ->badge()
-                    ->color(fn(string $state): string => match (crc32($state) % 8) {
-                        0 => 'primary',
+                    ->color(fn(string $state): string => match (crc32($state) % 6) {
+                        0 => 'info',
                         1 => 'success',
                         2 => 'warning',
                         3 => 'danger',
-                        4 => 'info',
-                        5 => 'gray',
-                        6 => 'purple',
-                        7 => 'pink',
+                        4 => 'purple',
+                        default => 'gray',
                     })
+
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('nama_jorong')

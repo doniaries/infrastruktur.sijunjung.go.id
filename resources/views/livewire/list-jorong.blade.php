@@ -172,17 +172,18 @@
                                         {{ ($jorongs->currentPage() - 1) * $jorongs->perPage() + $loop->iteration }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="font-black text-gray-900 dark:text-white group-hover:text-blue-800 dark:group-hover:text-blue-400 transition-colors">
+                                        <a href="#" class="text-blue-800 dark:text-blue-400 font-black hover:text-blue-700 dark:hover:text-blue-300 group-hover:underline flex items-center">
+                                            <i class="fas fa-map-marker-alt mr-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
                                             {{ $jorong->nama_jorong }}
-                                        </div>
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-900 dark:text-blue-100 text-[11px] font-black rounded-lg whitespace-nowrap border border-blue-200 dark:border-blue-700">
+                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
                                             {{ $jorong->nagari->nama_nagari ?? '-' }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-900 dark:text-indigo-100 text-[11px] font-black rounded-lg whitespace-nowrap border border-indigo-200 dark:border-indigo-700">
+                                        <span class="px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg whitespace-nowrap">
                                             {{ $jorong->nagari->kecamatan->nama ?? '-' }}
                                         </span>
                                     </td>
@@ -196,7 +197,7 @@
                                         {{ number_format($jorong->luas_jorong ?? 0, 0, ',', '.') }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center justify-center px-2 py-1 bg-teal-100 dark:bg-teal-900/40 text-teal-900 dark:text-teal-100 text-[11px] font-black rounded-lg min-w-[40px] border border-teal-200 dark:border-teal-700">
+                                        <span class="inline-flex items-center justify-center px-2 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-lg min-w-[40px]">
                                             {{ $jorong->bts_count }}
                                         </span>
                                     </td>

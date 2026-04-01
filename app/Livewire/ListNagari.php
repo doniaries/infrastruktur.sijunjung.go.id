@@ -68,18 +68,8 @@ class ListNagari extends Component
         $query = Nagari::withRelations()
             ->select('nagaris.*')
             ->withCount(['jorongs', 'bts'])
-            ->selectSub(function ($query) {
-                $query->selectRaw('count(distinct jorong_id)')
-                    ->from('bts')
-                    ->whereColumn('nagari_id', 'nagaris.id')
-                    ->whereNotNull('jorong_id')
-                    ->union(function ($q) {
-                        $q->select('jorong_id')
-                            ->from('bts_nagari_coverage')
-                            ->whereColumn('nagari_id', 'nagaris.id')
-                            ->whereNotNull('jorong_id');
-                    });
-            }, 'jorong_bts_count')
+            ->selectRaw("(SELECT COUNT(DISTINCT jorong_id) FROM (SELECT jorong_id, nagari_id FROM bts WHERE jorong_id IS NOT NULL UNION SELECT jorong_id, nagari_id FROM bts_nagari_coverage WHERE jorong_id IS NOT NULL) as j WHERE j.nagari_id = nagaris.id) as jorong_bts_count")
+
             ->selectSub(function ($query) {
                 $query->from('jorongs')
                     ->selectRaw('COALESCE(SUM(jumlah_penduduk_jorong), 0)')

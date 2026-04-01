@@ -91,7 +91,7 @@
                                     </a>
                                 </td>
                                 <td class="px-6 py-4 text-center">
-                                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 text-[11px] font-black rounded-full border border-blue-200 dark:border-blue-800 uppercase tracking-tighter">
+                                    <span class="px-3 py-1 bg-slate-900 text-white border border-slate-800 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-full uppercase tracking-tighter">
                                         {{ $kecamatan->nagari_count }} Nagari
                                     </span>
                                 </td>
