@@ -107,7 +107,6 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                'throttle:login', // Add rate limiting for login attempts
             ])
             ->databaseNotifications()
             // ->databaseNotificationsPolling('30s')

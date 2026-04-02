@@ -58,15 +58,15 @@ class Login extends BaseLogin
         $data = $this->form->getState();
         $request = request();
         
-        // Get rate limiting config
-        $maxAttempts = config('rate-limiting.login.max_attempts', 3);
-        $decayMinutes = config('rate-limiting.login.decay_minutes', 1);
+        // Ambil konfigurasi rate limiting dari .env atau default (15 percobaan)
+        $maxAttempts = (int) config('rate-limiting.login.max_attempts', 15);
+        $decayMinutes = (int) config('rate-limiting.login.decay_minutes', 1);
         
-        // Create throttle key based on email and IP
+        // Key throttle berdasarkan email dan IP
         $throttleKey = 'login:' . $data['email'] . '|' . $request->ip();
         
         try {
-            // Check if too many attempts
+            // Cek jika sudah terlalu banyak percobaan
             if (RateLimiter::tooManyAttempts($throttleKey, $maxAttempts)) {
                 $seconds = RateLimiter::availableIn($throttleKey);
                 
@@ -75,15 +75,17 @@ class Login extends BaseLogin
                 ]);
             }
             
-            // Attempt authentication
+            // Proses Autentikasi
             if (!\Filament\Facades\Filament::auth()->attempt([
                 'email' => $data['email'],
                 'password' => $data['password'],
             ], $data['remember'] ?? false)) {
-                // Increment failed attempts with proper decay time
+                
+                // Catat kegagalan
                 RateLimiter::hit($throttleKey, $decayMinutes * 60);
                 
-                $remainingAttempts = $maxAttempts - RateLimiter::attempts($throttleKey);
+                $attempts = RateLimiter::attempts($throttleKey);
+                $remainingAttempts = $maxAttempts - $attempts;
                 
                 if ($remainingAttempts > 0) {
                     throw ValidationException::withMessages([
@@ -92,11 +94,11 @@ class Login extends BaseLogin
                 }
                 
                 throw ValidationException::withMessages([
-                    'data.email' => __('filament-panels::pages/auth/login.messages.failed'),
+                    'data.email' => "Terlalu banyak percobaan login. Akun Anda ditangguhkan sementara selama {$decayMinutes} menit.",
                 ]);
             }
             
-            // Clear rate limiter on successful login
+            // Hapus data rate limiter jika login berhasil
             RateLimiter::clear($throttleKey);
             
             // Regenerate session
@@ -107,24 +109,18 @@ class Login extends BaseLogin
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->first('data.email');
             
-            if (str_contains($message, 'Terlalu banyak percobaan login')) {
+            if (str_contains($message, 'Terlalu banyak') || str_contains($message, 'ditangguhkan')) {
                 Notification::make()
-                    ->title('Terlalu banyak percobaan login')
+                    ->title('Akses Dibatasi')
                     ->body($message)
                     ->danger()
                     ->persistent()
                     ->send();
-            } else if (str_contains($message, 'Sisa percobaan')) {
-                Notification::make()
-                    ->title('Login gagal')
-                    ->body($message)
-                    ->warning()
-                    ->send();
             } else {
                 Notification::make()
-                    ->title('Login gagal')
+                    ->title('Login Gagal')
                     ->body($message)
-                    ->danger()
+                    ->warning()
                     ->send();
             }
             
