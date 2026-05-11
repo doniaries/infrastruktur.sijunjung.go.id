@@ -155,9 +155,9 @@ class Nagari extends Model
      */
     public function getStatusSinyalAttribute()
     {
-        // Use pre-loaded count if available
-        $directBtsCount = isset($this->bts_count) ? $this->bts_count : $this->bts()->count();
-        $coveringBtsCount = $this->btsCovering()->count();
+        // Use pre-loaded counts if available to avoid N+1 queries
+        $directBtsCount = $this->bts_count ?? $this->bts()->count();
+        $coveringBtsCount = $this->bts_covering_count ?? $this->btsCovering()->count();
         $totalBtsCount = $directBtsCount + $coveringBtsCount;
 
         if ($totalBtsCount === 0) {

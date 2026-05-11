@@ -67,7 +67,7 @@ class ListNagari extends Component
     {
         $query = Nagari::withRelations()
             ->select('nagaris.*')
-            ->withCount(['jorongs', 'bts'])
+            ->withCount(['jorongs', 'bts', 'btsCovering'])
             ->selectRaw("(SELECT COUNT(DISTINCT jorong_id) FROM (SELECT jorong_id, nagari_id FROM bts WHERE jorong_id IS NOT NULL UNION SELECT jorong_id, nagari_id FROM bts_nagari_coverage WHERE jorong_id IS NOT NULL) as j WHERE j.nagari_id = nagaris.id) as jorong_bts_count")
 
             ->selectSub(function ($query) {

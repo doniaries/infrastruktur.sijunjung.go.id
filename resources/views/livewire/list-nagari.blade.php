@@ -1,28 +1,31 @@
-<div>
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-500 py-8">
+    <div class="max-w-[98%] mx-auto px-4">
+        <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-xl sm:rounded-xl border border-gray-200 dark:border-gray-800">
         <div class="p-6 text-gray-900 dark:text-gray-100">
             <!-- Title Section -->
-            <div class="flex justify-center mb-8">
-                <div class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-black rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 border border-blue-800/20"
-                     style="background: linear-gradient(to right, #1d4ed8, #3730a3);">
-                    <i class="fas fa-city mr-3 text-xl text-white"></i>
-                    <h2 class="text-2xl uppercase tracking-wider text-white">DATA NAGARI</h2>
-                    <span class="ml-3 px-3 py-1 bg-white/30 backdrop-blur-sm rounded-full text-sm border border-white/40 text-white font-black">{{ $totalData }}</span>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-gray-200 dark:border-gray-700 pb-6">
+                <div>
+                    <h2 class="text-2xl font-black uppercase tracking-tight text-gray-900 dark:text-white">Data Nagari Sijunjung</h2>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs font-bold mt-1 uppercase tracking-widest">Village Level Infrastructure Data</p>
+                </div>
+                <div class="flex items-center px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                    <i class="fas fa-city mr-3 text-blue-600"></i>
+                    <span class="text-gray-900 dark:text-white font-black text-lg">{{ number_format($totalData) }}</span>
+                    <span class="ml-2 text-gray-500 text-[10px] font-bold uppercase tracking-widest">Nagari</span>
                 </div>
             </div>
 
-            <!-- DataTables Header Controls -->
-            <div class="mb-6 flex flex-col lg:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+            <!-- Filters Section -->
+            <div class="mb-6 flex flex-col lg:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
                 <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-sm text-gray-900 dark:text-gray-100 font-black whitespace-nowrap">Tampilkan</span>
-                        <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 transition-colors duration-200 font-bold">
+                    <div class="flex items-center bg-white dark:bg-gray-900 px-3 rounded-lg border border-gray-300 dark:border-gray-700">
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-2">Show</span>
+                        <select wire:model.live="perPage" class="bg-transparent border-none text-sm rounded-lg focus:ring-0 py-2 pl-0 pr-8 font-bold text-gray-900 dark:text-white cursor-pointer">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
                         </select>
-                        <span class="text-sm text-gray-900 dark:text-gray-100 font-black">data</span>
                     </div>
 
                     <div class="min-w-48 flex-1 sm:flex-none">
@@ -68,18 +71,19 @@
                 </div>
             </div>
 
-            <!-- Table Container -->
-            <div class="relative overflow-x-auto shadow-md sm:rounded-xl border border-gray-200 dark:border-gray-700">
-                <!-- Loading Overlay (Data Only) -->
-                <div wire:loading.flex wire:target="search, perPage, kecamatanFilter, statusSinyalFilter, sortBy, gotoPage, nextPage, previousPage" class="absolute inset-0 z-10 items-center justify-center bg-white/50 dark:bg-gray-900/50 backdrop-blur-[1px]">
+            <!-- Table Section -->
+            <div class="relative overflow-x-auto bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
+                <!-- Loading Overlay -->
+                <div wire:loading.flex wire:target="search, perPage, kecamatanFilter, statusSinyalFilter, sortBy, gotoPage, nextPage, previousPage" class="absolute inset-0 z-10 items-center justify-center bg-gray-900/10 backdrop-blur-[2px]">
                     <div class="flex flex-col items-center">
-                        <i class="fas fa-circle-notch animate-spin text-4xl text-blue-700 mb-2"></i>
-                        <span class="text-sm font-black text-blue-700 dark:text-blue-400 uppercase tracking-widest">Sinkronisasi...</span>
+                        <i class="fas fa-circle-notch animate-spin text-3xl text-blue-600 mb-2"></i>
+                        <span class="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Loading...</span>
                     </div>
                 </div>
 
-                <table class="w-full text-sm text-left text-gray-700 dark:text-gray-400">
-                    <thead class="text-xs text-black uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-100 border-b border-gray-300 dark:border-gray-600">
+                <table class="w-full text-sm text-left text-gray-700 dark:text-gray-300">
+                    <thead class="bg-gray-100 dark:bg-gray-800">
+                        <tr class="text-gray-600 dark:text-gray-400 text-[11px] font-bold uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
                         <tr>
                             <th scope="col" class="px-6 py-4 font-black border-r border-gray-300 dark:border-gray-600 w-16 text-center text-black dark:text-white">No</th>
                             <th scope="col" wire:click="sortBy('nama_nagari')" class="px-6 py-4 font-black cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 text-black dark:text-white">
@@ -207,10 +211,10 @@
                 </table>
             </div>
 
-            <!-- DataTables Footer Controls -->
-            <div class="mt-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-lg border border-gray-300 dark:border-gray-700">
-                <div class="text-sm text-gray-900 dark:text-gray-100 font-black">
-                    Menampilkan <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->firstItem() ?? 0 }}</span> sampai <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->lastItem() ?? 0 }}</span> dari <span class="text-blue-800 dark:text-blue-400 font-black">{{ $nagaris->total() }}</span> entri data
+            <!-- Pagination Footer -->
+            <div class="mt-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                    Showing {{ $nagaris->firstItem() ?? 0 }} to {{ $nagaris->lastItem() ?? 0 }} of {{ number_format($nagaris->total()) }} entries
                 </div>
                 <div class="pagination-wrapper">
                     {{ $nagaris->links('vendor.livewire.custom-pagination') }}

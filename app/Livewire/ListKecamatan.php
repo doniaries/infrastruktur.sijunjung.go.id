@@ -40,14 +40,16 @@ class ListKecamatan extends Component
     public function render()
     {
         $kecamatans = Kecamatan::withCount(['nagari'])
-            ->with(['nagari']) // Important for penduduk calculation
+            ->withSum('nagari as total_penduduk', 'jumlah_penduduk_nagari')
             ->when($this->search, function ($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%');
             });
 
-        // Handle custom sorting for relationship counts if needed, but for now focus on direct fields
+        // Handle custom sorting
         if ($this->sortField === 'nagari_count') {
             $kecamatans->orderBy('nagari_count', $this->sortDirection);
+        } elseif ($this->sortField === 'total_penduduk') {
+            $kecamatans->orderBy('total_penduduk', $this->sortDirection);
         } else {
             $kecamatans->orderBy($this->sortField, $this->sortDirection);
         }
