@@ -127,15 +127,48 @@
 
     <!-- BTS Map Section -->
     <section id="bts-map" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white py-10 sm:py-16">
+        <style>
+            .custom-popup .leaflet-popup-content-wrapper {
+                background: rgba(255, 255, 255, 0.95);
+                color: #1e293b;
+                border-radius: 16px;
+                padding: 8px;
+                box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            }
+            .dark .custom-popup .leaflet-popup-content-wrapper {
+                background: rgba(15, 23, 42, 0.95);
+                color: #f1f5f9;
+                border: 1px solid #334155;
+            }
+            .custom-popup .leaflet-popup-tip {
+                background: rgba(255, 255, 255, 0.95);
+            }
+            .dark .custom-popup .leaflet-popup-tip {
+                background: rgba(15, 23, 42, 0.95);
+            }
+        </style>
         <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
             <div class="max-w-4xl mx-auto text-center mb-8 lg:mb-16">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten
-                    Sijunjung</h2>
-                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang
-                    tersebar di seluruh Kabupaten Sijunjung.</p>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten Sijunjung</h2>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang tersebar di seluruh Kabupaten Sijunjung.</p>
             </div>
-            <div class="w-full h-96 rounded-lg overflow-hidden shadow-lg relative" style="z-index: 1;">
+            <div class="w-full h-[650px] rounded-3xl overflow-hidden shadow-2xl relative border-4 border-white dark:border-gray-700 mb-12" style="z-index: 1;">
                 <div id="btsMap" class="w-full h-full"></div>
+                
+                <!-- Floating Legend -->
+                <div class="absolute bottom-8 left-8 z-[1000] bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 min-w-[180px] hidden sm:block">
+                    <h4 class="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-3 border-b border-gray-100 dark:border-gray-800 pb-1">Legenda</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-blue-600 mr-2 shadow-sm shadow-blue-500/50"></div>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-200">BTS Aktif</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 rounded-full bg-red-600 mr-2 shadow-sm shadow-red-500/50"></div>
+                            <span class="text-xs font-bold text-gray-700 dark:text-gray-200">BTS Non-Aktif</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

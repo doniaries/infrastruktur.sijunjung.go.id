@@ -88,6 +88,13 @@
                         </a>
                     </div>
                 </div>
+                <div class="dropdown relative">
+                    <a href="{{ url('/peta-bts') }}"
+                        class="nav-link px-4 py-2 flex items-center rounded-lg transition-all duration-200 {{ request()->is('peta-bts') ? 'bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/30' : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30' }}">
+                        <i class="fas fa-map-marked-alt mr-2 {{ request()->is('peta-bts') ? 'text-white' : 'text-blue-500' }}"></i>
+                        Peta BTS
+                    </a>
+                </div>
                 {{-- <div class="dropdown relative">
                     <a href="{{ url('/list-laporan') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
@@ -293,6 +300,11 @@
                     </a>
                 </div>
             </details>
+            <a href="{{ url('/peta-bts') }}"
+                class="px-4 py-3 rounded-lg text-base font-medium flex items-center transition-colors duration-200 {{ request()->is('peta-bts') ? 'bg-blue-600 text-white font-bold' : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30' }}">
+                <i class="fas fa-map-marked-alt mr-3 w-5 text-center {{ request()->is('peta-bts') ? 'text-white' : 'text-blue-500' }}"></i>
+                Peta BTS
+            </a>
             <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                 @if (Auth::check())
                     <a href="{{ route('filament.admin.pages.dashboard') }}"

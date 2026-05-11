@@ -44,6 +44,7 @@ Route::get('/list-kecamatan', \App\Livewire\ListKecamatan::class)->name('list.ke
 Route::get('/list-opd', \App\Livewire\ListOpd::class)->name('list.opd');
 Route::get('/list-peralatan', \App\Livewire\ListPeralatan::class)->name('list.peralatan');
 Route::get('/list-inventaris', \App\Livewire\ListInventaris::class)->name('list.inventaris');
+Route::get('/peta-bts', \App\Livewire\PetaBts::class)->name('peta.bts');
 
 
 // Tangkap semua route yang tidak ditemukan (hanya satu fallback)

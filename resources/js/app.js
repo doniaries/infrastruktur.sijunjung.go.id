@@ -118,65 +118,100 @@ function initAll() {
         btsMapEl &&
         !btsMapEl.classList.contains("leaflet-container")
     ) {
-        const map = L.map("btsMap", { zoomControl: true }).setView(
-            [-0.6477, 101.3184],
-            9,
-        );
-        const tile = L.tileLayer(
-            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        const map = L.map("btsMap", {
+            center: [-0.693, 100.987],
+            zoom: 10,
+            zoomControl: false,
+        });
+
+        L.control.zoom({ position: "topright" }).addTo(map);
+
+        const isDark = document.documentElement.classList.contains("dark");
+        const lightTiles = L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
             {
-                attribution:
-                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                maxZoom: 19,
+                attribution: "&copy; CARTO",
             },
         );
-        tile.addTo(map);
-        map.attributionControl.setPrefix(false);
-        L.control.scale({ metric: true, imperial: false }).addTo(map);
-        const shadowUrl =
-            "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png";
-        const baseIcon =
-            "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/";
-        function iconByStatus(status) {
-            let file = "marker-icon-2x-orange.png";
-            if (status === "Aktif") file = "marker-icon-2x-green.png";
-            else if (status === "Non-Aktif") file = "marker-icon-2x-red.png";
-            return L.icon({
-                iconUrl: baseIcon + file,
-                iconRetinaUrl: baseIcon + file,
-                shadowUrl,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41],
-            });
-        }
+        const darkTiles = L.tileLayer(
+            "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+            {
+                attribution: "&copy; CARTO",
+            },
+        );
+        const satelliteTiles = L.tileLayer(
+            "https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
+            {
+                maxZoom: 20,
+                subdomains: ["mt0", "mt1", "mt2", "mt3"],
+                attribution: "&copy; Google Maps",
+            },
+        );
+
+        if (isDark) darkTiles.addTo(map);
+        else lightTiles.addTo(map);
+
+        const baseMaps = {
+            "Peta Terang": lightTiles,
+            "Peta Gelap": darkTiles,
+            "Satelit (Hybrid)": satelliteTiles,
+        };
+        L.control.layers(baseMaps, null, { position: "topright" }).addTo(map);
+
+        const markers = L.markerClusterGroup({
+            showCoverageOnHover: false,
+            spiderfyOnMaxZoom: true,
+        });
+
         fetch("/bts-map-data")
             .then((res) => res.json())
             .then((data) => {
-                const bounds = L.latLngBounds();
                 data.forEach((bts) => {
                     const lat = parseFloat(bts.lat);
                     const lng = parseFloat(bts.lng);
                     if (!isNaN(lat) && !isNaN(lng)) {
-                        const marker = L.marker([lat, lng], {
-                            icon: iconByStatus(bts.status),
-                        }).addTo(map);
-                        marker.bindPopup(
-                            `<div class="min-w-[250px] p-3">` +
-                                `<h3 class="text-lg font-bold mb-2 text-gray-900 dark:text-gray-100 border-b pb-2">${bts.pemilik || "Tidak diketahui"}</h3>` +
-                                `<div class="space-y-1.5">` +
-                                `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Alamat:</span> <span class="text-gray-800 dark:text-gray-200">${bts.alamat || "Tidak diketahui"}</span></p>` +
-                                `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Teknologi:</span> <span class="text-gray-800 dark:text-gray-200">${bts.teknologi || "Tidak diketahui"}</span></p>` +
-                                `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Status:</span> <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${bts.status === "Aktif" ? "bg-green-100 text-green-800" : bts.status === "Non-Aktif" ? "bg-red-100 text-red-800" : "bg-yellow-100 text-yellow-800"}">${bts.status || "Tidak diketahui"}</span></p>` +
-                                `<p class="text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Tahun Bangun:</span> <span class="text-gray-800 dark:text-gray-200">${bts.tahun_bangun || "Tidak diketahui"}</span></p>` +
-                                `</div></div>`,
-                        );
-                        bounds.extend([lat, lng]);
+                        const color =
+                            bts.status.toLowerCase() === "aktif"
+                                ? "#2563eb"
+                                : "#dc2626";
+                        const marker = L.circleMarker([lat, lng], {
+                            radius: 7,
+                            fillColor: color,
+                            color: "#fff",
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.8,
+                        });
+
+                        const popupContent = `
+                            <div class="p-2 min-w-[200px]">
+                                <h3 class="font-black text-blue-600 dark:text-blue-400 uppercase text-sm mb-2 border-b pb-1">
+                                    ${bts.pemilik}
+                                </h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center text-[11px]">
+                                        <i class="fas fa-map-marker-alt w-4 text-gray-400"></i>
+                                        <span class="font-bold text-gray-700 dark:text-gray-300 leading-tight">${bts.alamat}</span>
+                                    </div>
+                                    <div class="flex items-center text-[11px]">
+                                        <i class="fas fa-signal w-4 text-gray-400"></i>
+                                        <span class="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-md font-black">
+                                            ${bts.teknologi}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
+                        marker.bindPopup(popupContent, {
+                            className: "custom-popup",
+                        });
+                        markers.addLayer(marker);
                     }
                 });
-                if (bounds.isValid())
-                    map.fitBounds(bounds, { padding: [20, 20] });
+                map.addLayer(markers);
+                if (data.length > 0)
+                    map.fitBounds(markers.getBounds(), { padding: [30, 30] });
             })
             .catch((err) => console.error("Error fetching BTS data:", err));
     }
