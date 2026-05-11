@@ -88,7 +88,7 @@
                     <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 mb-4 flex-grow">
                         Lihat lokasi dan informasi mengenai Base Transceiver
                         Station (BTS) yang tersebar di Kabupaten Sijunjung.</p>
-                    <a href="{{ url('/list-bts') }}"
+                    <a href="{{ route('list.bts') }}"
                         class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transition-colors duration-300 btn-feature-enhanced ripple">
                         <i class="fas fa-map-marker-alt mr-2"></i> Lihat BTS
                     </a>
@@ -150,9 +150,13 @@
         <div class="py-6 sm:py-8 px-4 mx-auto max-w-screen-xl lg:px-6" data-aos="fade-right">
             <div class="max-w-4xl mx-auto text-center mb-8 lg:mb-16">
                 <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Peta BTS Kabupaten Sijunjung</h2>
-                <p class="text-gray-500 sm:text-xl dark:text-gray-300">Lokasi Base Transceiver Station (BTS) yang tersebar di seluruh Kabupaten Sijunjung.</p>
+                <p class="text-gray-500 sm:text-xl dark:text-gray-300 mb-6">Lokasi Base Transceiver Station (BTS) yang tersebar di seluruh Kabupaten Sijunjung.</p>
+                <a href="{{ route('list.bts') }}" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-black rounded-2xl text-sm transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-500/25">
+                    <i class="fas fa-table mr-2"></i>
+                    LIHAT TABEL LENGKAP
+                </a>
             </div>
-            <div class="w-full h-[650px] rounded-3xl overflow-hidden shadow-2xl relative border-4 border-white dark:border-gray-700 mb-12" style="z-index: 1;">
+            <div class="w-full h-[650px] rounded-3xl overflow-hidden shadow-2xl relative border-4 border-white dark:border-gray-700 mb-24" style="z-index: 1;">
                 <div id="btsMap" class="w-full h-full"></div>
                 
                 <!-- Floating Legend -->

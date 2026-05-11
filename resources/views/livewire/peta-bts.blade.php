@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-500 py-8 pb-20">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-500 py-8 pb-32">
     <div class="max-w-[98%] mx-auto px-4">
         <!-- Header Section -->
         <div class="bg-white dark:bg-gray-900 overflow-hidden shadow-xl sm:rounded-2xl border border-gray-200 dark:border-gray-800 mb-6">
@@ -19,7 +19,7 @@
                             <span class="text-blue-600 dark:text-blue-400 font-black text-xl" id="bts-count">0</span>
                             <span class="ml-2 text-blue-500 text-[10px] font-bold uppercase tracking-widest">Total BTS</span>
                         </div>
-                        <a href="{{ url('/list-bts') }}" class="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-xl text-sm transition-all hover:scale-105 active:scale-95 shadow-lg">
+                        <a href="{{ route('list.bts') }}" class="inline-flex items-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-xl text-sm transition-all hover:scale-105 active:scale-95 shadow-lg">
                             <i class="fas fa-list mr-2"></i>
                             LIHAT TABEL
                         </a>
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Map Section -->
-        <div class="relative group mb-12">
+        <div class="relative group mb-24">
             <!-- Map Container -->
             <div id="map" class="w-full h-[750px] rounded-3xl shadow-2xl border-4 border-white dark:border-gray-800 z-0 transition-all duration-500 overflow-hidden" wire:ignore>
                 <!-- Skeleton Loading -->
