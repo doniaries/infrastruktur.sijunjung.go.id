@@ -17,95 +17,83 @@
                     </div>
                 </div>
 
-                <!-- Filters Section -->
-                <div class="mb-6 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                        <!-- Left Side: Basic Filters -->
-                        <div class="flex flex-wrap items-center gap-4">
-                            <div class="flex items-center bg-white dark:bg-gray-900 px-3 rounded-lg border border-gray-300 dark:border-gray-700">
-                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-2">Show</span>
-                                <select wire:model.live="perPage" class="bg-transparent border-none text-sm rounded-lg focus:ring-0 py-2 pl-0 pr-8 font-bold text-gray-900 dark:text-white cursor-pointer">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-
-                            <div class="flex-1 min-w-[180px]">
-                                <select wire:model.live="operatorFilter" class="w-full bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 font-bold">
-                                    <option value="">Semua Operator</option>
-                                    @foreach ($operators as $operator)
-                                        <option value="{{ $operator->id }}">{{ $operator->nama_operator }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="flex-1 min-w-[180px]">
-                                <select wire:model.live="kecamatanFilter" class="w-full bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 font-bold">
-                                    <option value="">Semua Kecamatan</option>
-                                    @foreach ($kecamatans as $kecamatan)
-                                        <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <!-- Filters Section: Single Row Design -->
+                <div class="mb-6 flex flex-wrap items-center gap-2">
+                    <!-- Search Bar (Flexible) -->
+                    <div class="relative flex-1 min-w-[300px]">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400 text-xs"></i>
                         </div>
-
-                        <!-- Right Side: Search & Advanced Filters -->
-                        <div class="flex flex-wrap items-center gap-4 justify-end">
-                            <div class="relative flex-1 min-w-[250px]">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-search text-gray-400"></i>
-                                </div>
-                                <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari BTS..."
-                                    class="block w-full pl-10 pr-3 py-2.5 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white sm:text-sm font-bold placeholder-gray-500">
-                            </div>
-
-                            <button wire:click="exportPdf" wire:loading.attr="disabled"
-                                class="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg uppercase text-[11px] tracking-wider transition-colors disabled:opacity-50">
-                                <i class="fas fa-file-pdf mr-2"></i>
-                                PDF
-                            </button>
-                                <div wire:loading wire:target="exportPdf" class="px-2">
-                                    <i class="fas fa-circle-notch animate-spin text-white"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari BTS (Lokasi, Operator, Alamat)..."
+                            class="block w-full pl-9 pr-4 py-2 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-1 focus:ring-blue-500 text-sm font-medium shadow-sm transition-all">
                     </div>
 
-                    <!-- Tech & Status Filters -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                        <select wire:model.live="teknologiFilter" class="bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-xs rounded-xl p-3 font-bold uppercase tracking-widest text-slate-500">
-                            <option value="">Semua Teknologi</option>
-                            <option value="2G">2G Network</option>
-                            <option value="3G">3G Network</option>
-                            <option value="4G">4G LTE</option>
-                            <option value="4G+5G">4G+ & 5G Hybrid</option>
-                            <option value="5G">5G Pure</option>
+                    <!-- Categorical Filters Group -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Operator -->
+                        <select wire:model.live="operatorFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[120px]">
+                            <option value="">Operator</option>
+                            @foreach ($operators as $operator)
+                                <option value="{{ $operator->id }}">{{ $operator->nama_operator }}</option>
+                            @endforeach
                         </select>
 
-                        <select wire:model.live="statusFilter" class="bg-white dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 text-xs rounded-xl p-3 font-bold uppercase tracking-widest text-slate-500">
-                            <option value="">Semua Status</option>
-                            <option value="aktif">Status: Aktif</option>
-                            <option value="non-aktif">Status: Non-Aktif</option>
+                        <!-- Kecamatan -->
+                        <select wire:model.live="kecamatanFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[120px]">
+                            <option value="">Kecamatan</option>
+                            @foreach ($kecamatans as $kecamatan)
+                                <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
+                            @endforeach
                         </select>
 
-                        <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-900/30 p-2 rounded-xl border border-slate-200 dark:border-slate-700 col-span-2">
-                            <span class="px-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Tahun Bangun</span>
-                            <select wire:model.live="tahunFilter" class="bg-white dark:bg-slate-800 border-none text-[11px] rounded-lg p-1.5 font-black flex-1">
-                                <option value="">Mulai</option>
+                        <!-- Teknologi -->
+                        <select wire:model.live="teknologiFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[100px]">
+                            <option value="">Network</option>
+                            <option value="2G">2G</option>
+                            <option value="3G">3G</option>
+                            <option value="4G">4G</option>
+                            <option value="4G+5G">4G+ & 5G</option>
+                            <option value="5G">5G</option>
+                        </select>
+
+                        <!-- Status -->
+                        <select wire:model.live="statusFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[100px]">
+                            <option value="">Status</option>
+                            <option value="aktif">Aktif</option>
+                            <option value="non-aktif">Non-Aktif</option>
+                        </select>
+
+                        <!-- Tahun Group -->
+                        <div class="flex items-center gap-1 px-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg min-w-[150px]">
+                            <select wire:model.live="tahunFilter" class="bg-transparent border-none text-[10px] font-black focus:ring-0 p-0 py-2 w-full text-center">
+                                <option value="">Tahun</option>
                                 @for ($year = date('Y'); $year >= 2000; $year--)
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endfor
                             </select>
-                            <i class="fas fa-arrow-right text-[10px] text-slate-300"></i>
-                            <select wire:model.live="tahunFilterTo" class="bg-white dark:bg-slate-800 border-none text-[11px] rounded-lg p-1.5 font-black flex-1">
-                                <option value="">Sampai</option>
+                            <span class="text-gray-300">-</span>
+                            <select wire:model.live="tahunFilterTo" class="bg-transparent border-none text-[10px] font-black focus:ring-0 p-0 py-2 w-full text-center">
+                                <option value="">End</option>
                                 @for ($year = date('Y'); $year >= 2000; $year--)
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endfor
                             </select>
                         </div>
+
+                        <!-- Per Page -->
+                        <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+
+                        <!-- Action -->
+                        <button wire:click="exportPdf" wire:loading.attr="disabled"
+                            class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs transition-all shadow-md active:scale-95 whitespace-nowrap">
+                            <i class="fas fa-file-pdf mr-2"></i>
+                            PDF
+                        </button>
                     </div>
                 </div>
 

@@ -15,25 +15,23 @@
                 </div>
             </div>
 
-            <!-- Filters Section -->
-            <div class="mb-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center bg-white dark:bg-gray-900 px-3 rounded-lg border border-gray-300 dark:border-gray-700">
-                    <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-2">Show</span>
-                    <select wire:model.live="perPage" class="bg-transparent border-none text-sm rounded-lg focus:ring-0 py-2 pl-0 pr-8 font-bold text-gray-900 dark:text-white cursor-pointer">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+            <!-- Filters Section: Single Row Design -->
+            <div class="mb-6 flex flex-wrap items-center gap-2">
+                <!-- Search Bar (Flexible) -->
+                <div class="relative flex-1 min-w-[300px]">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400 text-xs"></i>
+                    </div>
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari Kecamatan..."
+                        class="block w-full pl-9 pr-4 py-2 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-1 focus:ring-blue-500 text-sm font-medium shadow-sm transition-all">
                 </div>
 
-                <div class="relative w-full md:w-80">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-400"></i>
-                    </div>
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari kecamatan..."
-                        class="block w-full pl-10 pr-3 py-2.5 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-white sm:text-sm font-bold placeholder-gray-500">
-                </div>
+                <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[80px]">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
             </div>
 
             <!-- Table Section -->

@@ -15,59 +15,45 @@
                 </div>
             </div>
 
-            <!-- Filters Section -->
-            <div class="mb-6 flex flex-col lg:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                <div class="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-                    <div class="flex items-center bg-white dark:bg-gray-900 px-3 rounded-lg border border-gray-300 dark:border-gray-700">
-                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mr-2">Show</span>
-                        <select wire:model.live="perPage" class="bg-transparent border-none text-sm rounded-lg focus:ring-0 py-2 pl-0 pr-8 font-bold text-gray-900 dark:text-white cursor-pointer">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
+            <!-- Filters Section: Single Row Design -->
+            <div class="mb-6 flex flex-wrap items-center gap-2">
+                <!-- Search Bar (Flexible) -->
+                <div class="relative flex-1 min-w-[300px]">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400 text-xs"></i>
                     </div>
-
-                    <div class="min-w-48 flex-1 sm:flex-none">
-                        <select wire:model.live="kecamatanFilter"
-                            class="w-full bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 font-bold">
-                            <option value="">Semua Kecamatan</option>
-                            @foreach ($kecamatans as $kecamatan)
-                                <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="min-w-48 flex-1 sm:flex-none">
-                        <select wire:model.live="statusSinyalFilter"
-                            class="w-full bg-white dark:bg-gray-800 border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 font-bold">
-                            <option value="">Semua Status Sinyal</option>
-                            <option value="Blankspot">Blankspot</option>
-                            <option value="Lemah Sinyal">Lemah Sinyal</option>
-                            <option value="Sinyal Baik">Sinyal Baik</option>
-                        </select>
-                    </div>
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari Nagari (Nama Nagari, Kecamatan)..."
+                        class="block w-full pl-9 pr-4 py-2 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg focus:ring-1 focus:ring-blue-500 text-sm font-medium shadow-sm transition-all">
                 </div>
 
-                <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                    <div class="flex items-center gap-2 w-full lg:w-auto flex-1">
-                        <div class="relative flex-1 lg:min-w-[400px]">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-900 dark:text-gray-400"></i>
-                            </div>
-                            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari nagari..."
-                                class="block w-full pl-10 pr-3 py-2 border border-gray-400 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200 font-bold placeholder-gray-500">
-                        </div>
-                        <button wire:click="exportPdf" wire:loading.attr="disabled"
-                            class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg shadow-md hover:shadow-lg transition-all duration-200 uppercase text-[10px] tracking-wider whitespace-nowrap disabled:opacity-50">
-                            <i class="fas fa-file-pdf mr-2 text-xs"></i>
-                            PDF
-                        </button>
-                    </div>
-                    <div wire:loading wire:target="exportPdf" class="flex items-center text-red-600 dark:text-red-400 animate-pulse ml-2">
-                        <i class="fas fa-spinner animate-spin mr-2"></i>
-                        <span class="text-[10px] font-black uppercase tracking-tight">Proses Eksport ke PDF...</span>
-                    </div>
+                <!-- Filters Group -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <select wire:model.live="kecamatanFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[120px]">
+                        <option value="">Kecamatan</option>
+                        @foreach ($kecamatans as $kecamatan)
+                            <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama }}</option>
+                        @endforeach
+                    </select>
+
+                    <select wire:model.live="statusSinyalFilter" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase min-w-[120px]">
+                        <option value="">Status Sinyal</option>
+                        <option value="Blankspot">Blankspot</option>
+                        <option value="Lemah Sinyal">Lemah Sinyal</option>
+                        <option value="Sinyal Baik">Sinyal Baik</option>
+                    </select>
+
+                    <select wire:model.live="perPage" class="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-lg text-[10px] font-black py-2 px-3 focus:ring-1 focus:ring-blue-500 appearance-none cursor-pointer uppercase">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+
+                    <button wire:click="exportPdf" wire:loading.attr="disabled"
+                        class="inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-xs transition-all shadow-md active:scale-95 whitespace-nowrap">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        PDF
+                    </button>
                 </div>
             </div>
 
