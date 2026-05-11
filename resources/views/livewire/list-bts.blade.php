@@ -206,13 +206,6 @@
                                 <tr wire:loading.remove wire:key="bts-{{ $item->id }}" class="hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors duration-150 group">
                                     <td class="px-6 py-4">
                                         @php
-                                            $st = strtolower($lapor->status_laporan ? $lapor->status_laporan->value : 'unknown');
-                                            $badgeClass = match(true) {
-                                                str_contains($st, 'belum') => 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-200 dark:border-red-500/30 dark:backdrop-blur-md',
-                                                str_contains($st, 'sedang') => 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-500/20 dark:text-amber-200 dark:border-amber-500/30 dark:backdrop-blur-md',
-                                                str_contains($st, 'selesai') => 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-200 dark:border-emerald-500/30 dark:backdrop-blur-md',
-                                                default => 'bg-slate-100 text-slate-900 border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md'
-                                            };
                                             $opName = strtoupper($item->operator->nama_operator ?? '');
                                             $opClasses = match(true) {
                                                 str_contains($opName, 'TELKOMSEL') => 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/20 dark:text-red-100 dark:border-red-500/30 dark:backdrop-blur-md',
@@ -227,7 +220,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <span class="px-3 py-1 bg-slate-100 text-slate-900 border border-slate-200 dark:bg-white/10 dark:text-white dark:border-white/20 dark:backdrop-blur-md text-[11px] font-black rounded-full uppercase tracking-tighter">
-                                        {{ $kecamatan->nagari_count }} Nagari
+                                        {{ $item->kecamatan->nama ?? '-' }}
                                     </span>
                                     </td>
                                     <td class="px-6 py-4 font-black text-gray-900 dark:text-white uppercase text-xs">
