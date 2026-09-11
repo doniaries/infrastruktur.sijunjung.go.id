@@ -238,6 +238,48 @@
                                         @enderror
                                     </div>
 
+                                    {{-- Password --}}
+                                    <div x-data="{ show: false }">
+                                        <label for="password"
+                                            class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Password <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <input :type="show ? 'text' : 'password'" id="password" wire:model="password"
+                                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all pr-10"
+                                                placeholder="Masukkan Password">
+                                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                                                <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                            </button>
+                                        </div>
+                                        @error('password')
+                                            <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+                                                <i class="fas fa-circle-exclamation text-[10px]"></i> {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Konfirmasi Password --}}
+                                    <div x-data="{ show: false }">
+                                        <label for="password_confirmation"
+                                            class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Konfirmasi Password <span class="text-red-500">*</span>
+                                        </label>
+                                        <div class="relative">
+                                            <input :type="show ? 'text' : 'password'" id="password_confirmation" wire:model="password_confirmation"
+                                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all pr-10"
+                                                placeholder="Masukkan Ulang Password">
+                                            <button type="button" @click="show = !show" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                                                <i class="fas" :class="show ? 'fa-eye-slash' : 'fa-eye'"></i>
+                                            </button>
+                                        </div>
+                                        @error('password_confirmation')
+                                            <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+                                                <i class="fas fa-circle-exclamation text-[10px]"></i> {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
                                     {{-- OPD Tujuan (di Step 1) --}}
                                     <div>
                                         <label for="opd_id_s1"

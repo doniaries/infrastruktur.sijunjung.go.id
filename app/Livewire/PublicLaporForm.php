@@ -23,6 +23,8 @@ class PublicLaporForm extends Component
     public string $nomor_kontak = '';
     public string $email = '';
     public string $nip = '';
+    public string $password = '';
+    public string $password_confirmation = '';
 
     // Step 2 - Detail Laporan
     public ?int $opd_id = null;
@@ -69,6 +71,7 @@ class PublicLaporForm extends Component
                 'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
                 'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
+                'password' => 'required|min:6|confirmed',
                 'opd_id' => 'required|exists:opds,id',
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
@@ -81,6 +84,9 @@ class PublicLaporForm extends Component
                 'email.unique' => 'Email sudah terdaftar.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.unique' => 'NIP sudah terdaftar.',
+                'password.required' => 'Password wajib diisi.',
+                'password.min' => 'Password minimal 6 karakter.',
+                'password.confirmed' => 'Konfirmasi password tidak cocok.',
                 'opd_id.required' => 'Silakan pilih OPD anda.',
             ]);
         }
@@ -103,6 +109,7 @@ class PublicLaporForm extends Component
                 'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
                 'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
+                'password' => 'required|min:6|confirmed',
                 'opd_id' => 'required|exists:opds,id',
                 'jenis_laporan' => 'required',
                 'uraian_laporan' => 'required|min:10',
@@ -117,6 +124,9 @@ class PublicLaporForm extends Component
                 'email.unique' => 'Email sudah terdaftar.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.unique' => 'NIP sudah terdaftar.',
+                'password.required' => 'Password wajib diisi.',
+                'password.min' => 'Password minimal 6 karakter.',
+                'password.confirmed' => 'Konfirmasi password tidak cocok.',
                 'opd_id.required' => 'Silakan pilih OPD anda.',
                 'uraian_laporan.required' => 'Uraian laporan wajib diisi.',
                 'uraian_laporan.min' => 'Uraian laporan minimal 10 karakter.',
@@ -141,7 +151,7 @@ class PublicLaporForm extends Component
                         'no_kontak' => $this->nomor_kontak,
                         'nip' => $this->nip,
                         'email' => $this->email,
-                        'password' => bcrypt($this->nomor_kontak),
+                        'password' => bcrypt($this->password),
                     ]);
                     $user->assignRole('pelapor');
                     Auth::login($user);

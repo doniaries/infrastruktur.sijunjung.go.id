@@ -53,7 +53,8 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        // Pelapor tidak diizinkan mengakses panel admin (Filament)
+        return !$this->hasRole('pelapor');
     }
 
     // Method untuk authorization impersonate
