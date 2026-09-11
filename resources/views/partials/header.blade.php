@@ -95,21 +95,21 @@
                         Peta BTS
                     </a>
                 </div>
-                {{-- <div class="dropdown relative">
+                <div class="dropdown relative">
                     <a href="{{ url('/list-laporan') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all duration-200">
                         <i class="fas fa-clipboard-list mr-2"></i>
                         Daftar Laporan
                     </a>
-                </div> --}}
-                {{-- <div class="dropdown relative"> --}}
-                    {{-- <a href="{{ url('/lapor') }}"
+                </div>
+                <div class="dropdown relative">
+                    <a href="{{ route('public.laporform') }}"
                         class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
                         <i class="fas fa-exclamation-circle mr-2"></i>
                         Buat Laporan
                         <span class="ml-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">!</span>
-                    </a> --}}
-                {{-- </div> --}}
+                    </a>
+                </div>
             </div>
 
             <!-- Right Section - Actions -->
@@ -257,17 +257,17 @@
                     </a>
                 </div>
             </details>
-            {{-- <a href="{{ url('/list-laporan') }}"
+            <a href="{{ url('/list-laporan') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                 Daftar Laporan
-            </a> --}}
-            {{-- <a href="{{ url('/lapor') }}"
+            </a>
+            <a href="{{ route('public.laporform') }}"
                 class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
                 <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
                 Buat Laporan
                 <span class="ml-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">!</span>
-            </a> --}}
+            </a>
             <details class="group">
                 <summary
                     class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200 cursor-pointer list-none">
