@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_tiket')->unique()->index();
             $table->datetime('tgl_laporan');
             $table->string('nama_pelapor');
-            $table->string('nomor_kontak')->index()->unique();
+            $table->string('nomor_kontak')->index();
             $table->foreignId('opd_id')->constrained('opds')->cascadeOnDelete();
             $table->enum('jenis_laporan', ['Laporan Gangguan', 'Koordinasi Teknis', 'Kenaikan Bandwidth'])->default('Laporan Gangguan');
             $table->text('uraian_laporan')->nullable();
