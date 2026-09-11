@@ -130,9 +130,15 @@
                                         {{ $laporans->firstItem() + $index }}
                                     </td>
                                     <td class="px-6 py-4 text-center">
-                                        <span class="inline-flex items-center px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-mono font-black rounded border border-gray-200 dark:border-gray-600 tracking-tighter">
-                                            {{ $lapor->no_tiket }}
-                                        </span>
+                                        <button type="button" 
+                                            x-data="{ copied: false }"
+                                            @click="navigator.clipboard.writeText('{{ $lapor->no_tiket }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                                            class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 text-xs font-mono font-black rounded border border-gray-200 dark:border-gray-600 tracking-tighter transition-colors group/copy"
+                                            title="Salin tiket">
+                                            <span>{{ $lapor->no_tiket }}</span>
+                                            <i class="fas fa-copy text-[10px] text-gray-400 group-hover/copy:text-gray-600 dark:group-hover/copy:text-gray-300" x-show="!copied"></i>
+                                            <i class="fas fa-check text-[10px] text-green-500" x-show="copied" x-cloak></i>
+                                        </button>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-xs font-bold text-gray-900 dark:text-white">{{ \Carbon\Carbon::parse($lapor->tgl_laporan)->format('d M Y') }}</div>
