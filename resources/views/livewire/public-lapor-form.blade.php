@@ -1,20 +1,23 @@
-<div class="min-h-screen flex items-center justify-center dark:bg-dark bg-gray-50 dark:bg-gray-900">
-    <div class="w-full max-w-5xl px-4 py-10">
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Form Laporan Infrastruktur</h1>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Isi data dengan lengkap untuk mempercepat penanganan.</p>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    
+    <div class="w-full max-w-5xl text-center mb-8">
+        <div class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30 text-white font-bold text-xl tracking-wide mb-4">
+            <i class="fas fa-file-signature mr-3"></i>
+            FORM LAPORAN INFRASTRUKTUR
         </div>
-        <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg rounded-2xl border border-gray-200 dark:border-gray-700">
-            <div class="p-6 sm:p-10 w-full">
-                <form wire:submit.prevent="submit" class="w-full">
-                    <div class="w-full">
-                        {{ $this->form }}
-                    </div>
-                    <div class="flex flex-row gap-4 pt-6 justify-center items-center">
-                        <a href="{{ url('/') }}" class="px-6 py-2.5 text-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors w-auto">Batal & Kembali</a>
-                    </div>
-                </form>
-            </div>
+        <p class="text-gray-600 dark:text-gray-400">Isi data laporan dengan lengkap dan benar untuk mempercepat penanganan.</p>
+    </div>
+
+    <div class="w-full max-w-5xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-6 sm:p-10">
+        <form wire:submit.prevent="submit" class="w-full">
+            {{ $this->form }}
+        </form>
+
+        <div class="mt-10 flex justify-center border-t border-gray-100 dark:border-gray-700 pt-6">
+            <a href="{{ url('/') }}" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Kembali ke Beranda
+            </a>
         </div>
     </div>
 <script>

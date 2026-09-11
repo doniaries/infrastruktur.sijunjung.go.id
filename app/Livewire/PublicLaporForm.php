@@ -40,41 +40,44 @@ class PublicLaporForm extends Component implements HasForms
     {
         $steps = [];
 
-        if (!auth()->check()) {
+        if (!\Illuminate\Support\Facades\Auth::check()) {
             $steps[] = \Filament\Forms\Components\Wizard\Step::make('Data Pelapor')
                 ->description('Identitas pelapor')
-                ->columns(1)
                 ->schema([
                     TextInput::make('nama_pelapor')
                         ->label('Nama Lengkap')
                         ->required()
                         ->maxLength(255)
-                        ->placeholder('Masukkan nama lengkap'),
+                        ->placeholder('Masukkan nama lengkap')
+                        ->columnSpanFull(),
                     TextInput::make('nomor_kontak')
                         ->tel()
                         ->minLength(5)
                         ->maxLength(15)
                         ->required()
                         ->unique('users', 'no_kontak')
-                        ->placeholder('Contoh: 081234567890'),
+                        ->placeholder('Contoh: 081234567890')
+                        ->columnSpanFull(),
                     TextInput::make('nip')
                         ->label('NIP')
                         ->required()
                         ->unique('users', 'nip')
-                        ->placeholder('Masukkan NIP Anda'),
+                        ->placeholder('Masukkan NIP Anda')
+                        ->columnSpanFull(),
                 ]);
         }
 
         $steps[] = \Filament\Forms\Components\Wizard\Step::make('Detail Laporan')
             ->description('Informasi tiket dan masalah')
-            ->columns(1)
             ->schema(array_merge($this->getInformasiTiketSchema(), $this->getDetailLaporanSchema()));
 
         return $form
             ->schema([
                 \Filament\Forms\Components\Wizard::make($steps)
-                    ->submitAction(new \Illuminate\Support\HtmlString('<button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold shadow-md transition-colors">Kirim Laporan</button>'))
+                    ->submitAction(new \Illuminate\Support\HtmlString('<button type="submit" class="fi-btn fi-btn-size-md fi-btn-color-primary fi-btn-fill px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold shadow-md transition-colors w-full sm:w-auto">Kirim Laporan</button>'))
+                    ->columnSpanFull()
             ])
+            ->columns(1)
             ->statePath('data');
     }
 
@@ -97,7 +100,7 @@ class PublicLaporForm extends Component implements HasForms
                 ->default(function () {
                     do {
                         $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
-                    } while (Lapor::where('no_tiket', $noTiket)->exists());
+                    } while (Lapor::where('no_tiket', '=', $noTiket)->exists());
                     return $noTiket;
                 })
                 ->readOnly()
@@ -179,7 +182,7 @@ class PublicLaporForm extends Component implements HasForms
         }
 
         // Handle unauthenticated users
-        if (!auth()->check()) {
+        if (!\Illuminate\Support\Facades\Auth::check()) {
             // Register new user
             try {
                 $user = \App\Models\User::create([
@@ -191,7 +194,7 @@ class PublicLaporForm extends Component implements HasForms
                 ]);
                 $user->assignRole('pelapor');
                 
-                auth()->login($user);
+                \Illuminate\Support\Facades\Auth::login($user);
             } catch (\Exception $e) {
                 Notification::make()
                     ->danger()
@@ -205,7 +208,7 @@ class PublicLaporForm extends Component implements HasForms
 
         try {
             $lapor = Lapor::create([
-                'user_id' => auth()->id(),
+                'user_id' => \Illuminate\Support\Facades\Auth::id(),
                 'no_tiket' => $data['no_tiket'],
                 'opd_id' => $data['opd_id'],
                 'jenis_laporan' => $data['jenis_laporan'],
