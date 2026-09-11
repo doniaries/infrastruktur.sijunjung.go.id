@@ -28,7 +28,8 @@
                              x-transition:leave="transition ease-in duration-200"
                              x-transition:leave-start="opacity-100"
                              x-transition:leave-end="opacity-0"
-                             class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+                             class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm"
+                             @click="open = false; show = false; clearTimeout(redirectTimer); $wire.resetForm()"></div>
                         
                         <!-- Modal Content -->
                         <div x-data="{ show: false, redirectTimer: null }" x-init="
@@ -44,7 +45,7 @@
                              class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 w-full max-w-md rounded-2xl shadow-2xl p-8 overflow-hidden z-10 text-center">
                              
                             <!-- Tombol Tutup (X) -->
-                            <button wire:click="resetForm" x-on:click="clearTimeout(redirectTimer)" type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                            <button x-on:click="open = false; show = false; clearTimeout(redirectTimer); $wire.resetForm()" type="button" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300 rounded-full transition-all z-20">
                                 <i class="fas fa-times text-xl"></i>
                             </button>
                              
@@ -74,11 +75,11 @@
                                     class="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-md">
                                     <i class="fas fa-list mr-2"></i> Lihat Daftar Laporan
                                 </a>
-                                <button wire:click="resetForm" x-on:click="clearTimeout(redirectTimer)" type="button"
+                                <button x-on:click="open = false; show = false; clearTimeout(redirectTimer); $wire.resetForm()" type="button"
                                     class="w-full inline-flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     <i class="fas fa-plus mr-2"></i> Buat Laporan Lain
                                 </button>
-                                <button wire:click="resetForm" x-on:click="clearTimeout(redirectTimer)" type="button"
+                                <button x-on:click="open = false; show = false; clearTimeout(redirectTimer); $wire.resetForm()" type="button"
                                     class="w-full mt-2 inline-flex items-center justify-center px-6 py-2 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 font-semibold rounded-xl transition-colors text-sm">
                                     Tutup
                                 </button>

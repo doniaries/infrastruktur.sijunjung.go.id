@@ -51,7 +51,7 @@ class PublicLaporForm extends Component
             $this->totalSteps = 1;
             
             // Ambil OPD dari laporan terakhir user
-            $lastLapor = \App\Models\Lapor::where('user_id', Auth::id())->latest()->first();
+            $lastLapor = \App\Models\Lapor::where('user_id', '=', Auth::id())->latest()->first();
             if ($lastLapor) {
                 $this->opd_id = $lastLapor->opd_id;
             }
