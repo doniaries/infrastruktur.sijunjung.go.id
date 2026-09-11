@@ -87,6 +87,18 @@ class ListLaporan extends Component
                 $query->where('no_tiket', $this->ticket);
             });
 
+        // Filter based on user role
+        if (auth()->check()) {
+            if (!auth()->user()->hasRole('super_admin')) {
+                $query->where('user_id', auth()->id());
+            }
+        } else {
+            // If not logged in, don't show any reports unless searching by specific ticket
+            if (!$this->ticket) {
+                $query->whereRaw('1 = 0');
+            }
+        }
+
         // Apply sorting
         switch ($this->sortField) {
             case 'opd':
