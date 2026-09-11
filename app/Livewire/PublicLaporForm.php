@@ -41,6 +41,7 @@ class PublicLaporForm extends Component implements HasForms
         return $form
             ->schema([
                 Section::make('Informasi Tiket')
+                    ->columns(1)
                     ->columnSpanFull()
                     ->schema([
                         DateTimePicker::make('tgl_laporan')
@@ -49,7 +50,8 @@ class PublicLaporForm extends Component implements HasForms
                             ->timezone('Asia/Jakarta')
                             ->readOnly()
                             ->required()
-                            ->helperText('Otomatis sesuai zona Asia/Jakarta'),
+                            ->helperText('Otomatis sesuai zona Asia/Jakarta')
+                            ->columnSpanFull(),
 
                         TextInput::make('no_tiket')
                             ->prefixIcon('heroicon-o-ticket')
@@ -65,6 +67,7 @@ class PublicLaporForm extends Component implements HasForms
                             ->readOnly()
                             ->helperText('Klik ikon untuk menyalin ke clipboard')
                             ->extraAttributes(['x-ref' => 'no_tiket'])
+                            ->columnSpanFull()
                             ->suffixActions([
                                 Action::make('copy_no_tiket')
                                     ->label('Salin')
@@ -77,17 +80,18 @@ class PublicLaporForm extends Component implements HasForms
                                         'x-on:click.prevent' => 'navigator.clipboard.writeText($refs.no_tiket?.value || ""); $wire.copyNoTiket()',
                                     ]),
                             ]),
-                    ])
-                    ->columns(2),
+                    ]),
 
                 Section::make('Detail Laporan')
+                    ->columns(1)
                     ->columnSpanFull()
                     ->schema([
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
                             ->required()
                             ->maxLength(255)
-                            ->placeholder('Masukkan nama lengkap'),
+                            ->placeholder('Masukkan nama lengkap')
+                            ->columnSpanFull(),
 
                         TextInput::make('nomor_kontak')
                             ->tel()
@@ -95,7 +99,8 @@ class PublicLaporForm extends Component implements HasForms
                             ->maxLength(15)
                             ->unique(ignoreRecord: true)
                             ->required()
-                            ->placeholder('Contoh: 081234567890'),
+                            ->placeholder('Contoh: 081234567890')
+                            ->columnSpanFull(),
 
                         Select::make('opd_id')
                             ->label('OPD')
@@ -104,7 +109,8 @@ class PublicLaporForm extends Component implements HasForms
                             ->preload()
                             ->required()
                             ->live()
-                            ->helperText('Pilih OPD terkait laporan'),
+                            ->helperText('Pilih OPD terkait laporan')
+                            ->columnSpanFull(),
 
                         Select::make('jenis_laporan')
                             ->options([
@@ -115,7 +121,8 @@ class PublicLaporForm extends Component implements HasForms
                             ->default('Laporan Gangguan')
                             ->required()
                             ->live()
-                            ->helperText('Pilih jenis layanan'),
+                            ->helperText('Pilih jenis layanan')
+                            ->columnSpanFull(),
 
                         Textarea::make('uraian_laporan')
                             ->label('Uraian Laporan')
@@ -143,7 +150,6 @@ class PublicLaporForm extends Component implements HasForms
                         CaptchaField::make('captcha')
                             ->columnSpanFull(),
                     ])
-                    ->columns(2)
             ])
             ->statePath('data');
     }
