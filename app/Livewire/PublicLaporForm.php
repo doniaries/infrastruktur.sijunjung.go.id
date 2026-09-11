@@ -41,6 +41,7 @@ class PublicLaporForm extends Component implements HasForms
         return $form
             ->schema([
                 Section::make('Informasi Tiket')
+                    ->aside(false)
                     ->columns(1)
                     ->columnSpanFull()
                     ->schema([
@@ -83,6 +84,7 @@ class PublicLaporForm extends Component implements HasForms
                     ]),
 
                 Section::make('Detail Laporan')
+                    ->aside(false)
                     ->columns(1)
                     ->columnSpanFull()
                     ->schema([
