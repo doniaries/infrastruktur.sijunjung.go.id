@@ -10,9 +10,9 @@
                     <div class="space-y-4 w-full">
                         {{ $this->form }}
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4 justify-center">
-                        <a href="{{ url('/') }}" class="px-6 py-3 text-center rounded-lg form-button form-button-back">Kembali</a>
-                        <button type="submit" class="px-6 py-3 rounded-lg form-button form-button-submit glow-on-hover ripple">Kirim Laporan</button>
+                    <div class="flex flex-row gap-4 pt-4 justify-center items-center">
+                        <a href="{{ url('/') }}" class="px-6 py-2.5 text-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors w-auto">Kembali</a>
+                        <button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors w-auto shadow-sm">Kirim Laporan</button>
                     </div>
                 </form>
             </div>
