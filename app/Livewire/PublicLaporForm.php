@@ -139,6 +139,8 @@ class PublicLaporForm extends Component
             $lapor = Lapor::create([
                 'user_id' => Auth::id(),
                 'no_tiket' => $this->no_tiket,
+                'nama_pelapor' => Auth::check() ? Auth::user()->name : $this->nama_pelapor,
+                'nomor_kontak' => Auth::check() ? Auth::user()->no_kontak : $this->nomor_kontak,
                 'opd_id' => $this->opd_id,
                 'jenis_laporan' => $this->jenis_laporan,
                 'uraian_laporan' => $this->uraian_laporan,
