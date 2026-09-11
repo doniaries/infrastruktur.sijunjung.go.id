@@ -207,7 +207,7 @@
                                     <div>
                                         <label for="opd_id_s1"
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                                            OPD Tujuan <span class="text-red-500">*</span>
+                                            OPD<span class="text-red-500">*</span>
                                         </label>
                                         <select id="opd_id_s1" wire:model.live="opd_id"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all">
@@ -263,7 +263,7 @@
                                         <div>
                                             <label for="opd_id"
                                                 class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                                                OPD Tujuan <span class="text-red-500">*</span>
+                                                OPD <span class="text-red-500">*</span>
                                             </label>
                                             <select id="opd_id" wire:model.live="opd_id"
                                                 class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all">
