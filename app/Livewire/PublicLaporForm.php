@@ -120,7 +120,7 @@ class PublicLaporForm extends Component
                 $user->assignRole('pelapor');
                 Auth::login($user);
             } catch (\Exception $e) {
-                session()->flash('error', 'Gagal mendaftarkan akun. Pastikan NIP dan Nomor Kontak belum terdaftar.');
+                session()->flash('error', 'Gagal mendaftarkan akun: ' . $e->getMessage());
                 return;
             }
         } else {
