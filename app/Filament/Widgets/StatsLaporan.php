@@ -10,7 +10,7 @@ use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class StatsLaporan extends BaseWidget
 {
-    protected static bool $isLazy = false;
+    protected static bool $isLazy = true;
 
     protected function getStats(): array
     {
