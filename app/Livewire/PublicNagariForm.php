@@ -19,13 +19,14 @@ class PublicNagariForm extends Component implements HasForms
     use InteractsWithForms;
 
     public ?array $data = [];
-    public $nagariId = null;
+    public int|string|null $nagariId = null;
 
-    public function mount($id = null): void
+    public function mount(int|string|null $id = null): void
     {
         $this->nagariId = $id;
         
         if ($this->nagariId) {
+            /** @var \App\Models\Nagari|null $nagari */
             $nagari = Nagari::find($this->nagariId);
             if ($nagari) {
                 $this->form->fill($nagari->toArray());
@@ -113,6 +114,7 @@ class PublicNagariForm extends Component implements HasForms
 
         try {
             if ($this->nagariId) {
+                /** @var \App\Models\Nagari|null $nagari */
                 $nagari = Nagari::find($this->nagariId);
                 if ($nagari) {
                     $nagari->update($data);
