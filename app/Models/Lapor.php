@@ -37,6 +37,7 @@ class Lapor extends Model
         'status_laporan',
         'petugas_id',
         'keterangan_petugas',
+        'user_id',
         // 'hasil_laporan',
     ];
 
@@ -63,6 +64,11 @@ class Lapor extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'petugas_id');
+    }
+
+    public function pelapor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     //untuk relationship perlu dituliskan

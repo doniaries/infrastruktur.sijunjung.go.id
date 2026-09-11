@@ -22,7 +22,8 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'is_active',
-
+        'no_kontak',
+        'nip',
     ];
 
 
@@ -41,6 +42,11 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'is_active' => 'boolean',
         ];
+    }
+
+    public function laporans()
+    {
+        return $this->hasMany(Lapor::class, 'user_id');
     }
 
 
