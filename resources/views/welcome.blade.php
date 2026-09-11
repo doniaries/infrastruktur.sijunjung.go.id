@@ -29,6 +29,14 @@
                     Sistem ini membantu Anda melacak laporan secara real-time.
                 </p>
 
+                <div class="flex justify-center mt-4">
+                    <a href="{{ route('public.laporform') }}"
+                        class="inline-flex items-center gap-2 px-8 py-3.5 text-base sm:text-lg font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 transition-all duration-300">
+                        <i class="fas fa-file-signature"></i>
+                        Buat Laporan Baru
+                    </a>
+                </div>
+
             </div>
         </div>
 
