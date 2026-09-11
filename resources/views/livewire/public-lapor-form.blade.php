@@ -1,23 +1,32 @@
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-    
-    <div class="w-full max-w-5xl text-center mb-8">
-        <div class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30 text-white font-bold text-xl tracking-wide mb-4">
-            <i class="fas fa-file-signature mr-3"></i>
-            FORM LAPORAN INFRASTRUKTUR
-        </div>
-        <p class="text-gray-600 dark:text-gray-400">Isi data laporan dengan lengkap dan benar untuk mempercepat penanganan.</p>
-    </div>
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 text-gray-900 dark:text-gray-100">
+                <!-- Title Section -->
+                <div class="flex justify-center mb-8">
+                    <div class="inline-flex flex-col items-center justify-center">
+                        <div class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-black rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 border border-blue-800/20"
+                            style="background: linear-gradient(to right, #2563eb, #4338ca);">
+                            <i class="fas fa-file-signature mr-3 text-xl text-white"></i>
+                            <h2 class="text-2xl uppercase tracking-wider text-white">BUAT LAPORAN</h2>
+                        </div>
+                        <p class="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">Isi data laporan dengan lengkap dan benar untuk mempercepat penanganan.</p>
+                    </div>
+                </div>
 
-    <div class="w-full max-w-5xl bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-6 sm:p-10">
-        <form wire:submit.prevent="submit" class="w-full">
-            {{ $this->form }}
-        </form>
+                <div class="max-w-4xl mx-auto">
+                    <form wire:submit.prevent="submit" class="w-full">
+                        {{ $this->form }}
+                    </form>
 
-        <div class="mt-10 flex justify-center border-t border-gray-100 dark:border-gray-700 pt-6">
-            <a href="{{ url('/') }}" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
-                <i class="fas fa-arrow-left mr-2"></i>
-                Kembali ke Beranda
-            </a>
+                    <div class="mt-10 flex justify-center border-t border-gray-100 dark:border-gray-700 pt-6">
+                        <a href="{{ url('/') }}" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 shadow-sm border border-gray-200 dark:border-gray-600">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Kembali ke Beranda
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 <script>
