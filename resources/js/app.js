@@ -128,15 +128,16 @@ function initAll() {
 
         const isDark = document.documentElement.classList.contains("dark");
         const lightTiles = L.tileLayer(
-            "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
-                attribution: "&copy; CARTO",
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             },
         );
         const darkTiles = L.tileLayer(
-            "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
-                attribution: "&copy; CARTO",
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                className: 'dark-map-tiles'
             },
         );
         const satelliteTiles = L.tileLayer(

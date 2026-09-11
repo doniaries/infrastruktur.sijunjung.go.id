@@ -66,13 +66,15 @@ class PublicLaporForm extends Component
         if ($this->step === 1 && !Auth::check()) {
             $this->validate([
                 'nama_pelapor' => 'required|min:3|max:255',
-                'nomor_kontak' => 'required|min:5|max:15|unique:users,no_kontak',
+                'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
                 'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
                 'opd_id' => 'required|exists:opds,id',
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
                 'nomor_kontak.required' => 'Nomor kontak wajib diisi.',
+                'nomor_kontak.numeric' => 'Nomor kontak hanya boleh berisi angka.',
+                'nomor_kontak.digits_between' => 'Nomor kontak minimal 10 digit dan maksimal 15 digit.',
                 'nomor_kontak.unique' => 'Nomor kontak sudah terdaftar.',
                 'email.required' => 'Email wajib diisi.',
                 'email.email' => 'Format email tidak valid.',
