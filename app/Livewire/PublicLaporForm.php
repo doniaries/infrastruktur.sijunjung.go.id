@@ -100,7 +100,8 @@ class PublicLaporForm extends Component
         if (!Auth::check()) {
             $this->validate([
                 'nama_pelapor' => 'required|min:3|max:255',
-                'nomor_kontak' => 'required|min:5|max:15|unique:users,no_kontak',
+                'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
+                'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
                 'opd_id' => 'required|exists:opds,id',
                 'jenis_laporan' => 'required',
@@ -108,28 +109,18 @@ class PublicLaporForm extends Component
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
                 'nomor_kontak.required' => 'Nomor kontak wajib diisi.',
+                'nomor_kontak.numeric' => 'Nomor kontak hanya boleh berisi angka.',
+                'nomor_kontak.digits_between' => 'Nomor kontak minimal 10 digit dan maksimal 15 digit.',
                 'nomor_kontak.unique' => 'Nomor kontak sudah terdaftar.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah terdaftar.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.unique' => 'NIP sudah terdaftar.',
                 'opd_id.required' => 'Silakan pilih OPD anda.',
                 'uraian_laporan.required' => 'Uraian laporan wajib diisi.',
                 'uraian_laporan.min' => 'Uraian laporan minimal 10 karakter.',
             ]);
-
-            try {
-                $user = \App\Models\User::create([
-                    'name' => $this->nama_pelapor,
-                    'no_kontak' => $this->nomor_kontak,
-                    'nip' => $this->nip,
-                    'email' => $this->email,
-                    'password' => bcrypt($this->nomor_kontak),
-                ]);
-                $user->assignRole('pelapor');
-                Auth::login($user);
-            } catch (\Exception $e) {
-                session()->flash('error', 'Gagal mendaftarkan akun: ' . $e->getMessage());
-                return;
-            }
         } else {
             $this->validate([
                 'opd_id' => 'required|exists:opds,id',
@@ -143,22 +134,37 @@ class PublicLaporForm extends Component
         }
 
         try {
-            $lapor = Lapor::create([
-                'user_id' => Auth::id(),
-                'no_tiket' => $this->no_tiket,
-                'nama_pelapor' => Auth::check() ? Auth::user()->name : $this->nama_pelapor,
-                'nomor_kontak' => Auth::check() ? Auth::user()->no_kontak : $this->nomor_kontak,
-                'opd_id' => $this->opd_id,
-                'jenis_laporan' => $this->jenis_laporan,
-                'uraian_laporan' => $this->uraian_laporan,
-                'foto_laporan' => $this->foto_laporan ? $this->foto_laporan->store('foto_laporan', 'public') : null,
-                'file_laporan' => $this->file_laporan ? $this->file_laporan->store('laporan', 'public') : null,
-                'status_laporan' => \App\Enums\StatusLaporan::BELUM_DIPROSES->value,
-                'keterangan_petugas' => 'Belum ada',
-                'tgl_laporan' => $this->tgl_laporan,
-            ]);
+            \Illuminate\Support\Facades\DB::transaction(function () {
+                if (!Auth::check()) {
+                    $user = \App\Models\User::create([
+                        'name' => $this->nama_pelapor,
+                        'no_kontak' => $this->nomor_kontak,
+                        'nip' => $this->nip,
+                        'email' => $this->email,
+                        'password' => bcrypt($this->nomor_kontak),
+                    ]);
+                    $user->assignRole('pelapor');
+                    Auth::login($user);
+                }
 
-            $this->submittedNoTiket = $lapor->no_tiket;
+                $lapor = Lapor::create([
+                    'user_id' => Auth::id(),
+                    'no_tiket' => $this->no_tiket,
+                    'nama_pelapor' => Auth::user()->name,
+                    'nomor_kontak' => Auth::user()->no_kontak,
+                    'opd_id' => $this->opd_id,
+                    'jenis_laporan' => $this->jenis_laporan,
+                    'uraian_laporan' => $this->uraian_laporan,
+                    'foto_laporan' => $this->foto_laporan ? $this->foto_laporan->store('foto_laporan', 'public') : null,
+                    'file_laporan' => $this->file_laporan ? $this->file_laporan->store('laporan', 'public') : null,
+                    'status_laporan' => \App\Enums\StatusLaporan::BELUM_DIPROSES->value,
+                    'keterangan_petugas' => 'Belum ada',
+                    'tgl_laporan' => $this->tgl_laporan,
+                ]);
+
+                $this->submittedNoTiket = $lapor->no_tiket;
+            });
+            
             $this->isSubmitted = true;
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());

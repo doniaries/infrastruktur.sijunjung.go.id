@@ -31,7 +31,7 @@
                              class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
                         
                         <!-- Modal Content -->
-                        <div x-show="open"
+                        <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)" x-show="show"
                              x-transition:enter="transition ease-out duration-500"
                              x-transition:enter-start="opacity-0 scale-75 translate-y-8"
                              x-transition:enter-end="opacity-100 scale-100 translate-y-0"
@@ -39,6 +39,11 @@
                              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                              x-transition:leave-end="opacity-0 scale-90 translate-y-4"
                              class="relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 w-full max-w-md rounded-2xl shadow-2xl p-8 overflow-hidden z-10 text-center">
+                             
+                            <!-- Tombol Tutup (X) -->
+                            <button wire:click="resetForm" type="button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
                              
                             <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
                                 <i class="fas fa-check-circle text-4xl text-green-600 dark:text-green-400"></i>
@@ -69,6 +74,10 @@
                                 <button wire:click="resetForm" type="button"
                                     class="w-full inline-flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     <i class="fas fa-plus mr-2"></i> Buat Laporan Lain
+                                </button>
+                                <button wire:click="resetForm" type="button"
+                                    class="w-full mt-2 inline-flex items-center justify-center px-6 py-2 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 font-semibold rounded-xl transition-colors text-sm">
+                                    Tutup
                                 </button>
                             </div>
                         </div>
@@ -407,7 +416,6 @@
                                 @else
                                     <button type="submit" wire:loading.attr="disabled"
                                         wire:loading.class="opacity-70 cursor-not-allowed"
-                                        @if (!$opd_id || !$uraian_laporan) disabled @endif
                                         class="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed rounded-xl shadow-md shadow-green-200 dark:shadow-green-900/30 transition-all duration-200 active:scale-95">
                                         <span wire:loading.remove wire:target="submit">
                                             <i class="fas fa-paper-plane text-xs"></i> Kirim Laporan
