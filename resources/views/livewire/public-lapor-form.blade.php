@@ -335,30 +335,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- OPD Tujuan (hanya tampil jika user sudah login / tidak ada step 1) --}}
-                                    @if (auth()->check())
-                                        <div>
-                                            <label for="opd_id"
-                                                class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
-                                                OPD <span class="text-red-500">*</span>
-                                            </label>
-                                            <select id="opd_id" wire:model.live="opd_id"
-                                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-all">
-                                                <option value="">— Pilih OPD —</option>
-                                                @foreach ($opds as $opd)
-                                                    <option value="{{ $opd->id }}">{{ $opd->nama }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('opd_id')
-                                                <p
-                                                    class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
-                                                    <i class="fas fa-circle-exclamation text-[10px]"></i>
-                                                    {{ $message }}
-                                                </p>
-                                            @enderror
-                                        </div>
-                                    @endif
-
                                     {{-- Jenis Laporan --}}
                                     <div>
                                         <label

@@ -49,6 +49,12 @@ class PublicLaporForm extends Component
         if (Auth::check()) {
             $this->step = 2;
             $this->totalSteps = 1;
+            
+            // Ambil OPD dari laporan terakhir user
+            $lastLapor = \App\Models\Lapor::where('user_id', Auth::id())->latest()->first();
+            if ($lastLapor) {
+                $this->opd_id = $lastLapor->opd_id;
+            }
         } else {
             $this->step = 1;
             $this->totalSteps = 2;
@@ -133,11 +139,9 @@ class PublicLaporForm extends Component
             ]);
         } else {
             $this->validate([
-                'opd_id' => 'required|exists:opds,id',
                 'jenis_laporan' => 'required',
                 'uraian_laporan' => 'required|min:10',
             ], [
-                'opd_id.required' => 'Silakan pilih OPD anda.',
                 'uraian_laporan.required' => 'Uraian laporan wajib diisi.',
                 'uraian_laporan.min' => 'Uraian laporan minimal 10 karakter.',
             ]);
