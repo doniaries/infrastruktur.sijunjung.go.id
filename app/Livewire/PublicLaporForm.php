@@ -57,7 +57,7 @@ class PublicLaporForm extends Component
     {
         do {
             $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
-        } while (Lapor::where('no_tiket', $noTiket)->exists());
+        } while (Lapor::query()->where('no_tiket', $noTiket)->exists());
         return $noTiket;
     }
 
@@ -174,7 +174,7 @@ class PublicLaporForm extends Component
     public function render()
     {
         return view('livewire.public-lapor-form', [
-            'opds' => Opd::orderBy('nama')->get(),
+            'opds' => Opd::query()->orderBy('nama', 'asc')->get(),
         ]);
     }
 }

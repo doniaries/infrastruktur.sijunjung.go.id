@@ -168,7 +168,7 @@
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                                             Nama Lengkap <span class="text-red-500">*</span>
                                         </label>
-                                        <input type="text" id="nama_pelapor" wire:model.blur="nama_pelapor"
+                                        <input type="text" id="nama_pelapor" wire:model="nama_pelapor"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
                                             placeholder="Masukkan nama lengkap Anda">
                                         @error('nama_pelapor')
@@ -184,7 +184,7 @@
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                                             Nomor Kontak / HP <span class="text-red-500">*</span>
                                         </label>
-                                        <input type="tel" id="nomor_kontak" wire:model.blur="nomor_kontak"
+                                        <input type="tel" id="nomor_kontak" wire:model="nomor_kontak"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
                                             placeholder="Contoh: 081234567890">
                                         @error('nomor_kontak')
@@ -200,7 +200,7 @@
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                                             Email <span class="text-red-500">*</span>
                                         </label>
-                                        <input type="email" id="email" wire:model.blur="email"
+                                        <input type="email" id="email" wire:model="email"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
                                             placeholder="Contoh: user@email.com">
                                         @error('email')
@@ -216,7 +216,7 @@
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                                             NIP <span class="text-red-500">*</span>
                                         </label>
-                                        <input type="text" id="nip" wire:model.blur="nip"
+                                        <input type="text" id="nip" wire:model="nip"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
                                             placeholder="Masukkan NIP Anda">
                                         @error('nip')
@@ -338,7 +338,7 @@
                                             class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
                                             Uraian Laporan <span class="text-red-500">*</span>
                                         </label>
-                                        <textarea id="uraian_laporan" wire:model.blur="uraian_laporan" rows="4"
+                                        <textarea id="uraian_laporan" wire:model="uraian_laporan" rows="4"
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none"
                                             placeholder="Jelaskan masalah atau laporan Anda secara ringkas dan jelas..."></textarea>
                                         @error('uraian_laporan')
