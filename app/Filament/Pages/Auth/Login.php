@@ -74,9 +74,8 @@ class Login extends BaseLogin
             $request->session()->regenerate();
             
             if (\Illuminate\Support\Facades\Auth::user()->hasRole('pelapor')) {
-                throw new \Illuminate\Http\Exceptions\HttpResponseException(
-                    \Illuminate\Support\Facades\Redirect::to('/list-laporan')
-                );
+                $this->redirect('/list-laporan');
+                return null;
             }
             
             return app(LoginResponse::class);
