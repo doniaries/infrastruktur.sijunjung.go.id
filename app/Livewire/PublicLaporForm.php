@@ -21,6 +21,7 @@ class PublicLaporForm extends Component
     // Step 1 - Data Pelapor (hanya untuk user yang belum login)
     public string $nama_pelapor = '';
     public string $nomor_kontak = '';
+    public string $email = '';
     public string $nip = '';
 
     // Step 2 - Detail Laporan
@@ -66,12 +67,16 @@ class PublicLaporForm extends Component
             $this->validate([
                 'nama_pelapor' => 'required|min:3|max:255',
                 'nomor_kontak' => 'required|min:5|max:15|unique:users,no_kontak',
+                'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
                 'opd_id' => 'required|exists:opds,id',
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
                 'nomor_kontak.required' => 'Nomor kontak wajib diisi.',
                 'nomor_kontak.unique' => 'Nomor kontak sudah terdaftar.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid.',
+                'email.unique' => 'Email sudah terdaftar.',
                 'nip.required' => 'NIP wajib diisi.',
                 'nip.unique' => 'NIP sudah terdaftar.',
                 'opd_id.required' => 'Silakan pilih OPD anda.',
@@ -114,7 +119,7 @@ class PublicLaporForm extends Component
                     'name' => $this->nama_pelapor,
                     'no_kontak' => $this->nomor_kontak,
                     'nip' => $this->nip,
-                    'email' => $this->nomor_kontak . '@pelapor.local',
+                    'email' => $this->email,
                     'password' => bcrypt($this->nomor_kontak),
                 ]);
                 $user->assignRole('pelapor');

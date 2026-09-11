@@ -18,26 +18,40 @@
 
                 {{-- Laporan Berhasil Dikirim --}}
                 @if ($isSubmitted)
-                    <div class="max-w-2xl mx-auto">
-                        <div class="text-center py-12">
-                            <div
-                                class="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
+                    <!-- Success Modal Pop-up -->
+                    <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center px-4" x-cloak>
+                        <!-- Backdrop -->
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0"
+                             x-transition:enter-end="opacity-100"
+                             x-transition:leave="transition ease-in duration-200"
+                             x-transition:leave-start="opacity-100"
+                             x-transition:leave-end="opacity-0"
+                             class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+                        
+                        <!-- Modal Content -->
+                        <div x-show="open"
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-200"
+                             x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                             class="relative bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl p-8 overflow-hidden z-10 text-center">
+                             
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
                                 <i class="fas fa-check-circle text-4xl text-green-600 dark:text-green-400"></i>
                             </div>
-                            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3">Laporan Berhasil Dikirim!
-                            </h3>
-                            <p class="text-gray-500 dark:text-gray-400 mb-6">Laporan Anda telah kami terima. Catat nomor
-                                tiket berikut untuk melacak status laporan Anda.</p>
-                            <div
-                                class="inline-flex items-center gap-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-xl px-6 py-4 mb-8">
+                            
+                            <h3 class="text-2xl font-black text-gray-900 dark:text-white mb-3">Laporan Berhasil!</h3>
+                            <p class="text-gray-500 dark:text-gray-400 mb-6 text-sm">Laporan Anda telah kami terima. Catat nomor tiket berikut untuk melacak status laporan Anda.</p>
+                            
+                            <div class="inline-flex items-center gap-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-xl px-6 py-4 mb-8 w-full justify-center">
                                 <i class="fas fa-ticket-alt text-blue-600 dark:text-blue-400 text-xl"></i>
                                 <div class="text-left">
-                                    <p
-                                        class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">
-                                        Nomor Tiket</p>
-                                    <p
-                                        class="text-2xl font-black text-blue-800 dark:text-blue-200 font-mono tracking-wider">
-                                        {{ $submittedNoTiket }}</p>
+                                    <p class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest">Nomor Tiket</p>
+                                    <p class="text-2xl font-black text-blue-800 dark:text-blue-200 font-mono tracking-wider">{{ $submittedNoTiket }}</p>
                                 </div>
                                 <button type="button"
                                     onclick="navigator.clipboard.writeText('{{ $submittedNoTiket }}').then(()=>{this.innerHTML='<i class=\'fas fa-check\'></i>'})"
@@ -46,20 +60,22 @@
                                     <i class="fas fa-copy"></i>
                                 </button>
                             </div>
-                            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            
+                            <div class="flex flex-col gap-3 justify-center">
                                 <a href="{{ url('/list-laporan') }}"
-                                    class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-md">
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-colors shadow-md">
                                     <i class="fas fa-list mr-2"></i> Lihat Daftar Laporan
                                 </a>
                                 <button wire:click="resetForm" type="button"
-                                    class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors">
                                     <i class="fas fa-plus mr-2"></i> Buat Laporan Lain
                                 </button>
                             </div>
                         </div>
                     </div>
-                @else
-                    {{-- Form Wizard --}}
+                @endif
+
+                {{-- Form Wizard --}}
                     <div class="max-w-2xl mx-auto">
 
                         {{-- Wizard Step Indicators (hanya jika user belum login) --}}
@@ -172,6 +188,22 @@
                                             class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
                                             placeholder="Contoh: 081234567890">
                                         @error('nomor_kontak')
+                                            <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
+                                                <i class="fas fa-circle-exclamation text-[10px]"></i> {{ $message }}
+                                            </p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Email --}}
+                                    <div>
+                                        <label for="email"
+                                            class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">
+                                            Email <span class="text-red-500">*</span>
+                                        </label>
+                                        <input type="email" id="email" wire:model.live="email"
+                                            class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 transition-all"
+                                            placeholder="Contoh: user@email.com">
+                                        @error('email')
                                             <p class="mt-1 text-xs text-red-600 dark:text-red-400 flex items-center gap-1">
                                                 <i class="fas fa-circle-exclamation text-[10px]"></i> {{ $message }}
                                             </p>
@@ -389,8 +421,6 @@
 
                         </form>
                     </div>
-                @endif
-
                 {{-- Error Modal Popup --}}
                 @if (session()->has('error'))
                     <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center px-4" x-cloak>
@@ -432,9 +462,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                @endif
-
+                    @endif
             </div>
         </div>
     </div>
