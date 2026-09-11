@@ -42,52 +42,46 @@ class PublicLaporForm extends Component implements HasForms
             ->schema([
                 Section::make('Informasi Tiket')
                     ->columnSpanFull()
-                    ->description('Tanggal dan nomor tiket')
                     ->schema([
-                        Grid::make(2)
-                            ->schema([
-                                DateTimePicker::make('tgl_laporan')
-                                    ->label('Tanggal Tiket')
-                                    ->default(Carbon::now())
-                                    ->timezone('Asia/Jakarta')
-                                    ->readOnly()
-                                    ->required()
-                                    ->helperText('Otomatis sesuai zona Asia/Jakarta')
-                                    ->columnSpan(1),
+                        DateTimePicker::make('tgl_laporan')
+                            ->label('Tanggal Tiket')
+                            ->default(Carbon::now())
+                            ->timezone('Asia/Jakarta')
+                            ->readOnly()
+                            ->required()
+                            ->helperText('Otomatis sesuai zona Asia/Jakarta'),
 
-                                TextInput::make('no_tiket')
-                                    ->prefixIcon('heroicon-o-ticket')
-                                    ->label('Nomor Tiket')
-                                    ->hint('Catat atau gunakan tombol salin untuk menyimpan')
-                                    ->hintColor('danger')
-                                    ->default(function () {
-                                        do {
-                                            $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
-                                        } while (Lapor::where('no_tiket', $noTiket)->exists());
-                                        return $noTiket;
-                                    })
-                                    ->readOnly()
-                                    ->helperText('Klik ikon untuk menyalin ke clipboard')
-                                    ->extraAttributes(['x-ref' => 'no_tiket'])
-                                    ->columnSpan(1)
-                                    ->suffixActions([
-                                        Action::make('copy_no_tiket')
-                                            ->label('Salin')
-                                            ->icon('heroicon-m-clipboard')
-                                            ->tooltip('Salin kode tiket')
-                                            ->color('primary')
-                                            ->iconButton()
-                                            ->extraAttributes([
-                                                'title' => 'Salin kode tiket',
-                                                'x-on:click.prevent' => 'navigator.clipboard.writeText($refs.no_tiket?.value || ""); $wire.copyNoTiket()',
-                                            ]),
+                        TextInput::make('no_tiket')
+                            ->prefixIcon('heroicon-o-ticket')
+                            ->label('Nomor Tiket')
+                            ->hint('Catat atau gunakan tombol salin untuk menyimpan')
+                            ->hintColor('danger')
+                            ->default(function () {
+                                do {
+                                    $noTiket = strtoupper(Carbon::now()->format('ymd') . Str::random(3));
+                                } while (Lapor::where('no_tiket', $noTiket)->exists());
+                                return $noTiket;
+                            })
+                            ->readOnly()
+                            ->helperText('Klik ikon untuk menyalin ke clipboard')
+                            ->extraAttributes(['x-ref' => 'no_tiket'])
+                            ->suffixActions([
+                                Action::make('copy_no_tiket')
+                                    ->label('Salin')
+                                    ->icon('heroicon-m-clipboard')
+                                    ->tooltip('Salin kode tiket')
+                                    ->color('primary')
+                                    ->iconButton()
+                                    ->extraAttributes([
+                                        'title' => 'Salin kode tiket',
+                                        'x-on:click.prevent' => 'navigator.clipboard.writeText($refs.no_tiket?.value || ""); $wire.copyNoTiket()',
                                     ]),
                             ]),
-                    ]),
+                    ])
+                    ->columns(2),
 
                 Section::make('Detail Laporan')
                     ->columnSpanFull()
-                    ->description('Isi data pelapor dan detail laporan')
                     ->schema([
                         TextInput::make('nama_pelapor')
                             ->label('Nama Lengkap')
@@ -127,23 +121,27 @@ class PublicLaporForm extends Component implements HasForms
                             ->label('Uraian Laporan')
                             ->required()
                             ->rows(5)
-                            ->placeholder('Jelaskan masalah atau kebutuhan secara ringkas dan jelas'),
+                            ->placeholder('Jelaskan masalah atau kebutuhan secara ringkas dan jelas')
+                            ->columnSpanFull(),
 
                         FileUpload::make('foto_laporan')
                             ->label('Foto Laporan')
                             ->directory('public/foto_laporan')
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*'])
-                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan'),
+                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan')
+                            ->columnSpanFull(),
 
                         FileUpload::make('file_laporan')
                             ->label('Lampiran')
                             ->directory('public/laporan')
                             ->maxSize(5120)
                             ->acceptedFileTypes(['application/pdf', 'image/*'])
-                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth'),
+                            ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth')
+                            ->columnSpanFull(),
 
-                        CaptchaField::make('captcha'),
+                        CaptchaField::make('captcha')
+                            ->columnSpanFull(),
                     ])
                     ->columns(2)
             ])
