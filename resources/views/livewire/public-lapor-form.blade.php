@@ -1,18 +1,17 @@
-<div class="min-h-screen flex items-center justify-center dark:bg-dark">
-    <div class="w-full max-w-3xl px-4 py-10">
+<div class="min-h-screen flex items-center justify-center dark:bg-dark bg-gray-50 dark:bg-gray-900">
+    <div class="w-full max-w-5xl px-4 py-10">
         <div class="text-center mb-8">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Form Laporan Infrastruktur</h1>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">Isi data dengan lengkap untuk mempercepat penanganan.</p>
         </div>
         <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg rounded-2xl border border-gray-200 dark:border-gray-700">
-            <div class="p-6 sm:p-8">
-                <form wire:submit.prevent="submit" class="space-y-6 w-full">
-                    <div class="space-y-4 w-full">
+            <div class="p-6 sm:p-10 w-full">
+                <form wire:submit.prevent="submit" class="w-full">
+                    <div class="w-full">
                         {{ $this->form }}
                     </div>
-                    <div class="flex flex-row gap-4 pt-4 justify-center items-center">
-                        <a href="{{ url('/') }}" class="px-6 py-2.5 text-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors w-auto">Kembali</a>
-                        <button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors w-auto shadow-sm">Kirim Laporan</button>
+                    <div class="flex flex-row gap-4 pt-6 justify-center items-center">
+                        <a href="{{ url('/') }}" class="px-6 py-2.5 text-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 font-medium transition-colors w-auto">Batal & Kembali</a>
                     </div>
                 </form>
             </div>

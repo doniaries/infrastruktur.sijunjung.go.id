@@ -38,50 +38,43 @@ class PublicLaporForm extends Component implements HasForms
 
     public function form(Form $form): Form
     {
-        $schema = [];
+        $steps = [];
 
         if (!auth()->check()) {
-            $schema = [
-                \Filament\Forms\Components\Wizard::make([
-                    \Filament\Forms\Components\Wizard\Step::make('Data Pelapor')
-                        ->schema([
-                            TextInput::make('nama_pelapor')
-                                ->label('Nama Lengkap')
-                                ->required()
-                                ->maxLength(255)
-                                ->placeholder('Masukkan nama lengkap'),
-                            TextInput::make('nomor_kontak')
-                                ->tel()
-                                ->minLength(5)
-                                ->maxLength(15)
-                                ->required()
-                                ->unique('users', 'no_kontak')
-                                ->placeholder('Contoh: 081234567890'),
-                            TextInput::make('nip')
-                                ->label('NIP')
-                                ->required()
-                                ->unique('users', 'nip')
-                                ->placeholder('Masukkan NIP Anda'),
-                        ]),
-                    \Filament\Forms\Components\Wizard\Step::make('Informasi Tiket')
-                        ->schema($this->getInformasiTiketSchema()),
-                    \Filament\Forms\Components\Wizard\Step::make('Detail Laporan')
-                        ->schema($this->getDetailLaporanSchema()),
-                ])
-                ->submitAction(new \Illuminate\Support\HtmlString('<button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-medium transition-colors w-auto shadow-sm">Kirim Laporan</button>'))
-            ];
-        } else {
-            // Already logged in, no Wizard for data pelapor needed
-            $schema = [
-                Section::make('Informasi Tiket')
-                    ->schema($this->getInformasiTiketSchema()),
-                Section::make('Detail Laporan')
-                    ->schema($this->getDetailLaporanSchema())
-            ];
+            $steps[] = \Filament\Forms\Components\Wizard\Step::make('Data Pelapor')
+                ->description('Identitas pelapor')
+                ->columns(1)
+                ->schema([
+                    TextInput::make('nama_pelapor')
+                        ->label('Nama Lengkap')
+                        ->required()
+                        ->maxLength(255)
+                        ->placeholder('Masukkan nama lengkap'),
+                    TextInput::make('nomor_kontak')
+                        ->tel()
+                        ->minLength(5)
+                        ->maxLength(15)
+                        ->required()
+                        ->unique('users', 'no_kontak')
+                        ->placeholder('Contoh: 081234567890'),
+                    TextInput::make('nip')
+                        ->label('NIP')
+                        ->required()
+                        ->unique('users', 'nip')
+                        ->placeholder('Masukkan NIP Anda'),
+                ]);
         }
 
+        $steps[] = \Filament\Forms\Components\Wizard\Step::make('Detail Laporan')
+            ->description('Informasi tiket dan masalah')
+            ->columns(1)
+            ->schema(array_merge($this->getInformasiTiketSchema(), $this->getDetailLaporanSchema()));
+
         return $form
-            ->schema($schema)
+            ->schema([
+                \Filament\Forms\Components\Wizard::make($steps)
+                    ->submitAction(new \Illuminate\Support\HtmlString('<button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold shadow-md transition-colors">Kirim Laporan</button>'))
+            ])
             ->statePath('data');
     }
 
@@ -94,13 +87,12 @@ class PublicLaporForm extends Component implements HasForms
                 ->timezone('Asia/Jakarta')
                 ->readOnly()
                 ->required()
-                ->helperText('Otomatis sesuai zona Asia/Jakarta')
-                ->columnSpanFull(),
+                ->helperText('Otomatis sesuai zona Asia/Jakarta'),
 
             TextInput::make('no_tiket')
                 ->prefixIcon('heroicon-o-ticket')
                 ->label('Nomor Tiket')
-                ->hint('Catat atau gunakan tombol salin untuk menyimpan')
+                ->hint('Catat atau salin untuk menyimpan')
                 ->hintColor('danger')
                 ->default(function () {
                     do {
@@ -109,9 +101,8 @@ class PublicLaporForm extends Component implements HasForms
                     return $noTiket;
                 })
                 ->readOnly()
-                ->helperText('Klik ikon untuk menyalin ke clipboard')
+                ->helperText('Klik ikon untuk menyalin')
                 ->extraAttributes(['x-ref' => 'no_tiket'])
-                ->columnSpanFull()
                 ->suffixActions([
                     Action::make('copy_no_tiket')
                         ->label('Salin')
@@ -137,8 +128,7 @@ class PublicLaporForm extends Component implements HasForms
                 ->preload()
                 ->required()
                 ->live()
-                ->helperText('Pilih OPD terkait laporan')
-                ->columnSpanFull(),
+                ->helperText('Pilih OPD terkait'),
 
             Select::make('jenis_laporan')
                 ->options([
@@ -148,35 +138,29 @@ class PublicLaporForm extends Component implements HasForms
                 ])
                 ->default('Laporan Gangguan')
                 ->required()
-                ->live()
-                ->helperText('Pilih jenis layanan')
-                ->columnSpanFull(),
+                ->live(),
 
             Textarea::make('uraian_laporan')
                 ->label('Uraian Laporan')
                 ->required()
-                ->rows(5)
-                ->placeholder('Jelaskan masalah atau kebutuhan secara ringkas dan jelas')
-                ->columnSpanFull(),
+                ->rows(4)
+                ->placeholder('Jelaskan masalah secara ringkas'),
 
             FileUpload::make('foto_laporan')
                 ->label('Foto Laporan')
                 ->directory('public/foto_laporan')
                 ->maxSize(5120)
                 ->acceptedFileTypes(['application/pdf', 'image/*'])
-                ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan')
-                ->columnSpanFull(),
+                ->visible(fn(callable $get) => $get('jenis_laporan') === 'Laporan Gangguan'),
 
             FileUpload::make('file_laporan')
                 ->label('Lampiran')
                 ->directory('public/laporan')
                 ->maxSize(5120)
                 ->acceptedFileTypes(['application/pdf', 'image/*'])
-                ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth')
-                ->columnSpanFull(),
+                ->visible(fn(callable $get) => $get('jenis_laporan') === 'Kenaikan Bandwidth'),
 
-            CaptchaField::make('captcha')
-                ->columnSpanFull(),
+            CaptchaField::make('captcha'),
         ];
     }
 
@@ -212,7 +196,7 @@ class PublicLaporForm extends Component implements HasForms
                 Notification::make()
                     ->danger()
                     ->title('Gagal Mendaftar')
-                    ->body('Terdapat kesalahan saat mendaftarkan akun Anda. Pastikan NIP dan Nomor Kontak unik.')
+                    ->body('Terdapat kesalahan saat mendaftarkan akun. Pastikan NIP dan Nomor Kontak belum terdaftar.')
                     ->duration(3000)
                     ->send();
                 return;
