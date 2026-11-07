@@ -121,15 +121,24 @@
                 </button>
 
                 @if (Auth::check())
-                    <a href="{{ route('filament.admin.resources.lapors.index') }}"
-                        class="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-100 transition-colors duration-200 relative">
-                        <i class="fas fa-bell"></i>
-                        <span class="sr-only">Notifikasi</span>
-                        @if (Auth::user()->unreadNotifications->count() > 0)
-                            <span
-                                class="absolute top-0 right-0 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white"></span>
-                        @endif
-                    </a>
+                    @if (!Auth::user()->hasAnyRole(['pengguna', 'pelapor']))
+                        <a href="{{ route('filament.admin.resources.lapors.index') }}"
+                            class="p-2 text-gray-600 hover:text-blue-600 rounded-full hover:bg-gray-100 transition-colors duration-200 relative">
+                            <i class="fas fa-bell"></i>
+                            <span class="sr-only">Notifikasi</span>
+                            @if (Auth::user()->unreadNotifications->count() > 0)
+                                <span
+                                    class="absolute top-0 right-0 h-2.5 w-2.5 rounded-full bg-red-500 border-2 border-white"></span>
+                            @endif
+                        </a>
+                    @else
+                        <a href="{{ url('/list-laporan') }}"
+                            class="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 relative"
+                            title="Laporan Saya">
+                            <i class="fas fa-clipboard-list text-gray-600 dark:text-gray-300"></i>
+                            <span class="sr-only">Laporan Saya</span>
+                        </a>
+                    @endif
                 @endif
 
                 <div class="hidden md:block h-6 w-px bg-gray-200"></div>
@@ -177,16 +186,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('filament.admin.pages.dashboard') }}"
-                                class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
-                                <i class="fas fa-tachometer-alt text-gray-400 mr-3 w-5 text-center"></i>
-                                Dashboard
-                            </a>
-                            <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
-                                class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
-                                <i class="fas fa-user-circle text-gray-400 mr-3 w-5 text-center"></i>
-                                Profil Saya
-                            </a>
+                            @if (!Auth::user()->hasAnyRole(['pengguna', 'pelapor']))
+                                <a href="{{ route('filament.admin.pages.dashboard') }}"
+                                    class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
+                                    <i class="fas fa-tachometer-alt text-gray-400 mr-3 w-5 text-center"></i>
+                                    Dashboard Admin
+                                </a>
+                                <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
+                                    class="px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center transition-colors duration-200">
+                                    <i class="fas fa-user-circle text-gray-400 mr-3 w-5 text-center"></i>
+                                    Profil Saya
+                                </a>
+                            @else
+                                <a href="{{ url('/list-laporan') }}"
+                                    class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
+                                    <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
+                                    Dashboard Laporan
+                                </a>
+                                <a href="{{ route('public.laporform') }}"
+                                    class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
+                                    <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
+                                    Buat Laporan Baru
+                                </a>
+                            @endif
                             <div class="border-t border-gray-100 my-1"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -305,16 +327,29 @@
             </a>
             <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
                 @if (Auth::check())
-                    <a href="{{ route('filament.admin.pages.dashboard') }}"
-                        class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
-                        <i class="fas fa-tachometer-alt text-blue-500 mr-3 w-5 text-center"></i>
-                        Dashboard
-                    </a>
-                    <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
-                        class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
-                        <i class="fas fa-user-circle text-blue-500 mr-3 w-5 text-center"></i>
-                        Profil Saya
-                    </a>
+                    @if (!Auth::user()->hasAnyRole(['pengguna', 'pelapor']))
+                        <a href="{{ route('filament.admin.pages.dashboard') }}"
+                            class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                            <i class="fas fa-tachometer-alt text-blue-500 mr-3 w-5 text-center"></i>
+                            Dashboard Admin
+                        </a>
+                        <a href="{{ route('filament.admin.resources.users.edit', ['record' => Auth::id()]) }}"
+                            class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                            <i class="fas fa-user-circle text-blue-500 mr-3 w-5 text-center"></i>
+                            Profil Saya
+                        </a>
+                    @else
+                        <a href="{{ url('/list-laporan') }}"
+                            class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                            <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
+                            Dashboard Laporan
+                        </a>
+                        <a href="{{ route('public.laporform') }}"
+                            class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                            <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
+                            Buat Laporan Baru
+                        </a>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit"

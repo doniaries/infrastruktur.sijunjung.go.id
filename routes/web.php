@@ -23,6 +23,12 @@ Route::get('/', function () {
 Route::get('/lapor', PublicLaporForm::class)->name('public.laporform');
 
 Route::get('/login', function () {
+    if (Auth::check()) {
+        if (Auth::user()->hasAnyRole(['pengguna', 'pelapor'])) {
+            return redirect('/list-laporan');
+        }
+        return redirect('/admin');
+    }
     return redirect('/admin/login');
 })->name('login');
 

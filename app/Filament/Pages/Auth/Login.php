@@ -73,7 +73,7 @@ class Login extends BaseLogin
             // Regenerate session
             $request->session()->regenerate();
             
-            if (\Illuminate\Support\Facades\Auth::user()->hasRole('pelapor')) {
+            if (\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['pengguna', 'pelapor'])) {
                 $this->redirect('/list-laporan');
                 return null;
             }

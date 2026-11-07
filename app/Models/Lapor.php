@@ -66,6 +66,11 @@ class Lapor extends Model
         return $this->belongsTo(User::class, 'petugas_id');
     }
 
+    public function petugas(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'petugas_id');
+    }
+
     public function pelapor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

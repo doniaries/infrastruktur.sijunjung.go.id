@@ -209,14 +209,14 @@ class LaporResource extends Resource
                         return match ($stateValue) {
                             'Laporan Gangguan' => 'danger',
                             'Koordinasi Teknis' => 'warning',
-                            'Kenaikan Bandwidth' => 'success',
+                            // 'Kenaikan Bandwidth' => 'success',
                             default => 'primary',
                         };
                     })
                     ->colors([
                         'danger' => 'Laporan Gangguan',
                         'warning' => 'Koordinasi Teknis',
-                        'success' => 'Kenaikan Bandwidth',
+                        // 'success' => 'Kenaikan Bandwidth',
                     ]),
                 Tables\Columns\TextColumn::make('no_tiket')
                     ->label('No Tiket')
@@ -286,9 +286,9 @@ class LaporResource extends Resource
                     ->visible(fn($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak)),
 
                 Tables\Actions\Action::make('lihatLaporan')
-                    ->label('Lihat Laporan')
+                    ->label('Lihat Detail')
                     ->icon('heroicon-o-eye')
-                    ->color('primary')
+                    ->color('info')
                     ->infolist([
                         \Filament\Infolists\Components\Section::make('Detail Laporan')
                             ->schema([
@@ -307,6 +307,9 @@ class LaporResource extends Resource
                                             ->label('OPD')
                                             ->color('info')
                                             ->badge(),
+                                        TextEntry::make('nomor_kontak')
+                                            ->label('Nomor Kontak')
+                                            ->default(fn($record) => $record->pelapor?->no_kontak ?? '-'),
                                         TextEntry::make('jenis_laporan')
                                             ->label('Jenis Laporan')
                                             ->color(fn($record) => $record->jenis_laporan->getColor())
@@ -323,73 +326,88 @@ class LaporResource extends Resource
                                             ->badge()
                                             ->formatStateUsing(fn($record) => $record->status_laporan->getLabel())
                                             ->icon(fn($record) => $record->status_laporan->getIcon()),
+                                        TextEntry::make('user.name')
+                                            ->label('Petugas Penangan')
+                                            ->placeholder('Belum ditangani')
+                                            ->color('gray'),
                                     ]),
                                 TextEntry::make('uraian_laporan')
                                     ->label('Uraian Laporan')
                                     ->color('gray')
                                     ->prose()
                                     ->columnSpanFull(),
+                                TextEntry::make('keterangan_petugas')
+                                    ->label('Keterangan / Tindakan Petugas')
+                                    ->color('success')
+                                    ->visible(fn($record) => filled($record->keterangan_petugas))
+                                    ->prose()
+                                    ->columnSpanFull(),
                             ])
                     ])
-                    ->action(function ($record) {
-                        if (!auth()->user()->hasRole('pengguna') && $record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
-                            $user = Auth::user();
-
-                            $record->update([
-                                'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
-                            ]);
-
-                            Notification::make()
-                                ->title("Laporan #{$record->no_tiket} diubah menjadi Sedang Diproses oleh {$user->name}")
-                                ->success()
-                                ->send();
-                        }
-                        // Modal akan tertutup otomatis setelah action selesai
-                        return true;
-                    })
-                    ->modalSubmitActionLabel('Tutup')
-                    ->modalCancelAction(false)
-                    ->visible(fn($record) => auth()->user()->hasRole('pengguna') || $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
-                    ->closeModalByClickingAway(false)
-                    ->closeModalByEscaping(false)
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup')
+                    ->closeModalByClickingAway(true)
+                    ->closeModalByEscaping(true)
                     ->modalHeading('Detail Laporan')
                     ->modalWidth('4xl')
-                    ->stickyModalHeader()
-                    ->stickyModalFooter(),
+                    ->stickyModalHeader(),
 
-                Tables\Actions\Action::make('prosesLaporan')
-                    ->label('Proses Laporan')
+                Tables\Actions\Action::make('mulaiTangani')
+                    ->label('Mulai Tangani')
+                    ->icon('heroicon-o-play')
+                    ->color('warning')
+                    ->requiresConfirmation()
+                    ->modalHeading('Mulai Tangani Laporan')
+                    ->modalDescription(fn($record) => "Mulai menangani laporan #{$record->no_tiket}? Status akan diubah menjadi 'Sedang Diproses'.")
+                    ->modalSubmitActionLabel('Ya, Mulai Tangani')
+                    ->modalCancelActionLabel('Batal')
+                    ->action(function ($record) {
+                        /** @var \App\Models\User|null $user */
+                        $user = Auth::user();
+
+                        $record->update([
+                            'status_laporan' => StatusLaporan::SEDANG_DIPROSES,
+                            'petugas_id' => $user?->id,
+                        ]);
+
+                        Notification::make()
+                            ->title("Laporan #{$record->no_tiket} mulai ditangani oleh {$user?->name}")
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(fn($record) => !auth()->user()?->hasRole('pengguna') && $record->status_laporan === StatusLaporan::BELUM_DIPROSES),
+
+                Tables\Actions\Action::make('selesaikanLaporan')
+                    ->label('Selesaikan')
                     ->icon('heroicon-o-check-circle')
-                    ->color('info')
+                    ->color('success')
                     ->form([
                         Forms\Components\Textarea::make('keterangan_petugas')
-                            ->label('Keterangan Tindakan')
+                            ->label('Keterangan Tindakan / Solusi')
+                            ->placeholder('Tuliskan rincian tindakan penyelesaian laporan ini...')
+                            ->rows(4)
                             ->required(),
                     ])
                     ->action(function ($record, array $data) {
+                        /** @var \App\Models\User|null $user */
                         $user = Auth::user();
 
                         $record->update([
                             'keterangan_petugas' => $data['keterangan_petugas'],
                             'status_laporan' => StatusLaporan::SELESAI_DIPROSES,
-                            'petugas_id' => $user->id,
+                            'petugas_id' => $user?->id,
                         ]);
 
                         Notification::make()
-                            ->title("Laporan #{$record->no_tiket} selesai diproses oleh {$user->name}")
+                            ->title("Laporan #{$record->no_tiket} selesai diproses")
                             ->success()
                             ->send();
-
-                        // Modal akan tertutup otomatis setelah action selesai
-                        return true;
                     })
-                    ->visible(fn($record) => !auth()->user()->hasRole('pengguna') && $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
-                    ->closeModalByClickingAway(false)
-                    ->closeModalByEscaping(false)
-                    ->modalHeading('Proses Laporan')
+                    ->visible(fn($record) => !auth()->user()?->hasRole('pengguna') && $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
+                    ->modalHeading('Selesaikan Laporan')
                     ->modalWidth('lg')
-                    ->modalSubmitActionLabel('Simpan')
-                    ->modalCancelAction(false),
+                    ->modalSubmitActionLabel('Selesaikan')
+                    ->modalCancelActionLabel('Batal'),
 
                 // Tables\Actions\EditAction::make()
                 //     ->iconButton()

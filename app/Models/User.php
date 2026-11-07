@@ -100,8 +100,12 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        // Pelapor tidak diizinkan mengakses panel admin (Filament)
-        return !$this->hasRole('pelapor');
+        // User dari OPD / role pengguna / pelapor hanya mengakses dashboard Livewire frontend, tidak masuk ke Filament
+        if ($this->hasAnyRole(['pengguna', 'pelapor'])) {
+            return false;
+        }
+
+        return $this->is_active;
     }
 
     // Method untuk authorization impersonate

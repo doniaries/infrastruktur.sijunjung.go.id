@@ -11,6 +11,8 @@ use Filament\Forms\Form;
 use Filament\Pages\Auth\Register as BaseRegister;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 
 class Register extends BaseRegister
 {
@@ -144,5 +146,17 @@ class Register extends BaseRegister
         }
 
         return $user;
+    }
+
+    public function register(): ?RegistrationResponse
+    {
+        $response = parent::register();
+
+        if (Auth::user()?->hasAnyRole(['pengguna', 'pelapor'])) {
+            $this->redirect('/list-laporan');
+            return null;
+        }
+
+        return $response;
     }
 }

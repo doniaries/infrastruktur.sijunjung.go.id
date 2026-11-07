@@ -140,7 +140,7 @@ class LaporSeeder extends Seeder
             'nama_pelapor' => $user7?->name ?? 'Maya Sari, S.Par',
             'nomor_kontak' => $user7?->no_kontak ?? '+6281234563216',
             'opd_id' => $user7?->opd_id ?? 14,
-            'jenis_laporan' => 'Kenaikan Bandwidth',
+            'jenis_laporan' => 'Laporan Gangguan',
             'uraian_laporan' => 'Permohonan penambahan alokasi bandwidth menjelang pagelaran Festival Geopark Silokek.',
             'status_laporan' => 'Sedang Diproses',
             'petugas_id' => $petugas1?->id,
