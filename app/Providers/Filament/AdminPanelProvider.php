@@ -83,21 +83,18 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Master Data')
-                    ->icon('heroicon-o-building-office')
                     ->collapsed(),
 
                 NavigationGroup::make()
                     ->label('Data Infrastruktur')
-                    ->icon('heroicon-o-folder-arrow-down')
                     ->collapsed(),
 
                 NavigationGroup::make()
                     ->label('Data Potensi')
-                    ->icon('heroicon-o-document-text')
                     ->collapsed(),
+
                 NavigationGroup::make()
                     ->label('Setting')
-                    ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->middleware([
