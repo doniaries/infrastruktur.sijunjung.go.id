@@ -1,7 +1,7 @@
-# 📘 EBOOK MANUAL PENGGUNA
+# 📘 EBOOK MANUAL PENGGUNA & DOKUMENTASI TEKNIS
 # SISTEM INFORMASI DATA INFRASTRUKTUR TI & LAYANAN PELAPORAN GANGGUAN
 ### DINAS KOMUNIKASI DAN INFORMATIKA KABUPATEN SIJUNJUNG
-**Versi Dokumen:** 2.0 (Edisi Pembaruan Terintegrasi)  
+**Versi Dokumen:** 2.5 (Edisi Pembaruan Komprehensif)  
 **Tahun Rilis:** 2026  
 **Alamat Sistem:** [https://infrastruktur.sijunjung.go.id](https://infrastruktur.sijunjung.go.id)
 
@@ -9,283 +9,498 @@
 
 ## 📑 DAFTAR ISI
 
-1. [BAB I: PENDAHULUAN & GAMBARAN UMUM](#bab-i-pendahuluan--gambaran-umum)
-   - 1.1 Latar Belakang & Tujuan
-   - 1.2 Karakteristik & Fitur Utama Sistem
-   - 1.3 Pembagian Peran Pengguna (Role-Based Access Control)
-2. [BAB II: PANDUAN PENGGUNA OPD (PORTAL FRONTEND LIVEWIRE)](#bab-ii-panduan-pengguna-opd-portal-frontend-livewire)
-   - 2.1 Pendaftaran Akun ASN Baru (Registrasi Mandiri)
-   - 2.2 Prosedur Masuk Sistem (Login)
-   - 2.3 Prosedur Pembuatan Laporan Gangguan / Koordinasi Teknis
-   - 2.4 Kebijakan Batasan 1 Laporan Aktif (Anti Laporan Ganda)
-   - 2.5 Pemantauan Status Tiket Laporan Real-Time
-3. [BAB III: PANDUAN OPERATOR & PETUGAS TEKNIS (PANEL FILAMENT BACKEND)](#bab-iii-panduan-operator--petugas-teknis-panel-filament-backend)
-   - 3.1 Akses Panel Admin Filament (`/admin`)
-   - 3.2 Dashboard & Statistik Pengawasan
-   - 3.3 Prosedur Penanganan Tiket Laporan Masuk
-     - Tombol Kontak Cepat WhatsApp
-     - Tombol Lihat Detail Laporan (Infolist)
-     - Tombol Aksi "Mulai Tangani"
-     - Tombol Aksi "Selesaikan"
-   - 3.4 Manajemen Profil & Fitur Ganti Password Petugas
-4. [BAB IV: PANDUAN PENGELOLAAN DATA INFRASTRUKTUR TI & MASTER](#bab-iv-panduan-pengelolaan-data-infrastruktur-ti--master)
-   - 4.1 Master Wilayah (Kecamatan, Nagari, Jorong)
-   - 4.2 Master Perangkat Daerah (OPD)
-   - 4.3 Menara BTS (Base Transceiver Station) & Peta Sebaran
-   - 4.4 Manajemen Peralatan IT & Inventaris Barang
-   - 4.5 Manajemen User & Hak Akses Akun
-5. [BAB V: DIAGRAM ALUR KERJA (WORKFLOW SISTEM)](#bab-v-diagram-alur-kerja-workflow-sistem)
-   - 5.1 Siklus Hidup Laporan (Lifecycle Laporan)
+1. [BAB I: PENDAHULUAN & PROFIL SISTEM](#bab-i-pendahuluan--profil-sistem)
+   - 1.1 Latar Belakang & Landasan Operasional
+   - 1.2 Maksud & Tujuan Pengembangan
+   - 1.3 Matriks Peran Pengguna (Role-Based Access Control)
+2. [BAB II: KATALOG FITUR LENGKAP SISTEM](#bab-ii-katalog-fitur-lengkap-sistem)
+   - 2.1 Fitur Pelaporan Masalah & Koordinasi Teknis
+   - 2.2 Fitur Validasi Identitas ASN Terintegrasi (NIP & Nama Unik)
+   - 2.3 Fitur Anti-Laporan Ganda (Single Active Ticket Constraint)
+   - 2.4 Fitur Tracking Tiket Real-Time & Livewire Reactive State
+   - 2.5 Fitur Integrasi Direct WhatsApp Petugas
+   - 2.6 Fitur Aksi Penanganan Bertahap ("Mulai Tangani" & "Selesaikan")
+   - 2.7 Fitur Pemetaan Geospasial Menara BTS (Peta Leaflet Interaktif)
+   - 2.8 Fitur Inventarisasi Perangkat Keras & Aset TI OPD
+   - 2.9 Fitur Master Wilayah Hierarkis (Kecamatan, Nagari, Jorong)
+   - 2.10 Fitur Mode Gelap (Dark Mode) & Proteksi Kontras UI
+3. [BAB III: PANDUAN LENGKAP ALUR CARA LAPOR (STEP-BY-STEP USER)](#bab-iii-panduan-lengkap-alur-cara-lapor-step-by-step-user)
+   - 3.1 Diagram Alur Pelaporan Pengguna (Visual Sequence)
+   - 3.2 Langkah 1: Registrasi Akun ASN Mandiri
+   - 3.3 Langkah 2: Masuk ke Sistem (Login)
+   - 3.4 Langkah 3: Mengakses Menu "Buat Laporan"
+   - 3.5 Langkah 4: Memilih Kategori Layanan Aduan
+   - 3.6 Langkah 5: Pengisian Formulir & Unggah Dokumen Bukti
+   - 3.7 Langkah 6: Pengiriman Laporan & Penerbitan Nomor Tiket Resmi
+   - 3.8 Langkah 7: Pemantauan Progres Status Tiket
+   - 3.9 Langkah 8: Penanganan Selesai & Pembukaan Kembali Kuota Laporan
+4. [BAB IV: PANDUAN OPERASIONAL PETUGAS & ADMIN (FILAMENT PANEL)](#bab-iv-panduan-operasional-petugas--admin-filament-panel)
+   - 4.1 Login Administrator & Operator Teknis (`/admin`)
+   - 4.2 Manajemen Antrean Tiket Laporan Masuk
+   - 4.3 Menggunakan Fitur Komunikasi WhatsApp Cepat
+   - 4.4 Meninjau Detail Laporan (Infolist View)
+   - 4.5 Menjalankan Aksi "Mulai Tangani"
+   - 4.6 Menyelesaikan Tiket & Menginput Catatan Solusi
+   - 4.7 Pengelolaan Data Aset TI, BTS, dan Master Wilayah
+   - 4.8 Pengelolaan Akun Pengguna & Reset Password
+5. [BAB V: KETERANGAN TEKNIS SISTEM & ARSITEKTUR (TECHNICAL SPECIFICATIONS)](#bab-v-keterangan-teknis-sistem--arsitektur-technical-specifications)
+   - 5.1 Stack Teknologi & Spesifikasi Lingkungan Server
+   - 5.2 Arsitektur Sistem Hybrid (Filament Backend + Livewire Frontend)
+   - 5.3 Algoritma Penomoran Tiket Laporan (Ticket Number Generator)
+   - 5.4 State Machine Siklus Hidup Status Laporan (Report Lifecycle)
+   - 5.5 Struktur Basis Data & Entitas Utama (Database Entity Design)
+   - 5.6 Mekanisme Keamanan Sistem (CSRF, RBAC, XSS Guard, Hash Password)
+   - 5.7 Prosedur Pemeliharaan, Kliring Cache & Backup Rutin
 6. [BAB VI: PANDUAN PEMECAHAN MASALAH (TROUBLESHOOTING) & FAQ](#bab-vi-panduan-pemecahan-masalah-troubleshooting--faq)
 7. [BAB VII: LAYANAN DUKUNGAN & KONTAK DISKOMINFO](#bab-vii-layanan-dukungan--kontak-diskominfo)
 
 ---
 
-## 🏛️ BAB I: PENDAHULUAN & GAMBARAN UMUM
+## 🏛️ BAB I: PENDAHULUAN & PROFIL SISTEM
 
-### 1.1 Latar Belakang & Tujuan
-Aplikasi **Infrastruktur TI Kabupaten Sijunjung** merupakan platform terpadu yang dikembangkan oleh Dinas Komunikasi dan Informatika Kabupaten Sijunjung untuk mendokumentasikan, memetakan, serta mengelola aset infrastruktur teknologi informasi, menara telekomunikasi (BTS), inventaris perangkat keras, serta memfasilitasi pelaporan gangguan jaringan dan koordinasi teknis antar Organisasi Perangkat Daerah (OPD) secara terintegrasi dan akuntabel.
+### 1.1 Latar Belakang & Landasan Operasional
+Pemerintah Kabupaten Sijunjung melalui Dinas Komunikasi dan Informatika (Diskominfo) terus berkomitmen mewujudkan tata kelola pemerintahan berbasis elektronik (SPBE) yang bersih, efektif, transparan, dan akuntabel. Kebutuhan operasional jaringan internet dinas, pemeliharaan perangkat keras (hardware), ketersediaan sinyal telekomunikasi, serta penanganan insiden jaringan menuntut adanya wadah terpusat yang dapat diakses secara cepat oleh seluruh Organisasi Perangkat Daerah (OPD).
 
-### 1.2 Karakteristik & Fitur Utama Sistem
-1. **Keamanan & Validasi ASN:** Setiap pelapor wajib merupakan ASN beridentitas resmi dengan validasi NIP unik 18 digit (`YYYYMMDD YYYYMM X XXX`), nama unik, serta nomor kontak WhatsApp terstandarisasi (`+62`).
-2. **Pemisahan Jalur Antarmuka (Interface Segregation):**
-   - **Pegawai OPD:** Mengakses antarmuka interaktif **Livewire Frontend** yang cepat, ramah seluler, dan fokus pada pemantauan laporannya sendiri.
-   - **Petugas Teknis & Admin:** Mengakses **Panel Filament Backend** untuk pengolahan data master, verifikasi laporan, dan aksi teknis lapangan.
-3. **Pencegahan Laporan Ganda (Single Active Ticket Constraint):** Setiap pegawai OPD hanya diizinkan memiliki 1 tiket laporan aktif dalam satu waktu hingga tiket tersebut berstatus *Selesai Diproses*.
-4. **Respon Cepat WhatsApp:** Petugas penangan dapat langsung menghubungi pelapor melalui integrasi tautan WhatsApp resmi dalam 1 kali klik.
+Aplikasi **Sistem Informasi Data Infrastruktur TI & Layanan Pelaporan Gangguan** hadir sebagai solusi berbasis web untuk:
+1. Menginventarisasi seluruh data infrastruktur teknologi informasi pemerintah daerah.
+2. Memetakan menara Base Transceiver Station (BTS) secara geospasial di seluruh kecamatan dan nagari.
+3. Mengelola pelaporan gangguan jaringan dan koordinasi perbantuan teknis secara transparan dengan SLA (Service Level Agreement) yang terukur.
 
-### 1.3 Pembagian Peran Pengguna (Role-Based Access Control)
+### 1.2 Maksud & Tujuan Pengembangan
+- **Sentralisasi Data:** Seluruh data wilayah, instansi pemerintah (OPD), inventaris perangkat komputer, dan menara BTS tersimpan dalam satu basis data terpadu.
+- **Transparansi Penanganan:** Setiap aduan yang diajukan oleh pegawai instansi memiliki nomor tiket resmi dan dapat dilacak status penanganannya secara langsung (*real-time*).
+- **Efisiensi Kerja Petugas:** Mengeliminasi koordinasi manual yang tercecer melalui WhatsApp pribadi, menggantikannya dengan sistem antrean tiket terstruktur dan catatan histori tindakan perbaikan.
+- **Integritas Akun ASN:** Seluruh pelapor divalidasi berdasarkan Nomor Induk Pegawai (NIP) resmi dan asal instansi yang sah.
 
-| Peran (Role) | Ruang Lingkup Akses | Deskripsi Kewenangan |
+### 1.3 Matriks Peran Pengguna (Role-Based Access Control)
+
+| Peran (Role) | Ruang Lingkup Akses | Deskripsi Kewenangan & Hak Akses |
 |---|---|---|
-| **Super Admin** | Panel Admin `/admin` & Frontend | Memiliki kontrol penuh atas seluruh modul data, pengelolaan akun user, manajemen peran/izin, dan backup sistem. |
-| **Petugas Teknis** | Panel Admin `/admin` & Frontend | Memvalidasi laporan masuk, mengubah status penanganan, mencatat rincian tindakan penyelesaian, serta mengelola data peralatan dan BTS. |
-| **Kepala Bidang TI / Kadis** | Panel Admin `/admin` & Frontend | Melakukan monitoring tingkat eksekutif, rekapitulasi statistik, serta pengawasan kinerja penanganan laporan. |
-| **Pengguna (Pegawai OPD)** | Frontend Livewire Saja (`/` & `/list-laporan`) | Melakukan registrasi mandiri, mengajukan laporan gangguan/koordinasi teknis, dan memantau status penyelesaian laporannya sendiri. |
+| **Super Admin** | Panel Admin `/admin` & Seluruh Portal | Hak akses absolut (CRUD data master, kelola pengguna, ubah role, backup database, audit log, konfigurasi sistem). |
+| **Petugas Teknis** | Panel Admin `/admin` & Frontend | Menerima tiket, memulai penanganan (*in-progress*), menginput solusi perbaikan (*resolved*), mengelola data menara BTS & inventaris. |
+| **Kepala Bidang TI / Kadis** | Panel Admin `/admin` & Frontend | Supervisi eksekutif, memantau grafik KPI, rasio penyelesaian tiket, dan persebaran infrastruktur wilayah. |
+| **Pengguna (Pegawai OPD)** | Portal Frontend Livewire Saja (`/`, `/list-laporan`, `/lapor`) | Melakukan registrasi ASN, login ke portal publik, membuat tiket aduan (1 laporan aktif), dan memantau status tiket miliknya. Dilarang masuk ke `/admin`. |
 
 ---
 
-## 👤 BAB II: PANDUAN PENGGUNA OPD (PORTAL FRONTEND LIVEWIRE)
+## 🌟 BAB II: KATALOG FITUR LENGKAP SISTEM
 
-### 2.1 Pendaftaran Akun ASN Baru (Registrasi Mandiri)
-Bagi ASN di lingkungan Pemerintah Kabupaten Sijunjung yang belum memiliki akun, pendaftaran dilakukan secara mandiri melalui tautan:
-```txt
-https://infrastruktur.sijunjung.go.id/admin/register
-```
-Atau cukup menekan tombol **"Buat Laporan Baru"** di halaman beranda web saat belum login.
+### 2.1 Fitur Pelaporan Masalah & Koordinasi Teknis
+Sistem menyediakan dua kategori utama layanan yang dapat dipilih oleh instansi:
+1. **Laporan Gangguan:** Dikhususkan untuk insiden teknis mendesak seperti internet mati, kabel fiber optic putus, bandwidth ngedrop, printer dinas rusak, atau server aplikasi OPD offline.
+2. **Koordinasi Teknis:** Dikhususkan untuk permohonan pendampingan, seperti instalasi jaringan rapat virtual / video conference pimpinan, penataan ruangan server, pemasangan access point baru, atau permohonan konsultasi keamanan informasi.
 
-#### Formulir Pendaftaran Membutuhkan:
-1. **Nama Lengkap:** Nama lengkap ASN beserta gelar resmi (harus unik di sistem).
-2. **Nomor Induk Pegawai (NIP):** Masukkan 18 digit NIP. Sistem secara otomatis menerapkan format spasi resmi:
-   `19820414 200212 1 003`
-3. **Asal Perangkat Daerah (OPD):** Pilih instansi tempat Anda bertugas dari daftar pilihan.
-4. **Nomor Kontak / WhatsApp:** Masukkan nomor ponsel (misal `081234567890` atau `81234567890`). Sistem secara otomatis membakukan format internasional `+6281234567890`.
-5. **Alamat Email:** Email aktif kedinasan atau pribadi.
-6. **Password:** Minimal 8 karakter, konfirmasi password dengan benar.
+### 2.2 Fitur Validasi Identitas ASN Terintegrasi (NIP & Nama Unik)
+- **Validasi 18 Digit NIP:** Sistem secara otomatis memformat NIP menjadi standar Badan Kepegawaian Negara (`YYYYMMDD YYYYMM X XXX`).
+- **Integritas Keunikan (Unique Constraint):** NIP dan Nama ASN dinyatakan unik pada level formulir dan database (`unique:users,nip` dan `unique:users,name`). Hal ini mencegah terjadinya duplikasi akun atau penyalahgunaan identitas pegawai.
+- **Normalisasi Nomor Telepon:** Nomor kontak WhatsApp secara otomatis dikonversi ke format internasional baku (`+628...`).
 
-> **Catatan:** Setelah registrasi selesai, sistem akan secara otomatis menetapkan role `pengguna` dan mengarahkan Anda langsung ke Dashboard Laporan.
+### 2.3 Fitur Anti-Laporan Ganda (Single Active Ticket Constraint)
+Untuk menjaga fokus penyelesaian tim teknis Diskominfo dan mencegah terjadinya laporan berulang (*spamming*):
+- Sistem memberlakukan aturan **1 Pengguna = Maksimal 1 Laporan Aktif**.
+- Apabila seorang ASN masih memiliki tiket dengan status `Belum Diproses` atau `Sedang Diproses`, formulir pembuatan laporan akan otomatis terkunci.
+- Tombol "Buat Laporan Baru" pada header navigasi, menu drawer mobile, dan beranda otomatis berubah status menjadi disabled (*"Laporan Diproses"*) dengan ikon gembok pengaman.
+- Begitu laporan dinyatakan `Selesai Diproses` oleh petugas, batasan ini otomatis terbuka kembali.
 
----
+### 2.4 Fitur Tracking Tiket Real-Time & Livewire Reactive State
+- Halaman **Daftar Laporan** (`/list-laporan`) dibangun menggunakan teknologi Livewire 3 dengan fitur pencarian instan (*instant live search*), pagination dinamis (6, 12, 24, 48, 100 entri), serta filter status dan filter instansi tanpa perlu me-reload halaman (*zero full-page reload*).
+- Pegawai OPD dapat langsung memantau tahapan laporan, nama petugas yang menangani, serta uraian tindakan solusi yang telah dilakukan.
 
-### 2.2 Prosedur Masuk Sistem (Login)
-1. Kunjungi menu **Masuk** di pojok kanan atas website, atau akses:
-   ```txt
-   https://infrastruktur.sijunjung.go.id/admin/login
-   ```
-2. Masukkan email dan password terdaftar.
-3. Klik tombol **Sign in**.
-4. Karena Anda berstatus akun ASN/Pengguna, sistem secara otomatis mengarahkan Anda ke dashboard laporan pribadi Anda di `/list-laporan`.
+### 2.5 Fitur Integrasi Direct WhatsApp Petugas
+- Pada panel admin Filament, setiap baris tiket laporan yang memiliki nomor telepon pelapor dilengkapi tombol hijau resmi WhatsApp.
+- Mengklik tombol ini langsung membuka antarmuka WhatsApp Web atau aplikasi seluler WhatsApp dengan teks pengantar resmi yang otomatis terisi nama pelapor dan nomor tiket.
+- Petugas lapangan tidak perlu lagi menyimpan nomor kontak pelapor secara manual di buku telepon ponsel.
 
----
+### 2.6 Fitur Aksi Penanganan Bertahap ("Mulai Tangani" & "Selesaikan")
+Untuk menjamin akuntabilitas data, siklus tiket diatur dalam aksi bertahap terpisah:
+- **Aksi "Mulai Tangani":** Hanya aktif saat status tiket `Belum Diproses`. Saat diklik oleh petugas, status berubah menjadi `Sedang Diproses` dan sistem secara otomatis mencatat `petugas_id` yang mengambil tanggung jawab aduan tersebut.
+- **Aksi "Selesaikan":** Hanya aktif saat status tiket `Sedang Diproses`. Membuka modal formulir wajib untuk menginput uraian teknis tindakan perbaikan. Setelah disimpan, tiket berpindah ke status `Selesai Diproses`.
 
-### 2.3 Prosedur Pembuatan Laporan Gangguan / Koordinasi Teknis
-1. Klik tombol **"Buat Laporan Baru"** di beranda atau header website.
-2. Form pelaporan akan otomatis mengenali identitas dan asal OPD Anda:
-   - **Jenis Laporan:**
-     - 🔴 **Laporan Gangguan:** Kendala jaringan putus, internet lambat, printer error, server lokal mati.
-     - 🟡 **Koordinasi Teknis:** Permohonan pendampingan teknis acara/vicon, konfigurasi perangkat, integrasi aplikasi.
-   - **Uraian Laporan:** Jelaskan masalah secara spesifik, ruangan/lokasi titik kendala, serta gejala kerusakan.
-   - **Foto Laporan:** Unggah foto dokumentasi kendala (opsional, maks. 5MB) dalam format JPG/PNG/PDF.
-3. Klik tombol hijau **"Kirim Laporan"**.
-4. Sistem akan menerbitkan **Nomor Tiket Unik** (misal: `#261107R4M`) yang dapat disalin sebagai bukti registrasi aduan.
+### 2.7 Fitur Pemetaan Geospasial Menara BTS (Peta Leaflet Interaktif)
+- Menampilkan peta persebaran menara telekomunikasi (BTS) di seluruh Kabupaten Sijunjung menggunakan pustaka peta geospasial Leaflet.js dan OpenStreetMap.
+- Titik koordinat latitude & longitude diplot dengan pin khusus yang interaktif: saat diklik akan memunculkan popup informasi nama menara, tinggi menara, operator/provider telekomunikasi, jenis konstruksi, dan lokasi jorong/nagari.
 
----
+### 2.8 Fitur Inventarisasi Perangkat Keras & Aset TI OPD
+- Mendokumentasikan inventaris peralatan IT (komputer dinas, switch hub, router mikrotik, server, access point, UPS) milik instansi.
+- Dilengkapi pencatatan kondisi perangkat (Baik, Rusak Ringan, Rusak Berat), tahun perolehan, nomor seri/aset, dan penanggung jawab ruangan.
 
-### 2.4 Kebijakan Batasan 1 Laporan Aktif (Anti Laporan Ganda)
-Untuk menjamin efektivitas penanganan teknis dan menghindari tiket rangkap:
-- Pegawai OPD yang memiliki tiket berstatus **"Belum Diproses"** atau **"Sedang Diproses"** **TIDAK DAPAT** membuat laporan baru.
-- Halaman form pelaporan dan tombol navigasi di seluruh halaman web otomatis terkunci (disabled) dengan pemberitahuan:
-  *"Anda masih memiliki laporan aktif yang sedang diproses. Selesaikan laporan ini sebelum membuat laporan baru."*
-- Setelah petugas teknis Diskominfo menuntaskan laporan Anda (status berubah menjadi **"Selesai Diproses"**), tombol pelaporan akan aktif kembali.
+### 2.9 Fitur Master Wilayah Hierarkis (Kecamatan, Nagari, Jorong)
+- Struktur data wilayah Kabupaten Sijunjung tersusun hierarkis berelasi (`Kecamatan -> Nagari -> Jorong`).
+- Menjamin standarisasi penamaan wilayah pada data menara BTS dan lokasi kantor perangkat daerah.
+
+### 2.10 Fitur Mode Gelap (Dark Mode) & Proteksi Kontras UI
+- Sistem mendukung peralihan tema *Light Mode* dan *Dark Mode* yang tersimpan di *Local Storage* peramban pengguna.
+- Dilengkapi proteksi styling khusus pada elemen form input (khususnya kolom kata sandi) guna mencegah benturan warna putih akibat fitur *autofill browser* di latar belakang gelap.
 
 ---
 
-### 2.5 Pemantauan Status Tiket Laporan Real-Time
-Setiap saat, Anda dapat memeriksa progres tiket aduan Anda melalui menu **Daftar Laporan**:
-1. Buka tautan `/list-laporan`.
-2. Anda hanya akan melihat tiket laporan yang Anda ajukan sendiri.
-3. Status laporan ditandai dengan warna badge yang jelas:
-   - 🔴 **Belum Diproses:** Laporan baru diterima di sistem, menunggu verifikasi petugas.
-   - 🟡 **Sedang Diproses:** Petugas telah ditugaskan dan sedang melakukan investigasi/perbaikan.
-   - 🟢 **Selesai Diproses:** Tindakan perbaikan selesai dilakukan beserta catatan solusi dari petugas.
+## 🚀 BAB III: PANDUAN LENGKAP ALUR CARA LAPOR (STEP-BY-STEP USER)
 
----
+### 3.1 Diagram Alur Pelaporan Pengguna (Visual Sequence)
 
-## 🛠️ BAB III: PANDUAN OPERATOR & PETUGAS TEKNIS (PANEL FILAMENT BACKEND)
-
-### 3.1 Akses Panel Admin Filament
-Petugas teknis dan administrator masuk melalui pintu akses:
-```txt
-https://infrastruktur.sijunjung.go.id/admin
-```
-Gunakan akun kedinasan petugas yang telah diberikan oleh Diskominfo Sijunjung.
-
----
-
-### 3.2 Dashboard & Statistik Pengawasan
-Setelah login, petugas disajikan widget indikator kinerja:
-- Ringkasan Jumlah Aduan Masuk (Harian & Bulanan).
-- Rasio Laporan Selesai vs Dalam Penanganan.
-- Persebaran BTS & Aset Infrastruktur Aktif.
-
----
-
-### 3.3 Prosedur Penanganan Tiket Laporan Masuk
-Buka menu **Laporan** pada bilah navigasi kiri. Setiap baris data laporan dilengkapi dengan tombol aksi terpisah yang terstruktur:
-
-```
-[ WhatsApp ]  [ Lihat Detail ]  [ Mulai Tangani ]  [ Selesaikan ]
-```
-
-#### 1. Tombol WhatsApp (Ikon Hijau Resmi)
-- Tombol ini otomatis aktif jika pelapor menyertakan nomor telepon/WhatsApp.
-- Mengklik tombol ini akan membuka tab percakapan WhatsApp baru dengan pesan pengantar resmi yang telah disiapkan sistem (berisi salam, nama pelapor, dan nomor tiket rujukan).
-- Berguna untuk konfirmasi awal ke pelapor tanpa perlu mengetik ulang nomor telepon di ponsel.
-
-#### 2. Tombol Lihat Detail (Ikon Mata Biru)
-- Membuka modal infolist lengkap laporan: Nomor Tiket, Nama Pelapor, Asal OPD, Nomor Kontak, Tanggal Laporan, Jenis Laporan, Uraian Masalah, dan Keterangan Tindakan Petugas.
-- **Penting:** Tombol ini murni bersifat peninjauan (view-only) dan tidak menimbulkan efek samping perubahan status laporan.
-
-#### 3. Tombol Aksi "Mulai Tangani" (Ikon Putar Oranye)
-- **Kondisi Aktif:** Hanya muncul saat status laporan masih **Belum Diproses**.
-- Saat diklik, sistem meminta konfirmasi penanganan:
-  *"Mulai menangani laporan #XXXXXX? Status akan diubah menjadi 'Sedang Diproses'."*
-- Begitu disetujui:
-  - Status laporan otomatis diperbarui menjadi **Sedang Diproses**.
-  - Identitas akun petugas yang login otomatis tercatat sebagai `petugas_id`.
-  - Pelapor pada dashboard Livewire langsung melihat bahwa aduannya sedang dikerjakan.
-
-#### 4. Tombol Aksi "Selesaikan" (Ikon Centang Hijau)
-- **Kondisi Aktif:** Hanya muncul saat laporan berada pada status **Sedang Diproses**.
-- Saat diklik, muncul formulir modal tindakan teknis:
-  - Masukkan uraian solusi yang telah dilakukan (contoh: *"Penggantian konektor RJ45 port switch LAN di Ruang Rapat Bappeda, koneksi internet normal kembali"*).
-- Klik tombol **Selesaikan**:
-  - Status laporan resmi menjadi **Selesai Diproses**.
-  - Catatan tindakan tersimpan rapi dan dapat dibaca oleh pelapor.
-  - Batasan pengajuan laporan untuk pegawai pelapor tersebut otomatis terbuka kembali.
-
----
-
-### 3.4 Manajemen Profil & Fitur Ganti Password Petugas
-Petugas dapat memperbarui kata sandi akunnya secara berkala melalui menu **Users**:
-1. Temukan nama Anda, klik aksi **Ganti Password** (Ikon Kunci).
-2. Masukkan Password Baru dan Konfirmasi Password.
-3. Form telah dioptimalkan dengan perlindungan kontras tinggi pada dark mode dan pencegahan autofill browser yang tidak diinginkan.
-4. Klik **Simpan Password**.
-
----
-
-## 🌐 BAB IV: PANDUAN PENGELOLAAN DATA INFRASTRUKTUR TI & MASTER
-
-### 4.1 Master Wilayah (Kecamatan, Nagari, Jorong)
-- **Kecamatan:** Mengelola 8 kecamatan di Kabupaten Sijunjung.
-- **Nagari:** Mengelola data nagari pada tiap kecamatan. Kolom `jumlah_penduduk_nagari` secara otomatis dihitung dan diperbarui dari akumulasi seluruh jorong dalam nagari terkait.
-- **Jorong:** Mengelola data jorong dan jumlah penduduk per jorong.
-
-### 4.2 Master Perangkat Daerah (OPD)
-Mengelola daftar seluruh dinas, badan, kantor, dan kecamatan di Kabupaten Sijunjung yang menjadi entitas pelapor dan penempatan aset TI.
-
-### 4.3 Menara BTS (Base Transceiver Station) & Peta Sebaran
-- Mengelola data menara telekomunikasi: nama tower, provider penyedia (Telkomsel, Indosat, XL, dll), jenis menara (Monopole/Lattice), tinggi menara, serta koordinat geografis (Latitude & Longitude).
-- Data yang diinputkan langsung terintegrasi dengan **Peta BTS Interaktif** berbasis Leaflet pada menu navigasi publik.
-
-### 4.4 Manajemen Peralatan IT & Inventaris Barang
-- Pencatatan aset perangkat keras (server, router mikrotik, switch manageable, access point, PC).
-- Pemantauan masa garansi, tahun perolehan, kondisi fisik (Baik, Rusak Ringan, Rusak Berat), dan riwayat mutasi penempatan.
-
----
-
-## 🔄 BAB V: DIAGRAM ALUR KERJA (WORKFLOW SISTEM)
-
-Berikut adalah diagram alur penanganan tiket laporan gangguan dan koordinasi teknis dari awal hingga tuntas:
+Berikut adalah diagram alir lengkap dari tahapan pengajuan aduan hingga penyelesaian laporan oleh tim teknis Diskominfo:
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Pegawai as Pegawai OPD (Pelapor)
-    participant Web as Portal Livewire Frontend
+    participant Web as Portal Frontend Livewire
     participant DB as Basis Data (MySQL)
     actor Petugas as Petugas Teknis Diskominfo
-    participant Filament as Panel Admin Filament
+    participant Admin as Panel Filament Backend
 
-    Pegawai->>Web: Akses Buat Laporan Baru
+    Pegawai->>Web: 1. Buka Menu "Buat Laporan"
     alt Belum Login
         Web-->>Pegawai: Alihkan ke Registrasi ASN (/admin/register)
-        Pegawai->>Web: Registrasi NIP, OPD, Kontak & Password
-        Web->>DB: Simpan User Baru (Role: Pengguna)
-    end
-    
-    alt Memiliki Laporan Aktif (Belum / Sedang Diproses)
-        Web-->>Pegawai: Kunci Form (Pemberitahuan Laporan Sedang Diproses)
-    else Tidak Ada Laporan Berjalan
-        Pegawai->>Web: Kirimkan Laporan Masuk
-        Web->>DB: Terbitkan Tiket Baru (Status: Belum Diproses)
-        Web-->>Pegawai: Tampilkan Nomor Tiket & Pengingat Status
+        Pegawai->>Web: 2. Input NIP, Nama, OPD, No. HP, Password
+        Web->>DB: Validasi NIP & Nama Unik, Buat Akun Pengguna
+        Web-->>Pegawai: Login Otomatis & Alihkan ke Dashboard
     end
 
-    Petugas->>Filament: Buka Menu Laporan
-    Filament->>DB: Query Laporan Masuk
-    opt Komunikasi Awal
-        Petugas->>Pegawai: Klik Tombol WhatsApp (Konfirmasi via WA)
+    Pegawai->>Web: 3. Masuk ke Form Pelaporan (/lapor)
+    Web->>DB: Cek Apakah Ada Laporan Aktif?
+    alt Masih Ada Laporan Belum / Sedang Diproses
+        DB-->>Web: Laporan Ditemukan Aktif
+        Web-->>Pegawai: Kunci Form & Tampilkan Notifikasi Laporan Berjalan
+    else Tidak Ada Laporan Aktif (Kuota Terbuka)
+        Pegawai->>Web: 4. Pilih Jenis Layanan (Gangguan / Koordinasi)
+        Pegawai->>Web: 5. Ketik Uraian Kendala & Unggah Foto Bukti
+        Pegawai->>Web: 6. Tekan Tombol "Kirim Laporan"
+        Web->>DB: Generate Nomor Tiket Otomatis & Simpan Laporan
+        DB-->>Web: Berhasil Simpan
+        Web-->>Pegawai: 7. Tampilkan Pop-up Nomor Tiket & Tombol Salin
     end
 
-    Petugas->>Filament: Klik "Mulai Tangani"
-    Filament->>DB: Update Status = Sedang Diproses & Petugas ID
-    DB-->>Web: Real-time Update Status untuk Pelapor
+    Petugas->>Admin: 8. Login Petugas (/admin) & Buka Menu Laporan
+    Admin->>DB: Ambil Antrean Laporan Baru
+    opt Hubungi Pelapor
+        Petugas->>Pegawai: Klik Tombol WhatsApp untuk Konfirmasi Masalah
+    end
+    Petugas->>Admin: 9. Klik Tombol "Mulai Tangani"
+    Admin->>DB: Ubah Status = "Sedang Diproses", Catat ID Petugas
+    DB-->>Web: Real-time Update Status di Dashboard Pelapor
 
-    Petugas->>Filament: Klik "Selesaikan" & Isi Keterangan Tindakan
-    Filament->>DB: Update Status = Selesai Diproses & Simpan Solusi
-    DB-->>Web: Tiket Selesai, Batasan Laporan Pegawai Terbuka Kembali
+    Petugas->>Admin: 10. Klik Tombol "Selesaikan" & Tulis Uraian Solusi
+    Admin->>DB: Ubah Status = "Selesai Diproses", Simpan Uraian Tindakan
+    DB-->>Web: Status Selesai, Batasan Laporan Pegawai Terbuka Kembali
+    Web-->>Pegawai: 11. Pelapor Melihat Uraian Solusi & Dapat Melapor Kembali
 ```
+
+---
+
+### 3.2 Langkah 1: Registrasi Akun ASN Mandiri
+1. Buka peramban (Google Chrome, Mozilla Firefox, atau Microsoft Edge) dan akses alamat:
+   ```txt
+   https://infrastruktur.sijunjung.go.id/admin/register
+   ```
+2. Isi kolom formulir pendaftaran:
+   - **Nama Lengkap:** Masukkan nama lengkap beserta gelar kedinasan Anda (Contoh: `Rahmat Hidayat, S.Kom`). Nama tidak boleh sama dengan pengguna lain yang telah terdaftar.
+   - **Nomor Induk Pegawai (NIP):** Masukkan 18 digit angka NIP resmi Anda. Sistem akan memformatnya secara rapi menjadi `19890101 201503 1 002`. NIP wajib unik.
+   - **Nomor Kontak / WhatsApp:** Masukkan nomor seluler aktif (Contoh: `081267891234`).
+   - **Asal OPD:** Pilih instansi atau kantor perangkat daerah tempat Anda bertugas dari menu drop-down.
+   - **Email:** Masukkan alamat email kedinasan atau email aktif.
+   - **Password & Password Confirmation:** Buat kata sandi minimal 8 karakter.
+3. Klik tombol **Daftar / Register**. Anda akan langsung terautentikasi dan diarahkan ke antarmuka aplikasi.
+
+---
+
+### 3.3 Langkah 2: Masuk ke Sistem (Login)
+1. Apabila Anda telah memiliki akun terdaftar, klik menu **Masuk** pada header navigasi kanan atau kunjungi:
+   ```txt
+   https://infrastruktur.sijunjung.go.id/admin/login
+   ```
+2. Ketikkan email dan password Anda, kemudian tekan **Sign in**.
+3. Sistem secara otomatis mendeteksi role Anda sebagai `pengguna` dan mengarahkan Anda ke **Dashboard Daftar Laporan** (`/list-laporan`).
+
+---
+
+### 3.4 Langkah 3: Mengakses Menu "Buat Laporan"
+1. Pada navigasi atas (desktop) atau tombol menu drawer (mobile), klik **Buat Laporan**.
+2. Anda juga dapat menekan tombol **"Buat Laporan Baru"** yang terletak pada halaman beranda utama website.
+3. Sistem akan memeriksa riwayat laporan Anda. Jika Anda tidak memiliki laporan yang sedang diproses, formulir pelaporan akan terbuka secara penuh.
+
+---
+
+### 3.5 Langkah 4: Memilih Kategori Layanan Aduan
+Pada formulir pelaporan, tentukan jenis permohonan layanan:
+- **Pilihan 1: Laporan Gangguan (Ikon Merah):** Pilih opsi ini jika fasilitas internet, koneksi LAN kantor, perangkat jaringan, atau aplikasi kantor mengalami kerusakan/gangguan operasional.
+- **Pilihan 2: Koordinasi Teknis (Ikon Biru):** Pilih opsi ini jika instansi Anda membutuhkan perbantuan teknis dari tim Diskominfo, seperti pendampingan teknis acara zoom meeting pimpinan, instalasi jaringan acara, atau asistensi teknis perangkat.
+
+> *Catatan: Opsi "Kenaikan Bandwidth" telah dinonaktifkan sesuai kebijakan manajemen kapasitas jaringan terpadu Diskominfo Sijunjung.*
+
+---
+
+### 3.6 Langkah 5: Pengisian Formulir & Unggah Dokumen Bukti
+1. **Identitas Pelapor & Instansi:** Nama, NIP, OPD, dan nomor telepon Anda akan terisi secara otomatis (*pre-filled*) berdasarkan profil akun login Anda.
+2. **Uraian Laporan / Masalah:** Tuliskan penjelasan masalah secara jelas, detail, dan spesifik.
+   - *Contoh yang baik:* "Koneksi internet LAN di Ruang Bidang Akuntansi mati total sejak pukul 09.00 WIB. Lampu indikator port switch pada dinding tidak menyala. Sudah dicoba restart router ruangan namun tetap tidak tersambung."
+3. **Unggah Foto Bukti Kendala:** Lampirkan foto kondisi perangkat, pesan kesalahan (*error message*) di layar monitor, atau foto fisik kabel/alat yang bermasalah.
+   - Format file yang didukung: **JPG, JPEG, PNG, WEBP**.
+   - Ukuran berkas maksimal: **5 MB**.
+
+---
+
+### 3.7 Langkah 6: Pengiriman Laporan & Penerbitan Nomor Tiket Resmi
+1. Teliti kembali seluruh isian formulir aduan Anda.
+2. Tekan tombol biru **"Kirim Laporan"**.
+3. Sistem akan memvalidasi data dan memproses penyimpanan ke database.
+4. Muncul jendela pop-up dialog **"Laporan Berhasil!"** yang menampilkan **Nomor Tiket Resmi** (Contoh: `261107R4M`).
+5. Tekan tombol **Salin Nomor Tiket** (ikon clipboard) untuk menyimpan nomor tiket ke papan klip (*clipboard*) ponsel atau komputer Anda.
+6. Anda dapat langsung menekan tombol **"Lihat Daftar Laporan"** untuk memantau tiket Anda.
+
+---
+
+### 3.8 Langkah 7: Pemantauan Progres Status Tiket
+Buka menu **Daftar Laporan** (`/list-laporan`) untuk memantau status pengerjaan tiket Anda:
+- **🔴 Status "Belum Diproses":** Laporan baru saja masuk ke sistem antrean Diskominfo dan sedang menunggu verifikasi oleh petugas piket.
+- **🟡 Status "Sedang Diproses":** Petugas teknis telah ditugaskan dan sedang melakukan penanganan fisik/remote. Pada tabel akan tercantum nama petugas penangan. Anda mungkin akan dihubungi oleh petugas via WhatsApp.
+- **🟢 Status "Selesai Diproses":** Masalah telah berhasil ditangani oleh teknisi. Anda dapat membaca rincian solusi pada kolom **Tindakan**.
+
+---
+
+### 3.9 Langkah 8: Penanganan Selesai & Pembukaan Kembali Kuota Laporan
+- Begitu tiket laporan Anda diberi status `Selesai Diproses` oleh petugas teknis Diskominfo:
+  - Tiket Anda beralih ke arsip riwayat penanganan tuntas.
+  - Kuota pelaporan akun ASN Anda otomatis terbuka kembali (*unlocked*).
+  - Anda kini dapat mengajukan permohonan layanan atau laporan gangguan baru bila dibutuhkan di masa mendatang.
+
+---
+
+## 🛠️ BAB IV: PANDUAN OPERASIONAL PETUGAS & ADMIN (FILAMENT PANEL)
+
+### 4.1 Login Administrator & Operator Teknis
+Petugas teknis dan admin mengakses panel operasional melalui pintu masuk:
+```txt
+https://infrastruktur.sijunjung.go.id/admin
+```
+Masukkan kredensial akun kedinasan Diskominfo Anda (Email & Password).
+
+---
+
+### 4.2 Manajemen Antrean Tiket Laporan Masuk
+1. Pilih menu **Laporan** pada sidebar navigasi kiri.
+2. Seluruh laporan dari OPD disajikan dalam tabel interaktif Filament dengan fitur:
+   - **Search Box:** Pencarian nomor tiket, nama pelapor, NIP, atau nama OPD.
+   - **Filter Status:** Menyaring laporan berdasarkan `Belum Diproses`, `Sedang Diproses`, atau `Selesai Diproses`.
+   - **Filter Tanggal:** Menyaring laporan berdasarkan rentang tanggal masuk.
+   - **Sortable Columns:** Pengurutan berdasarkan tanggal tiket terbaru.
+
+---
+
+### 4.3 Menggunakan Fitur Komunikasi WhatsApp Cepat
+- Di setiap baris laporan, periksa tombol berikon **WhatsApp (Warna Hijau)**.
+- Klik tombol tersebut untuk langsung membuka chat WhatsApp dengan pelapor tanpa perlu mengetik ulang nomor telepon.
+- Template pesan resmi yang otomatis terbentuk:
+  > *"Halo Bapak/Ibu [Nama Pelapor] dari [Nama OPD], kami dari Tim Teknis Diskominfo Sijunjung menindaklanjuti laporan Anda dengan nomor tiket #[Nomor Tiket] mengenai [Jenis Laporan]. Mohon konfirmasi apakah lokasi dapat kami kunjungi saat ini? Terima kasih."*
+
+---
+
+### 4.4 Meninjau Detail Laporan (Infolist View)
+- Klik tombol **Lihat Detail** (ikon mata biru).
+- Panel modal Infolist akan menampilkan:
+  - Ringkasan Tiket & Waktu Aduan.
+  - Data Lengkap Pelapor (Nama, NIP, Jabatan/OPD, No. HP).
+  - Uraian Masalah & Foto Dokumentasi Kendala.
+  - Nama Petugas Penangan (jika sudah diproses) dan Catatan Tindakan.
+- Tindakan ini aman dan tidak merubah status tiket.
+
+---
+
+### 4.5 Menjalankan Aksi "Mulai Tangani"
+- Pada baris tiket yang berstatus `Belum Diproses`, klik tombol **Mulai Tangani** (ikon putar/proses oranye).
+- Muncul dialog konfirmasi: *"Apakah Anda yakin ingin mulai menangani laporan ini?"*.
+- Tekan **Konfirmasi**. Sistem akan:
+  1. Mengubah status tiket menjadi `Sedang Diproses`.
+  2. Mengunci identitas petugas login sebagai penanggung jawab penanganan.
+  3. Memperbarui tampilan dashboard pemohon secara *real-time*.
+
+---
+
+### 4.6 Menyelesaikan Tiket & Menginput Catatan Solusi
+- Pada baris tiket yang berstatus `Sedang Diproses`, klik tombol **Selesaikan** (ikon centang hijau).
+- Formulir modal penyelesaian akan terbuka:
+  - Isi kolom **Keterangan Tindakan**: Tuliskan secara jelas langkah perbaikan yang telah dieksekusi di lapangan (Contoh: *"Pengecekan kabel UTP dropwire, penggantian konektor RJ45 port 3 switch lantai 2, pengujian bandwidth stabil di 50 Mbps"*).
+- Tekan tombol **Selesaikan Laporan**.
+- Laporan resmi ditutup dengan status `Selesai Diproses`, dan pembatasan pembuatan laporan untuk pemohon terkait otomatis dicabut.
+
+---
+
+### 4.7 Pengelolaan Data Aset TI, BTS, dan Master Wilayah
+Petugas berwenang dapat memperbarui data infrastruktur melalui menu sidebar:
+1. **Master Wilayah:** Tambah dan perbarui data Kecamatan, Nagari, dan Jorong.
+2. **Master OPD:** Tambah dan perbarui daftar Perangkat Daerah, alamat kantor, dan kontak instansi.
+3. **Menara BTS:** Kelola data menara telekomunikasi (lokasi, operator penyedia, koordinat Latitude & Longitude, tinggi menara, status operasional).
+4. **Peralatan & Inventaris:** Kelola inventaris perangkat keras TI (PC, Laptop, Server, Router, Switch, Aksesoris) per instansi.
+
+---
+
+### 4.8 Pengelolaan Akun Pengguna & Reset Password
+- Buka menu **Users** untuk melihat seluruh pengguna terdaftar.
+- **Aksi Ganti Password:** Petugas atau Administrator dapat melakukan reset kata sandi pengguna yang lupa password dengan menekan aksi **Ganti Password** (ikon kunci).
+- Form ganti kata sandi telah dirancang aman dengan enkripsi otomatis dan bebas dari masalah kontras warna pada mode gelap.
+
+---
+
+## 💻 BAB V: KETERANGAN TEKNIS SISTEM & ARSITEKTUR (TECHNICAL SPECIFICATIONS)
+
+### 5.1 Stack Teknologi & Spesifikasi Lingkungan Server
+Sistem dibangun di atas fondasi teknologi web modern berstandar enterprise:
+- **Bahasa Pemrograman:** PHP versi 8.2 atau 8.3+.
+- **Kerangka Kerja Utama (Framework):** Laravel Framework versi 11.x.
+- **Admin Panel Framework:** Filament PHP versi 3.x (Admin Panel, Forms, Tables, Infolists, Notifications).
+- **Frontend Reactive Engine:** Livewire versi 3.x & Alpine.js versi 3.x.
+- **Desain & Antarmuka:** Tailwind CSS versi 3.4 / 4.x dengan dukungan tema ganda (*Light/Dark theme*).
+- **Mesin Basis Data:** MySQL versi 8.0+ atau MariaDB versi 10.4+ dengan *Storage Engine* InnoDB dan *Charset* `utf8mb4_unicode_ci`.
+- **Peta Geospasial:** Leaflet.js versi 1.9+ dengan tile OpenStreetMap CartoDB.
+- **Web Server:** Nginx 1.24+ atau Apache 2.4+ dengan modul URL Rewrite & PHP-FPM aktif.
+
+---
+
+### 5.2 Arsitektur Sistem Hybrid (Filament Backend + Livewire Frontend)
+Sistem menerapkan pemisahan tugas (*Separation of Concerns*) secara ketat:
+1. **Area Petugas & Administrator (`/admin`):**
+   - Menggunakan ekosistem Filament 3 PHP.
+   - Diproteksi oleh middleware autentikasi dan policy gerbang akses `User::canAccessPanel(Panel $panel)`.
+   - Mengatur query optimasi `modifyQueryUsing()` dengan *eager loading* relasi (`with(['user', 'opd', 'petugas'])`) untuk mengeliminasi problem N+1 query.
+2. **Area Publik & Pegawai OPD (`/`, `/list-laporan`, `/lapor`):**
+   - Menggunakan komponen Livewire 3 yang terisolasi dari core panel Filament.
+   - Setiap interaksi tabel, filter, dan pagination berjalan secara asinkron (*AJAX / Fetch API*) tanpa memuat ulang seluruh halaman.
+   - Hak akses pengguna berstatus role `pengguna` dibatasi hanya pada portal Livewire ini, dan dicegah mengakses `/admin`.
+
+---
+
+### 5.3 Algoritma Penomoran Tiket Laporan (Ticket Number Generator)
+Setiap tiket aduan memiliki nomor identifikasi unik (*Unique Ticket Identifier*) yang digenerasikan secara otomatis oleh sistem saat formulir disubmit:
+
+$$\text{Format Tiket} = \text{YYMMDD} + \text{Random Alphanumeric (4 Karakter)}$$
+
+- **YYMMDD:** 2 digit tahun, 2 digit bulan, 2 digit tanggal saat laporan diajukan (Contoh: `261107` untuk 7 November 2026).
+- **Random Alphanumeric:** 4 karakter kombinasi huruf kapital dan angka acak bebas dari karakter rancu (Contoh: `R4M9`, `K7A2`).
+- **Pemeriksaan Tabrakan (Collision Guard):** Sistem mengeksekusi pengecekan perulangan ke tabel `lapors` untuk memastikan nomor yang dihasilkan belum pernah dipakai sebelumnya sebelum menyimpan record.
+
+---
+
+### 5.4 State Machine Siklus Hidup Status Laporan (Report Lifecycle)
+Status laporan merepresentasikan tahapan pemrosesan tiket dengan aturan transisi ketat:
+
+```
+[ Belum Diproses ]  ──(Aksi: Mulai Tangani)──>  [ Sedang Diproses ]  ──(Aksi: Selesaikan)──>  [ Selesai Diproses ]
+```
+
+1. **State 1: Belum Diproses (Pending):**
+   - Tiket baru terdaftar di basis data.
+   - Kolom `petugas_id` bernilai `NULL`.
+   - Kolom `tindakan` bernilai `NULL`.
+   - Tombol aktif di Filament: `WhatsApp`, `Lihat Detail`, `Mulai Tangani`.
+   - Kuota pelaporan pemohon: **Terkunci**.
+2. **State 2: Sedang Diproses (In-Progress):**
+   - Transisi dipicu oleh tombol `Mulai Tangani`.
+   - Kolom `petugas_id` terisi otomatis dengan ID akun petugas yang menekan tombol.
+   - Tombol aktif di Filament: `WhatsApp`, `Lihat Detail`, `Selesaikan`.
+   - Kuota pelaporan pemohon: **Terkunci**.
+3. **State 3: Selesai Diproses (Resolved):**
+   - Transisi dipicu oleh formulir modal `Selesaikan`.
+   - Kolom `tindakan` terisi dengan uraian teknis perbaikan.
+   - Tombol aktif di Filament: `WhatsApp`, `Lihat Detail`. Tombol mutasi dinonaktifkan.
+   - Kuota pelaporan pemohon: **Terbuka Kembali**.
+
+---
+
+### 5.5 Struktur Basis Data & Entitas Utama (Database Entity Design)
+
+#### 1. Tabel `users` (Pengguna & Pegawai ASN)
+- `id` (BigInt, PK, Auto Increment)
+- `name` (Varchar, Unique, Not Null)
+- `email` (Varchar, Unique, Not Null)
+- `nip` (Varchar, Unique, Nullable)
+- `no_hp` (Varchar, Nullable)
+- `opd_id` (BigInt, FK ke `opds.id`, Nullable)
+- `password` (Varchar, Bcrypt Hash)
+- `created_at`, `updated_at` (Timestamp)
+
+#### 2. Tabel `lapors` (Tiket Pelaporan Layanan)
+- `id` (BigInt, PK, Auto Increment)
+- `no_tiket` (Varchar, Unique, Not Null)
+- `nama` (Varchar, Not Null)
+- `nip` (Varchar, Not Null)
+- `no_hp` (Varchar, Not Null)
+- `opd_id` (BigInt, FK ke `opds.id`, Not Null)
+- `user_id` (BigInt, FK ke `users.id`, Not Null)
+- `jenis_laporan` (Enum: `'Laporan Gangguan'`, `'Koordinasi Teknis'`)
+- `laporan` (Text, Not Null - Uraian Masalah)
+- `status` (Enum: `'Belum Diproses'`, `'Sedang Diproses'`, `'Selesai Diproses'`, Default: `'Belum Diproses'`)
+- `tindakan` (Text, Nullable - Solusi Petugas)
+- `petugas_id` (BigInt, FK ke `users.id`, Nullable)
+- `foto` (Varchar, Nullable - Path Berkas Gambar)
+- `created_at`, `updated_at` (Timestamp)
+
+#### 3. Tabel `bts` (Menara Telekomunikasi)
+- `id` (BigInt, PK)
+- `nama_bts`, `pemilik`, `tinggi_menara`, `latitude`, `longitude`
+- `kecamatan_id`, `nagari_id`, `jorong_id` (FK Wilayah)
+
+#### 4. Tabel `inventaris` & `peralatans` (Aset Perangkat TI)
+- `id` (BigInt, PK)
+- `nama_barang`, `kode_barang`, `kondisi`, `opd_id`, `tahun_perolehan`
+
+---
+
+### 5.6 Mekanisme Keamanan Sistem
+1. **CSRF Protection:** Seluruh mutasi HTTP (POST/PUT/DELETE) dilindungi token Cross-Site Request Forgery bawaan Laravel.
+2. **Kriptografi Kata Sandi:** Menggunakan hashing satu arah algoritma Bcrypt dengan cost factor adaptif.
+3. **Pencegahan SQL Injection:** Seluruh manipulasi basis data menggunakan Parameterized Queries melalui Eloquent ORM.
+4. **Pencegahan Cross-Site Scripting (XSS):** Semua output teks pada template Blade diescape secara otomatis (`{{ $variable }}`).
+5. **Validasi Berkas Unggahan:** Berkas foto aduan difilter ketat berdasarkan tipe MIME (hanya berkas citra yang diizinkan) serta batas ukuran maksimal 5 MB untuk mencegah serangan denial-of-service / buffer overflow.
+
+---
+
+### 5.7 Prosedur Pemeliharaan, Kliring Cache & Backup Rutin
+Untuk menjaga performa sistem tetap optimal:
+1. **Perintah Kliring Cache:**
+   ```bash
+   php artisan optimize:clear
+   ```
+2. **Perintah Re-cache untuk Mode Produksi:**
+   ```bash
+   php artisan config:cache
+   php artisan route:cache
+   php artisan view:cache
+   ```
+3. **Prosedur Pencadangan Basis Data (Backup):**
+   ```bash
+   mysqldump -u root -p database_sijunjung > backup_$(date +%Y%m%d).sql
+   ```
+4. **Pencadangan Berkas Bukti Foto:**
+   Cadangkan direktori `storage/app/public/lapor/` secara berkala ke media penyimpanan eksternal atau cloud storage aman.
 
 ---
 
 ## ❓ BAB VI: PANDUAN PEMECAHAN MASALAH (TROUBLESHOOTING) & FAQ
 
-### Q1: Mengapa NIP saya ditolak saat melakukan registrasi?
-**Jawaban:** Pastikan NIP yang dimasukkan terdiri dari 18 digit angka sesuai dengan format BKN (`YYYYMMDD YYYYMM X XXX`). Jika NIP sudah pernah didaftarkan sebelumnya, Anda cukup melakukan login menggunakan email/password yang telah terdaftar.
+### Q1: Mengapa NIP saya ditolak saat melakukan pendaftaran?
+**Jawaban:** Sistem mewajibkan NIP terdiri dari 18 digit angka sesuai format resmi BKN. Jika muncul notifikasi bahwa NIP sudah terdaftar, artinya Anda telah memiliki akun sebelumnya. Silakan gunakan menu login dengan memasukkan email atau hubungi administrator Diskominfo untuk bantuan reset akun.
 
-### Q2: Mengapa tombol "Buat Laporan Baru" tidak bisa diklik / berstatus disabled?
-**Jawaban:** Sistem memberlakukan aturan 1 laporan aktif per pengguna. Periksa menu **Daftar Laporan**, pastikan laporan Anda sebelumnya telah berstatus **Selesai Diproses**. Jika laporan masih berstatus Belum atau Sedang Diproses, mohon menunggu tim teknis menyelesaikan aduan tersebut terlebih dahulu.
+### Q2: Mengapa tombol "Buat Laporan Baru" tidak dapat diklik (berstatus disabled)?
+**Jawaban:** Hal ini terjadi karena Anda masih memiliki tiket laporan aktif yang berstatus **"Belum Diproses"** atau **"Sedang Diproses"**. Sistem memberlakukan aturan 1 laporan aktif agar petugas dapat menyelesaikan setiap kendala secara fokus. Begitu petugas menyelesaikan laporan Anda, tombol akan aktif kembali.
 
-### Q3: Teks di form kata sandi tidak terlihat saat menggunakan Dark Mode?
-**Jawaban:** Pembaruan antarmuka terbaru telah mengatasi kontras teks otomatis. Pastikan browser Anda tidak memaksakan autofill eksternal yang bertentangan atau lakukan refresh dengan menekan `Ctrl + F5`.
+### Q3: Teks di form kata sandi tidak terbaca saat menggunakan Dark Mode?
+**Jawaban:** Masalah ini disebabkan oleh fitur autofill peramban yang menimpa warna latar belakang input menjadi putih. Pada pembaruan terkini, sistem telah menyematkan style anti-autofill berprioritas tinggi. Jika peramban Anda masih menampilkan teks putih, tekan tombol **Ctrl + F5** untuk memuat ulang cache stylesheet.
 
-### Q4: Apakah masyarakat umum non-ASN dapat membuat laporan?
-**Jawaban:** Sistem ini dikhususkan bagi aparatur sipil negara di lingkungan Pemerintah Kabupaten Sijunjung untuk gangguan fasilitas kantor dan koordinasi antar OPD. Masyarakat umum dapat memanfaatkan kanal pengaduan resmi SP4N-LAPOR!.
+### Q4: Apakah masyarakat umum non-ASN dapat menggunakan aplikasi ini?
+**Jawaban:** Sistem ini dikhususkan secara internal bagi aparatur sipil negara di lingkungan Pemerintah Kabupaten Sijunjung untuk mengelola infrastruktur kantor dan jaringan kedinasan. Untuk laporan keluhan layanan publik umum, masyarakat dapat memanfaatkan portal resmi **SP4N-LAPOR!** ([lapor.go.id](https://www.lapor.go.id)).
 
 ---
 
 ## 📞 BAB VII: LAYANAN DUKUNGAN & KONTAK DISKOMINFO
 
-Apabila Anda mengalami kendala operasional yang membutuhkan bantuan darurat atau eskalasi teknis tingkat lanjut, silakan menghubungi:
+Apabila Anda memerlukan asistensi darurat, pelaporan kendala teknis sistem, atau pendampingan akun, silakan menghubungi:
 
 * **Instansi:** Dinas Komunikasi dan Informatika Kabupaten Sijunjung
-* **Bidang:** Penyelenggaraan E-Government & Infrastruktur TI
-* **Alamat Kantor:** Jl. Prof. M. Yamin, SH No. 1, Muaro Sijunjung, Sumatera Barat
-* **Portal Layanan:** [https://infrastruktur.sijunjung.go.id](https://infrastruktur.sijunjung.go.id)
+* **Bidang Teknis:** Bidang Penyelenggaraan E-Government & Infrastruktur Teknologi Informasi
+* **Alamat Kantor:** Jl. Prof. M. Yamin, SH No. 1, Muaro Sijunjung, Sumatera Barat 27511
+* **Alamat Portal:** [https://infrastruktur.sijunjung.go.id](https://infrastruktur.sijunjung.go.id)
 * **Email Resmi:** diskominfo@sijunjung.go.id / kominfo@sijunjung.go.id
-* **Jam Kerja:** Senin – Jumat, Pukul 07.30 – 16.00 WIB
+* **Jam Operasional Layanan:** Senin s.d. Jumat, Pukul 07.30 – 16.00 WIB
 
 ---
-*© 2026 Dinas Komunikasi dan Informatika Kabupaten Sijunjung. Seluruh hak cipta dilindungi undang-undang.*
+*Dokumen ini diterbitkan oleh Dinas Komunikasi dan Informatika Kabupaten Sijunjung. Seluruh hak cipta dilindungi undang-undang.*

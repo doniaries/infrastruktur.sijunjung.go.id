@@ -3,18 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Book Manual Pengguna - Infrastruktur TI Sijunjung</title>
+    <title>E-Book Manual Pengguna & Dokumentasi Teknis - Infrastruktur TI Sijunjung</title>
     <link rel="icon" type="image/png" href="/images/kabupaten-sijunjung.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'neutral',
+                sequence: {
+                    showSequenceNumbers: true,
+                    actorMargin: 50
+                }
+            });
+        });
+    </script>
     <style>
         :root {
             --primary: #1d4ed8;
             --primary-dark: #1e3a8a;
             --secondary: #0f172a;
             --accent: #2563eb;
+            --emerald: #059669;
+            --amber: #d97706;
+            --rose: #e11d48;
             --bg-light: #f8fafc;
             --card-light: #ffffff;
             --text-main: #1e293b;
@@ -32,12 +48,12 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text-main);
             background-color: var(--bg-light);
-            line-height: 1.7;
+            line-height: 1.75;
             font-size: 15px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 40px 24px;
         }
@@ -50,12 +66,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(12px);
             padding: 14px 24px;
             border-radius: 16px;
             border: 1px solid var(--border);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
             margin-bottom: 30px;
         }
 
@@ -129,7 +145,7 @@
             gap: 8px;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
-            padding: 6px 16px;
+            padding: 6px 18px;
             border-radius: 9999px;
             font-size: 12px;
             font-weight: 700;
@@ -148,7 +164,7 @@
         }
 
         .book-cover h2 {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 500;
             color: #93c5fd;
             margin-bottom: 30px;
@@ -160,33 +176,38 @@
             gap: 24px;
             font-size: 13px;
             color: #cbd5e1;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
             flex-wrap: wrap;
+        }
+
+        .cover-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         /* Chapter Card */
         .chapter-card {
             background: var(--card-light);
-            border: 1px solid var(--border);
             border-radius: 20px;
             padding: 40px;
-            margin-bottom: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 2px 4px -2px rgba(0,0,0,0.02);
+            margin-bottom: 35px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -2px rgba(0, 0, 0, 0.02);
+            page-break-inside: avoid;
         }
 
         .chapter-header {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding-bottom: 20px;
+            gap: 16px;
             margin-bottom: 24px;
+            padding-bottom: 18px;
             border-bottom: 2px solid #f1f5f9;
         }
 
         .chapter-icon {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             background: #eff6ff;
             color: var(--primary);
             border-radius: 12px;
@@ -194,24 +215,32 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
+            font-weight: bold;
             flex-shrink: 0;
         }
 
         .chapter-title {
             font-size: 22px;
             font-weight: 800;
-            color: #0f172a;
+            color: var(--secondary);
             letter-spacing: -0.01em;
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 700;
             color: #1e293b;
-            margin: 28px 0 12px 0;
+            margin: 26px 0 12px 0;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+            margin: 18px 0 8px 0;
         }
 
         p {
@@ -219,14 +248,139 @@
             color: #334155;
         }
 
-        /* Callouts / Alerts */
-        .alert-box {
-            background: #f8fafc;
-            border-left: 4px solid var(--primary);
-            padding: 16px 20px;
-            border-radius: 8px 12px 12px 8px;
-            margin: 20px 0;
+        /* TOC */
+        .toc-box {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 35px;
+        }
+
+        .toc-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #475569;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .toc-item a:hover {
+            background: #eff6ff;
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-item:hover {
+            border-color: #93c5fd;
+            background: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-item .icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .feature-item h4 {
+            margin: 0 0 6px 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .feature-item p {
+            font-size: 13px;
+            margin-bottom: 0;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* Step List */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            margin: 24px 0;
+        }
+
+        .steps li {
+            position: relative;
+            padding-left: 52px;
+            margin-bottom: 24px;
+        }
+
+        .steps li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 36px;
+            height: 36px;
+            background: #eff6ff;
+            color: var(--primary);
+            border: 2px solid #bfdbfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        /* Alert Boxes */
+        .alert-box {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 18px 0;
+            border-left: 4px solid;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+            color: #1e40af;
         }
 
         .alert-warning {
@@ -241,36 +395,10 @@
             color: #065f46;
         }
 
-        /* Step List */
-        .steps {
-            list-style: none;
-            counter-reset: step-counter;
-            margin: 20px 0;
-        }
-
-        .steps li {
-            position: relative;
-            padding-left: 48px;
-            margin-bottom: 20px;
-        }
-
-        .steps li::before {
-            counter-increment: step-counter;
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 32px;
-            height: 32px;
-            background: #eff6ff;
-            color: var(--primary);
-            border: 2px solid #bfdbfe;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 14px;
+        .alert-danger {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+            color: #991b1b;
         }
 
         /* Table */
@@ -300,79 +428,110 @@
         }
 
         td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
             color: #334155;
+            vertical-align: top;
         }
 
         tr:last-child td {
             border-bottom: none;
         }
 
-        /* Badges */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 9999px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.03em;
+        tr:hover td {
+            background-color: #f8fafc;
         }
 
-        .badge-danger { background: #fee2e2; color: #b91c1c; }
-        .badge-warning { background: #fef3c7; color: #b45309; }
-        .badge-success { background: #dcfce7; color: #15803d; }
-        .badge-info { background: #e0f2fe; color: #0369a1; }
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            font-size: 11.5px;
+            font-weight: 700;
+        }
+
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .badge-yellow { background: #fef3c7; color: #92400e; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
 
         code {
             font-family: 'JetBrains Mono', monospace;
             background: #f1f5f9;
-            color: #0f172a;
             padding: 2px 6px;
             border-radius: 6px;
-            font-size: 12.5px;
-            font-weight: 600;
+            font-size: 13px;
+            color: #0f172a;
         }
 
-        /* Footer */
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 16px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 13px;
+            margin: 16px 0;
+            line-height: 1.5;
+        }
+
+        .mermaid {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+
         .footer {
             text-align: center;
-            padding: 40px 0 20px 0;
             font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            color: #94a3b8;
             margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
         }
 
-        /* Print Optimization */
+        /* Print Settings */
         @media print {
             body {
                 background: white;
                 color: black;
                 font-size: 12pt;
             }
-            .action-bar {
+
+            .action-bar, .toc-box {
                 display: none !important;
             }
+
             .container {
                 max-width: 100%;
                 padding: 0;
             }
-            .book-cover {
-                background: #1e3a8a !important;
-                color: white !important;
-                page-break-after: always;
-                padding: 100px 30px;
-                border-radius: 0;
-            }
+
             .chapter-card {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-                page-break-inside: avoid;
-                margin-bottom: 20px;
-                padding: 25px;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin-bottom: 40pt;
+                page-break-after: always;
+            }
+
+            .book-cover {
+                page-break-after: always;
+                box-shadow: none;
+                background: #1e3a8a !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                padding: 100pt 20pt;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -386,63 +545,93 @@
             <a href="/" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Kembali ke Beranda
             </a>
-            <div style="font-weight: 700; font-size: 14px; color: #0f172a;">
-                E-Book Buku Panduan Resmi 2026
+            <div style="display: flex; gap: 10px;">
+                <button onclick="window.print()" class="btn-print">
+                    <i class="fas fa-print"></i> Cetak ke PDF / Print Buku
+                </button>
             </div>
-            <button onclick="window.print()" class="btn-print">
-                <i class="fas fa-print"></i> Cetak / Simpan PDF
-            </button>
         </div>
 
         <!-- Book Cover -->
         <div class="book-cover">
             <div class="cover-badge">
-                <i class="fas fa-shield-halved"></i> E-Book Manual Pengguna
+                <i class="fas fa-book-bookmark"></i> Dokumen Resmi Sistem v2.5
             </div>
-            <h1>Sistem Informasi Data Infrastruktur TI & Pelaporan Gangguan</h1>
-            <h2>Dinas Komunikasi dan Informatika Kabupaten Sijunjung</h2>
+            <h1>BUKU MANUAL PENGGUNA & DOKUMENTASI TEKNIS</h1>
+            <h2>Sistem Informasi Data Infrastruktur TI & Layanan Pelaporan Gangguan Jaringan</h2>
             <div class="cover-meta">
-                <span><i class="fas fa-calendar-alt"></i> Edisi Resmi 2026</span>
-                <span><i class="fas fa-globe"></i> infrastruktur.sijunjung.go.id</span>
-                <span><i class="fas fa-user-shield"></i> Terintegrasi RBAC ASN</span>
+                <span><i class="fas fa-building"></i> Dinas Kominfo Kabupaten Sijunjung</span>
+                <span><i class="fas fa-calendar"></i> Tahun Rilis 2026</span>
+                <span><i class="fas fa-shield-halved"></i> Edisi Pembaruan Terintegrasi</span>
             </div>
         </div>
 
-        <!-- BAB I -->
-        <div class="chapter-card">
-            <div class="chapter-header">
-                <div class="chapter-icon"><i class="fas fa-building"></i></div>
-                <div class="chapter-title">BAB I: Gambaran Umum & Hak Akses</div>
+        <!-- Table of Contents -->
+        <div class="toc-box">
+            <div class="toc-title">
+                <i class="fas fa-list-ol text-blue-600"></i> Daftar Isi Dokumen
             </div>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#bab1"><i class="fas fa-landmark text-blue-500"></i> BAB I: Pendahuluan & Profil Sistem</a></li>
+                <li class="toc-item"><a href="#bab2"><i class="fas fa-star text-amber-500"></i> BAB II: Katalog Fitur Lengkap Sistem</a></li>
+                <li class="toc-item"><a href="#bab3"><i class="fas fa-paper-plane text-emerald-500"></i> BAB III: Panduan Alur Cara Lapor (User)</a></li>
+                <li class="toc-item"><a href="#bab4"><i class="fas fa-screwdriver-wrench text-blue-600"></i> BAB IV: Panduan Operasional Petugas (Admin)</a></li>
+                <li class="toc-item"><a href="#bab5"><i class="fas fa-laptop-code text-purple-600"></i> BAB V: Keterangan Teknis & Arsitektur</a></li>
+                <li class="toc-item"><a href="#bab6"><i class="fas fa-circle-question text-rose-500"></i> BAB VI: FAQ & Pemecahan Masalah</a></li>
+                <li class="toc-item"><a href="#bab7"><i class="fas fa-phone-volume text-green-600"></i> BAB VII: Layanan Dukungan & Kontak</a></li>
+            </ul>
+        </div>
+
+        <!-- BAB I -->
+        <div class="chapter-card" id="bab1">
+            <div class="chapter-header">
+                <div class="chapter-icon"><i class="fas fa-landmark"></i></div>
+                <div class="chapter-title">BAB I: PENDAHULUAN & PROFIL SISTEM</div>
+            </div>
+
+            <h3>1.1 Latar Belakang & Landasan Operasional</h3>
             <p>
-                Platform <strong>Infrastruktur TI Sijunjung</strong> dirancang khusus sebagai pusat data terpadu aset telekomunikasi dan teknologi informasi, sekaligus wadah aduan kendala jaringan bagi seluruh Organisasi Perangkat Daerah (OPD) di Kabupaten Sijunjung.
+                Pemerintah Kabupaten Sijunjung melalui Dinas Komunikasi dan Informatika (Diskominfo) berkomitmen mewujudkan tata kelola Sistem Pemerintahan Berbasis Elektronik (SPBE) yang bersih, efektif, transparan, dan akuntabel. Kebutuhan operasional jaringan internet dinas, pemeliharaan perangkat keras (hardware), ketersediaan sinyal telekomunikasi, serta penanganan insiden jaringan menuntut adanya wadah terpusat yang dapat diakses secara cepat oleh seluruh Organisasi Perangkat Daerah (OPD).
             </p>
 
-            <h3>Hak Akses Peran (Role-Based Access Control)</h3>
+            <h3>1.2 Maksud & Tujuan Pengembangan</h3>
+            <ul style="padding-left: 20px; line-height: 2;">
+                <li><strong>Sentralisasi Data:</strong> Seluruh data wilayah, instansi pemerintah (OPD), inventaris perangkat komputer, dan menara BTS tersimpan dalam satu basis data terpadu.</li>
+                <li><strong>Transparansi Penanganan:</strong> Setiap aduan memiliki nomor tiket resmi dan dapat dilacak status penanganannya secara langsung (real-time).</li>
+                <li><strong>Efisiensi Petugas:</strong> Mengeliminasi koordinasi manual melalui chat pribadi, menggantikannya dengan sistem antrean tiket terstruktur dan histori perbaikan yang akuntabel.</li>
+                <li><strong>Validasi ASN:</strong> Pelapor divalidasi resmi dengan NIP 18 digit standar BKN dan instansi yang sah.</li>
+            </ul>
+
+            <h3>1.3 Matriks Peran Pengguna (Role-Based Access Control)</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>Peran (Role)</th>
                             <th>Pintu Masuk</th>
-                            <th>Kewenangan Utama</th>
+                            <th>Kewenangan & Batasan Akses</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>Super Admin</strong></td>
                             <td><code>/admin</code></td>
-                            <td>Akses penuh data master, inventaris, manajemen user, dan verifikasi aduan.</td>
+                            <td>Akses penuh mutlak (Kelola seluruh master data, pengguna, audit role, database backup, setting).</td>
                         </tr>
                         <tr>
                             <td><strong>Petugas Teknis</strong></td>
                             <td><code>/admin</code></td>
-                            <td>Aksi Mulai Tangani, Selesaikan laporan, input solusi, dan kontak WhatsApp pelapor.</td>
+                            <td>Menerima antrean tiket, mengubah status (Mulai Tangani & Selesaikan), menginput solusi, mengelola BTS & aset.</td>
                         </tr>
                         <tr>
-                            <td><strong>Pengguna (ASN OPD)</strong></td>
-                            <td>Frontend Saja (<code>/list-laporan</code>)</td>
-                            <td>Registrasi mandiri ASN, kirim aduan kendala, dan monitor status tiket pribadi.</td>
+                            <td><strong>Kepala Bidang TI / Kadis</strong></td>
+                            <td><code>/admin</code></td>
+                            <td>Supervisi eksekutif, rekapitulasi data statistik, monitoring durasi penyelesaian laporan.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pengguna (Pegawai OPD)</strong></td>
+                            <td>Portal Livewire (<code>/list-laporan</code>)</td>
+                            <td>Registrasi akun ASN, mengajukan laporan kendala (1 laporan aktif), memantau status tiket. Diblokir dari panel <code>/admin</code>.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -450,141 +639,373 @@
         </div>
 
         <!-- BAB II -->
-        <div class="chapter-card">
+        <div class="chapter-card" id="bab2">
             <div class="chapter-header">
-                <div class="chapter-icon"><i class="fas fa-user-edit"></i></div>
-                <div class="chapter-title">BAB II: Panduan Pegawai OPD (Frontend Livewire)</div>
-            </div>
-            <p>
-                Pegawai OPD berinteraksi melalui antarmuka web modern yang cepat dan mudah diakses melalui komputer maupun smartphone.
-            </p>
-
-            <h3>1. Registrasi Akun ASN</h3>
-            <p>
-                Setiap pelapor diwajibkan mendaftar akun ASN resmi melalui menu <strong>Buat Laporan Baru</strong> atau tautan <code>/admin/register</code>:
-            </p>
-            <ul class="steps">
-                <li>
-                    <strong>Identitas Resmi:</strong> Masukkan Nama Lengkap beserta Gelar dan NIP 18 Digit. Sistem secara otomatis menerapkan format spasi resmi: <code>19820414 200212 1 003</code>.
-                </li>
-                <li>
-                    <strong>Asal OPD:</strong> Pilih nama dinas/badan/instansi penempatan Anda saat ini.
-                </li>
-                <li>
-                    <strong>Nomor WhatsApp:</strong> Masukkan nomor ponsel (misal <code>081234567890</code>). Sistem otomatis mengonversi ke format <code>+6281234567890</code> untuk integrasi respon petugas.
-                </li>
-                <li>
-                    <strong>Password:</strong> Minimal 8 karakter, konfirmasi password, lalu klik <strong>Daftar Akun ASN</strong>.
-                </li>
-            </ul>
-
-            <div class="alert-box alert-warning">
-                <strong><i class="fas fa-lock"></i> Kebijakan 1 Laporan Aktif:</strong><br>
-                Untuk mencegah tiket ganda, setiap pegawai OPD hanya dapat mengajukan <strong>1 laporan aktif</strong> dalam satu waktu. Tombol pengajuan laporan akan otomatis dinonaktifkan (disabled) sampai laporan Anda sebelumnya berstatus <span class="badge badge-success">Selesai Diproses</span>.
+                <div class="chapter-icon"><i class="fas fa-star"></i></div>
+                <div class="chapter-title">BAB II: KATALOG FITUR LENGKAP SISTEM</div>
             </div>
 
-            <h3>2. Jenis Laporan</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;">
-                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 16px;">
-                    <div style="font-weight: 800; color: #dc2626; margin-bottom: 6px;"><i class="fas fa-circle-exclamation"></i> Laporan Gangguan</div>
-                    <div style="font-size: 13px; color: #7f1d1d;">Untuk aduan jaringan internet terputus, koneksi lambat, printer sharing offline, atau server lokal padam.</div>
+            <p>
+                Sistem dirancang dengan seperangkat fitur komprehensif untuk mendukung efisiensi pelayanan teknis infrastruktur TI di lingkungan Pemkab Sijunjung:
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="icon">🚨</span>
+                    <h4>Pelaporan Gangguan & Koordinasi</h4>
+                    <p>Fasilitas aduan insiden mendesak (jaringan/server/PC) dan permohonan pendampingan teknis acara kedinasan.</p>
                 </div>
-                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 16px;">
-                    <div style="font-weight: 800; color: #d97706; margin-bottom: 6px;"><i class="fas fa-headset"></i> Koordinasi Teknis</div>
-                    <div style="font-size: 13px; color: #78350f;">Untuk permohonan pendampingan vicon/zoom meeting dinas, instalasi perangkat, dan setting jaringan acara kedinasan.</div>
+                <div class="feature-item">
+                    <span class="icon">🪪</span>
+                    <h4>Validasi Identitas ASN Unik</h4>
+                    <p>NIP 18 digit resmi BKN otomatis diformat dan divalidasi unik bersama nama ASN di level database.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔒</span>
+                    <h4>Anti-Laporan Ganda (1 Active Ticket)</h4>
+                    <p>Mencegah laporan bertumpuk. Pengguna hanya dapat membuat laporan baru setelah laporan lama tuntas.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">⚡</span>
+                    <h4>Livewire Real-Time Tracking</h4>
+                    <p>Pencarian instan, filter status, filter OPD, dan pagination responsif tanpa reload seluruh halaman.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">💬</span>
+                    <h4>Direct WhatsApp Action</h4>
+                    <p>Tombol hijau resmi untuk petugas teknis menghubungi pelapor dalam 1 klik dengan pesan template otomatis.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🛠️</span>
+                    <h4>Aksi Penanganan Bertahap</h4>
+                    <p>Tombol terpisah "Mulai Tangani" dan "Selesaikan" disertai dialog formulir wajib catatan solusi perbaikan.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📡</span>
+                    <h4>Peta Geospasial Menara BTS</h4>
+                    <p>Visualisasi koordinat satelit menara telekomunikasi berbasis Leaflet.js dengan detail provider dan tinggi tower.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🖥️</span>
+                    <h4>Inventarisasi Aset TI</h4>
+                    <p>Pencatatan spesifikasi hardware kantor, kondisi (Baik/Rusak), nomor seri, dan penanggung jawab ruangan.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🗺️</span>
+                    <h4>Master Wilayah Berjenjang</h4>
+                    <p>Hierarki terstruktur Kecamatan, Nagari, dan Jorong yang otomatis terintegrasi dengan data menara dan OPD.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🌓</span>
+                    <h4>Mode Gelap & Contrast Guard</h4>
+                    <p>Dukungan tema gelap/terang ramah mata dengan proteksi kontras tinggi khusus pada input kata sandi.</p>
                 </div>
             </div>
         </div>
 
         <!-- BAB III -->
-        <div class="chapter-card">
+        <div class="chapter-card" id="bab3">
             <div class="chapter-header">
-                <div class="chapter-icon"><i class="fas fa-toolbox"></i></div>
-                <div class="chapter-title">BAB III: Panduan Petugas Teknis (Filament Backend)</div>
+                <div class="chapter-icon"><i class="fas fa-paper-plane"></i></div>
+                <div class="chapter-title">BAB III: PANDUAN ALUR CARA LAPOR (USER OPD)</div>
             </div>
+
+            <h3>3.1 Diagram Alur Pelaporan Pengguna (Visual Workflow)</h3>
             <p>
-                Petugas teknis Diskominfo mengelola antrean aduan melalui panel admin <code>/admin</code> dengan alur kerja terstruktur:
+                Berikut adalah diagram urutan proses pelaporan aduan dari pengajuan awal pegawai OPD hingga penyelesaian oleh petugas Diskominfo:
+            </p>
+
+            <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor Pegawai as Pegawai OPD (Pelapor)
+    participant Web as Portal Frontend Livewire
+    participant DB as Basis Data (MySQL)
+    actor Petugas as Petugas Teknis Diskominfo
+    participant Admin as Panel Filament Backend
+
+    Pegawai->>Web: 1. Akses Menu "Buat Laporan"
+    alt Belum Login
+        Web-->>Pegawai: Alihkan ke Registrasi ASN (/admin/register)
+        Pegawai->>Web: 2. Input NIP, Nama, OPD, No. HP, Password
+        Web->>DB: Validasi NIP & Nama Unik, Buat Akun Pengguna
+        Web-->>Pegawai: Login Otomatis & Masuk ke Dashboard
+    end
+
+    Pegawai->>Web: 3. Masuk ke Form Pelaporan (/lapor)
+    Web->>DB: Cek Tiket Berjalan?
+    alt Masih Ada Tiket Belum / Sedang Diproses
+        DB-->>Web: Tiket Aktif Ditemukan
+        Web-->>Pegawai: Kunci Form & Tampilkan Notifikasi Laporan Berjalan
+    else Kuota Terbuka (Tidak Ada Laporan Aktif)
+        Pegawai->>Web: 4. Pilih Jenis Layanan (Gangguan / Koordinasi)
+        Pegawai->>Web: 5. Ketik Uraian Masalah & Unggah Foto Bukti
+        Pegawai->>Web: 6. Tekan Tombol "Kirim Laporan"
+        Web->>DB: Terbitkan Nomor Tiket Unik Otomatis & Simpan Laporan
+        DB-->>Web: Berhasil Simpan
+        Web-->>Pegawai: 7. Tampilkan Nomor Tiket Resmi & Tombol Salin
+    end
+
+    Petugas->>Admin: 8. Login Petugas (/admin) & Buka Menu Laporan
+    Admin->>DB: Ambil Antrean Laporan Baru
+    opt Hubungi Pelapor
+        Petugas->>Pegawai: Klik Tombol WhatsApp untuk Konfirmasi Masalah
+    end
+    Petugas->>Admin: 9. Klik Tombol "Mulai Tangani"
+    Admin->>DB: Ubah Status = "Sedang Diproses", Catat ID Petugas
+    DB-->>Web: Real-time Update Status di Dashboard Pelapor
+
+    Petugas->>Admin: 10. Klik Tombol "Selesaikan" & Tulis Uraian Solusi
+    Admin->>DB: Ubah Status = "Selesai Diproses", Simpan Solusi
+    DB-->>Web: Status Selesai, Batasan Laporan Pegawai Terbuka Kembali
+    Web-->>Pegawai: 11. Pelapor Melihat Uraian Solusi & Dapat Melapor Kembali
+            </div>
+
+            <h3>3.2 Panduan Langkah demi Langkah Pembuatan Laporan</h3>
+            <ol class="steps">
+                <li>
+                    <strong>Registrasi Akun ASN Mandiri</strong><br>
+                    Jika belum memiliki akun, buka tautan <code>https://infrastruktur.sijunjung.go.id/admin/register</code>. Masukkan Nama Lengkap (unik), NIP 18 digit resmi BKN, Asal Perangkat Daerah (OPD), Nomor WhatsApp, Email aktif, dan Password. Tekan Daftar untuk login otomatis.
+                </li>
+                <li>
+                    <strong>Masuk ke Sistem (Login)</strong><br>
+                    Bagi yang telah terdaftar, klik menu <strong>Masuk</strong> di kanan atas atau kunjungi <code>/admin/login</code>. Karena role Anda adalah pegawai OPD, sistem secara otomatis mengarahkan Anda ke Dashboard Daftar Laporan.
+                </li>
+                <li>
+                    <strong>Mengakses Menu "Buat Laporan"</strong><br>
+                    Klik tombol <strong>Buat Laporan</strong> pada header menu atas atau tombol <strong>Buat Laporan Baru</strong> di beranda. Sistem akan memeriksa apakah Anda memiliki laporan aktif.
+                </li>
+                <li>
+                    <strong>Memilih Kategori Layanan</strong><br>
+                    Pilih opsi layanan yang sesuai:
+                    <ul style="margin-top: 6px; padding-left: 18px;">
+                        <li><strong>🔴 Laporan Gangguan:</strong> Kendala koneksi internet mati, kabel LAN putus, printer dinas rusak, atau server aplikasi kantor mati.</li>
+                        <li><strong>🔵 Koordinasi Teknis:</strong> Permohonan bantuan teknis kegiatan video conference pimpinan, setting perangkat jaringan, atau asistensi teknis.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Mengisi Uraian Masalah & Melampirkan Bukti Foto</strong><br>
+                    Data profil Anda (Nama, NIP, OPD, No. HP) otomatis terisi. Jelaskan rincian kendala pada kolom uraian masalah (lokasi ruangan, kronologi kejadian). Unggah foto dokumentasi fisik berkas kendala (format JPG/PNG, maksimal 5 MB).
+                </li>
+                <li>
+                    <strong>Mengirimkan Laporan & Menyimpan Nomor Tiket</strong><br>
+                    Klik tombol <strong>Kirim Laporan</strong>. Sistem akan menerbitkan pop-up dialog <strong>Laporan Berhasil</strong> disertai nomor tiket resmi (contoh: <code>#261107R4M</code>). Klik tombol <strong>Salin Nomor Tiket</strong> untuk menyimpan nomor tiket ke clipboard Anda.
+                </li>
+                <li>
+                    <strong>Memantau Progres Penanganan Tiket</strong><br>
+                    Buka menu <strong>Daftar Laporan</strong> (<code>/list-laporan</code>). Pantau warna status:
+                    <span class="badge badge-red">Belum Diproses</span> &rarr;
+                    <span class="badge badge-yellow">Sedang Diproses</span> (petugas sedang bekerja) &rarr;
+                    <span class="badge badge-green">Selesai Diproses</span> (masalah telah teratasi).
+                </li>
+                <li>
+                    <strong>Laporan Selesai & Pembukaan Kuota Baru</strong><br>
+                    Setelah status tiket berubah menjadi <strong>Selesai Diproses</strong>, Anda dapat melihat uraian tindakan solusi petugas. Batasan pelaporan Anda otomatis dicabut sehingga Anda dapat membuat laporan baru bila diperlukan kembali.
+                </li>
+            </ol>
+
+            <div class="alert-box alert-warning">
+                <strong><i class="fas fa-lock"></i> Kebijakan 1 Laporan Aktif:</strong><br>
+                Sistem mengunci formulir pembuatan laporan baru selama Anda masih memiliki tiket dengan status <em>Belum Diproses</em> atau <em>Sedang Diproses</em>. Hal ini diberlakukan demi efisiensi kerja tim teknis Diskominfo dan mencegah terjadinya tiket ganda.
+            </div>
+        </div>
+
+        <!-- BAB IV -->
+        <div class="chapter-card" id="bab4">
+            <div class="chapter-header">
+                <div class="chapter-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+                <div class="chapter-title">BAB IV: PANDUAN OPERASIONAL PETUGAS & ADMIN</div>
+            </div>
+
+            <p>
+                Petugas teknis dan administrator mengelola operasional sistem melalui antarmuka khusus Filament PHP di <code>/admin</code>.
+            </p>
+
+            <h3>4.1 Struktur Tombol Penanganan Tiket Laporan</h3>
+            <p>
+                Pada menu <strong>Laporan</strong>, setiap tiket dilengkapi tombol aksi modular yang tertata rapi:
             </p>
 
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>Aksi Tombol</th>
-                            <th>Status Prasyarat</th>
-                            <th>Fungsi & Dampak</th>
+                            <th>Tombol Aksi</th>
+                            <th>Warna / Ikon</th>
+                            <th>Kondisi Muncul</th>
+                            <th>Fungsi & Konsekuensi Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><span class="badge badge-success"><i class="fab fa-whatsapp"></i> WhatsApp</span></td>
-                            <td>Kapan saja (jika ada nomor)</td>
-                            <td>Membuka percakapan WhatsApp baru ke nomor pelapor dengan template pesan resmi tiket aduan.</td>
+                            <td><strong>WhatsApp</strong></td>
+                            <td><span class="badge badge-green"><i class="fab fa-whatsapp"></i> Hijau</span></td>
+                            <td>Selalu Aktif</td>
+                            <td>Membuka obrolan WhatsApp dengan nomor kontak pelapor disertai pesan pengantar resmi yang otomatis terisi.</td>
                         </tr>
                         <tr>
-                            <td><span class="badge badge-info"><i class="fas fa-eye"></i> Lihat Detail</span></td>
-                            <td>Kapan saja</td>
-                            <td>Melihat rincian lengkap laporan, kontak pelapor, dan catatan solusi tanpa mengubah status laporan.</td>
+                            <td><strong>Lihat Detail</strong></td>
+                            <td><span class="badge badge-blue"><i class="fas fa-eye"></i> Biru</span></td>
+                            <td>Selalu Aktif</td>
+                            <td>Membuka modal infolist untuk meninjau data lengkap pelapor, uraian masalah, dan foto bukti kendala secara view-only.</td>
                         </tr>
                         <tr>
-                            <td><span class="badge badge-warning"><i class="fas fa-play"></i> Mulai Tangani</span></td>
-                            <td><span class="badge badge-danger">Belum Diproses</span></td>
-                            <td>Mengubah status menjadi <em>Sedang Diproses</em> dan mencatat nama akun petugas yang menangani.</td>
+                            <td><strong>Mulai Tangani</strong></td>
+                            <td><span class="badge badge-yellow"><i class="fas fa-play"></i> Oranye</span></td>
+                            <td>Status: Belum Diproses</td>
+                            <td>Mengubah status tiket menjadi <em>Sedang Diproses</em> dan secara otomatis mencatat ID petugas yang login sebagai penanggung jawab.</td>
                         </tr>
                         <tr>
-                            <td><span class="badge badge-success"><i class="fas fa-check-circle"></i> Selesaikan</span></td>
-                            <td><span class="badge badge-warning">Sedang Diproses</span></td>
-                            <td>Membuka modal input keterangan tindakan perbaikan, lalu mengubah status menjadi <em>Selesai Diproses</em>.</td>
+                            <td><strong>Selesaikan</strong></td>
+                            <td><span class="badge badge-green"><i class="fas fa-check"></i> Hijau</span></td>
+                            <td>Status: Sedang Diproses</td>
+                            <td>Membuka modal formulir tindakan perbaikan. Setelah disimpan, status tiket resmi menjadi <em>Selesai Diproses</em>.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="alert-box alert-success">
-                <strong><i class="fas fa-shield-alt"></i> Keamanan Sandi Petugas:</strong><br>
-                Fitur ganti kata sandi di menu User dilengkapi dengan proteksi anti-autofill dark mode untuk memastikan teks tetap jelas dan kontras tinggi.
-            </div>
-        </div>
-
-        <!-- BAB IV -->
-        <div class="chapter-card">
-            <div class="chapter-header">
-                <div class="chapter-icon"><i class="fas fa-tower-cell"></i></div>
-                <div class="chapter-title">BAB IV: Master Data Infrastruktur & Peta BTS</div>
-            </div>
+            <h3>4.2 Manajemen Pengguna & Reset Sandi</h3>
             <p>
-                Sistem menyediakan modul manajemen data aset strategis Pemerintah Kabupaten Sijunjung:
+                Petugas administrator dapat membantu ASN yang mengalami kendala lupa kata sandi melalui menu <strong>Users</strong> &rarr; Aksi <strong>Ganti Password</strong>.
             </p>
-            <ul style="padding-left: 20px; line-height: 2;">
-                <li><strong>Menara BTS:</strong> Pencatatan data tinggi, jenis konstruksi (Lattice/Monopole), status operasional, dan koordinat satelit yang otomatis tampil pada Peta BTS Leaflet interaktif.</li>
-                <li><strong>Data Wilayah Berjenjang:</strong> Pengelolaan 8 Kecamatan, Nagari, dan Jorong dengan fitur penghitungan akumulasi jumlah penduduk nagari secara otomatis.</li>
-                <li><strong>Peralatan & Inventaris IT:</strong> Rekapitulasi perangkat keras jaringan, server, dan komputer dinas di lingkungan Pemkab Sijunjung.</li>
-            </ul>
+            <div class="alert-box alert-success">
+                <strong><i class="fas fa-shield-halved"></i> Proteksi Kontras Mode Gelap:</strong><br>
+                Seluruh form input kata sandi telah disematkan styling isolasi autofill browser guna mencegah timbulnya latar belakang putih yang membuat teks tidak terbaca saat mode gelap aktif.
+            </div>
         </div>
 
         <!-- BAB V -->
-        <div class="chapter-card">
+        <div class="chapter-card" id="bab5">
+            <div class="chapter-header">
+                <div class="chapter-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="chapter-title">BAB V: KETERANGAN TEKNIS SISTEM & ARSITEKTUR</div>
+            </div>
+
+            <h3>5.1 Spesifikasi Tumpukan Teknologi (Technology Stack)</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Komponen Sistem</th>
+                            <th>Teknologi / Framework</th>
+                            <th>Keterangan Implementasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Backend Core</td>
+                            <td>Laravel 11.x (PHP 8.2+)</td>
+                            <td>Arsitektur MVC, Eloquent ORM, Form Request Validation, Policy Authorization.</td>
+                        </tr>
+                        <tr>
+                            <td>Panel Administrator</td>
+                            <td>Filament PHP 3.x</td>
+                            <td>Resource Tables, Infolists, Modals, Action Notifications, Theme Provider.</td>
+                        </tr>
+                        <tr>
+                            <td>Frontend Portal</td>
+                            <td>Livewire 3.x & Alpine.js</td>
+                            <td>Reactivity component tanpa reload, dynamic filter & search query string.</td>
+                        </tr>
+                        <tr>
+                            <td>Desain Antarmuka</td>
+                            <td>Tailwind CSS</td>
+                            <td>Utility-first responsive design, dual-mode (Light/Dark mode) support.</td>
+                        </tr>
+                        <tr>
+                            <td>Basis Data</td>
+                            <td>MySQL 8.0+ / MariaDB</td>
+                            <td>InnoDB Engine, Foreign Key Constraints, utf8mb4_unicode_ci collation.</td>
+                        </tr>
+                        <tr>
+                            <td>Geospasial Map</td>
+                            <td>Leaflet.js & OpenStreetMap</td>
+                            <td>Visualisasi koordinat Latitude & Longitude menara BTS telekomunikasi.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>5.2 Algoritma Penomoran Tiket Laporan</h3>
+            <p>
+                Nomor tiket di-generate secara otomatis menggunakan formula:
+            </p>
+            <pre>No Tiket = YYMMDD + Random Alphanumeric(4 Karakter)
+Contoh: 261107R4M9</pre>
+            <p>
+                Sistem menjalankan mekanisme *Collision Guard* dengan mengecek keunikan nomor tiket terhadap tabel <code>lapors</code> sebelum menyimpan ke database.
+            </p>
+
+            <h3>5.3 State Machine Siklus Hidup Tiket</h3>
+            <pre>[ Belum Diproses ]
+       │
+       ▼ (Aksi: Mulai Tangani)
+[ Sedang Diproses ] (Tercatat: petugas_id)
+       │
+       ▼ (Aksi: Selesaikan)
+[ Selesai Diproses ] (Tercatat: tindakan solusi, kuota pelapor dibuka)</pre>
+
+            <h3>5.4 Pemeliharaan Sistem & Perintah Artisan</h3>
+            <pre># Kliring Cache Lengkap
+php artisan optimize:clear
+
+# Re-cache untuk Lingkungan Produksi
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Pencadangan Basis Data (Backup)
+mysqldump -u root -p database_sijunjung > backup_$(date +%Y%m%d).sql</pre>
+        </div>
+
+        <!-- BAB VI -->
+        <div class="chapter-card" id="bab6">
+            <div class="chapter-header">
+                <div class="chapter-icon"><i class="fas fa-circle-question"></i></div>
+                <div class="chapter-title">BAB VI: FAQ & PEMECAHAN MASALAH</div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: var(--primary);"><i class="fas fa-question-circle"></i> Q1: Mengapa NIP saya ditolak saat melakukan registrasi?</h4>
+                <p><strong>Jawaban:</strong> Pastikan NIP yang dimasukkan terdiri dari 18 digit angka sesuai format BKN. Jika muncul notifikasi bahwa NIP sudah terdaftar, silakan langsung melakukan login menggunakan akun yang sudah ada.</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: var(--primary);"><i class="fas fa-question-circle"></i> Q2: Mengapa tombol "Buat Laporan Baru" terkunci (disabled)?</h4>
+                <p><strong>Jawaban:</strong> Sistem memberlakukan aturan 1 laporan aktif. Pastikan laporan Anda sebelumnya telah berstatus <strong>Selesai Diproses</strong> oleh petugas Diskominfo sebelum mengajukan aduan baru.</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h4 style="color: var(--primary);"><i class="fas fa-question-circle"></i> Q3: Apakah masyarakat umum non-ASN dapat menggunakan aplikasi ini?</h4>
+                <p><strong>Jawaban:</strong> Aplikasi ini dikhususkan bagi aparatur sipil negara di lingkungan Pemerintah Kabupaten Sijunjung untuk gangguan fasilitas kantor. Pengaduan masyarakat umum dapat disalurkan melalui portal resmi <strong>SP4N-LAPOR!</strong> (lapor.go.id).</p>
+            </div>
+        </div>
+
+        <!-- BAB VII -->
+        <div class="chapter-card" id="bab7">
             <div class="chapter-header">
                 <div class="chapter-icon"><i class="fas fa-phone-volume"></i></div>
-                <div class="chapter-title">BAB V: Layanan Bantuan & Dukungan Teknis</div>
+                <div class="chapter-title">BAB VII: LAYANAN DUKUNGAN & KONTAK DISKOMINFO</div>
             </div>
             <p>
-                Untuk koordinasi darurat dan informasi lebih lanjut, silakan menghubungi Tim Teknis Diskominfo Sijunjung:
+                Untuk koordinasi teknis darurat, pelaporan kendala sistem, atau permohonan pendampingan akun, silakan menghubungi:
             </p>
-            <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-top: 14px;">
+            <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-top: 14px;">
                 <p><strong><i class="fas fa-building text-blue-600 mr-2"></i> Dinas Komunikasi dan Informatika Kabupaten Sijunjung</strong></p>
-                <p><i class="fas fa-map-marker-alt text-red-500 mr-2"></i> Jl. Prof. M. Yamin, SH No. 1, Muaro Sijunjung, Sumatera Barat</p>
-                <p><i class="fas fa-envelope text-amber-500 mr-2"></i> Email: <code>diskominfo@sijunjung.go.id</code></p>
-                <p><i class="fas fa-clock text-green-600 mr-2"></i> Jam Layanan: Senin – Jumat, Pukul 07.30 – 16.00 WIB</p>
+                <p><i class="fas fa-shield-alt text-purple-600 mr-2"></i> Bidang Penyelenggaraan E-Government & Infrastruktur TI</p>
+                <p><i class="fas fa-map-marker-alt text-red-500 mr-2"></i> Jl. Prof. M. Yamin, SH No. 1, Muaro Sijunjung, Sumatera Barat 27511</p>
+                <p><i class="fas fa-globe text-blue-500 mr-2"></i> Portal: <a href="https://infrastruktur.sijunjung.go.id" style="color: var(--primary); font-weight: 600;">https://infrastruktur.sijunjung.go.id</a></p>
+                <p><i class="fas fa-envelope text-amber-500 mr-2"></i> Email: <code>diskominfo@sijunjung.go.id</code> / <code>kominfo@sijunjung.go.id</code></p>
+                <p><i class="fas fa-clock text-green-600 mr-2"></i> Jam Operasional: Senin – Jumat, Pukul 07.30 – 16.00 WIB</p>
             </div>
         </div>
 
         <div class="footer">
-            &copy; 2026 Dinas Komunikasi dan Informatika Kabupaten Sijunjung. Hak Cipta Dilindungi Undang-Undang.
+            &copy; 2026 Dinas Komunikasi dan Informatika Kabupaten Sijunjung. Seluruh Hak Cipta Dilindungi Undang-Undang.
         </div>
 
     </div>
 
 </body>
 </html>
-
