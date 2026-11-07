@@ -178,6 +178,11 @@ class LaporResource extends Resource
 
         return $table
             ->headerActions([
+                Action::make('buatLaporan')
+                    ->label('Buat Laporan Baru')
+                    ->icon('heroicon-o-plus-circle')
+                    ->color('primary')
+                    ->url('/lapor'),
                 Action::make('refresh')
                     ->label('Refresh Data')
                     ->icon('heroicon-o-arrow-path')
@@ -230,8 +235,8 @@ class LaporResource extends Resource
                 Tables\Columns\TextColumn::make('nomor_kontak')
                     ->label('No. Kontak / WA')
                     ->icon('icon-whatsapp')
-                    ->color(fn ($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak) ? 'success' : 'gray')
-                    ->url(fn ($record) => $record->whatsapp_url)
+                    ->color(fn($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak) ? 'success' : 'gray')
+                    ->url(fn($record) => $record->whatsapp_url)
                     ->openUrlInNewTab()
                     ->placeholder('-')
                     ->sortable()
@@ -276,9 +281,9 @@ class LaporResource extends Resource
                     ->label('WhatsApp')
                     ->icon('icon-whatsapp')
                     ->color('success')
-                    ->url(fn ($record) => $record->whatsapp_url)
+                    ->url(fn($record) => $record->whatsapp_url)
                     ->openUrlInNewTab()
-                    ->visible(fn ($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak)),
+                    ->visible(fn($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak)),
 
                 Tables\Actions\Action::make('lihatLaporan')
                     ->label('Lihat Laporan')
@@ -327,7 +332,7 @@ class LaporResource extends Resource
                             ])
                     ])
                     ->action(function ($record) {
-                        if ($record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
+                        if (!auth()->user()->hasRole('pengguna') && $record->status_laporan === StatusLaporan::BELUM_DIPROSES) {
                             $user = Auth::user();
 
                             $record->update([
@@ -344,7 +349,7 @@ class LaporResource extends Resource
                     })
                     ->modalSubmitActionLabel('Tutup')
                     ->modalCancelAction(false)
-                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
+                    ->visible(fn($record) => auth()->user()->hasRole('pengguna') || $record->status_laporan === StatusLaporan::BELUM_DIPROSES)
                     ->closeModalByClickingAway(false)
                     ->closeModalByEscaping(false)
                     ->modalHeading('Detail Laporan')
@@ -378,7 +383,7 @@ class LaporResource extends Resource
                         // Modal akan tertutup otomatis setelah action selesai
                         return true;
                     })
-                    ->visible(fn($record) => $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
+                    ->visible(fn($record) => !auth()->user()->hasRole('pengguna') && $record->status_laporan === StatusLaporan::SEDANG_DIPROSES)
                     ->closeModalByClickingAway(false)
                     ->closeModalByEscaping(false)
                     ->modalHeading('Proses Laporan')
@@ -417,8 +422,23 @@ class LaporResource extends Resource
         return view('lapor.index');
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (auth()->check() && auth()->user()->hasRole('pengguna')) {
+            $query->where('user_id', auth()->id());
+        }
+
+        return $query;
+    }
+
     public static function getNavigationBadge(): ?string
     {
+        if (auth()->check() && auth()->user()->hasRole('pengguna')) {
+            return (string) \App\Models\Lapor::where('user_id', auth()->id())->count();
+        }
+
         return \App\Models\Lapor::getCount();
     }
 }

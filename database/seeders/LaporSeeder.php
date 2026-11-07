@@ -17,11 +17,14 @@ class LaporSeeder extends Seeder
         // Hapus data lama
         Lapor::query()->delete();
 
-        $petugas1 = User::where('email', 'petugas1@gmail.com')->first();
-        $petugas2 = User::where('email', 'petugas2@gmail.com')->first();
+        // Ambil data user sekaligus untuk efisiensi query
+        $users = User::query()->get()->keyBy('email');
+
+        $petugas1 = $users->get('petugas1@gmail.com');
+        $petugas2 = $users->get('petugas2@gmail.com');
 
         // 1. Ahmad Fauzi (Diskominfo)
-        $user1 = User::where('email', 'ahmad.fauzi@sijunjung.go.id')->first();
+        $user1 = $users->get('ahmad.fauzi@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user1?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -39,7 +42,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 2. Rudi Hartono (PUPR)
-        $user2 = User::where('email', 'rudi.hartono@sijunjung.go.id')->first();
+        $user2 = $users->get('rudi.hartono@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user2?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -57,7 +60,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 3. Siti Rahma (Dinas Pendidikan)
-        $user3 = User::where('email', 'siti.rahma@sijunjung.go.id')->first();
+        $user3 = $users->get('siti.rahma@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user3?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -75,7 +78,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 4. dr. Budi Santoso (Dinas Kesehatan)
-        $user4 = User::where('email', 'budi.santoso@sijunjung.go.id')->first();
+        $user4 = $users->get('budi.santoso@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user4?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -93,7 +96,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 5. Dewi Sartika (Dinas Sosial)
-        $user5 = User::where('email', 'dewi.sartika@sijunjung.go.id')->first();
+        $user5 = $users->get('dewi.sartika@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user5?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -111,7 +114,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 6. Andi Wijaya (Dinas Pertanian)
-        $user6 = User::where('email', 'andi.wijaya@sijunjung.go.id')->first();
+        $user6 = $users->get('andi.wijaya@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user6?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -129,7 +132,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 7. Maya Sari (Dinas Pariwisata)
-        $user7 = User::where('email', 'maya.sari@sijunjung.go.id')->first();
+        $user7 = $users->get('maya.sari@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user7?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -147,7 +150,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 8. Hendra Gunawan (Dinas Lingkungan Hidup)
-        $user8 = User::where('email', 'hendra.gunawan@sijunjung.go.id')->first();
+        $user8 = $users->get('hendra.gunawan@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user8?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -165,7 +168,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 9. Ratna Dewi (Dukcapil)
-        $user9 = User::where('email', 'ratna.dewi@sijunjung.go.id')->first();
+        $user9 = $users->get('ratna.dewi@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user9?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),
@@ -183,7 +186,7 @@ class LaporSeeder extends Seeder
         ]);
 
         // 10. Agus Salim (Dishub)
-        $user10 = User::where('email', 'agus.salim@sijunjung.go.id')->first();
+        $user10 = $users->get('agus.salim@sijunjung.go.id');
         Lapor::create([
             'user_id' => $user10?->id,
             'no_tiket' => 'TIK-' . date('Ymd') . '-' . Str::random(5),

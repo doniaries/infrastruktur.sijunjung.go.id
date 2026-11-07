@@ -23,6 +23,10 @@ class LaporPolicy
      */
     public function view(User $user, Lapor $lapor): bool
     {
+        if ($user->hasRole('pengguna')) {
+            return $user->can('view_lapor') && (int) $lapor->user_id === (int) $user->id;
+        }
+
         return $user->can('view_lapor');
     }
 
@@ -39,6 +43,10 @@ class LaporPolicy
      */
     public function update(User $user, Lapor $lapor): bool
     {
+        if ($user->hasRole('pengguna')) {
+            return false;
+        }
+
         return $user->can('update_lapor');
     }
 
@@ -47,6 +55,10 @@ class LaporPolicy
      */
     public function delete(User $user, Lapor $lapor): bool
     {
+        if ($user->hasRole('pengguna')) {
+            return false;
+        }
+
         return $user->can('delete_lapor');
     }
 
@@ -55,6 +67,10 @@ class LaporPolicy
      */
     public function deleteAny(User $user): bool
     {
+        if ($user->hasRole('pengguna')) {
+            return false;
+        }
+
         return $user->can('delete_any_lapor');
     }
 
