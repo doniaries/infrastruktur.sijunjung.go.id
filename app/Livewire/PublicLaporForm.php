@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Lapor;
 use App\Models\Opd;
+use App\Enums\StatusLaporan;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -40,11 +41,34 @@ class PublicLaporForm extends Component
     // State
     public bool $isSubmitted = false;
     public string $submittedNoTiket = '';
+    public ?Lapor $activeLapor = null;
+    public bool $hasActiveLapor = false;
+
+    public function checkActiveLapor(): void
+    {
+        if (Auth::check()) {
+            $this->activeLapor = Lapor::query()
+                ->where('user_id', Auth::id())
+                ->whereIn('status_laporan', [
+                    StatusLaporan::BELUM_DIPROSES,
+                    StatusLaporan::SEDANG_DIPROSES,
+                ])
+                ->latest()
+                ->first();
+
+            $this->hasActiveLapor = $this->activeLapor !== null;
+        } else {
+            $this->activeLapor = null;
+            $this->hasActiveLapor = false;
+        }
+    }
 
     public function mount(): void
     {
         $this->no_tiket = $this->generateNoTiket();
         $this->tgl_laporan = Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s');
+
+        $this->checkActiveLapor();
 
         if (Auth::check()) {
             $this->step = 2;
@@ -79,7 +103,7 @@ class PublicLaporForm extends Component
     {
         if ($this->step === 1 && !Auth::check()) {
             $this->validate([
-                'nama_pelapor' => 'required|min:3|max:255',
+                'nama_pelapor' => 'required|min:3|max:255|unique:users,name',
                 'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
                 'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
@@ -87,6 +111,7 @@ class PublicLaporForm extends Component
                 'opd_id' => 'required|exists:opds,id',
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
+                'nama_pelapor.unique' => 'Nama lengkap sudah terdaftar. Silakan login jika sudah memiliki akun.',
                 'nomor_kontak.required' => 'Nomor kontak wajib diisi.',
                 'nomor_kontak.numeric' => 'Nomor kontak hanya boleh berisi angka.',
                 'nomor_kontak.digits_between' => 'Nomor kontak minimal 10 digit dan maksimal 15 digit.',
@@ -114,10 +139,17 @@ class PublicLaporForm extends Component
 
     public function submit(): void
     {
+        // Cegah pembuatan laporan jika masih memiliki laporan aktif yang belum selesai
+        $this->checkActiveLapor();
+        if ($this->hasActiveLapor) {
+            session()->flash('error', "Anda masih memiliki laporan aktif dengan Nomor Tiket #{$this->activeLapor->no_tiket} (Status: {$this->activeLapor->status_laporan->getLabel()}). Anda baru dapat membuat laporan baru setelah laporan tersebut diselesaikan oleh petugas.");
+            return;
+        }
+
         // Validasi data pelapor jika belum login
         if (!Auth::check()) {
             $this->validate([
-                'nama_pelapor' => 'required|min:3|max:255',
+                'nama_pelapor' => 'required|min:3|max:255|unique:users,name',
                 'nomor_kontak' => 'required|numeric|digits_between:10,15|unique:users,no_kontak',
                 'email' => 'required|email|unique:users,email',
                 'nip' => 'required|unique:users,nip',
@@ -127,6 +159,7 @@ class PublicLaporForm extends Component
                 'uraian_laporan' => 'required|min:10',
             ], [
                 'nama_pelapor.required' => 'Nama lengkap wajib diisi.',
+                'nama_pelapor.unique' => 'Nama lengkap sudah terdaftar. Silakan login jika sudah memiliki akun.',
                 'nomor_kontak.required' => 'Nomor kontak wajib diisi.',
                 'nomor_kontak.numeric' => 'Nomor kontak hanya boleh berisi angka.',
                 'nomor_kontak.digits_between' => 'Nomor kontak minimal 10 digit dan maksimal 15 digit.',
@@ -164,7 +197,7 @@ class PublicLaporForm extends Component
                         'email' => $this->email,
                         'password' => bcrypt($this->password),
                     ]);
-                    $user->assignRole('pelapor');
+                    $user->assignRole('pengguna');
                     Auth::login($user);
                 }
 

@@ -35,6 +35,7 @@ class UserResource extends Resource
                     ->prefixIcon('heroicon-m-user')
                     ->placeholder('Nama Lengkap')
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('nip')
                     ->label('Nomor Induk Pegawai (NIP)')

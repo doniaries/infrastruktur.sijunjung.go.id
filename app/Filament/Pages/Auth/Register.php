@@ -47,9 +47,14 @@ class Register extends BaseRegister
             ->label('Nama Lengkap')
             ->placeholder('Nama Lengkap ASN beserta Gelar')
             ->required()
+            ->unique($this->getUserModel(), 'name')
             ->maxLength(255)
             ->autofocus()
-            ->prefixIcon('heroicon-m-user');
+            ->prefixIcon('heroicon-m-user')
+            ->validationMessages([
+                'required' => 'Nama lengkap wajib diisi.',
+                'unique' => 'Nama lengkap sudah terdaftar. Pastikan nama sesuai identitas resmi.',
+            ]);
     }
 
     protected function getNipFormComponent(): Component

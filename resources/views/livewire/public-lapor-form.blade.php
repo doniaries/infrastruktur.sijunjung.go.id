@@ -109,8 +109,82 @@
                     </div>
                 @endif
 
-                {{-- Form Wizard --}}
-                <div class="max-w-2xl mx-auto">
+                @if ($hasActiveLapor && $activeLapor)
+                    {{-- Banner Laporan Masih Aktif / Belum Selesai --}}
+                    <div class="max-w-2xl mx-auto my-6">
+                        <div class="relative overflow-hidden rounded-2xl border-2 border-amber-400/50 dark:border-amber-500/30 bg-gradient-to-b from-amber-50/80 to-white dark:from-gray-800 dark:to-gray-900 p-6 sm:p-8 shadow-xl">
+                            <div class="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl"></div>
+
+                            <div class="flex items-start gap-4 mb-6">
+                                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl shrink-0 shadow-sm">
+                                    <i class="fas fa-hourglass-half animate-pulse"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">Laporan Anda Sedang Ditangani</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                        Untuk mencegah duplikasi laporan, Anda hanya dapat memiliki <strong>1 laporan aktif</strong> dalam satu waktu sampai laporan sebelumnya selesai diproses oleh tim teknis Diskominfo.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Detail Laporan yang Sedang Berjalan --}}
+                            <div class="bg-white dark:bg-gray-800/90 rounded-xl p-5 border border-amber-200 dark:border-gray-700 shadow-sm space-y-3 mb-6">
+                                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-100 dark:border-gray-700">
+                                    <div>
+                                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">Nomor Tiket</span>
+                                        <span class="text-lg font-black font-mono text-blue-600 dark:text-blue-400">#{{ $activeLapor->no_tiket }}</span>
+                                    </div>
+                                    <span @class([
+                                        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold',
+                                        'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300' => $activeLapor->status_laporan === \App\Enums\StatusLaporan::BELUM_DIPROSES,
+                                        'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' => $activeLapor->status_laporan === \App\Enums\StatusLaporan::SEDANG_DIPROSES,
+                                    ])>
+                                        <i @class([
+                                            'fas',
+                                            'fa-clock' => $activeLapor->status_laporan === \App\Enums\StatusLaporan::BELUM_DIPROSES,
+                                            'fa-spinner fa-spin' => $activeLapor->status_laporan === \App\Enums\StatusLaporan::SEDANG_DIPROSES,
+                                        ])></i>
+                                        {{ $activeLapor->status_laporan->getLabel() }}
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                                    <div>
+                                        <span class="text-gray-400 block">Jenis Laporan:</span>
+                                        <span class="font-semibold text-gray-800 dark:text-gray-200">{{ $activeLapor->jenis_laporan->getLabel() }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-400 block">Tanggal Pengajuan:</span>
+                                        <span class="font-semibold text-gray-800 dark:text-gray-200">{{ \Carbon\Carbon::parse($activeLapor->tgl_laporan)->translatedFormat('d F Y, H:i') }} WIB</span>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 text-xs">
+                                    <span class="text-gray-400 block mb-1">Uraian Masalah:</span>
+                                    <p class="text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border border-gray-100 dark:border-gray-800 line-clamp-3">
+                                        {{ $activeLapor->uraian_laporan }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{-- Tombol Aksi --}}
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <a href="{{ url('/list-laporan?ticket=' . $activeLapor->no_tiket) }}"
+                                    class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-md shadow-blue-500/20 active:scale-95 text-sm flex-1">
+                                    <i class="fas fa-list-check"></i>
+                                    Pantau Status di Dashboard
+                                </a>
+                                <a href="{{ url('/') }}"
+                                    class="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold rounded-xl transition-all text-sm">
+                                    <i class="fas fa-arrow-left"></i>
+                                    Beranda
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    {{-- Form Wizard --}}
+                    <div class="max-w-2xl mx-auto">
 
                     {{-- Wizard Step Indicators (hanya jika user belum login) --}}
                     @if (!auth()->check())
@@ -473,6 +547,7 @@
 
                     </form>
                 </div>
+                @endif
                 {{-- Error Modal Popup --}}
                 @if (session()->has('error'))
                     <div x-data="{ open: true }" x-show="open"
