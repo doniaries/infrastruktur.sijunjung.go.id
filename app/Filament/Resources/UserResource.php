@@ -34,9 +34,29 @@ class UserResource extends Resource
                     ->label('Nama Lengkap')
                     ->prefixIcon('heroicon-m-user')
                     ->placeholder('Nama Lengkap')
-                    ->unique(ignoreRecord: true)
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('nip')
+                    ->label('Nomor Induk Pegawai (NIP)')
+                    ->prefixIcon('heroicon-m-identification')
+                    ->placeholder('18 digit NIP')
+                    ->numeric()
+                    ->rule('digits:18')
+                    ->unique(ignoreRecord: true)
+                    ->maxLength(18),
+                Forms\Components\Select::make('opd_id')
+                    ->label('Asal OPD')
+                    ->prefixIcon('heroicon-m-building-office')
+                    ->relationship('opd', 'nama')
+                    ->searchable()
+                    ->preload(),
+                Forms\Components\TextInput::make('no_kontak')
+                    ->label('Nomor Kontak / WhatsApp')
+                    ->prefixIcon('heroicon-m-phone')
+                    ->placeholder('Contoh: 081234567890')
+                    ->tel()
+                    ->rule('digits_between:10,15')
+                    ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->placeholder('email')
@@ -71,9 +91,26 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['roles', 'opd']))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Lengkap')
                     ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('nip')
+                    ->label('NIP')
+                    ->placeholder('-')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('opd.nama')
+                    ->label('Asal OPD')
+                    ->placeholder('-')
+                    ->sortable()
+                    ->searchable()
+                    ->wrap(),
+                Tables\Columns\TextColumn::make('no_kontak')
+                    ->label('No. Kontak')
+                    ->placeholder('-')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->copyable()

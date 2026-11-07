@@ -24,6 +24,7 @@ class User extends Authenticatable implements FilamentUser
         'is_active',
         'no_kontak',
         'nip',
+        'opd_id',
     ];
 
 
@@ -47,6 +48,11 @@ class User extends Authenticatable implements FilamentUser
     public function laporans()
     {
         return $this->hasMany(Lapor::class, 'user_id');
+    }
+
+    public function opd(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Opd::class, 'opd_id');
     }
 
 

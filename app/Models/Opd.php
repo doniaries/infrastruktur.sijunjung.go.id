@@ -29,6 +29,11 @@ class Opd extends Model
         });
     }
 
+    public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(User::class, 'opd_id');
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->where('nama', 'like', "%{$search}%");

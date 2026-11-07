@@ -19,6 +19,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Auth\Register;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Filament\Navigation\NavigationItem;
 
@@ -35,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('images/kabupaten-sijunjung.png'))
             ->brandName('Infrastruktur TI')
             ->login(Login::class)
-            // ->registration()
+            ->registration(Register::class)
             ->navigationItems([
                 NavigationItem::make('Lihat Website')
                     ->url('/', shouldOpenInNewTab: true)

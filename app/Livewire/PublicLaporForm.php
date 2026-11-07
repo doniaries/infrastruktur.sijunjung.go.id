@@ -50,10 +50,16 @@ class PublicLaporForm extends Component
             $this->step = 2;
             $this->totalSteps = 1;
             
-            // Ambil OPD dari laporan terakhir user
-            $lastLapor = \App\Models\Lapor::where('user_id', '=', Auth::id())->latest()->first();
-            if ($lastLapor) {
-                $this->opd_id = $lastLapor->opd_id;
+            // Ambil OPD dari profile user atau laporan terakhir
+            /** @var \App\Models\User $currentUser */
+            $currentUser = Auth::user();
+            if ($currentUser->opd_id) {
+                $this->opd_id = $currentUser->opd_id;
+            } else {
+                $lastLapor = \App\Models\Lapor::where('user_id', '=', Auth::id())->latest()->first();
+                if ($lastLapor) {
+                    $this->opd_id = $lastLapor->opd_id;
+                }
             }
         } else {
             $this->step = 1;
@@ -154,6 +160,7 @@ class PublicLaporForm extends Component
                         'name' => $this->nama_pelapor,
                         'no_kontak' => $this->nomor_kontak,
                         'nip' => $this->nip,
+                        'opd_id' => $this->opd_id,
                         'email' => $this->email,
                         'password' => bcrypt($this->password),
                     ]);
