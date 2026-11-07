@@ -51,9 +51,21 @@
                                 <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari laporan..."
                                     class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white sm:text-sm transition-all duration-200">
                             </div>
-                            <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap">
-                                <i class="fas fa-plus mr-2 text-xs"></i> Laporan Baru
-                            </a>
+                            @if (Auth::check() && Auth::user()->hasActiveLapor())
+                                <button disabled
+                                    class="inline-flex items-center px-4 py-2.5 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-bold rounded-lg cursor-not-allowed opacity-75 whitespace-nowrap shadow-sm"
+                                    title="Anda masih memiliki laporan aktif yang sedang diproses. Selesaikan laporan ini sebelum membuat laporan baru.">
+                                    <i class="fas fa-lock mr-2 text-xs"></i> Laporan Baru
+                                </button>
+                            @elseif (!Auth::check())
+                                <a href="{{ url('/admin/register') }}" class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-plus mr-2 text-xs"></i> Laporan Baru
+                                </a>
+                            @else
+                                <a href="{{ route('public.laporform') }}" class="inline-flex items-center px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-plus mr-2 text-xs"></i> Laporan Baru
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

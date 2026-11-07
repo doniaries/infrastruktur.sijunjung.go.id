@@ -8,6 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasCachedCount;
+use App\Enums\StatusLaporan;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\HasDatabaseNotifications;
@@ -48,6 +49,22 @@ class User extends Authenticatable implements FilamentUser
     public function laporans()
     {
         return $this->hasMany(Lapor::class, 'user_id');
+    }
+
+    public function getActiveLapor(): ?Lapor
+    {
+        return $this->hasMany(Lapor::class, 'user_id')
+            ->whereIn('status_laporan', [
+                StatusLaporan::BELUM_DIPROSES,
+                StatusLaporan::SEDANG_DIPROSES,
+            ])
+            ->latest()
+            ->first();
+    }
+
+    public function hasActiveLapor(): bool
+    {
+        return $this->getActiveLapor() !== null;
     }
 
     public function opd(): \Illuminate\Database\Eloquent\Relations\BelongsTo

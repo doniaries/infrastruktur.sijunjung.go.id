@@ -103,11 +103,26 @@
                     </a>
                 </div>
                 <div class="dropdown relative">
-                    <a href="{{ route('public.laporform') }}"
-                        class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
-                        <i class="fas fa-exclamation-circle mr-2"></i>
-                        Buat Laporan
-                    </a>
+                    @if (Auth::check() && Auth::user()->hasActiveLapor())
+                        <span
+                            class="nav-link text-gray-400 dark:text-gray-500 px-4 py-2 flex items-center rounded-lg cursor-not-allowed opacity-60"
+                            title="Anda masih memiliki laporan aktif yang sedang diproses.">
+                            <i class="fas fa-clock text-amber-500 mr-2"></i>
+                            Laporan Diproses
+                        </span>
+                    @elseif (!Auth::check())
+                        <a href="{{ url('/admin/register') }}"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Buat Laporan
+                        </a>
+                    @else
+                        <a href="{{ route('public.laporform') }}"
+                            class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Buat Laporan
+                        </a>
+                    @endif
                 </div>
             </div>
 
@@ -203,11 +218,20 @@
                                     <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                                     Dashboard Laporan
                                 </a>
-                                <a href="{{ route('public.laporform') }}"
-                                    class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
-                                    <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
-                                    Buat Laporan Baru
-                                </a>
+                                @if (Auth::user()->hasActiveLapor())
+                                    <span
+                                        class="flex px-4 py-2.5 text-gray-400 items-center cursor-not-allowed opacity-60 text-xs"
+                                        title="Laporan Anda masih diproses. Selesaikan terlebih dahulu untuk membuat laporan baru.">
+                                        <i class="fas fa-ban text-gray-400 mr-3 w-5 text-center"></i>
+                                        Buat Laporan (Diproses)
+                                    </span>
+                                @else
+                                    <a href="{{ route('public.laporform') }}"
+                                        class="flex px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 items-center transition-colors duration-200">
+                                        <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
+                                        Buat Laporan Baru
+                                    </a>
+                                @endif
                             @endif
                             <div class="border-t border-gray-100 my-1"></div>
                             <form method="POST" action="{{ route('logout') }}">
@@ -283,11 +307,26 @@
                 <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                 Daftar Laporan
             </a>
-            <a href="{{ route('public.laporform') }}"
-                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
-                <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
-                Buat Laporan
-            </a>
+            @if (Auth::check() && Auth::user()->hasActiveLapor())
+                <span
+                    class="px-4 py-3 rounded-lg text-base font-medium text-gray-400 dark:text-gray-500 flex items-center opacity-60 cursor-not-allowed"
+                    title="Laporan Anda masih diproses.">
+                    <i class="fas fa-clock text-amber-500 mr-3 w-5 text-center"></i>
+                    Laporan Diproses
+                </span>
+            @elseif (!Auth::check())
+                <a href="{{ url('/admin/register') }}"
+                    class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                    <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
+                    Buat Laporan
+                </a>
+            @else
+                <a href="{{ route('public.laporform') }}"
+                    class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                    <i class="fas fa-exclamation-circle text-blue-500 mr-3 w-5 text-center"></i>
+                    Buat Laporan
+                </a>
+            @endif
             <details class="group">
                 <summary
                     class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200 cursor-pointer list-none">
@@ -344,11 +383,19 @@
                             <i class="fas fa-clipboard-list text-blue-500 mr-3 w-5 text-center"></i>
                             Dashboard Laporan
                         </a>
-                        <a href="{{ route('public.laporform') }}"
-                            class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
-                            <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
-                            Buat Laporan Baru
-                        </a>
+                        @if (Auth::user()->hasActiveLapor())
+                            <span
+                                class="px-4 py-3 rounded-lg text-base font-medium text-gray-400 dark:text-gray-500 flex items-center opacity-60 cursor-not-allowed">
+                                <i class="fas fa-ban text-gray-400 mr-3 w-5 text-center"></i>
+                                Buat Laporan (Diproses)
+                            </span>
+                        @else
+                            <a href="{{ route('public.laporform') }}"
+                                class="px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 flex items-center transition-colors duration-200">
+                                <i class="fas fa-plus-circle text-green-500 mr-3 w-5 text-center"></i>
+                                Buat Laporan Baru
+                            </a>
+                        @endif
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

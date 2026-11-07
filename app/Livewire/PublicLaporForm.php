@@ -63,31 +63,30 @@ class PublicLaporForm extends Component
         }
     }
 
-    public function mount(): void
+    public function mount()
     {
+        if (!Auth::check()) {
+            return $this->redirect('/admin/register');
+        }
+
         $this->no_tiket = $this->generateNoTiket();
         $this->tgl_laporan = Carbon::now('Asia/Jakarta')->format('Y-m-d H:i:s');
 
         $this->checkActiveLapor();
 
-        if (Auth::check()) {
-            $this->step = 2;
-            $this->totalSteps = 1;
-            
-            // Ambil OPD dari profile user atau laporan terakhir
-            /** @var \App\Models\User $currentUser */
-            $currentUser = Auth::user();
-            if ($currentUser->opd_id) {
-                $this->opd_id = $currentUser->opd_id;
-            } else {
-                $lastLapor = \App\Models\Lapor::where('user_id', '=', Auth::id())->latest()->first();
-                if ($lastLapor) {
-                    $this->opd_id = $lastLapor->opd_id;
-                }
-            }
+        $this->step = 2;
+        $this->totalSteps = 1;
+        
+        // Ambil OPD dari profile user atau laporan terakhir
+        /** @var \App\Models\User $currentUser */
+        $currentUser = Auth::user();
+        if ($currentUser->opd_id) {
+            $this->opd_id = $currentUser->opd_id;
         } else {
-            $this->step = 1;
-            $this->totalSteps = 2;
+            $lastLapor = \App\Models\Lapor::where('user_id', '=', Auth::id())->latest()->first();
+            if ($lastLapor) {
+                $this->opd_id = $lastLapor->opd_id;
+            }
         }
     }
 
