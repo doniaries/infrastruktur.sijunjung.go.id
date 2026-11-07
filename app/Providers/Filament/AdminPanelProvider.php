@@ -22,6 +22,8 @@ use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\Register;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Filament\Navigation\NavigationItem;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\HtmlString;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -113,8 +115,32 @@ class AdminPanelProvider extends PanelProvider
             // ->databaseNotificationsPolling('30s')
             ->authMiddleware([
                 Authenticate::class,
-
-            ])->plugins([
+            ])
+            ->renderHook(
+                PanelsRenderHook::HEAD_END,
+                fn (): HtmlString => new HtmlString('
+                    <style>
+                        /* Fix browser autofill & dark mode input text visibility */
+                        .dark input:-webkit-autofill,
+                        .dark input:-webkit-autofill:hover,
+                        .dark input:-webkit-autofill:focus,
+                        .dark input:-webkit-autofill:active {
+                            -webkit-box-shadow: 0 0 0 1000px #1e293b inset !important;
+                            -webkit-text-fill-color: #ffffff !important;
+                            caret-color: #ffffff !important;
+                            transition: background-color 5000s ease-in-out 0s;
+                        }
+                        .dark .fi-input-wrp input {
+                            background-color: transparent !important;
+                            color: #ffffff !important;
+                        }
+                        html:not(.dark) .fi-input-wrp input {
+                            color: #111827 !important;
+                        }
+                    </style>
+                ')
+            )
+            ->plugins([
                 FilamentBackgroundsPlugin::make(),
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 \MarcoGermani87\FilamentCaptcha\FilamentCaptcha::make(),

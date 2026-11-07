@@ -174,8 +174,12 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('Change Password')
+                    ->label('Ganti Password')
                     ->authorize('update')
                     ->icon('heroicon-o-key')
+                    ->modalHeading('Ganti Password')
+                    ->modalDescription('Masukkan password baru untuk akun pengguna ini.')
+                    ->modalSubmitActionLabel('Simpan Password')
                     ->visible(
                         fn($record) =>
                         auth()->user()->hasRole('super_admin') ||
@@ -183,15 +187,27 @@ class UserResource extends Resource
                     )
                     ->form([
                         Forms\Components\TextInput::make('password')
+                            ->label('Password Baru')
+                            ->placeholder('Masukkan password baru')
                             ->required()
                             ->revealable()
                             ->password()
+                            ->autocomplete('new-password')
                             ->rule(Password::default())
-                            ->same('passwordConfirmation'),
+                            ->same('passwordConfirmation')
+                            ->extraInputAttributes([
+                                'class' => '!text-gray-900 dark:!text-white !bg-transparent',
+                            ]),
                         Forms\Components\TextInput::make('passwordConfirmation')
+                            ->label('Konfirmasi Password')
+                            ->placeholder('Ulangi password baru')
                             ->required()
                             ->revealable()
-                            ->password(),
+                            ->password()
+                            ->autocomplete('new-password')
+                            ->extraInputAttributes([
+                                'class' => '!text-gray-900 dark:!text-white !bg-transparent',
+                            ]),
                     ])
                     ->action(function (User $user, array $data) {
                         $user->update(['password' => Hash::make($data['password'])]);
