@@ -51,6 +51,12 @@
                             Buat Laporan Baru
                         </a>
                     @endif
+
+                    <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                        class="inline-flex items-center gap-2 px-6 py-3.5 text-base sm:text-lg font-bold text-emerald-800 dark:text-emerald-200 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 border border-emerald-300 dark:border-emerald-700/60 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                        <i class="fas fa-book-open text-emerald-600 dark:text-emerald-400"></i>
+                        Manual Aplikasi (eBook)
+                    </a>
                 </div>
 
             </div>

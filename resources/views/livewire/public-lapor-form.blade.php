@@ -5,7 +5,7 @@
 
                 {{-- Title Section --}}
                 <div class="flex justify-center mb-8">
-                    <div class="inline-flex flex-col items-center justify-center">
+                    <div class="inline-flex flex-col items-center justify-center text-center">
                         <div class="inline-flex items-center px-6 py-3 bg-blue-700 text-white font-black rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 border border-blue-800/20"
                             style="background: linear-gradient(to right, #2563eb, #4338ca);">
                             <i class="fas fa-file-signature mr-3 text-xl text-white"></i>
@@ -13,6 +13,14 @@
                         </div>
                         <p class="mt-4 text-sm font-medium text-gray-600 dark:text-gray-400">Isi data laporan dengan
                             lengkap dan benar untuk mempercepat penanganan.</p>
+                        <div class="mt-3">
+                            <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 dark:hover:bg-emerald-900/60 border border-emerald-200 dark:border-emerald-800 transition-all duration-200 shadow-sm hover:shadow">
+                                <i class="fas fa-book-open text-emerald-600 dark:text-emerald-400"></i>
+                                <span>Butuh Bantuan? Buka <strong>Buku Manual & Panduan Pengguna (eBook)</strong></span>
+                                <i class="fas fa-external-link-alt text-[10px] ml-1 opacity-70"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

@@ -102,27 +102,91 @@
                         Daftar Laporan
                     </a>
                 </div>
-                <div class="dropdown relative">
+                <div class="dropdown relative group">
                     @if (Auth::check() && Auth::user()->hasActiveLapor())
-                        <span
-                            class="nav-link text-gray-400 dark:text-gray-500 px-4 py-2 flex items-center rounded-lg cursor-not-allowed opacity-60"
-                            title="Anda masih memiliki laporan aktif yang sedang diproses.">
-                            <i class="fas fa-clock text-amber-500 mr-2"></i>
-                            Laporan Diproses
-                        </span>
+                        <div class="flex items-center">
+                            <span
+                                class="nav-link text-gray-400 dark:text-gray-500 px-3 py-2 flex items-center rounded-lg cursor-not-allowed opacity-60"
+                                title="Anda masih memiliki laporan aktif yang sedang diproses.">
+                                <i class="fas fa-clock text-amber-500 mr-2"></i>
+                                Buat Laporan
+                                <i class="fas fa-chevron-down ml-1.5 text-xs opacity-60 group-hover:rotate-180 transition-transform duration-200"></i>
+                            </span>
+                        </div>
                     @elseif (!Auth::check())
                         <a href="{{ url('/admin/register') }}"
                             class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
-                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <i class="fas fa-exclamation-circle mr-2 text-blue-500"></i>
                             Buat Laporan
+                            <i class="fas fa-chevron-down ml-1.5 text-xs opacity-60 group-hover:rotate-180 transition-transform duration-200"></i>
                         </a>
                     @else
                         <a href="{{ route('public.laporform') }}"
                             class="nav-link text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-4 py-2 flex items-center rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200">
-                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <i class="fas fa-exclamation-circle mr-2 text-blue-500"></i>
                             Buat Laporan
+                            <i class="fas fa-chevron-down ml-1.5 text-xs opacity-60 group-hover:rotate-180 transition-transform duration-200"></i>
                         </a>
                     @endif
+
+                    <div
+                        class="dropdown-menu absolute left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-2 z-50 opacity-0 invisible transition-all duration-300 transform -translate-y-2 border border-gray-100 dark:border-gray-700 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
+                        <div
+                            class="px-4 py-1.5 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Layanan Pelaporan
+                        </div>
+                        @if (Auth::check() && Auth::user()->hasActiveLapor())
+                            <span
+                                class="flex px-4 py-2.5 text-gray-400 dark:text-gray-500 items-center text-sm cursor-not-allowed opacity-75">
+                                <i class="fas fa-ban text-amber-500 mr-3 w-5 text-center"></i>
+                                <div>
+                                    <span class="block font-medium">Buat Laporan Baru</span>
+                                    <span class="block text-xs text-amber-500">Laporan Anda masih diproses</span>
+                                </div>
+                            </span>
+                        @elseif (!Auth::check())
+                            <a href="{{ url('/admin/register') }}"
+                                class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200 text-sm">
+                                <i class="fas fa-plus-circle text-blue-500 mr-3 w-5 text-center"></i>
+                                <div>
+                                    <span class="block font-medium">Buat Laporan Baru</span>
+                                    <span class="block text-xs text-gray-400">Registrasi akun ASN</span>
+                                </div>
+                            </a>
+                        @else
+                            <a href="{{ route('public.laporform') }}"
+                                class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 items-center transition-colors duration-200 text-sm">
+                                <i class="fas fa-plus-circle text-blue-500 mr-3 w-5 text-center"></i>
+                                <div>
+                                    <span class="block font-medium">Form Laporan Baru</span>
+                                    <span class="block text-xs text-gray-400">Ajukan gangguan / koordinasi</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        <div class="border-t border-gray-100 dark:border-gray-700 my-1"></div>
+
+                        <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                            class="flex px-4 py-2.5 text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-600 dark:hover:text-emerald-400 items-center transition-colors duration-200 text-sm">
+                            <i class="fas fa-book-open text-emerald-500 mr-3 w-5 text-center text-base"></i>
+                            <div>
+                                <span class="block font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                                    Manual Aplikasi
+                                    <span class="px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 rounded text-[10px] font-bold">eBook</span>
+                                </span>
+                                <span class="block text-xs text-gray-500 dark:text-gray-400">Panduan lengkap & cetak PDF</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dropdown relative hidden lg:block">
+                    <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                        class="nav-link text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 px-3 py-2 flex items-center rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-all duration-200 text-sm font-semibold border border-emerald-200 dark:border-emerald-800/60 shadow-sm"
+                        title="Buka Buku Manual & Panduan Penggunaan Aplikasi">
+                        <i class="fas fa-book-open mr-2 text-emerald-600 dark:text-emerald-400"></i>
+                        Manual Aplikasi
+                    </a>
                 </div>
             </div>
 
@@ -232,6 +296,11 @@
                                         Buat Laporan Baru
                                     </a>
                                 @endif
+                                <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                                    class="flex px-4 py-2.5 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-800 items-center transition-colors duration-200 text-sm font-semibold">
+                                    <i class="fas fa-book-open text-emerald-500 mr-3 w-5 text-center"></i>
+                                    Manual Aplikasi (eBook)
+                                </a>
                             @endif
                             <div class="border-t border-gray-100 my-1"></div>
                             <form method="POST" action="{{ route('logout') }}">
@@ -327,6 +396,11 @@
                     Buat Laporan
                 </a>
             @endif
+            <a href="{{ url('/manual-aplikasi.html') }}" target="_blank"
+                class="px-4 py-3 rounded-lg text-base font-semibold text-emerald-700 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 flex items-center transition-colors duration-200">
+                <i class="fas fa-book-open text-emerald-500 mr-3 w-5 text-center"></i>
+                Manual Aplikasi (eBook)
+            </a>
             <details class="group">
                 <summary
                     class="w-full flex justify-between items-center px-4 py-3 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors duration-200 cursor-pointer list-none">
