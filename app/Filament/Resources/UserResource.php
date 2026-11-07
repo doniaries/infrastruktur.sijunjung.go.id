@@ -39,11 +39,12 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('nip')
                     ->label('Nomor Induk Pegawai (NIP)')
                     ->prefixIcon('heroicon-m-identification')
-                    ->placeholder('18 digit NIP')
-                    ->numeric()
-                    ->rule('digits:18')
+                    ->placeholder('19820414 200212 1 003')
+                    ->mask('99999999 999999 9 999')
+                    ->rule('regex:/^([0-9]{8}\s[0-9]{6}\s[0-9]{1}\s[0-9]{3}|[0-9]{18})$/')
                     ->unique(ignoreRecord: true)
-                    ->maxLength(18),
+                    ->helperText('Format: 19820414 200212 1 003')
+                    ->dehydrateStateUsing(fn ($state) => User::formatNip($state)),
                 Forms\Components\Select::make('opd_id')
                     ->label('Asal OPD')
                     ->prefixIcon('heroicon-m-building-office')
@@ -53,10 +54,13 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('no_kontak')
                     ->label('Nomor Kontak / WhatsApp')
                     ->prefixIcon('heroicon-m-phone')
-                    ->placeholder('Contoh: 081234567890')
+                    ->prefix('+62')
+                    ->placeholder('81234567890')
                     ->tel()
-                    ->rule('digits_between:10,15')
-                    ->unique(ignoreRecord: true),
+                    ->rule('regex:/^(\+?62|0)?8[0-9]{8,12}$/')
+                    ->unique(ignoreRecord: true)
+                    ->helperText('Otomatis tersimpan dengan format +62.')
+                    ->dehydrateStateUsing(fn ($state) => User::formatNomorKontak($state)),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->placeholder('email')
@@ -109,8 +113,16 @@ class UserResource extends Resource
                     ->searchable()
                     ->wrap(),
                 Tables\Columns\TextColumn::make('no_kontak')
-                    ->label('No. Kontak')
+                    ->label('No. Kontak / WA')
                     ->placeholder('-')
+                    ->icon('icon-whatsapp')
+                    ->color('success')
+                    ->url(function ($record) {
+                        if (! $record->no_kontak) return null;
+                        $clean = preg_replace('/[^0-9]/', '', $record->no_kontak);
+                        return "https://wa.me/{$clean}";
+                    })
+                    ->openUrlInNewTab()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->copyable()

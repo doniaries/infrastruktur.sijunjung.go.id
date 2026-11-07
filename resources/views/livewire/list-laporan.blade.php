@@ -148,7 +148,17 @@
                                         <div class="text-xs font-black text-blue-700 dark:text-blue-400 uppercase leading-none mb-1">{{ $lapor->opd->nama ?? '-' }}</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-sm font-bold text-gray-900 dark:text-white tracking-tight mb-1">{{ $lapor->nama_pelapor }}</div>
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-sm font-bold text-gray-900 dark:text-white tracking-tight">{{ $lapor->nama_pelapor }}</span>
+                                            @if($lapor->whatsapp_url)
+                                                <a href="{{ $lapor->whatsapp_url }}" target="_blank"
+                                                    class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-sm transition-all duration-200"
+                                                    title="Hubungi via WhatsApp">
+                                                    <i class="fab fa-whatsapp text-xs"></i>
+                                                    <span>WhatsApp</span>
+                                                </a>
+                                            @endif
+                                        </div>
                                         <div class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 italic max-w-xs">{{ $lapor->uraian_laporan }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-center">

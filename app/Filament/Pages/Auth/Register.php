@@ -3,6 +3,7 @@
 namespace App\Filament\Pages\Auth;
 
 use App\Models\Opd;
+use App\Models\User;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -53,17 +54,17 @@ class Register extends BaseRegister
     {
         return TextInput::make('nip')
             ->label('Nomor Induk Pegawai (NIP)')
-            ->placeholder('18 digit NIP')
+            ->placeholder('19820414 200212 1 003')
+            ->mask('99999999 999999 9 999')
             ->required()
-            ->numeric()
-            ->rule('digits:18')
+            ->rule('regex:/^([0-9]{8}\s[0-9]{6}\s[0-9]{1}\s[0-9]{3}|[0-9]{18})$/')
             ->unique($this->getUserModel(), 'nip')
             ->prefixIcon('heroicon-m-identification')
-            ->helperText('Registrasi khusus ASN. Masukkan 18 digit NIP resmi.')
+            ->helperText('Format: 19820414 200212 1 003 (Otomatis diformat)')
+            ->dehydrateStateUsing(fn ($state) => User::formatNip($state))
             ->validationMessages([
                 'required' => 'NIP wajib diisi.',
-                'numeric' => 'NIP harus berupa angka.',
-                'digits' => 'NIP harus terdiri dari 18 digit angka.',
+                'regex' => 'Format NIP harus 18 digit angka (contoh: 19820414 200212 1 003).',
                 'unique' => 'NIP sudah terdaftar.',
             ]);
     }
@@ -87,17 +88,18 @@ class Register extends BaseRegister
     {
         return TextInput::make('no_kontak')
             ->label('Nomor Kontak / WhatsApp')
-            ->placeholder('Contoh: 081234567890')
+            ->placeholder('81234567890 atau 081234567890')
+            ->prefix('+62')
             ->tel()
             ->required()
-            ->numeric()
-            ->rule('digits_between:10,15')
+            ->rule('regex:/^(\+?62|0)?8[0-9]{8,12}$/')
             ->unique($this->getUserModel(), 'no_kontak')
             ->prefixIcon('heroicon-m-phone')
+            ->helperText('Otomatis tersimpan dalam format +62 untuk WhatsApp.')
+            ->dehydrateStateUsing(fn ($state) => User::formatNomorKontak($state))
             ->validationMessages([
-                'required' => 'Nomor kontak wajib diisi.',
-                'numeric' => 'Nomor kontak harus berupa angka.',
-                'digits_between' => 'Nomor kontak minimal 10 digit dan maksimal 15 digit.',
+                'required' => 'Nomor kontak / WhatsApp wajib diisi.',
+                'regex' => 'Format nomor tidak valid (contoh: 081234567890 atau 81234567890).',
                 'unique' => 'Nomor kontak sudah terdaftar.',
             ]);
     }
@@ -144,4 +146,3 @@ class Register extends BaseRegister
         return $user;
     }
 }
-

@@ -228,6 +228,12 @@ class LaporResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nomor_kontak')
+                    ->label('No. Kontak / WA')
+                    ->icon('icon-whatsapp')
+                    ->color(fn ($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak) ? 'success' : 'gray')
+                    ->url(fn ($record) => $record->whatsapp_url)
+                    ->openUrlInNewTab()
+                    ->placeholder('-')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('opd.nama')
@@ -266,6 +272,14 @@ class LaporResource extends Resource
 
             ])
             ->actions([
+                Tables\Actions\Action::make('whatsapp')
+                    ->label('WhatsApp')
+                    ->icon('icon-whatsapp')
+                    ->color('success')
+                    ->url(fn ($record) => $record->whatsapp_url)
+                    ->openUrlInNewTab()
+                    ->visible(fn ($record) => filled($record->nomor_kontak ?? $record->pelapor?->no_kontak)),
+
                 Tables\Actions\Action::make('lihatLaporan')
                     ->label('Lihat Laporan')
                     ->icon('heroicon-o-eye')

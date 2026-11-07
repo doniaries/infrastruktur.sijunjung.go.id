@@ -83,6 +83,23 @@ class Lapor extends Model
         return Storage::url($this->file_laporan);
     }
 
+    public function getWhatsappUrlAttribute(): ?string
+    {
+        $phone = $this->nomor_kontak ?? $this->pelapor?->no_kontak;
+        if (! $phone) return null;
+        $clean = preg_replace('/[^0-9]/', '', $phone);
+        if (str_starts_with($clean, '0')) {
+            $clean = '62' . substr($clean, 1);
+        }
+        $text = urlencode("Halo {$this->nama_pelapor}, kami dari Diskominfo Sijunjung terkait Laporan #{$this->no_tiket}...");
+        return "https://wa.me/{$clean}?text={$text}";
+    }
+
+    public function setNomorKontakAttribute($value): void
+    {
+        $this->attributes['nomor_kontak'] = User::formatNomorKontak($value);
+    }
+
     protected static function booted()
     {
         static::updating(function ($lapor) {

@@ -31,6 +31,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (class_exists(\BladeUI\Icons\Factory::class)) {
+            $this->app->make(\BladeUI\Icons\Factory::class)->add('custom', [
+                'path' => resource_path('views/icons'),
+                'prefix' => 'icon',
+            ]);
+        }
+
         // Register cache observers
         Bts::observe(CacheObserver::class);
         Jorong::observe(CacheObserver::class);

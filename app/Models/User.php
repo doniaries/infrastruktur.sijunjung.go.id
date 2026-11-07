@@ -55,6 +55,47 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Opd::class, 'opd_id');
     }
 
+    public static function formatNip(?string $nip): ?string
+    {
+        if (! $nip) return null;
+        $clean = preg_replace('/[^0-9]/', '', $nip);
+        if (strlen($clean) === 18) {
+            return substr($clean, 0, 8) . ' ' . substr($clean, 8, 6) . ' ' . substr($clean, 14, 1) . ' ' . substr($clean, 15, 3);
+        }
+        return $nip;
+    }
+
+    public static function formatNomorKontak(?string $kontak): ?string
+    {
+        if (! $kontak) return null;
+        $clean = preg_replace('/[^0-9]/', '', $kontak);
+        if (str_starts_with($clean, '0')) {
+            return '+62' . substr($clean, 1);
+        }
+        if (str_starts_with($clean, '62')) {
+            return '+' . $clean;
+        }
+        if (str_starts_with($clean, '8')) {
+            return '+62' . $clean;
+        }
+        return '+' . $clean;
+    }
+
+    public function setNipAttribute($value): void
+    {
+        $this->attributes['nip'] = static::formatNip($value);
+    }
+
+    public function getNipAttribute($value): ?string
+    {
+        return static::formatNip($value);
+    }
+
+    public function setNoKontakAttribute($value): void
+    {
+        $this->attributes['no_kontak'] = static::formatNomorKontak($value);
+    }
+
 
 
     public function canAccessPanel(Panel $panel): bool
